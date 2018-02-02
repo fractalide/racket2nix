@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+while read -r line; do
+  while IFS=: read -r key value; do
+    case "${key// /_}" in
+      Source|Checksum|Package_name)
+        eval "${key// /_}"='${value# }'
+        ;;
+    esac
+  done <<< "$line"
+done
+
+cat <<EOM
+{ stdenv
+, fetchurl
+, racket }:
+
+stdenv.mkDerivation rec {
+  name = "racket-${Package_name}";
+  src = fetchurl {
+    url = "${Source}";
+    sha1 = "${Checksum}";
+  };
+
+  buildInputs = [ racket ];
+}
+EOM
