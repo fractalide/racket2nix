@@ -13,7 +13,8 @@ done
 cat <<EOM
 { stdenv
 , fetchurl
-, racket }:
+, racket
+, unzip }:
 
 stdenv.mkDerivation rec {
   name = "racket-${Package_name}";
@@ -22,6 +23,15 @@ stdenv.mkDerivation rec {
     sha1 = "${Checksum}";
   };
 
-  buildInputs = [ racket ];
+  buildInputs = [ racket unzip ];
+
+  unpackPhase = "unzip \$src";
+
+  dontBuild = true;
+
+  installPhase = "
+    mkdir -p \$out/share/racket/collects/${Package_name}
+    cp -prd * \$out/share/racket/collects/${Package_name}
+  ";
 }
 EOM
