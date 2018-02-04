@@ -1,0 +1,48 @@
+#! /usr/bin/env racket
+#lang racket
+(require pkg/lib)
+
+(define header-template #<<EOM
+{ stdenv
+, fetchurl
+, racket
+, unzip }:
+
+
+EOM
+)
+
+(define derivation-template #<<EOM
+stdenv.mkDerivation rec {
+  name = "~a";
+  src = fetchurl {
+    url = "~a";
+    sha1 = "~a";
+  };
+
+  buildInputs = [ racket unzip ];
+
+  unpackPhase = "unzip $src";
+
+  dontBuild = true;
+
+  installPhase = "
+    mkdir -p $out/share/racket/collects/~a
+    cp -prd * $out/share/racket/collects/~a
+  ";
+}
+
+EOM
+)
+
+(define (header) header-template)
+
+(define (derivation package-name)
+  (letrec [(package (get-pkg-details-from-catalogs package-name))
+	   (name (hash-ref package 'name))
+	   (url (hash-ref package 'source))
+	   (sha1 (hash-ref package 'checksum))]
+    (format derivation-template name url sha1 name name)))
+
+(let [(package-name (read-line (current-input-port) 'any))]
+  (display (string-append (header) (derivation package-name))))
