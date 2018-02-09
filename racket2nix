@@ -16,7 +16,7 @@ EOM
 )
 
 (define install-dep-template #<<EOM
-    raco pkg install --skip-installed --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
+    raco pkg install --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
 EOM
 )
 
@@ -53,12 +53,16 @@ EOM
 
 (define (header) header-template)
 
+(define (memo-lookup-package package-dictionary package-name)
+  (hash-ref! package-dictionary package-name
+             (lambda () (get-pkg-details-from-catalogs package-name))))
+
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
       (car pair-or-string)
       pair-or-string))
 
-(define (dependency-names->let-deps unfiltered-dependency-names)
+(define (dependency-names->let-deps unfiltered-dependency-names package-dictionary)
   (let [(dependency-names (remove* '("racket-lib")  ; This is bootstrapped in racket itself
                                    unfiltered-dependency-names))]
     (cond
@@ -75,16 +79,16 @@ EOM
                (let [(name (car rest-dependency-names))
                      (next-rest-dependency-names (cdr rest-dependency-names))]
                  (let [(next-let-deps (cons
-                                       (format "  ~a = ~a;" name (name->derivation-and-deps name))
+                                       (format "  ~a = ~a;" name (name->derivation-and-deps name package-dictionary))
                                        let-deps))]
                    (loop next-rest-dependency-names next-let-deps)))))
          (format "~n")))])))
 
-(define (name->transitive-dependency-names package-name)
-  (let [(package (get-pkg-details-from-catalogs package-name))]
-    (package->transitive-dependency-names package)))
+(define (name->transitive-dependency-names package-name package-dictionary)
+  (let [(package (memo-lookup-package package-dictionary package-name))]
+    (package->transitive-dependency-names package package-dictionary)))
 
-(define (package->transitive-dependency-names package)
+(define (package->transitive-dependency-names package package-dictionary)
   (let [(name (hash-ref package 'name))]
     (cond [(equal? "racket-lib" name) `(,name)]
           [#t
@@ -93,11 +97,11 @@ EOM
                                              (hash-ref package 'dependencies))))]
              (display (format "direct deps of ~a: ~a~n" name dependency-names) (current-error-port))
              (apply append
-                    (append (map name->transitive-dependency-names
+                    (append (map (lambda (name) (name->transitive-dependency-names name package-dictionary))
                                  dependency-names)
                             `((,name)))))])))
 
-(define (package->derivation package)
+(define (package->derivation package package-dictionary)
   (letrec [(name (hash-ref package 'name))
 	   (url (hash-ref package 'source))
 	   (sha1 (hash-ref package 'checksum))
@@ -107,21 +111,22 @@ EOM
     (format derivation-template name url sha1
             (string-join (cons "racket" dependency-names))  ; racket needs to be in here
             (string-join   ; no racket here
-             (map install-dep (apply append (map name->transitive-dependency-names dependency-names)))
+             (map install-dep (apply append (map (lambda (name) (name->transitive-dependency-names name package-dictionary))
+                                                   dependency-names)))
              (format "~n")))))
 
-(define (package->derivation-and-deps package)
+(define (package->derivation-and-deps package package-dictionary)
   (letrec [(name (hash-ref package 'name))
 	   (url (hash-ref package 'source))
 	   (sha1 (hash-ref package 'checksum))
            (dependency-names (remove* '("racket")
                                       (map dependency-name
                                            (hash-ref package 'dependencies))))]
-    (string-append (dependency-names->let-deps dependency-names) (package->derivation package))))
+    (string-append (dependency-names->let-deps dependency-names package-dictionary) (package->derivation package package-dictionary))))
 
-(define (name->derivation-and-deps package-name)
-  (let [(package (get-pkg-details-from-catalogs package-name))]
-    (package->derivation-and-deps package)))
+(define (name->derivation-and-deps package-name (package-dictionary (make-hash)))
+  (let [(package (memo-lookup-package package-dictionary package-name))]
+    (package->derivation-and-deps package package-dictionary)))
 
 (let [(package-name (read-line (current-input-port) 'any))]
   (display (string-append (header) (name->derivation-and-deps package-name) (format "~n"))))
