@@ -16,7 +16,7 @@ EOM
 )
 
 (define install-dep-template #<<EOM
-    raco pkg install --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
+    raco pkg install --skip-installed --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
 EOM
 )
 
@@ -61,22 +61,24 @@ EOM
 (define (dependency-names->let-deps unfiltered-dependency-names)
   (let [(dependency-names (remove* '("racket-lib")  ; This is bootstrapped in racket itself
                                    unfiltered-dependency-names))]
-    (if (null? dependency-names)
-      ""
-      (format
-       "let~n~a~nin~n"
-       (string-join
-        (let loop [(rest-dependency-names dependency-names)
-                   (let-deps '())]
-          (if (null? rest-dependency-names)
-              let-deps
-              (let [(name (car rest-dependency-names))
-                    (next-rest-dependency-names (cdr rest-dependency-names))]
-                (let [(next-let-deps (cons
-                                      (format "  ~a = ~a;" name (name->derivation-and-deps name))
-                                      let-deps))]
-                 (loop next-rest-dependency-names next-let-deps)))))
-        (format "~n"))))))
+    (cond
+      [(null? dependency-names) ""]
+      [#t
+       (display (format "dependency names: ~a~n" dependency-names) (current-error-port))
+       (format
+        "let~n~a~nin~n"
+        (string-join
+         (let loop [(rest-dependency-names dependency-names)
+                    (let-deps '())]
+           (if (null? rest-dependency-names)
+               let-deps
+               (let [(name (car rest-dependency-names))
+                     (next-rest-dependency-names (cdr rest-dependency-names))]
+                 (let [(next-let-deps (cons
+                                       (format "  ~a = ~a;" name (name->derivation-and-deps name))
+                                       let-deps))]
+                   (loop next-rest-dependency-names next-let-deps)))))
+         (format "~n")))])))
 
 (define (name->transitive-dependency-names package-name)
   (let [(package (get-pkg-details-from-catalogs package-name))]
@@ -84,14 +86,16 @@ EOM
 
 (define (package->transitive-dependency-names package)
   (let [(name (hash-ref package 'name))]
-    (if (equal? "racket-lib" name)
-        `(,name)
-        (apply append
-               (append (map name->transitive-dependency-names
-                            (remove* '("racket")
-                                     (map dependency-name
-                                          (hash-ref package 'dependencies))))
-                       `((,name)))))))
+    (cond [(equal? "racket-lib" name) `(,name)]
+          [#t
+           (let [(dependency-names (remove* '("racket")
+                                        (map dependency-name
+                                             (hash-ref package 'dependencies))))]
+             (display (format "direct deps of ~a: ~a~n" name dependency-names) (current-error-port))
+             (apply append
+                    (append (map name->transitive-dependency-names
+                                 dependency-names)
+                            `((,name)))))])))
 
 (define (package->derivation package)
   (letrec [(name (hash-ref package 'name))
