@@ -16,7 +16,7 @@ EOM
 )
 
 (define install-dep-template #<<EOM
-    raco pkg install --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
+    raco pkg install --skip-installed --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
 EOM
 )
 
