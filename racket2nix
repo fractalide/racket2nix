@@ -9,7 +9,7 @@
 , racket ? pkgs.racket
 , racket-lib ? racket
 , unzip ? pkgs.unzip
- }:
+}:
 
 
 EOM
@@ -17,7 +17,6 @@ EOM
 
 (define install-dep-template #<<EOM
     raco pkg install --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
-
 EOM
 )
 
@@ -79,6 +78,21 @@ EOM
                  (loop next-rest-dependency-names next-let-deps)))))
         (format "~n"))))))
 
+(define (name->transitive-dependency-names package-name)
+  (let [(package (get-pkg-details-from-catalogs package-name))]
+    (package->transitive-dependency-names package)))
+
+(define (package->transitive-dependency-names package)
+  (let [(name (hash-ref package 'name))]
+    (if (equal? "racket-lib" name)
+        `(,name)
+        (apply append
+               (append (map name->transitive-dependency-names
+                            (remove* '("racket")
+                                     (map dependency-name
+                                          (hash-ref package 'dependencies))))
+                       `((,name)))))))
+
 (define (package->derivation package)
   (letrec [(name (hash-ref package 'name))
 	   (url (hash-ref package 'source))
@@ -88,15 +102,17 @@ EOM
                                            (hash-ref package 'dependencies))))]
     (format derivation-template name url sha1
             (string-join (cons "racket" dependency-names))  ; racket needs to be in here
-            (apply string-append (map install-dep dependency-names)))))  ; no racket here
+            (string-join   ; no racket here
+             (map install-dep (apply append (map name->transitive-dependency-names dependency-names)))
+             (format "~n")))))
 
 (define (package->derivation-and-deps package)
   (letrec [(name (hash-ref package 'name))
 	   (url (hash-ref package 'source))
 	   (sha1 (hash-ref package 'checksum))
-           (dependency-names (filter (curry (compose not equal?) "racket")
-                                     (map dependency-name
-                                          (hash-ref package 'dependencies))))]
+           (dependency-names (remove* '("racket")
+                                      (map dependency-name
+                                           (hash-ref package 'dependencies))))]
     (string-append (dependency-names->let-deps dependency-names) (package->derivation package))))
 
 (define (name->derivation-and-deps package-name)
