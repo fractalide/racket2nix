@@ -3,10 +3,12 @@
 (require pkg/lib)
 
 (define header-template #<<EOM
-{ stdenv
-, fetchurl
-, racket
-, unzip }:
+{ pkgs ? import <nixpkgs> {}
+, stdenv ? pkgs.stdenv
+, fetchurl ? pkgs.fetchurl
+, racket ? pkgs.racket
+, unzip ? pkgs.unzip
+ }:
 
 
 EOM
@@ -22,14 +24,27 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ racket unzip ];
 
-  unpackPhase = "unzip $src";
+  unpackPhase = "unzip $src -d $name";
 
   dontBuild = true;
 
-  installPhase = "
-    mkdir -p $out/share/racket/collects/~a
-    cp -prd * $out/share/racket/collects/~a
-  ";
+  inherit racket;
+
+  installPhase = ''
+    # TODO: Tell racket not to keep a collection path in \$HOME/.racket
+    export PLTUSERHOME=\$PWD
+
+    # Grandfather in the racket-lib bundled in racket
+    raco pkg install --deps fail --scope-dir $out/share/racket $racket/share/racket/pkgs/racket-lib
+
+    # TODO: Pull in racket dependencies
+    # for dep in $racketInputsMaybeInTopoOrder; do
+    #   raco pkg install --deps fail --scope-dir $out/share/racket $racket/share/racket/somethingsomething
+    # done
+
+    raco pkg install --copy --deps fail --scope-dir $out/share/racket ./$name
+  '';
+
 }
 
 EOM
@@ -42,7 +57,7 @@ EOM
 	   (name (hash-ref package 'name))
 	   (url (hash-ref package 'source))
 	   (sha1 (hash-ref package 'checksum))]
-    (format derivation-template name url sha1 name name)))
+    (format derivation-template name url sha1)))
 
 (let [(package-name (read-line (current-input-port) 'any))]
   (display (string-append (header) (derivation package-name))))
