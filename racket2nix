@@ -7,12 +7,22 @@
 , stdenv ? pkgs.stdenv
 , fetchurl ? pkgs.fetchurl
 , racket ? pkgs.racket
+, racket-lib ? racket
 , unzip ? pkgs.unzip
  }:
 
 
 EOM
 )
+
+(define install-dep-template #<<EOM
+    raco pkg install --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
+
+EOM
+)
+
+(define (install-dep dep-name)
+  (format install-dep-template dep-name dep-name))
 
 (define derivation-template #<<EOM
 stdenv.mkDerivation rec {
@@ -22,7 +32,7 @@ stdenv.mkDerivation rec {
     sha1 = "~a";
   };
 
-  buildInputs = [ racket unzip ];
+  buildInputs = [ unzip ~a ];
 
   unpackPhase = "unzip $src -d $name";
 
@@ -34,30 +44,64 @@ stdenv.mkDerivation rec {
     # TODO: Tell racket not to keep a collection path in \$HOME/.racket
     export PLTUSERHOME=\$PWD
 
-    # Grandfather in the racket-lib bundled in racket
-    raco pkg install --deps fail --scope-dir $out/share/racket $racket/share/racket/pkgs/racket-lib
-
-    # TODO: Pull in racket dependencies
-    # for dep in $racketInputsMaybeInTopoOrder; do
-    #   raco pkg install --deps fail --scope-dir $out/share/racket $racket/share/racket/somethingsomething
-    # done
-
-    raco pkg install --copy --deps fail --scope-dir $out/share/racket ./$name
+    # Install deps
+~a
+    raco pkg install --copy --deps fail --scope-dir $out/share/racket/pkgs ./$name
   '';
-
 }
-
 EOM
 )
 
 (define (header) header-template)
 
-(define (derivation package-name)
-  (letrec [(package (get-pkg-details-from-catalogs package-name))
-	   (name (hash-ref package 'name))
+(define (dependency-name pair-or-string)
+  (if (pair? pair-or-string)
+      (car pair-or-string)
+      pair-or-string))
+
+(define (dependency-names->let-deps unfiltered-dependency-names)
+  (let [(dependency-names (remove* '("racket-lib")  ; This is bootstrapped in racket itself
+                                   unfiltered-dependency-names))]
+    (if (null? dependency-names)
+      ""
+      (format
+       "let~n~a~nin~n"
+       (string-join
+        (let loop [(rest-dependency-names dependency-names)
+                   (let-deps '())]
+          (if (null? rest-dependency-names)
+              let-deps
+              (let [(name (car rest-dependency-names))
+                    (next-rest-dependency-names (cdr rest-dependency-names))]
+                (let [(next-let-deps (cons
+                                      (format "  ~a = ~a;" name (name->derivation-and-deps name))
+                                      let-deps))]
+                 (loop next-rest-dependency-names next-let-deps)))))
+        (format "~n"))))))
+
+(define (package->derivation package)
+  (letrec [(name (hash-ref package 'name))
 	   (url (hash-ref package 'source))
-	   (sha1 (hash-ref package 'checksum))]
-    (format derivation-template name url sha1)))
+	   (sha1 (hash-ref package 'checksum))
+           (dependency-names (remove* '("racket")  ; racket may or may not be in here
+                                      (map dependency-name
+                                           (hash-ref package 'dependencies))))]
+    (format derivation-template name url sha1
+            (string-join (cons "racket" dependency-names))  ; racket needs to be in here
+            (apply string-append (map install-dep dependency-names)))))  ; no racket here
+
+(define (package->derivation-and-deps package)
+  (letrec [(name (hash-ref package 'name))
+	   (url (hash-ref package 'source))
+	   (sha1 (hash-ref package 'checksum))
+           (dependency-names (filter (curry (compose not equal?) "racket")
+                                     (map dependency-name
+                                          (hash-ref package 'dependencies))))]
+    (string-append (dependency-names->let-deps dependency-names) (package->derivation package))))
+
+(define (name->derivation-and-deps package-name)
+  (let [(package (get-pkg-details-from-catalogs package-name))]
+    (package->derivation-and-deps package)))
 
 (let [(package-name (read-line (current-input-port) 'any))]
-  (display (string-append (header) (derivation package-name))))
+  (display (string-append (header) (name->derivation-and-deps package-name) (format "~n"))))
