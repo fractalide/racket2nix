@@ -55,7 +55,7 @@ EOM
 
 (define (memo-lookup-package package-dictionary package-name)
   (hash-ref! package-dictionary package-name
-             (lambda () (get-pkg-details-from-catalogs package-name))))
+             (lambda () (hash-copy (get-pkg-details-from-catalogs package-name)))))
 
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
@@ -86,7 +86,8 @@ EOM
 
 (define (name->transitive-dependency-names package-name package-dictionary)
   (let [(package (memo-lookup-package package-dictionary package-name))]
-    (package->transitive-dependency-names package package-dictionary)))
+    (hash-ref! package 'transitive-dependency-names
+               (lambda () (package->transitive-dependency-names package package-dictionary)))))
 
 (define (package->transitive-dependency-names package package-dictionary)
   (let [(name (hash-ref package 'name))]
