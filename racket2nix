@@ -16,7 +16,7 @@ EOM
 )
 
 (define install-dep-template #<<EOM
-    raco pkg install --skip-installed --deps fail --scope-dir $out/share/racket/pkgs ${~a.out}/share/racket/pkgs/~a
+    raco pkg install --skip-installed --deps fail --scope-dir $out/share/racket/pkgs ${_~a.out}/share/racket/pkgs/~a
 EOM
 )
 
@@ -65,15 +65,15 @@ EOM
 (define (names->let-deps ns package-dictionary)
   (let [(names (remove* '("racket-lib")  ; This is bootstrapped in racket itself
                         ns))]
-    (cond
-      [(null? names) ""]
-      [#t (format "let~n~a~nin~n"
-                  (string-join
-                   (map (lambda (name)
-                          (format "  ~a = ~a;" name
-                                  (name->derivation name package-dictionary)))
-                        names)
-                   (format "~n")))])))
+    (format "let~n~a~nin~n"
+            (string-join
+             (cons
+              (format "  _racket-lib = racket-lib;")
+              (map (lambda (name)
+                     (format "  _~a = ~a;" name
+                             (name->derivation name package-dictionary)))
+                   names))
+              (format "~n")))))
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
   (cond [(member package-name breadcrumbs) '()]
@@ -129,7 +129,7 @@ EOM
                                       (map dependency-name
                                            (hash-ref package 'dependencies))))]
     (format derivation-template name url sha1
-            (string-join (cons "racket" dependency-names))  ; racket needs to be in here
+            (string-join (cons "racket" (map (lambda (s) (format "_~a" s)) dependency-names)))  ; racket needs to be in here
             (string-join   ; no racket here
              (map install-dep (lists->unique-elements (map (lambda (name) (name->transitive-dependency-names name package-dictionary))
                                                            dependency-names)))
@@ -138,7 +138,7 @@ EOM
 (define (name->let-deps-and-reference package-name (package-dictionary (make-hash)))
   (letrec [(package-names (name->transitive-dependency-names package-name package-dictionary))
            (package-definitions (names->let-deps package-names package-dictionary))]
-    (string-append package-definitions package-name (format "~n"))))
+    (string-append package-definitions (format "_~a~n" package-name))))
 
 (let [(package-name (read-line (current-input-port) 'any))]
   (display (string-append (header) (name->let-deps-and-reference package-name))))
