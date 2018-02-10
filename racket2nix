@@ -75,16 +75,17 @@ EOM
                         names)
                    (format "~n")))])))
 
-(define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '("racket-lib")))
-  (cond [(member package-name breadcrumbs) (list package-name)]
+(define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
+  (cond [(member package-name breadcrumbs) '()]
         [#t (let [(package (memo-lookup-package package-dictionary package-name))]
               (hash-ref! package 'transitive-dependency-names
                          (lambda ()
-                           (display (format "evaluating deps of ~a~n" package-name) (current-error-port))
-                           (let [(dependency-names (package->transitive-dependency-names package package-dictionary
-                                                                                         (cons package-name breadcrumbs)))]
-                             (display (format "deps of ~a: ~a~n" package-name dependency-names) (current-error-port))
-                             dependency-names))))]))
+                           (cond [(member package-name '("racket-lib")) (list package-name)]
+                                 [#t (display (format "evaluating deps of ~a~n" package-name) (current-error-port))
+                                     (let [(dependency-names (package->transitive-dependency-names package package-dictionary
+                                                                                                   (cons package-name breadcrumbs)))]
+                                       (display (format "deps of ~a: ~a~n" package-name dependency-names) (current-error-port))
+                                       dependency-names)]))))]))
 
 (define (lists->unique-elements ls)
   (reverse (lists->reverse-unique-elements ls)))
@@ -105,9 +106,15 @@ EOM
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (let [(name (hash-ref package 'name))]
     (let [(dependency-names (remove* '("racket") (map dependency-name (hash-ref package 'dependencies))))]
-      (reverse (cons name (lists->reverse-unique-elements
-                           (map (lambda (name) (name->transitive-dependency-names name package-dictionary breadcrumbs))
-                                dependency-names)))))))
+      (cond [(check-duplicates (append breadcrumbs dependency-names))
+             (display (format "~a: one of ~a was in ~a~n" name breadcrumbs dependency-names) (current-error-port))
+             (hash-set! package 'dependencies (remove* breadcrumbs                             ; break circular dependencies
+                                                       (remove-duplicates dependency-names)))  ; we also trigger on duplicates in the direct deps, so clean those
+             (display (format "~a: let's try again with ~a~n" name (hash-ref package 'dependencies)) (current-error-port))
+             (package->transitive-dependency-names package package-dictionary breadcrumbs)]  ; iterate again with clean deps
+            [#t (let [(name-lists (map (lambda (name) (name->transitive-dependency-names name package-dictionary breadcrumbs))
+                                       dependency-names))]
+                  (append (remove-duplicates (append* name-lists)) (list name)))]))))
 
 (define (name->derivation package-name package-dictionary)
   (let [(package (memo-lookup-package package-dictionary package-name))]
