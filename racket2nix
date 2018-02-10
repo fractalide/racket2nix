@@ -16,7 +16,7 @@ EOM
 )
 
 (define install-dep-template #<<EOM
-    raco pkg install --skip-installed --deps fail --scope-dir $out/share/racket/pkgs ${_~a.out}/share/racket/pkgs/~a
+    ${raco} pkg install --deps fail --scope-dir $out/share/racket/pkgs ${_~a.out}/share/racket/pkgs/~a
 EOM
 )
 
@@ -37,15 +37,14 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  inherit racket;
+  raco = "${racket.out}/bin/racket -U -A $out/share/racket -X $out/share/racket/collects -S ${racket.out}/share/racket/collects ${racket.out}/share/racket/collects/raco/main.rkt";
 
   installPhase = ''
-    # TODO: Tell racket not to keep a collection path in \$HOME/.racket
-    export PLTUSERHOME=\$PWD
-
     # Install deps
 ~a
-    raco pkg install --copy --deps fail --scope-dir $out/share/racket/pkgs ./$name
+
+    # Install the package itself
+    ${raco} pkg install --copy --deps fail --scope-dir $out/share/racket/pkgs ./$name
   '';
 }
 EOM
