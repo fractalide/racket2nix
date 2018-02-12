@@ -157,4 +157,3 @@ EOM
 
 (define package-name (read-line (current-input-port) 'any))
 (display (string-append (header) (name->let-deps-and-reference package-name)))
-`<
