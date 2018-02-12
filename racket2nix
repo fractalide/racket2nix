@@ -1,6 +1,9 @@
 #! /usr/bin/env racket
 #lang racket
+
 (require pkg/lib)
+
+(define *ep (current-error-port))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -13,12 +16,12 @@
 
 
 EOM
-)
+  )
 
 (define install-dep-template #<<EOM
-    ${raco} pkg install --deps fail --scope-dir $out/share/racket/pkgs ${_~a.out}/share/racket/pkgs/~a
+   ${raco} pkg install --deps fail --scope-dir $out/share/racket/pkgs ${_~a.out}/share/racket/pkgs/~a
 EOM
-)
+  )
 
 (define (install-dep dep-name)
   (format install-dep-template dep-name dep-name))
@@ -48,7 +51,7 @@ stdenv.mkDerivation rec {
   '';
 }
 EOM
-)
+  )
 
 (define (header) header-template)
 
@@ -62,82 +65,95 @@ EOM
       pair-or-string))
 
 (define (names->let-deps ns package-dictionary)
-  (let [(names (remove* '("racket-lib")  ; This is bootstrapped in racket itself
-                        ns))]
-    (format "let~n~a~nin~n"
-            (string-join
-             (cons
-              (format "  _racket-lib = racket-lib;")
-              (map (lambda (name)
-                     (format "  _~a = ~a;" name
-                             (name->derivation name package-dictionary)))
-                   names))
-              (format "~n")))))
+  ; This is bootstrapped in racket itself
+  (define names
+    (for/list ((name (remove* '("racket-lib") ns)))
+      (format "  _~a = ~a;" name (name->derivation name package-dictionary))))
+  (define names-on-lines
+    (string-join (cons (format "  _racket-lib = racket-lib;") names) (format "~n")))
+  (format "let~n~a~nin~n" names-on-lines))
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
-  (cond [(member package-name breadcrumbs) '()]
-        [#t (let [(package (memo-lookup-package package-dictionary package-name))]
-              (hash-ref! package 'transitive-dependency-names
-                         (lambda ()
-                           (cond [(member package-name '("racket-lib")) (list package-name)]
-                                 [#t (display (format "evaluating deps of ~a~n" package-name) (current-error-port))
-                                     (let [(dependency-names (package->transitive-dependency-names package package-dictionary
-                                                                                                   (cons package-name breadcrumbs)))]
-                                       (display (format "deps of ~a: ~a~n" package-name dependency-names) (current-error-port))
-                                       dependency-names)]))))]))
+  (cond
+    [(member package-name breadcrumbs) '()]
+    [else
+     (define package (memo-lookup-package package-dictionary package-name))
+     (hash-ref!
+      package
+      'transitive-dependency-names
+      (lambda ()
+        (cond
+          [(member package-name '("racket-lib")) (list package-name)]
+          [else
+           (display (format "evaluating deps of ~a~n" package-name) *ep)
+           (define new-crumbs (cons package-name breadcrumbs))
+           (define dependency-names
+             (package->transitive-dependency-names package package-dictionary new-crumbs))
+           (display (format "deps of ~a: ~a~n" package-name dependency-names) *ep)
+           dependency-names])))]))
 
 (define (lists->unique-elements ls)
   (reverse (lists->reverse-unique-elements ls)))
 
 (define (lists->reverse-unique-elements ls)
-  (let loop [(lists ls)
-             (reverse-unique-elements '())]
-    (cond [(null? lists) reverse-unique-elements]
-          [(null? (car lists)) (loop (cdr lists) reverse-unique-elements)]
-          [#t
-           (let [(element (caar lists))
-                 (rest-first (cdar lists))]
-             (cond [(member element reverse-unique-elements)
-                    (loop (cons rest-first (cdr lists)) reverse-unique-elements)]
-                   [#t
-                    (loop (cons rest-first (cdr lists)) (cons element reverse-unique-elements))]))])))
+  (let loop [(lists ls) (reverse-unique-elements '())]
+    (cond
+      [(null? lists) reverse-unique-elements]
+      [(null? (car lists)) (loop (cdr lists) reverse-unique-elements)]
+      [else
+       (define element (caar lists))
+       (define rest-first (cdar lists))
+       (if (member element reverse-unique-elements)
+           (loop (cons rest-first (cdr lists)) reverse-unique-elements)
+           (loop (cons rest-first (cdr lists)) (cons element reverse-unique-elements)))])))
+
+
 
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
-  (let [(name (hash-ref package 'name))]
-    (let [(dependency-names (remove* '("racket") (map dependency-name (hash-ref package 'dependencies))))]
-      (cond [(check-duplicates (append breadcrumbs dependency-names))
-             (display (format "~a: one of ~a was in ~a~n" name breadcrumbs dependency-names) (current-error-port))
-             (hash-set! package 'dependencies (remove* breadcrumbs                             ; break circular dependencies
-                                                       (remove-duplicates dependency-names)))  ; we also trigger on duplicates in the direct deps, so clean those
-             (display (format "~a: let's try again with ~a~n" name (hash-ref package 'dependencies)) (current-error-port))
-             (package->transitive-dependency-names package package-dictionary breadcrumbs)]  ; iterate again with clean deps
-            [#t (let [(name-lists (map (lambda (name) (name->transitive-dependency-names name package-dictionary breadcrumbs))
-                                       dependency-names))]
-                  (append (remove-duplicates (append* name-lists)) (list name)))]))))
+  (define name (hash-ref package 'name))
+  (define dep-names (map dependency-name (hash-ref package 'dependencies)))
+  (define dependency-names (remove* '("racket") dep-names))
+  (cond
+    [(check-duplicates (append breadcrumbs dependency-names))
+     (display (format "~a: one of ~a was in ~a~n" name breadcrumbs dependency-names) *ep)
+     ; we also trigger on duplicates in the direct deps, so clean those
+     (define dup-free-deps (remove-duplicates dependency-names))
+     ; break circular dependencies:
+     (hash-set! package 'dependencies (remove* breadcrumbs dup-free-deps))  
+     (display (format "~a: let's try again with ~a~n" name (hash-ref package 'dependencies)) *ep)
+     (package->transitive-dependency-names package package-dictionary breadcrumbs)]
+    [else
+     (define name-lists
+       (for/list ((name dependency-names))
+         (name->transitive-dependency-names name package-dictionary breadcrumbs)))
+     (append (remove-duplicates (append* name-lists)) (list name))]))
 
 (define (name->derivation package-name package-dictionary)
-  (let [(package (memo-lookup-package package-dictionary package-name))]
-    (display (format "Create derivation for ~a~n" package-name) (current-error-port))
-    (package->derivation package package-dictionary)))
+  (define package (memo-lookup-package package-dictionary package-name))
+  (display (format "Create derivation for ~a~n" package-name) *ep)
+  (package->derivation package package-dictionary))
 
 (define (package->derivation package package-dictionary)
-  (letrec [(name (hash-ref package 'name))
-	   (url (hash-ref package 'source))
-	   (sha1 (hash-ref package 'checksum))
-           (dependency-names (remove* '("racket")  ; racket may or may not be in here
-                                      (map dependency-name
-                                           (hash-ref package 'dependencies))))]
-    (format derivation-template name url sha1
-            (string-join (cons "racket" (map (lambda (s) (format "_~a" s)) dependency-names)))  ; racket needs to be in here
-            (string-join   ; no racket here
-             (map install-dep (lists->unique-elements (map (lambda (name) (name->transitive-dependency-names name package-dictionary))
-                                                           dependency-names)))
-             (format "~n")))))
+  ;; this was a letrec, which I think was a mistake 
+  (define name (hash-ref package 'name))
+  (define url (hash-ref package 'source))
+  (define sha1 (hash-ref package 'checksum))
+  ; racket may or may not be in here
+  (define dep-names (map dependency-name (hash-ref package 'dependencies)))
+  (define dependency-names (remove* '("racket") dep-names))
+  (define trans-dep-names
+    (for/list ((name dependency-names))
+      (name->transitive-dependency-names name package-dictionary)))
+  (format derivation-template name url sha1
+          ; racket needs to be in here
+          (string-join (cons "racket" (map (lambda (s) (format "_~a" s)) dependency-names)))
+          ; no racket here
+          (string-join (map install-dep (lists->unique-elements trans-dep-names)) (format "~n"))))
 
 (define (name->let-deps-and-reference package-name (package-dictionary (make-hash)))
-  (letrec [(package-names (name->transitive-dependency-names package-name package-dictionary))
-           (package-definitions (names->let-deps package-names package-dictionary))]
-    (string-append package-definitions (format "_~a~n" package-name))))
+  (define package-names (name->transitive-dependency-names package-name package-dictionary))
+  (define package-definitions (names->let-deps package-names package-dictionary))
+  (string-append package-definitions (format "_~a~n" package-name)))
 
-(let [(package-name (read-line (current-input-port) 'any))]
-  (display (string-append (header) (name->let-deps-and-reference package-name))))
+(define package-name (read-line (current-input-port) 'any))
+(display (string-append (header) (name->let-deps-and-reference package-name)))
