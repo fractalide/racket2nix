@@ -41,17 +41,26 @@ stdenv.mkDerivation rec {
 #hash(
   (share-dir . "$out/share/racket")
   (links-search-files . ( ~a ))
+  (pkgs-search-dirs . ( ~a ))
+  (absolute-installation . #t)
+  (installation-name . ".")
 )
 EOF
+    echo ${racket-cmd}
     ${racket-cmd} -e '
 (require setup/dirs)
-(display (format "(current-library-collection-links): ~~a~~n" (current-library-collection-links)))
-(display (format "(find-library-collection-links): ~~a~~n" (find-library-collection-links)))
-(display (format "(find-links-file): ~~a~~n" (find-links-file)))
+(for [(expr `((current-library-collection-links)
+              (find-library-collection-links)
+              (find-links-file)
+              (current-library-collection-paths)
+              (find-library-collection-paths)
+              (find-pkgs-dir)
+              (get-pkgs-search-dirs)))]
+  (display (format "~~a: ~~a~~n" expr (eval expr))))
 '
     # install and link us
-    ${raco} pkg install --copy --deps fail --fail-fast --scope installation ./$name
-    ${raco} link -f $out/share/racket/links.rktd $out/share/racket/pkgs/$name
+    ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 0 1))" ||
+      ${raco} pkg install --copy --deps fail --fail-fast --scope installation ./$name
   '';
 }
 EOM
@@ -64,12 +73,17 @@ EOM
       (cons "racket"
         (for/list ((name dependency-names))
                   (format "_~a" name)))))
-  (define link-files
+  (define link-dirs
     (string-join
       (for/list ((name dependency-names))
                 (format "\"${_~a.out}/share/racket\"" name))))
+  (define pkg-dirs
+    (string-join
+      (for/list ((name dependency-names))
+                (format "\"${_~a.out}/share/racket/pkgs\"" name))))
 
-  (format derivation-template name url sha1 build-inputs link-files))
+
+  (format derivation-template name url sha1 build-inputs link-dirs pkg-dirs))
 
 (define (header) header-template)
 
