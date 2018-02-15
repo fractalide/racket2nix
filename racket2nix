@@ -18,14 +18,6 @@
 EOM
   )
 
-(define install-dep-template #<<EOM
-   ${raco} pkg install --deps fail --scope-dir $out/share/racket/pkgs ${_~a.out}/share/racket/pkgs/~a
-EOM
-  )
-
-(define (install-dep dep-name)
-  (format install-dep-template dep-name dep-name))
-
 (define derivation-template #<<EOM
 stdenv.mkDerivation rec {
   name = "~a";
@@ -40,18 +32,44 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  raco = "${racket.out}/bin/racket -U -A $out/share/racket -X $out/share/racket/collects -S ${racket.out}/share/racket/collects ${racket.out}/share/racket/collects/raco/main.rkt";
+  racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects -S ${racket.out}/share/racket/collects";
+  raco = "${racket-cmd} ${racket.out}/share/racket/collects/raco/main.rkt";
 
   installPhase = ''
-    # Install deps
-~a
-
-    # Install the package itself
-    ${raco} pkg install --copy --deps fail --scope-dir $out/share/racket/pkgs ./$name
+    mkdir -p $out/etc/racket $out/share/racket
+    cat > $out/etc/racket/config.rktd <<EOF
+#hash(
+  (share-dir . "$out/share/racket")
+  (links-search-files . ( ~a ))
+)
+EOF
+    ${racket-cmd} -e '
+(require setup/dirs)
+(display (format "(current-library-collection-links): ~~a~~n" (current-library-collection-links)))
+(display (format "(find-library-collection-links): ~~a~~n" (find-library-collection-links)))
+(display (format "(find-links-file): ~~a~~n" (find-links-file)))
+'
+    # install and link us
+    ${raco} pkg install --copy --deps fail --fail-fast --scope installation ./$name
+    ${raco} link -f $out/share/racket/links.rktd $out/share/racket/pkgs/$name
   '';
 }
 EOM
   )
+
+(define (derivation name url sha1 dependency-names)
+  ; racket needs to be in here
+  (define build-inputs
+    (string-join
+      (cons "racket"
+        (for/list ((name dependency-names))
+                  (format "_~a" name)))))
+  (define link-files
+    (string-join
+      (for/list ((name dependency-names))
+                (format "\"${_~a.out}/share/racket\"" name))))
+
+  (format derivation-template name url sha1 build-inputs link-files))
 
 (define (header) header-template)
 
@@ -134,21 +152,17 @@ EOM
   (package->derivation package package-dictionary))
 
 (define (package->derivation package package-dictionary)
-  ;; this was a letrec, which I think was a mistake 
   (define name (hash-ref package 'name))
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
-  ; racket may or may not be in here
   (define dep-names (map dependency-name (hash-ref package 'dependencies)))
+  ; racket may or may not be in here
   (define dependency-names (remove* '("racket") dep-names))
   (define trans-dep-names
-    (for/list ((name dependency-names))
-      (name->transitive-dependency-names name package-dictionary)))
-  (format derivation-template name url sha1
-          ; racket needs to be in here
-          (string-join (cons "racket" (map (lambda (s) (format "_~a" s)) dependency-names)))
-          ; no racket here
-          (string-join (map install-dep (lists->unique-elements trans-dep-names)) (format "~n"))))
+    (append*
+      (for/list ((name dependency-names))
+        (name->transitive-dependency-names name package-dictionary))))
+  (derivation name url sha1 trans-dep-names))
 
 (define (name->let-deps-and-reference package-name (package-dictionary (make-hash)))
   (define package-names (name->transitive-dependency-names package-name package-dictionary))
