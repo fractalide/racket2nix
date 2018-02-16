@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects -S ${racket.out}/share/racket/collects";
+  racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
   raco = "${racket-cmd} ${racket.out}/share/racket/collects/raco/main.rkt";
 
   installPhase = ''
@@ -42,6 +42,7 @@ stdenv.mkDerivation rec {
   (share-dir . "$out/share/racket")
   (links-search-files . ( ~a ))
   (pkgs-search-dirs . ( ~a ))
+  (collects-search-dirs . ( ~a ))
   (absolute-installation . #t)
   (installation-name . ".")
 )
@@ -54,6 +55,7 @@ EOF
               (find-links-file)
               (current-library-collection-paths)
               (find-library-collection-paths)
+              (get-collects-search-dirs)
               (find-pkgs-dir)
               (get-pkgs-search-dirs)))]
   (display (format "~~a: ~~a~~n" expr (eval expr))))
@@ -77,13 +79,17 @@ EOM
     (string-join
       (for/list ((name dependency-names))
                 (format "\"${_~a.out}/share/racket\"" name))))
-  (define pkg-dirs
+  (define pkgs-dirs
     (string-join
       (for/list ((name dependency-names))
                 (format "\"${_~a.out}/share/racket/pkgs\"" name))))
+  (define collects-dirs
+    (string-join
+      (for/list ((name dependency-names))
+                (format "\"${_~a.out}/share/racket/collects\"" name))))
 
 
-  (format derivation-template name url sha1 build-inputs link-dirs pkg-dirs))
+  (format derivation-template name url sha1 build-inputs link-dirs pkgs-dirs collects-dirs))
 
 (define (header) header-template)
 
