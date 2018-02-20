@@ -48,18 +48,7 @@ stdenv.mkDerivation rec {
 )
 EOF
     echo ${racket-cmd}
-    ${racket-cmd} -e '
-(require setup/dirs)
-(for [(expr `((current-library-collection-links)
-              (find-library-collection-links)
-              (find-links-file)
-              (current-library-collection-paths)
-              (find-library-collection-paths)
-              (get-collects-search-dirs)
-              (find-pkgs-dir)
-              (get-pkgs-search-dirs)))]
-  (display (format "~~a: ~~a~~n" expr (eval expr))))
-'
+
     # install and link us
     ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 0 1))" ||
       ${raco} pkg install --copy --deps fail --fail-fast --scope installation ./$name
