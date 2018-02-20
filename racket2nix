@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
   racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
   raco = "${racket-cmd} -N raco -l- raco";
 
-  installPhase = ''
-    mkdir -p $out/etc/racket $out/share/racket
-    cat > $out/etc/racket/config.rktd <<EOF
+  passAsFile = [ "racketConfig" ];
+
+  racketConfig = ''
 #hash(
   (share-dir . "$out/share/racket")
   (links-search-files . ( "$out/share/racket" ~a ))
@@ -46,7 +46,11 @@ stdenv.mkDerivation rec {
   (absolute-installation . #t)
   (installation-name . ".")
 )
-EOF
+  '';
+
+  installPhase = ''
+    mkdir -p $out/etc/racket $out/share/racket
+    sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
     echo ${racket-cmd}
 
     # install and link us
