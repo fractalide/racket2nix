@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
     cat > $out/etc/racket/config.rktd <<EOF
 #hash(
   (share-dir . "$out/share/racket")
-  (links-search-files . ( ~a ))
-  (pkgs-search-dirs . ( ~a ))
-  (collects-search-dirs . ( ~a ))
+  (links-search-files . ( "$out/share/racket" ~a ))
+  (pkgs-search-dirs . ( "$out/share/racket/pkgs" ~a ))
+  (collects-search-dirs . ( "$out/share/racket/collects" ~a ))
   (absolute-installation . #t)
   (installation-name . ".")
 )
