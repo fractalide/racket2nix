@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
-  raco = "${racket-cmd} ${racket.out}/share/racket/collects/raco/main.rkt";
+  raco = "${racket-cmd} -N raco -l- raco";
 
   installPhase = ''
     mkdir -p $out/etc/racket $out/share/racket
