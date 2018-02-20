@@ -50,8 +50,9 @@ EOF
     echo ${racket-cmd}
 
     # install and link us
-    ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 0 1))" ||
-      ${raco} pkg install --copy --deps fail --fail-fast --scope installation ./$name
+    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 0 1))"; then
+      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation ./$name
+    fi
   '';
 }
 EOM
