@@ -30,6 +30,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ unzip ~a ];
+  circularBuildInputs = [ ~a ];
 
   unpackPhase = "unzip $src -d $name";
 
@@ -65,13 +66,16 @@ stdenv.mkDerivation rec {
 EOM
   )
 
-(define (derivation name url sha1 dependency-names)
-  ; racket needs to be in here
+(define (derivation name url sha1 dependency-names circular-dependency-names)
   (define build-inputs
     (string-join
       (append always-build-inputs
         (for/list ((name dependency-names))
-                  (format "_~a" name)))))
+          (format "_~a" name)))))
+  (define circular-build-inputs
+    (string-join
+      (for/list ((name circular-dependency-names))
+        (format "_~a" name))))
   (define link-dirs
     (string-join
       (for/list ((name dependency-names))
@@ -85,8 +89,8 @@ EOM
       (for/list ((name dependency-names))
                 (format "\"${_~a.out}/share/racket/collects\"" name))))
 
-
-  (format derivation-template name url sha1 build-inputs link-dirs pkgs-dirs collects-dirs))
+  (format derivation-template name url sha1 build-inputs circular-build-inputs
+          link-dirs pkgs-dirs collects-dirs))
 
 (define (header) header-template)
 
@@ -137,21 +141,20 @@ EOM
 
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (define name (hash-ref package 'name))
-  (define dependency-names (hash-ref package 'dependencies))
-  (cond
-    [(check-duplicates (append breadcrumbs dependency-names))
-     (display (format "~a: one of ~a was in ~a~n" name breadcrumbs dependency-names) *ep)
-     ; we also trigger on duplicates in the direct deps, so clean those
-     (define dup-free-deps (remove-duplicates dependency-names))
-     ; break circular dependencies:
-     (hash-set! package 'dependencies (remove* breadcrumbs dup-free-deps))  
-     (display (format "~a: let's try again with ~a~n" name (hash-ref package 'dependencies)) *ep)
-     (package->transitive-dependency-names package package-dictionary breadcrumbs)]
-    [else
-     (define name-lists
-       (for/list ((name dependency-names))
-         (name->transitive-dependency-names name package-dictionary breadcrumbs)))
-     (append (remove-duplicates (append* name-lists)) (list name))]))
+  (define raw-dependency-names (hash-ref package 'dependencies))
+
+  (define noncircular-parents (remove* raw-dependency-names breadcrumbs))
+  (define circular-parents (remove* noncircular-parents breadcrumbs))
+
+  (define dependency-names (remove* circular-parents raw-dependency-names))
+
+  (hash-set! package 'circular-dependencies circular-parents)
+  (hash-set! package 'dependencies dependency-names)
+
+  (define name-lists
+    (for/list ((name dependency-names))
+      (name->transitive-dependency-names name package-dictionary breadcrumbs)))
+  (append (remove-duplicates (append* name-lists)) (list name)))
 
 (define (name->derivation package-name package-dictionary)
   (define package (memo-lookup-package package-dictionary package-name))
@@ -163,12 +166,13 @@ EOM
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
   (define dependency-names (hash-ref package 'dependencies))
+  (define circular-dependency-names (hash-ref package 'circular-dependencies))
   (define trans-dep-names
     (remove-duplicates
      (append*
       (for/list ((name dependency-names))
         (name->transitive-dependency-names name package-dictionary)))))
-  (derivation name url sha1 trans-dep-names))
+  (derivation name url sha1 trans-dep-names circular-dependency-names))
 
 (define (name->let-deps-and-reference package-name (package-dictionary (make-hash)))
   (define package-names (name->transitive-dependency-names package-name package-dictionary))
