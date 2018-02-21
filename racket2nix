@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     echo ${racket-cmd}
 
     # install and link us
-    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 0 1))"; then
+    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation ./$name
     fi
   '';
