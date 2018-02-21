@@ -92,7 +92,12 @@ EOM
 
 (define (memo-lookup-package package-dictionary package-name)
   (hash-ref! package-dictionary package-name
-             (lambda () (hash-copy (get-pkg-details-from-catalogs package-name)))))
+             (lambda ()
+               (define package (hash-copy (get-pkg-details-from-catalogs package-name)))
+               (define dependency-names (map dependency-name (hash-ref package 'dependencies)))
+               (hash-set! package 'dependencies
+                          (remove* never-dependency-names dependency-names))
+               package)))
 
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
@@ -131,8 +136,7 @@ EOM
 
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (define name (hash-ref package 'name))
-  (define dep-names (map dependency-name (hash-ref package 'dependencies)))
-  (define dependency-names (remove* never-dependency-names dep-names))
+  (define dependency-names (hash-ref package 'dependencies))
   (cond
     [(check-duplicates (append breadcrumbs dependency-names))
      (display (format "~a: one of ~a was in ~a~n" name breadcrumbs dependency-names) *ep)
@@ -157,9 +161,7 @@ EOM
   (define name (hash-ref package 'name))
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
-  (define dep-names (map dependency-name (hash-ref package 'dependencies)))
-  ; racket may or may not be in here
-  (define dependency-names (remove* never-dependency-names dep-names))
+  (define dependency-names (hash-ref package 'dependencies))
   (define trans-dep-names
     (remove-duplicates
      (append*
