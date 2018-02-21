@@ -121,7 +121,9 @@ EOM
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
   (when (member package-name breadcrumbs)
-    (raise (make-exn:fail:contract "Circular dependencies are supposed to be culled.")))
+    (raise-argument-error 'name->transitive-dependency-names
+                          "not supposed to be a circular dependency"
+                          0 package-name breadcrumbs))
 
   (define package (memo-lookup-package package-dictionary package-name))
 
