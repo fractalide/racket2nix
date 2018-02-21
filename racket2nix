@@ -124,23 +124,6 @@ EOM
            (display (format "deps of ~a: ~a~n" package-name dependency-names) *ep)
            dependency-names])))]))
 
-(define (lists->unique-elements ls)
-  (reverse (lists->reverse-unique-elements ls)))
-
-(define (lists->reverse-unique-elements ls)
-  (let loop [(lists ls) (reverse-unique-elements '())]
-    (cond
-      [(null? lists) reverse-unique-elements]
-      [(null? (car lists)) (loop (cdr lists) reverse-unique-elements)]
-      [else
-       (define element (caar lists))
-       (define rest-first (cdar lists))
-       (if (member element reverse-unique-elements)
-           (loop (cons rest-first (cdr lists)) reverse-unique-elements)
-           (loop (cons rest-first (cdr lists)) (cons element reverse-unique-elements)))])))
-
-
-
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (define name (hash-ref package 'name))
   (define dep-names (map dependency-name (hash-ref package 'dependencies)))
