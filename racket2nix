@@ -12,7 +12,7 @@
 { pkgs ? import <nixpkgs> {}
 , stdenv ? pkgs.stdenv
 , fetchurl ? pkgs.fetchurl
-, racket ? pkgs.racket
+, racket ? pkgs.racket-minimal
 , racket-lib ? racket
 , unzip ? pkgs.unzip
 }:
