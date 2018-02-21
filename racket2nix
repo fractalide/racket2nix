@@ -75,7 +75,7 @@ EOM
   (define circular-build-inputs
     (string-join
       (for/list ((name circular-dependency-names))
-        (format "_~a" name))))
+        (format "\"~a\"" name))))
   (define link-dirs
     (string-join
       (for/list ((name dependency-names))
