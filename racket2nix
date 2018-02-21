@@ -4,6 +4,9 @@
 (require pkg/lib)
 
 (define *ep (current-error-port))
+(define never-dependency-names '("racket"))
+(define always-build-inputs '("racket"))
+(define terminal-package-names '("racket-lib"))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -66,7 +69,7 @@ EOM
   ; racket needs to be in here
   (define build-inputs
     (string-join
-      (cons "racket"
+      (append always-build-inputs
         (for/list ((name dependency-names))
                   (format "_~a" name)))))
   (define link-dirs
@@ -96,14 +99,16 @@ EOM
       (car pair-or-string)
       pair-or-string))
 
-(define (names->let-deps ns package-dictionary)
-  ; This is bootstrapped in racket itself
-  (define names
-    (for/list ((name (remove* '("racket-lib") ns)))
+(define (names->let-deps names package-dictionary)
+  (define terminal-derivations
+    (for/list ((name terminal-package-names))
+      (format "  _~a = ~a;" name name)))
+  (define derivations
+    (for/list ((name (remove* terminal-package-names names)))
       (format "  _~a = ~a;" name (name->derivation name package-dictionary))))
-  (define names-on-lines
-    (string-join (cons (format "  _racket-lib = racket-lib;") names) (format "~n")))
-  (format "let~n~a~nin~n" names-on-lines))
+  (define derivations-on-lines
+    (string-join (append terminal-derivations derivations) (format "~n")))
+  (format "let~n~a~nin~n" derivations-on-lines))
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
   (cond
@@ -115,7 +120,7 @@ EOM
       'transitive-dependency-names
       (lambda ()
         (cond
-          [(member package-name '("racket-lib")) (list package-name)]
+          [(member package-name terminal-package-names) (list package-name)]
           [else
            (display (format "evaluating deps of ~a~n" package-name) *ep)
            (define new-crumbs (cons package-name breadcrumbs))
@@ -127,7 +132,7 @@ EOM
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (define name (hash-ref package 'name))
   (define dep-names (map dependency-name (hash-ref package 'dependencies)))
-  (define dependency-names (remove* '("racket") dep-names))
+  (define dependency-names (remove* never-dependency-names dep-names))
   (cond
     [(check-duplicates (append breadcrumbs dependency-names))
      (display (format "~a: one of ~a was in ~a~n" name breadcrumbs dependency-names) *ep)
@@ -154,7 +159,7 @@ EOM
   (define sha1 (hash-ref package 'checksum))
   (define dep-names (map dependency-name (hash-ref package 'dependencies)))
   ; racket may or may not be in here
-  (define dependency-names (remove* '("racket") dep-names))
+  (define dependency-names (remove* never-dependency-names dep-names))
   (define trans-dep-names
     (remove-duplicates
      (append*
