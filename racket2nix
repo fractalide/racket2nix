@@ -4,6 +4,9 @@
 (require pkg/lib)
 
 (define *ep (current-error-port))
+(define never-dependency-names '("racket"))
+(define always-build-inputs '("racket"))
+(define terminal-package-names '("racket-lib"))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -27,6 +30,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ unzip ~a ];
+  circularBuildInputs = [ ~a ];
 
   unpackPhase = "unzip $src -d $name";
 
@@ -62,13 +66,16 @@ stdenv.mkDerivation rec {
 EOM
   )
 
-(define (derivation name url sha1 dependency-names)
-  ; racket needs to be in here
+(define (derivation name url sha1 dependency-names circular-dependency-names)
   (define build-inputs
     (string-join
-      (cons "racket"
+      (append always-build-inputs
         (for/list ((name dependency-names))
-                  (format "_~a" name)))))
+          (format "_~a" name)))))
+  (define circular-build-inputs
+    (string-join
+      (for/list ((name circular-dependency-names))
+        (format "_~a" name))))
   (define link-dirs
     (string-join
       (for/list ((name dependency-names))
@@ -82,66 +89,72 @@ EOM
       (for/list ((name dependency-names))
                 (format "\"${_~a.out}/share/racket/collects\"" name))))
 
-
-  (format derivation-template name url sha1 build-inputs link-dirs pkgs-dirs collects-dirs))
+  (format derivation-template name url sha1 build-inputs circular-build-inputs
+          link-dirs pkgs-dirs collects-dirs))
 
 (define (header) header-template)
 
 (define (memo-lookup-package package-dictionary package-name)
   (hash-ref! package-dictionary package-name
-             (lambda () (hash-copy (get-pkg-details-from-catalogs package-name)))))
+             (lambda ()
+               (define package (hash-copy (get-pkg-details-from-catalogs package-name)))
+               (define dependency-names (map dependency-name (hash-ref package 'dependencies)))
+               (hash-set! package 'dependencies
+                          (remove* never-dependency-names dependency-names))
+               package)))
 
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
       (car pair-or-string)
       pair-or-string))
 
-(define (names->let-deps ns package-dictionary)
-  ; This is bootstrapped in racket itself
-  (define names
-    (for/list ((name (remove* '("racket-lib") ns)))
+(define (names->let-deps names package-dictionary)
+  (define terminal-derivations
+    (for/list ((name terminal-package-names))
+      (format "  _~a = ~a;" name name)))
+  (define derivations
+    (for/list ((name (remove* terminal-package-names names)))
       (format "  _~a = ~a;" name (name->derivation name package-dictionary))))
-  (define names-on-lines
-    (string-join (cons (format "  _racket-lib = racket-lib;") names) (format "~n")))
-  (format "let~n~a~nin~n" names-on-lines))
+  (define derivations-on-lines
+    (string-join (append terminal-derivations derivations) (format "~n")))
+  (format "let~n~a~nin~n" derivations-on-lines))
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
-  (cond
-    [(member package-name breadcrumbs) '()]
-    [else
-     (define package (memo-lookup-package package-dictionary package-name))
-     (hash-ref!
-      package
-      'transitive-dependency-names
-      (lambda ()
-        (cond
-          [(member package-name '("racket-lib")) (list package-name)]
-          [else
-           (display (format "evaluating deps of ~a~n" package-name) *ep)
-           (define new-crumbs (cons package-name breadcrumbs))
-           (define dependency-names
-             (package->transitive-dependency-names package package-dictionary new-crumbs))
-           (display (format "deps of ~a: ~a~n" package-name dependency-names) *ep)
-           dependency-names])))]))
+  (when (member package-name breadcrumbs)
+    (raise (make-exn:fail:contract "Circular dependencies are supposed to be culled.")))
+
+  (define package (memo-lookup-package package-dictionary package-name))
+
+  (hash-ref!
+   package
+   'transitive-dependency-names
+   (lambda ()
+     (cond
+       [(member package-name terminal-package-names) (list package-name)]
+       [else
+        (display (format "evaluating deps of ~a~n" package-name) *ep)
+        (define new-crumbs (cons package-name breadcrumbs))
+        (define dependency-names
+          (package->transitive-dependency-names package package-dictionary new-crumbs))
+        (display (format "deps of ~a: ~a~n" package-name dependency-names) *ep)
+        dependency-names]))))
 
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (define name (hash-ref package 'name))
-  (define dep-names (map dependency-name (hash-ref package 'dependencies)))
-  (define dependency-names (remove* '("racket") dep-names))
-  (cond
-    [(check-duplicates (append breadcrumbs dependency-names))
-     (display (format "~a: one of ~a was in ~a~n" name breadcrumbs dependency-names) *ep)
-     ; we also trigger on duplicates in the direct deps, so clean those
-     (define dup-free-deps (remove-duplicates dependency-names))
-     ; break circular dependencies:
-     (hash-set! package 'dependencies (remove* breadcrumbs dup-free-deps))  
-     (display (format "~a: let's try again with ~a~n" name (hash-ref package 'dependencies)) *ep)
-     (package->transitive-dependency-names package package-dictionary breadcrumbs)]
-    [else
-     (define name-lists
-       (for/list ((name dependency-names))
-         (name->transitive-dependency-names name package-dictionary breadcrumbs)))
-     (append (remove-duplicates (append* name-lists)) (list name))]))
+  (define raw-dependency-names (hash-ref package 'dependencies))
+
+  (define noncircular-parents (remove* raw-dependency-names breadcrumbs))
+  (define circular-parents (remove* noncircular-parents breadcrumbs))
+
+  (define dependency-names (remove* circular-parents raw-dependency-names))
+
+  (hash-set! package 'circular-dependencies circular-parents)
+  (hash-set! package 'dependencies dependency-names)
+
+  (define name-lists
+    (for/list ((name dependency-names))
+      (name->transitive-dependency-names name package-dictionary breadcrumbs)))
+  (append (remove-duplicates (append* name-lists)) (list name)))
 
 (define (name->derivation package-name package-dictionary)
   (define package (memo-lookup-package package-dictionary package-name))
@@ -152,15 +165,14 @@ EOM
   (define name (hash-ref package 'name))
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
-  (define dep-names (map dependency-name (hash-ref package 'dependencies)))
-  ; racket may or may not be in here
-  (define dependency-names (remove* '("racket") dep-names))
+  (define dependency-names (hash-ref package 'dependencies))
+  (define circular-dependency-names (hash-ref package 'circular-dependencies))
   (define trans-dep-names
     (remove-duplicates
      (append*
       (for/list ((name dependency-names))
         (name->transitive-dependency-names name package-dictionary)))))
-  (derivation name url sha1 trans-dep-names))
+  (derivation name url sha1 trans-dep-names circular-dependency-names))
 
 (define (name->let-deps-and-reference package-name (package-dictionary (make-hash)))
   (define package-names (name->transitive-dependency-names package-name package-dictionary))
