@@ -55,6 +55,12 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/etc/racket $out/share/racket
     sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
+
+    remove_deps="${stdenv.lib.concatStringsSep " " circularBuildInputs}"
+    if [[ -n $remove_deps ]]; then
+      sed -i $(printf -- '-e s/"%s"//g ' $remove_deps) $name/info.rkt
+    fi
+
     echo ${racket-cmd}
 
     # install and link us
