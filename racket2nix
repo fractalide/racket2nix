@@ -156,9 +156,10 @@ EOM
   ; racket may or may not be in here
   (define dependency-names (remove* '("racket") dep-names))
   (define trans-dep-names
-    (append*
+    (remove-duplicates
+     (append*
       (for/list ((name dependency-names))
-        (name->transitive-dependency-names name package-dictionary))))
+        (name->transitive-dependency-names name package-dictionary)))))
   (derivation name url sha1 trans-dep-names))
 
 (define (name->let-deps-and-reference package-name (package-dictionary (make-hash)))
