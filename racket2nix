@@ -55,10 +55,16 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/etc/racket $out/share/racket
     sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
+
+    remove_deps="${stdenv.lib.concatStringsSep " " circularBuildInputs}"
+    if [[ -n $remove_deps ]]; then
+      sed -i $(printf -- '-e s/"%s"//g ' $remove_deps) $name/info.rkt
+    fi
+
     echo ${racket-cmd}
 
     # install and link us
-    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 0 1))"; then
+    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation ./$name
     fi
   '';
