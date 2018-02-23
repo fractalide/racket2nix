@@ -101,13 +101,15 @@ EOM
 (define (header) header-template)
 
 (define (memo-lookup-package package-dictionary package-name)
-  (hash-ref! package-dictionary package-name
-             (lambda ()
-               (define package (hash-copy (get-pkg-details-from-catalogs package-name)))
-               (define dependency-names (map dependency-name (hash-ref package 'dependencies)))
-               (hash-set! package 'dependencies
-                          (remove* never-dependency-names dependency-names))
-               package)))
+  (define package (hash-ref package-dictionary package-name))
+  (cond [(hash-ref package 'dependency-names (lambda () #f)) package]
+        [else
+          (define new-package (hash-copy package))
+          (hash-set! new-package 'dependency-names
+            (remove* never-dependency-names
+              (map dependency-name (hash-ref package 'dependencies (lambda () '())))))
+          (hash-set! package-dictionary package-name new-package)
+          new-package]))
 
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
@@ -149,7 +151,7 @@ EOM
 
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (define name (hash-ref package 'name))
-  (define raw-dependency-names (hash-ref package 'dependencies))
+  (define raw-dependency-names (hash-ref package 'dependency-names))
 
   (define noncircular-parents (remove* raw-dependency-names breadcrumbs))
   (define circular-parents (remove* noncircular-parents breadcrumbs))
@@ -157,7 +159,7 @@ EOM
   (define dependency-names (remove* circular-parents raw-dependency-names))
 
   (hash-set! package 'circular-dependencies circular-parents)
-  (hash-set! package 'dependencies dependency-names)
+  (hash-set! package 'dependency-names dependency-names)
 
   (define name-lists
     (for/list ((name dependency-names))
@@ -173,7 +175,7 @@ EOM
   (define name (hash-ref package 'name))
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
-  (define dependency-names (hash-ref package 'dependencies))
+  (define dependency-names (hash-ref package 'dependency-names))
   (define circular-dependency-names (hash-ref package 'circular-dependencies))
   (define trans-dep-names
     (remove-duplicates
@@ -182,10 +184,13 @@ EOM
         (name->transitive-dependency-names name package-dictionary)))))
   (derivation name url sha1 trans-dep-names circular-dependency-names))
 
-(define (name->let-deps-and-reference package-name (package-dictionary (make-hash)))
+(define (name->let-deps-and-reference package-name package-dictionary)
   (define package-names (name->transitive-dependency-names package-name package-dictionary))
   (define package-definitions (names->let-deps package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 
 (define package-name (read-line (current-input-port) 'any))
-(display (string-append (header) (name->let-deps-and-reference package-name)))
+
+(eprintf "Fetching package catalogs...~n")
+(define pkg-details (hash-copy (get-all-pkg-details-from-catalogs)))
+(display (string-append (header) (name->let-deps-and-reference package-name pkg-details)))
