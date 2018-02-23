@@ -3,7 +3,6 @@
 
 (require pkg/lib)
 
-(define *ep (current-error-port))
 (define never-dependency-names '("racket"))
 (define always-build-inputs '("racket"))
 (define terminal-package-names '("racket-lib"))
@@ -142,11 +141,9 @@ EOM
      (cond
        [(member package-name terminal-package-names) (list package-name)]
        [else
-        (display (format "evaluating deps of ~a~n" package-name) *ep)
         (define new-crumbs (cons package-name breadcrumbs))
         (define dependency-names
           (package->transitive-dependency-names package package-dictionary new-crumbs))
-        (display (format "deps of ~a: ~a~n" package-name dependency-names) *ep)
         dependency-names]))))
 
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
@@ -168,7 +165,6 @@ EOM
 
 (define (name->derivation package-name package-dictionary)
   (define package (memo-lookup-package package-dictionary package-name))
-  (display (format "Create derivation for ~a~n" package-name) *ep)
   (package->derivation package package-dictionary))
 
 (define (package->derivation package package-dictionary)
