@@ -37,6 +37,7 @@ stdenv.mkDerivation rec {
 
   racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
   raco = "${racket-cmd} -N raco -l- raco";
+  maxFileDescriptors = 2048;
 
   passAsFile = [ "racketConfig" ];
 
@@ -52,6 +53,17 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
+    if ! ulimit -n $maxFileDescriptors; then
+      echo >&2 If the number of allowed file descriptors is lower than ~2048,'
+      echo >&2 packages like drracket or racket-doc will not build correctly.
+      echo >&2 If raising the soft limit fails '(like it just did)', you will
+      echo >&2 have to raise the hard limit on your operating system.
+      echo >&2 Examples:
+      echo >&2 debian: https://unix.stackexchange.com/questions/127778
+      echo >&2 MacOS: https://superuser.com/questions/117102
+      exit 2
+    fi
+
     mkdir -p $out/etc/racket $out/share/racket
     sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
 
