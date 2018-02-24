@@ -37,6 +37,7 @@ stdenv.mkDerivation rec {
 
   racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
   raco = "${racket-cmd} -N raco -l- raco";
+  maxFileDescriptors = 2048;
 
   passAsFile = [ "racketConfig" ];
 
@@ -52,6 +53,17 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
+    if ! ulimit -n $maxFileDescriptors; then
+      echo >&2 If the number of allowed file descriptors is lower than ~2048,'
+      echo >&2 packages like drracket or racket-doc will not build correctly.
+      echo >&2 If raising the soft limit fails '(like it just did)', you will
+      echo >&2 have to raise the hard limit on your operating system.
+      echo >&2 Examples:
+      echo >&2 debian: https://unix.stackexchange.com/questions/127778
+      echo >&2 MacOS: https://superuser.com/questions/117102
+      exit 2
+    fi
+
     mkdir -p $out/etc/racket $out/share/racket
     sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
 
@@ -62,10 +74,40 @@ stdenv.mkDerivation rec {
 
     echo ${racket-cmd}
 
+    mkdir -p $out/share/racket/collects/
+    for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
+      cp -rs ${racket.out}/share/racket/collects/$bootstrap_collection \
+        $out/share/racket/collects/
+    done
+    find $out/share/racket/collects -type d -exec chmod 755 {} +
+
     # install and link us
     if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation ./$name
+      collection_name=$(${racket-cmd} -e "(require setup/getinfo) ((get-info/full \"$name\") 'collection)")
+      (
+        shopt -s nullglob
+        case "$collection_name" in
+          "'multi")
+            collection_names=$(for collection_path in $out/share/racket/pkgs/$name/*/; do
+                                 basename $collection_path; done)
+            ;;
+          "'use-pkg-name")
+            collection_names=$name
+            ;;
+          '"'*'"')
+            collection_names=$(echo $collection_name | tr -d '"')
+            ;;
+          *)
+            echo >&2 "Unexpected info.rkt value: ('collection . $collection_name)"
+            exit 2
+        esac
+        mkdir -p $(printf "$out/share/racket/collects/%s " $collection_names)
+      )
+      ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs $name
     fi
+    find $out/share/racket/collects -lname '${_racket-lib.out}/share/racket/collects/*' -delete
+    find $out/share/racket/collects -type d -empty -delete
   '';
 }
 EOM
