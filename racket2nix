@@ -62,6 +62,13 @@ stdenv.mkDerivation rec {
 
     echo ${racket-cmd}
 
+    mkdir -p $out/share/racket/collects/
+    for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
+      cp -rs ${racket.out}/share/racket/collects/$bootstrap_collection \
+        $out/share/racket/collects/
+    done
+    find $out/share/racket/collects -type d -exec chmod 755 {} +
+
     # install and link us
     if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation ./$name
@@ -87,6 +94,7 @@ stdenv.mkDerivation rec {
       )
       ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs $name
     fi
+    find $out/share/racket/collects -lname '${_racket-lib.out}/share/racket/collects/*' -delete
     find $out/share/racket/collects -type d -empty -delete
   '';
 }
