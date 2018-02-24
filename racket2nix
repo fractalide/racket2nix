@@ -65,7 +65,29 @@ stdenv.mkDerivation rec {
     # install and link us
     if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation ./$name
+      collection_name=$(${racket-cmd} -e "(require setup/getinfo) ((get-info/full \"$name\") 'collection)")
+      (
+        shopt -s nullglob
+        case "$collection_name" in
+          "'multi")
+            collection_names=$(for collection_path in $out/share/racket/pkgs/$name/*/; do
+                                 basename $collection_path; done)
+            ;;
+          "'use-pkg-name")
+            collection_names=$name
+            ;;
+          '"'*'"')
+            collection_names=$(echo $collection_name | tr -d '"')
+            ;;
+          *)
+            echo >&2 "Unexpected info.rkt value: ('collection . $collection_name)"
+            exit 2
+        esac
+        mkdir -p $(printf "$out/share/racket/collects/%s " $collection_names)
+      )
+      ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs $name
     fi
+    find $out/share/racket/collects -type d -empty -delete
   '';
 }
 EOM
