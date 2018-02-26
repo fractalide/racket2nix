@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     if ! ulimit -n $maxFileDescriptors; then
-      echo >&2 If the number of allowed file descriptors is lower than ~2048,'
+      echo >&2 If the number of allowed file descriptors is lower than '~~2048,'
       echo >&2 packages like drracket or racket-doc will not build correctly.
       echo >&2 If raising the soft limit fails '(like it just did)', you will
       echo >&2 have to raise the hard limit on your operating system.
