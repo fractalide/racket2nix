@@ -14,6 +14,20 @@
 , racket ? pkgs.racket-minimal
 , racket-lib ? racket
 , unzip ? pkgs.unzip
+, racketIndexPatch ? builtins.toFile "racket-index.patch" ''
+    diff --git a/pkgs/racket-index/setup/scribble.rkt b/pkgs/racket-index/setup/scribble.rkt
+    index c79af9bf85..e4a1cf93e3 100644
+    --- a/pkgs/racket-index/setup/scribble.rkt
+    +++ b/pkgs/racket-index/setup/scribble.rkt
+    @@ -874,6 +874,7 @@
+             [(not latex-dest) (build-path (doc-dest-dir doc) file)]))
+ 
+     (define (find-doc-db-path latex-dest user? main-doc-exists?)
+    +  (set! main-doc-exists? #t)
+       (cond
+        [latex-dest
+         (build-path latex-dest "docindex.sqlite")]
+  ''
 }:
 
 
@@ -32,6 +46,14 @@ stdenv.mkDerivation rec {
   circularBuildInputs = [ ~a ];
 
   unpackPhase = "unzip $src -d $name";
+
+  patchPhase = ''
+    case $name in
+      racket-index)
+        ( cd racket-index && patch -p3 < ${racketIndexPatch} )
+        ;;
+    esac
+  '';
 
   dontBuild = true;
 
