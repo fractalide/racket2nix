@@ -123,10 +123,10 @@ EOM
     (string-join
       (for/list ((name circular-dependency-names))
         (format "\"~a\"" name))))
-  (define link-dirs
+  (define link-files
     (string-join
       (for/list ((name dependency-names))
-                (format "\"${_~a.out}/share/racket\"" name))))
+                (format "\"${_~a.out}/share/racket/links.rktd\"" name))))
   (define pkgs-dirs
     (string-join
       (for/list ((name dependency-names))
@@ -137,7 +137,7 @@ EOM
                 (format "\"${_~a.out}/share/racket/collects\"" name))))
 
   (format derivation-template name url sha1 build-inputs circular-build-inputs
-          link-dirs pkgs-dirs collects-dirs))
+          link-files pkgs-dirs collects-dirs))
 
 (define (header) header-template)
 
