@@ -69,6 +69,7 @@ stdenv.mkDerivation rec {
   (links-search-files . ( "$out/share/racket/links.rktd" ~a ))
   (pkgs-search-dirs . ( "$out/share/racket/pkgs" ~a ))
   (collects-search-dirs . ( "$out/share/racket/collects" ~a ))
+  (doc-search-dirs . ( "$out/share/racket/doc" ~a ))
   (absolute-installation . #t)
   (installation-name . ".")
 )
@@ -137,9 +138,13 @@ EOM
     (string-join
       (for/list ((name dependency-names))
                 (format "\"${_~a.out}/share/racket/collects\"" name))))
+  (define doc-dirs
+    (string-join
+      (for/list ((name dependency-names))
+                (format "\"${_~a.out}/share/racket/doc\"" name))))
 
   (format derivation-template name url sha1 build-inputs circular-build-inputs
-          link-files pkgs-dirs collects-dirs))
+          link-files pkgs-dirs collects-dirs doc-dirs))
 
 (define (header) header-template)
 
