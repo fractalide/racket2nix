@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   racketConfig = ''
 #hash(
   (share-dir . "$out/share/racket")
-  (links-search-files . ( "$out/share/racket" ~a ))
+  (links-search-files . ( "$out/share/racket/links.rktd" ~a ))
   (pkgs-search-dirs . ( "$out/share/racket/pkgs" ~a ))
   (collects-search-dirs . ( "$out/share/racket/collects" ~a ))
   (absolute-installation . #t)
