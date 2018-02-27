@@ -6,6 +6,8 @@
 (define never-dependency-names '("racket"))
 (define always-build-inputs '("racket"))
 (define terminal-package-names '("racket-lib"))
+(define remove-dependencies-for-package '#hash(
+  ("htdp-lib" . ("deinprogramm-signature"))))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -44,8 +46,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ unzip ~a ];
   circularBuildInputs = [ ~a ];
+  circularBuildInputsStr = stdenv.lib.concatStringsSep " " circularBuildInputs;
 
-  unpackPhase = "unzip $src -d $name";
+  unpackPhase = ''
+    unzip $src -d $name
+    case $name in
+      htdp-lib)
+        unzip ${_deinprogramm-signature.src} -d deinprogramm-signature
+        ;;
+    esac
+  '';
 
   patchPhase = ''
     case $name in
@@ -90,7 +100,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/etc/racket $out/share/racket
     sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
 
-    remove_deps="${stdenv.lib.concatStringsSep " " circularBuildInputs}"
+    remove_deps="${circularBuildInputsStr}"
     if [[ -n $remove_deps ]]; then
       sed -i $(printf -- '-e s/"%s"//g ' $remove_deps) $name/info.rkt
     fi
@@ -105,9 +115,18 @@ stdenv.mkDerivation rec {
     find $out/share/racket/collects -type d -exec chmod 755 {} +
 
     # install and link us
-    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
-      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation ./$name
-      ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs $name
+    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))" &&
+      [ -z "${circularBuildInputsStr}" ]; then
+      install_names=$(for install_info in ./*/info.rkt; do echo ''${install_info%/info.rkt}; done)
+      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names
+      for install_name in $install_names; do
+        case $install_name in
+          racket-doc|drracket) ;;
+          *)
+            ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./}
+            ;;
+        esac
+      done
     fi
     find $out/share/racket/collects -lname '${_racket-lib.out}/share/racket/collects/*' -delete
     find $out/share/racket/collects -type d -empty -delete
@@ -116,7 +135,10 @@ stdenv.mkDerivation rec {
 EOM
   )
 
-(define (derivation name url sha1 dependency-names circular-dependency-names)
+(define (derivation name url sha1 raw-dependency-names circular-dependency-names)
+  (define dependency-names (remove* (hash-ref remove-dependencies-for-package name
+                                      (lambda () '()))
+                                    raw-dependency-names))
   (define build-inputs
     (string-join
       (append always-build-inputs
