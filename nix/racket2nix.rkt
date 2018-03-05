@@ -2,6 +2,7 @@
 #lang racket
 
 (require pkg/lib)
+(require racket/hash)
 
 (define never-dependency-names '("racket"))
 (define always-build-inputs '("racket"))
@@ -256,8 +257,23 @@ EOM
   (define package-definitions (names->let-deps package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 
-(define package-name (command-line #:program "racket2nix" #:args (package-name) package-name))
+(define catalog-paths #f)
 
-(eprintf "Fetching package catalogs...~n")
-(define pkg-details (hash-copy (get-all-pkg-details-from-catalogs)))
+(define package-name
+  (command-line
+    #:program "racket2nix"
+    #:multi
+    ["--catalog" catalog-path
+               "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs. Later given catalogs have lower precedence."
+               (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
+    #:args (package-name) package-name))
+
+(define pkg-details (make-hash))
+(cond
+  [catalog-paths
+    (for [(catalog-path catalog-paths)]
+         (hash-union! pkg-details (call-with-input-file* catalog-path read)))]
+  [else
+    (eprintf "Fetching package catalogs...~n")
+    (hash-union! pkg-details (get-all-pkg-details-from-catalogs))])
 (display (string-append (header) (name->let-deps-and-reference package-name pkg-details)))
