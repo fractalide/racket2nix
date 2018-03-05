@@ -256,7 +256,7 @@ EOM
   (define package-definitions (names->let-deps package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 
-(define package-name (read-line (current-input-port) 'any))
+(define package-name (command-line #:program "racket2nix" #:args (package-name) package-name))
 
 (eprintf "Fetching package catalogs...~n")
 (define pkg-details (hash-copy (get-all-pkg-details-from-catalogs)))
