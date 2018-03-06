@@ -12,15 +12,30 @@ in
 , racket ? pkgs.racket-minimal
 , default-nix ? pkgs.callPackage ./generate-default.nix { inherit racket; }
 , colordiff ? pkgs.colordiff
+, racket-catalog ? default-nix.racket-catalog
 }:
 
-stdenvNoCC.mkDerivation rec {
-  name = "test-racket2nix";
-  src = ./.;
-  phases = "unpackPhase buildPhase";
-  buildPhase = ''
-    echo output in $out
-    echo
-    diff -u default.nix ${default-nix} | tee $out | ${colordiff}/bin/colordiff
-  '';
-}
+let attrs = rec {
+  test-racket2nix = stdenvNoCC.mkDerivation {
+    name = "test-racket2nix";
+    src = ./.;
+    phases = "unpackPhase buildPhase";
+    buildPhase = ''
+      echo output in $out
+      echo
+      diff -u default.nix ${default-nix} | tee $out | ${colordiff}/bin/colordiff
+    '';
+  };
+  racket2nix = pkgs.callPackage (import ./.) { inherit racket; };
+  racket-doc-nix = stdenvNoCC.mkDerivation {
+    name = "racket-doc.nix";
+    buildInputs = [ racket ];
+    phases = "installPhase";
+    installPhase = ''
+      racket -G ${racket2nix}/etc/racket -l- nix/racket2nix --catalog ${racket-catalog} racket-doc > $out
+    '';
+  };
+  racket-doc = pkgs.callPackage racket-doc-nix { inherit racket; };
+};
+in
+attrs.racket-doc // attrs
