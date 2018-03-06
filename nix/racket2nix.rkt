@@ -116,18 +116,19 @@ stdenv.mkDerivation rec {
     find $out/share/racket/collects -type d -exec chmod 755 {} +
 
     # install and link us
-    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))" &&
-      [ -z "${circularBuildInputsStr}" ]; then
+    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
       install_names=$(for install_info in ./*/info.rkt; do echo ''${install_info%/info.rkt}; done)
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names
-      for install_name in $install_names; do
-        case $install_name in
-          racket-doc|drracket) ;;
-          *)
-            ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./}
-            ;;
-        esac
-      done
+      if [ -z "${circularBuildInputsStr}" ]; then
+        for install_name in $install_names; do
+          case ''${install_name#./} in
+            racket-doc|drracket) ;;
+            *)
+              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./}
+              ;;
+          esac
+        done
+      fi
     fi
     find $out/share/racket/collects -lname '${_racket-lib.out}/share/racket/collects/*' -delete
     find $out/share/racket/collects -type d -empty -delete
