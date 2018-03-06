@@ -7,8 +7,8 @@
 (define never-dependency-names '("racket"))
 (define always-build-inputs '("racket"))
 (define terminal-package-names '("racket-lib"))
-(define remove-dependencies-for-package '#hash(
-  ("htdp-lib" . ("deinprogramm-signature"))))
+(define force-reverse-circular-build-inputs #hash(
+  ["htdp-lib" . ("deinprogramm-signature")]))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -48,14 +48,28 @@ stdenv.mkDerivation rec {
   buildInputs = [ unzip ~a ];
   circularBuildInputs = [ ~a ];
   circularBuildInputsStr = stdenv.lib.concatStringsSep " " circularBuildInputs;
+  reverseCircularBuildInputs = [ ~a ];
+  srcs = [ src ] ++ (map (input: input.src) reverseCircularBuildInputs);
 
   unpackPhase = ''
-    unzip $src -d $name
-    case $name in
-      htdp-lib)
-        unzip ${_deinprogramm-signature.src} -d deinprogramm-signature
-        ;;
-    esac
+    stripSuffix() {
+      stripped=$1
+      for suffix in .gz .tgz .zip .xz .tar; do
+        stripped=''${stripped%$suffix}
+      done
+      echo $stripped
+    }
+
+    runHook preUnpack
+    for unpackSrc in $srcs; do
+      unpackName=$(stripSuffix $(stripHash $unpackSrc))
+      mkdir $unpackName
+      cd $unpackName
+      unpackFile $unpackSrc
+      cd -
+    done
+    chmod u+w -R .
+    runHook postUnpack
   '';
 
   patchPhase = ''
@@ -137,10 +151,7 @@ stdenv.mkDerivation rec {
 EOM
   )
 
-(define (derivation name url sha1 raw-dependency-names circular-dependency-names)
-  (define dependency-names (remove* (hash-ref remove-dependencies-for-package name
-                                      (lambda () '()))
-                                    raw-dependency-names))
+(define (derivation name url sha1 dependency-names circular-dependency-names)
   (define build-inputs
     (string-join
       (append always-build-inputs
@@ -150,24 +161,32 @@ EOM
     (string-join
       (for/list ((name circular-dependency-names))
         (format "\"~a\"" name))))
+  (define reverse-circular-build-inputs
+    (hash-ref force-reverse-circular-build-inputs name
+              (lambda () '())))
+  (define reverse-circular-build-inputs-string
+    (string-join (map (lambda (s) (format "_~a" s)) reverse-circular-build-inputs)))
+  (define non-reverse-circular-dependency-names
+    (remove* reverse-circular-build-inputs dependency-names))
   (define link-files
     (string-join
-      (for/list ((name dependency-names))
+      (for/list ((name non-reverse-circular-dependency-names))
                 (format "\"${_~a.out}/share/racket/links.rktd\"" name))))
   (define pkgs-dirs
     (string-join
-      (for/list ((name dependency-names))
+      (for/list ((name non-reverse-circular-dependency-names))
                 (format "\"${_~a.out}/share/racket/pkgs\"" name))))
   (define collects-dirs
     (string-join
-      (for/list ((name dependency-names))
+      (for/list ((name non-reverse-circular-dependency-names))
                 (format "\"${_~a.out}/share/racket/collects\"" name))))
   (define doc-dirs
     (string-join
-      (for/list ((name dependency-names))
+      (for/list ((name non-reverse-circular-dependency-names))
                 (format "\"${_~a.out}/share/racket/doc\"" name))))
 
   (format derivation-template name url sha1 build-inputs circular-build-inputs
+          reverse-circular-build-inputs-string
           link-files pkgs-dirs collects-dirs doc-dirs))
 
 (define (header) header-template)
