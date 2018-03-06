@@ -37,13 +37,23 @@
 EOM
   )
 
-(define derivation-template #<<EOM
-stdenv.mkDerivation rec {
-  name = "~a";
+(define fetchurl-template #<<EOM
   src = fetchurl {
     url = "~a";
     sha1 = "~a";
   };
+EOM
+  )
+
+(define localfile-template #<<EOM
+  src = ./~a;
+EOM
+  )
+
+(define derivation-template #<<EOM
+stdenv.mkDerivation rec {
+  name = "~a";
+~a
 
   buildInputs = [ unzip ~a ];
   circularBuildInputs = [ ~a ];
@@ -67,6 +77,13 @@ stdenv.mkDerivation rec {
       cd $unpackName
       unpackFile $unpackSrc
       cd -
+      unpackedFiles=( $unpackName/* )
+      if [ "''${unpackedFiles[*]}" = "$unpackName/$unpackName" ]; then
+        mv $unpackName _
+        chmod u+w _/$unpackName
+        mv _/$unpackName $unpackName
+        rmdir _
+      fi
     done
     chmod u+w -R .
     runHook postUnpack
@@ -184,8 +201,12 @@ EOM
     (string-join
       (for/list ((name non-reverse-circular-dependency-names))
                 (format "\"${_~a.out}/share/racket/doc\"" name))))
+  (define src
+    (if (string-prefix? url "http")
+      (format fetchurl-template url sha1)
+      (format localfile-template url)))
 
-  (format derivation-template name url sha1 build-inputs circular-build-inputs
+  (format derivation-template name src build-inputs circular-build-inputs
           reverse-circular-build-inputs-string
           link-files pkgs-dirs collects-dirs doc-dirs))
 

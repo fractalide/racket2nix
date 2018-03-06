@@ -1,3 +1,6 @@
 /raco.out
 /result
 compiled
+/default.nix.in
+/default.nix.in.timestamp
+/pkgs-all
