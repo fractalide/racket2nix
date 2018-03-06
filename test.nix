@@ -10,7 +10,7 @@ in
 { pkgs ? import remotePkgs { }
 , stdenvNoCC ? pkgs.stdenvNoCC
 , racket ? pkgs.racket-minimal
-, default-nix ? pkgs.callPackage ./generate-default.nix { inherit racket; }
+, default-nix ? pkgs.callPackage ./update-default.nix { inherit racket; }
 , colordiff ? pkgs.colordiff
 , racket-catalog ? default-nix.racket-catalog
 }:
@@ -26,7 +26,7 @@ let attrs = rec {
       diff -u default.nix ${default-nix} | tee $out | ${colordiff}/bin/colordiff
     '';
   };
-  racket2nix = pkgs.callPackage (import ./.) { inherit racket; };
+  racket2nix = (pkgs.callPackage default-nix { inherit racket; }).overrideDerivation (drv: rec { src = ./nix; srcs = [ src ]; });
   racket-doc-nix = stdenvNoCC.mkDerivation {
     name = "racket-doc.nix";
     buildInputs = [ racket ];
@@ -36,6 +36,17 @@ let attrs = rec {
     '';
   };
   racket-doc = pkgs.callPackage racket-doc-nix { inherit racket; };
+  test-racket2nix-all = stdenvNoCC.mkDerivation {
+    name = "test-racket2nix-all";
+    buildInputs = [ test-racket2nix racket-doc ];
+    phases = "installPhase";
+    installPhase = ''
+      tee $out <<EOF
+      ${test-racket2nix}
+      ${racket-doc}
+      EOF
+    '';
+  };
 };
 in
-attrs.racket-doc // attrs
+attrs.test-racket2nix-all // attrs
