@@ -14,6 +14,7 @@
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
 , stdenv ? pkgs.stdenv
+, lib ? stdenv.lib
 , fetchurl ? pkgs.fetchurl
 , racket ? pkgs.racket-minimal
 , racket-lib ? racket
@@ -34,34 +35,10 @@
   ''
 }:
 
-
-EOM
-  )
-
-(define fetchurl-template #<<EOM
-  src = fetchurl {
-    url = "~a";
-    sha1 = "~a";
-  };
-EOM
-  )
-
-(define localfile-template #<<EOM
-  src = ~a;
-EOM
-  )
-
-(define derivation-template #<<EOM
-stdenv.mkDerivation rec {
-  name = "~a";
-~a
-
-  buildInputs = [ unzip ~a ];
-  circularBuildInputs = [ ~a ];
-  circularBuildInputsStr = stdenv.lib.concatStringsSep " " circularBuildInputs;
-  reverseCircularBuildInputs = [ ~a ];
-  srcs = [ src ] ++ (map (input: input.src) reverseCircularBuildInputs);
-
+let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+  circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
+  srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
+  phases = "unpackPhase patchPhase installPhase fixupPhase";
   unpackPhase = ''
     stripSuffix() {
       stripped=$1
@@ -98,29 +75,15 @@ stdenv.mkDerivation rec {
     esac
   '';
 
-  dontBuild = true;
-
   racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
   raco = "${racket-cmd} -N raco -l- raco";
   maxFileDescriptors = 2048;
 
   passAsFile = [ "racketConfig" ];
 
-  racketConfig = ''
-#hash(
-  (share-dir . "$out/share/racket")
-  (links-search-files . ( "$out/share/racket/links.rktd" ~a ))
-  (pkgs-search-dirs . ( "$out/share/racket/pkgs" ~a ))
-  (collects-search-dirs . ( "$out/share/racket/collects" ~a ))
-  (doc-search-dirs . ( "$out/share/racket/doc" ~a ))
-  (absolute-installation . #t)
-  (installation-name . ".")
-)
-  '';
-
   installPhase = ''
     if ! ulimit -n $maxFileDescriptors; then
-      echo >&2 If the number of allowed file descriptors is lower than '~~2048,'
+      echo >&2 If the number of allowed file descriptors is lower than '~2048,'
       echo >&2 packages like drracket or racket-doc will not build correctly.
       echo >&2 If raising the soft limit fails '(like it just did)', you will
       echo >&2 have to raise the hard limit on your operating system.
@@ -166,7 +129,44 @@ stdenv.mkDerivation rec {
     find $out/share/racket/collects -lname '${_racket-lib.out}/share/racket/collects/*' -delete
     find $out/share/racket/collects -type d -empty -delete
   '';
-}
+} // attrs));
+
+
+EOM
+  )
+
+(define fetchurl-template #<<EOM
+  src = fetchurl {
+    url = "~a";
+    sha1 = "~a";
+  };
+EOM
+  )
+
+(define localfile-template #<<EOM
+  src = ~a;
+EOM
+  )
+
+(define derivation-template #<<EOM
+mkRacketDerivation rec {
+  name = "~a";
+~a
+  buildInputs = [ unzip ~a ];
+  circularBuildInputs = [ ~a ];
+  reverseCircularBuildInputs = [ ~a ];
+  racketConfig = ''
+#hash(
+  (share-dir . "$out/share/racket")
+  (links-search-files . ( "$out/share/racket/links.rktd" ~a ))
+  (pkgs-search-dirs . ( "$out/share/racket/pkgs" ~a ))
+  (collects-search-dirs . ( "$out/share/racket/collects" ~a ))
+  (doc-search-dirs . ( "$out/share/racket/doc" ~a ))
+  (absolute-installation . #t)
+  (installation-name . ".")
+)
+  '';
+  }
 EOM
   )
 
@@ -239,7 +239,7 @@ EOM
       (format "  _~a = ~a;" name (name->derivation name package-dictionary))))
   (define derivations-on-lines
     (string-join (append terminal-derivations derivations) (format "~n")))
-  (format "let~n~a~nin~n" derivations-on-lines))
+  (format "~a~nin~n" derivations-on-lines))
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
   (when (member package-name breadcrumbs)
