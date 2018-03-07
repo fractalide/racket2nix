@@ -2,7 +2,7 @@ default: all
 
 all: default.nix
 
-RACKET2NIX_FILES=update-default.nix nix/info.rkt nix/racket2nix.rkt pkgs-nix
+RACKET2NIX_FILES=update-default.nix nix/info.rkt nix/racket2nix.rkt
 
 default.nix.in.timestamp: $(RACKET2NIX_FILES)
 	nix-build update-default.nix --out-link default.nix.in
