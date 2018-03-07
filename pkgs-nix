@@ -1,3 +1,0 @@
-#hash(
-("nix" . #hash((author . "claes.wallin@greatsinodevelopment.com") (checksum . "") (dependencies . ("base")) (description . "Creates Nix derivations for Racket packages and their dependencies.") (modules . ((lib "nix/dump-catalogs.rkt") (lib "nix/racket2nix.rkt"))) (name . "nix") (source . "nix") (tags . ())))
-)

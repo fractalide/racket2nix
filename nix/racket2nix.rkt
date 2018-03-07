@@ -3,6 +3,7 @@
 
 (require pkg/lib)
 (require racket/hash)
+(require setup/getinfo)
 
 (define never-dependency-names '("racket"))
 (define always-build-inputs '("racket"))
@@ -46,7 +47,7 @@ EOM
   )
 
 (define localfile-template #<<EOM
-  src = ./~a;
+  src = ~a;
 EOM
   )
 
@@ -301,7 +302,7 @@ EOM
 
 (define catalog-paths #f)
 
-(define package-name
+(define package-name-or-path
   (command-line
     #:program "racket2nix"
     #:multi
@@ -311,6 +312,7 @@ EOM
     #:args (package-name) package-name))
 
 (define pkg-details (make-hash))
+
 (cond
   [catalog-paths
     (for [(catalog-path catalog-paths)]
@@ -318,4 +320,20 @@ EOM
   [else
     (eprintf "Fetching package catalogs...~n")
     (hash-union! pkg-details (get-all-pkg-details-from-catalogs))])
+
+(define package-name (cond
+  [(string-contains? package-name-or-path "/")
+   (define name (string-replace package-name-or-path #rx".*/" ""))
+   (define path package-name-or-path)
+   (hash-set!
+     pkg-details name
+     `#hash(
+        (name . ,name)
+        (source . ,path)
+        (dependencies . ,(extract-pkg-dependencies (get-info/full path) #:build-deps? #t))
+        (checksum . "")
+      ))
+   name]
+  [else package-name-or-path]))
+
 (display (string-append (header) (name->let-deps-and-reference package-name pkg-details)))
