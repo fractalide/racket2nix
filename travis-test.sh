@@ -17,3 +17,8 @@ make test | awk '
   }
   { print }
 '
+
+## `make` needs to come after `make test`, otherwise it fixes one
+## divergence `make test` is supposed to detect.
+
+make
