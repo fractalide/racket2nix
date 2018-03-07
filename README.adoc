@@ -1,7 +1,7 @@
 image:https://img.shields.io/badge/license-MPLv2-blue.svg[LICENSE,link=https://github.com/fractalide/racket2nix/blob/master/LICENSE]
 image:https://travis-ci.org/fractalide/racket2nix.svg?branch=master["Build Status", link="https://travis-ci.org/fractalide/racket2nix"]
 
-= racket2nix
+== racket2nix
 
 If you are developing a link:http://www.racket-lang.org/[Racket]
 application and want to depend on non-Racket code, racket2nix is for
@@ -20,7 +20,7 @@ edges, racket2nix may not yet be quite for you.
 It did just reach the stage where it can package itself, so if
 you're adventurous, do try it out!
 
-== What is it?
+=== What is it?
 
 racket2nix can generate a link:https://nixos.org/nix/[Nix] derivation
 for your Racket package, or for any package available in the Racket
@@ -31,7 +31,7 @@ You can then override the generated derivation to add dependencies on
 any other Nix derivations, and you can add your Racket package as a
 dependency of other Nix derivations.
 
-== What is Racket?
+=== What is Racket?
 
 Racket is a Scheme-derivative, with lots of batteries added for
 language creation and experimentation, as well as GUI and web
@@ -41,7 +41,7 @@ documented.
 
 See http://www.racket-lang.org/ for more information.
 
-== What is Nix?
+=== What is Nix?
 
 Nix is a functional package manager, which allows multiple versions of
 the same software to be present concurrently on a system without
@@ -57,7 +57,7 @@ services.
 
 See https://nixos.org/nix/ for more information.
 
-== Community
+=== Community
 
 To talk to us, go to the
 link:https://riot.im/app/#/room/#fractalide:matrix.org[#fractalide:matrix.org]
@@ -67,7 +67,7 @@ or mention racket2nix on the
 link:https://groups.google.com/forum/#!forum/racket-users[racket-users]
 mailing list.
 
-== Contributing
+=== Contributing
 
 In racket2nix, as in link:http://fractalide.com[Fractalide] generally,
 we follow the link:CONTRIBUTING.md[C4] process. Read that document!
