@@ -129,7 +129,8 @@ let
           case ''${install_name#./} in
             racket-doc|drracket) ;;
             *)
-              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./}
+              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} |
+                sed -ne '/updating info-domain/,$p'
               ;;
           esac
         done
@@ -243,7 +244,8 @@ let
           case ''${install_name#./} in
             racket-doc|drracket) ;;
             *)
-              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./}
+              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} |
+                sed -ne '/updating info-domain/,$p'
               ;;
           esac
         done
