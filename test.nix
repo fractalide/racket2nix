@@ -16,6 +16,7 @@ in
 }:
 
 let attrs = rec {
+  inherit default-nix;
   test-racket2nix = stdenvNoCC.mkDerivation {
     name = "test-racket2nix";
     src = ./.;

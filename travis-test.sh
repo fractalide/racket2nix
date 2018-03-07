@@ -1,4 +1,7 @@
 #! /usr/bin/env bash
+printf 'travis_fold:start:racket2nix prerequisites\r'
+nix-shell test.nix -A default-nix --run true
+printf 'travis_fold:end:racket2nix prerequisites\r'
 make test | awk '
   BEGIN {
     current_scope=""
