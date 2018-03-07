@@ -60,7 +60,7 @@ See https://nixos.org/nix/ for more information.
 === Community
 
 To talk to us, go to the
-link:https://riot.im/app/#/room/#fractalide:matrix.org[#fractalide:matrix.org]
+link:https://riot.im/app/++#/room/#++fractalide:matrix.org[++#++fractalide:matrix.org]
 Matrix channel or the
 link:https://t.me/joinchat/HXdgc1CvRT6K3A4la7AApQ[Fractalide Telegram group],
 or mention racket2nix on the
