@@ -87,9 +87,10 @@ process and ideals.
 
 Here are the specifics for what you need to to when writing your PR:
 
- - Run `make`. This will generate a new `default.nix` using
-   `racket2nix` itself, after verifying that `racket2nix` still
-   packages and works with the new changes.
+ - Run `make`.
+   - This verifies that `racket2nix` can still package itself.
+   - If it works, it will update the `default.nix` with the new `racket2nix`.
+   - NOTE: You will need Nix installed and running for this to work.
 
 That's basically it. Join us, and make racket, nix and the future of
 programming better!
