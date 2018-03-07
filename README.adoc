@@ -1,4 +1,95 @@
 image:https://img.shields.io/badge/license-MPLv2-blue.svg[LICENSE,link=https://github.com/fractalide/racket2nix/blob/master/LICENSE]
 image:https://travis-ci.org/fractalide/racket2nix.svg?branch=master["Build Status", link="https://travis-ci.org/fractalide/racket2nix"]
 
-== Racket2Nix
+= racket2nix
+
+If you are developing a link:http://www.racket-lang.org/[Racket]
+application and want to depend on non-Racket code, racket2nix is for
+you!
+
+If you are developing non-Racket application and want to depend on
+Racket code, racket2nix is for you!
+
+If you are developing in Racket and have ever felt that you need
+something like Python's virtualenv, Ruby's Bundler or node's npm,
+racket2nix is for you!
+
+If you want something that Just Works, with no surprises or rough
+edges, racket2nix may not yet be quite for you.
+
+It did just reach the stage where it can package itself, so if
+you're adventurous, do try it out!
+
+== What is it?
+
+racket2nix can generate a link:https://nixos.org/nix/[Nix] derivation
+for your Racket package, or for any package available in the Racket
+package catalogs. The derivation will depend on derivations for any
+other Racket packages declared as dependencies in your `info.rkt`.
+
+You can then override the generated derivation to add dependencies on
+any other Nix derivations, and you can add your Racket package as a
+dependency of other Nix derivations.
+
+== What is Racket?
+
+Racket is a Scheme-derivative, with lots of batteries added for
+language creation and experimentation, as well as GUI and web
+application development and other things. It has a helpful IDE with
+graphical stack traces, is cross-platform, and is very well
+documented.
+
+See http://www.racket-lang.org/ for more information.
+
+== What is Nix?
+
+Nix is a functional package manager, which allows multiple versions of
+the same software to be present concurrently on a system without
+interference, allows atomic upgrades and rollbacks of packages,
+enables per-user or even per-shell-session package installs, and more.
+It can run in parallel to your existing Linux distribution, or macOS,
+or FreeBSD.
+
+It is an excellent tool for developing and composing complex software,
+and using link:https://nixos.org/nixops/[NixOps] and
+link:https://nixos.org/[NixOS] it is also great for systems and
+services.
+
+See https://nixos.org/nix/ for more information.
+
+== Community
+
+To talk to us, go to the
+link:https://riot.im/app/#/room/#fractalide:matrix.org[#fractalide:matrix.org]
+Matrix channel or the
+link:https://t.me/joinchat/HXdgc1CvRT6K3A4la7AApQ[Fractalide Telegram group],
+or mention racket2nix on the
+link:https://groups.google.com/forum/#!forum/racket-users[racket-users]
+mailing list.
+
+== Contributing
+
+In racket2nix, as in link:http://fractalide.com[Fractalide] generally,
+we follow the link:CONTRIBUTING.md[C4] process. Read that document!
+It's not even very long, but if you really want to understand the
+spirit and meaning behind the words (we think this is a good idea), do
+read the
+link:http://zguide.zeromq.org/page:all#The-ZeroMQ-Process-C[annotated version]
+as well.
+
+TL;DR: You own your code, you give it to us as an equal, under the
+link:LICENSE[project license]. Every change to the codebase is via a
+pull request, no exceptions. Correct changes (passes tests, solves a
+specific problem, follows commit message and code standard) will be
+merged swiftly. Once you have given us code, you are us. Commit bit is
+given liberally, but comes with the responsibility to uphold the above
+process and ideals.
+
+Here are the specifics for what you need to to when writing your PR:
+
+ - Run `make`. This will generate a new `default.nix` using
+   `racket2nix` itself, after verifying that `racket2nix` still
+   packages and works with the new changes.
+
+That's basically it. Join us, and make racket, nix and the future of
+programming better!
