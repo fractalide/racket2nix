@@ -8,12 +8,12 @@ make test | awk '
   }
   /^building \x27\/nix\/store\/.*[.]drv\x27/ {
     if(current_scope != "") {
-      print "travis_fold:end:" current_scope "\r"
+      printf "travis_fold:end:%s\r" current_scope
     }
     current_scope=$0
     sub("building \x27/nix/store/", "", current_scope)
     sub("\x27.*", "", current_scope)
-    print "travis_fold:start:" current_scope "\r"
+    printf "travis_fold:start:%s\r" current_scope
   }
   { print }
 '
