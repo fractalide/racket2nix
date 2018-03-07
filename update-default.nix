@@ -23,6 +23,6 @@
   buildInputs = [ racket racket2nix ];
   phases = "unpackPhase installPhase";
   installPhase = ''
-    racket -G ${racket2nix}/etc/racket -l- nix/racket2nix --catalog ${racket-catalog} --catalog pkgs-nix nix > $out
+    racket -G ${racket2nix}/etc/racket -l- nix/racket2nix --catalog ${racket-catalog} ./nix > $out
   '';
 }) // { inherit racket-catalog; }
