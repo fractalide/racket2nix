@@ -39,6 +39,8 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
   srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
+  inherit racket;
+
   phases = "unpackPhase patchPhase installPhase fixupPhase";
   unpackPhase = ''
     stripSuffix() {
@@ -83,39 +85,43 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   make-config-rktd = builtins.toFile "make-config-rktd.rkt" ''
     #lang racket
 
-    (define (make-config-rktd out deps)
-      (define link-files
-        (for/list ((name (cons out deps)))
-                  (format "~a/share/racket/links.rktd" name)))
-      (define pkgs-dirs
-        (for/list ((name (cons out deps)))
-                  (format "~a/share/racket/pkgs" name)))
-      (define collects-dirs
-        (for/list ((name (cons out deps)))
-                  (format "~a/share/racket/collects" name)))
-      (define doc-dirs
-        (for/list ((name (cons out deps)))
-                  (format "~a/share/racket/doc" name)))
+    (define (make-config-rktd out racket deps)
+      (define out-deps-racket (append (list racket) (cons out deps)))
+      (define (share/racket suffix)
+        (for/list ((path out-deps-racket))
+                  (format "~a/share/racket/~a" path suffix)))
+
+      (define lib-dirs
+        (append
+          (for/list ((name (cons out deps)))
+                    (format "~a/share/racket/lib" name))
+          (list (format "~a/lib/racket" racket))))
 
       (define config-rktd
         `#hash(
           (share-dir . ,(format "~a/share/racket" out))
-          (links-search-files . ,link-files)
-          (pkgs-search-dirs . ,pkgs-dirs)
-          (collects-search-dirs . ,collects-dirs)
-          (doc-search-dirs . ,doc-dirs)
+          (lib-search-dirs . ,lib-dirs)
+          (lib-dir . ,(format "~a/lib/racket" out))
+          (bin-dir . ,(format "~a/bin" out))
           (absolute-installation . #t)
           (installation-name . ".")
+
+          (links-search-files . ,(share/racket "links.rktd"))
+          (pkgs-search-dirs . ,(share/racket "pkgs"))
+          (collects-search-dirs . ,(share/racket "collects"))
+          (doc-search-dirs . ,(share/racket "doc"))
         ))
       (write config-rktd))
 
     (command-line
       #:program "make-config-rktd"
-      #:args (out . deps)
-             (make-config-rktd out deps))
+      #:args (out racket . deps)
+             (make-config-rktd out racket deps))
   '';
 
   installPhase = ''
+    runHook preInstall
+
     if ! ulimit -n $maxFileDescriptors; then
       echo >&2 If the number of allowed file descriptors is lower than '~2048,'
       echo >&2 packages like drracket or racket-doc will not build correctly.
@@ -129,7 +135,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
 
     mkdir -p $out/etc/racket $out/share/racket
     # Don't use racket-cmd as config.rktd doesn't exist yet.
-    racket ${make-config-rktd} $out ${racketBuildInputsStr} > $out/etc/racket/config.rktd
+    racket ${make-config-rktd} $out ${racket} ${racketBuildInputsStr} > $out/etc/racket/config.rktd
 
     remove_deps="${circularBuildInputsStr}"
     if [[ -n $remove_deps ]]; then
@@ -138,12 +144,14 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
 
     echo ${racket-cmd}
 
-    mkdir -p $out/share/racket/collects/
+    mkdir -p $out/share/racket/collects $out/lib
     for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
       cp -rs ${racket.out}/share/racket/collects/$bootstrap_collection \
         $out/share/racket/collects/
     done
-    find $out/share/racket/collects -type d -exec chmod 755 {} +
+    cp -rs $racket/lib/racket $out/lib/racket
+    cp -rs $racket/bin $out/bin
+    find $out/share/racket/collects $out/lib/racket $out/bin -type d -exec chmod 755 {} +
 
     # install and link us
     if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
@@ -154,15 +162,18 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
           case ''${install_name#./} in
             racket-doc|drracket) ;;
             *)
-              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} |
-                sed -ne '/updating info-domain/,$p'
+              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} # |
+                # sed -ne '/updating info-domain/,$p'
               ;;
           esac
         done
       fi
     fi
-    find $out/share/racket/collects -lname '${_racket-lib.out}/share/racket/collects/*' -delete
-    find $out/share/racket/collects -type d -empty -delete
+
+    runHook postInstall
+
+    find $out/share/racket/collects $out/lib/racket -lname '${_racket-lib.out}/*' -delete
+    find $out/share/racket/collects $out/lib/racket $out/bin -type d -empty -delete
   '';
 } // attrs));
 
