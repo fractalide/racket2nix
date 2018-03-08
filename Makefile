@@ -10,7 +10,6 @@ default.nix.in.timestamp: $(RACKET2NIX_FILES)
 
 default.nix: default.nix.in.timestamp
 	cat < default.nix.in > $@.new
-	nix-build $@.new
 	mv $@.new $@
 
 pkgs-all:
