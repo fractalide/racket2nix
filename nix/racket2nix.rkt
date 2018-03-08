@@ -6,7 +6,6 @@
 (require setup/getinfo)
 
 (define never-dependency-names '("racket"))
-(define always-build-inputs '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
   ["htdp-lib" . ("deinprogramm-signature")]))
@@ -36,7 +35,7 @@
 }:
 
 let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
-  buildInputs = [ unzip attrs.racketBuildInputs ];
+  buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
   srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
@@ -198,9 +197,8 @@ EOM
 (define (derivation name url sha1 dependency-names circular-dependency-names)
   (define build-inputs
     (string-join
-      (append always-build-inputs
-        (for/list ((name dependency-names))
-          (format "_~a" name)))))
+      (for/list ((name dependency-names))
+        (format "_~a" name))))
   (define circular-build-inputs
     (string-join
       (for/list ((name circular-dependency-names))
