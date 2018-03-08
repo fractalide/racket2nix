@@ -36,7 +36,9 @@
 }:
 
 let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+  buildInputs = [ unzip attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
+  racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
   srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
   phases = "unpackPhase patchPhase installPhase fixupPhase";
   unpackPhase = ''
@@ -79,7 +81,40 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   raco = "${racket-cmd} -N raco -l- raco";
   maxFileDescriptors = 2048;
 
-  passAsFile = [ "racketConfig" ];
+  make-config-rktd = builtins.toFile "make-config-rktd.rkt" ''
+    #lang racket
+
+    (define (make-config-rktd out deps)
+      (define link-files
+        (for/list ((name (cons out deps)))
+                  (format "~a/share/racket/links.rktd" name)))
+      (define pkgs-dirs
+        (for/list ((name (cons out deps)))
+                  (format "~a/share/racket/pkgs" name)))
+      (define collects-dirs
+        (for/list ((name (cons out deps)))
+                  (format "~a/share/racket/collects" name)))
+      (define doc-dirs
+        (for/list ((name (cons out deps)))
+                  (format "~a/share/racket/doc" name)))
+
+      (define config-rktd
+        `#hash(
+          (share-dir . ,(format "~a/share/racket" out))
+          (links-search-files . ,link-files)
+          (pkgs-search-dirs . ,pkgs-dirs)
+          (collects-search-dirs . ,collects-dirs)
+          (doc-search-dirs . ,doc-dirs)
+          (absolute-installation . #t)
+          (installation-name . ".")
+        ))
+      (write config-rktd))
+
+    (command-line
+      #:program "make-config-rktd"
+      #:args (out . deps)
+             (make-config-rktd out deps))
+  '';
 
   installPhase = ''
     if ! ulimit -n $maxFileDescriptors; then
@@ -94,7 +129,8 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
     fi
 
     mkdir -p $out/etc/racket $out/share/racket
-    sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
+    # Don't use racket-cmd as config.rktd doesn't exist yet.
+    racket ${make-config-rktd} $out ${racketBuildInputsStr} > $out/etc/racket/config.rktd
 
     remove_deps="${circularBuildInputsStr}"
     if [[ -n $remove_deps ]]; then
@@ -152,20 +188,9 @@ EOM
 mkRacketDerivation rec {
   name = "~a";
 ~a
-  buildInputs = [ unzip ~a ];
+  racketBuildInputs = [ ~a ];
   circularBuildInputs = [ ~a ];
   reverseCircularBuildInputs = [ ~a ];
-  racketConfig = ''
-#hash(
-  (share-dir . "$out/share/racket")
-  (links-search-files . ( "$out/share/racket/links.rktd" ~a ))
-  (pkgs-search-dirs . ( "$out/share/racket/pkgs" ~a ))
-  (collects-search-dirs . ( "$out/share/racket/collects" ~a ))
-  (doc-search-dirs . ( "$out/share/racket/doc" ~a ))
-  (absolute-installation . #t)
-  (installation-name . ".")
-)
-  '';
   }
 EOM
   )
@@ -187,30 +212,13 @@ EOM
     (string-join (map (lambda (s) (format "_~a" s)) reverse-circular-build-inputs)))
   (define non-reverse-circular-dependency-names
     (remove* reverse-circular-build-inputs dependency-names))
-  (define link-files
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/links.rktd\"" name))))
-  (define pkgs-dirs
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/pkgs\"" name))))
-  (define collects-dirs
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/collects\"" name))))
-  (define doc-dirs
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/doc\"" name))))
   (define src
     (if (string-prefix? url "http")
       (format fetchurl-template url sha1)
       (format localfile-template url)))
 
   (format derivation-template name src build-inputs circular-build-inputs
-          reverse-circular-build-inputs-string
-          link-files pkgs-dirs collects-dirs doc-dirs))
+          reverse-circular-build-inputs-string))
 
 (define (header) header-template)
 
