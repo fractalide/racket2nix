@@ -164,7 +164,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
       if [ -z "${circularBuildInputsStr}" ]; then
         for install_name in $install_names; do
           case ''${install_name#./} in
-            racket-doc|drracket) ;;
+            drracket|racket-doc|racket-index) ;;
             *)
               ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} # |
                 # sed -ne '/updating info-domain/,$p'
