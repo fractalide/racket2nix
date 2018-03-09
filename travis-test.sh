@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 set -e
 set -u
+set -o pipefail
 
 printf 'travis_fold:start:racket2nix-stage0.prerequisites\r'
 nix-shell stage0.nix --run true
