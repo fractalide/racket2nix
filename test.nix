@@ -17,6 +17,7 @@ in
 
 let attrs = rec {
   inherit racket2nix;
+  inherit racket2nix-stage0;
   racket-doc-nix = stdenvNoCC.mkDerivation {
     name = "racket-doc.nix";
     buildInputs = [ racket2nix ];

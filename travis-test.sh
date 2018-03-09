@@ -2,9 +2,16 @@
 set -e
 set -u
 
-printf 'travis_fold:start:racket2nix prerequisites\r'
-nix-shell test.nix -A default-nix --run true
-printf 'travis_fold:end:racket2nix prerequisites\r'
+printf 'travis_fold:start:racket2nix-stage0.prerequisites\r'
+nix-shell test.nix -A racket2nix-stage0 --run true
+printf 'travis_fold:end:racket2nix-stage0.prerequisites\r'
+
+printf 'travis_fold:start:racket2nix\r'
+nix-build test.nix -A racket2nix
+printf 'travis_fold:end:racket2nix\r'
+
+make
+
 make test | awk '
   BEGIN {
     current_scope=""
@@ -20,8 +27,3 @@ make test | awk '
   }
   { print }
 '
-
-## `make` needs to come after `make test`, otherwise it fixes one
-## divergence `make test` is supposed to detect.
-
-make
