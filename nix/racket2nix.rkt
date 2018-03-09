@@ -144,14 +144,16 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
 
     echo ${racket-cmd}
 
-    mkdir -p $out/share/racket/collects $out/lib
+    mkdir -p $out/share/racket/collects $out/lib $out/bin
     for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
       cp -rs ${racket.out}/share/racket/collects/$bootstrap_collection \
         $out/share/racket/collects/
     done
     cp -rs $racket/lib/racket $out/lib/racket
-    cp -rs $racket/bin $out/bin
-    find $out/share/racket/collects $out/lib/racket $out/bin -type d -exec chmod 755 {} +
+    find $out/share/racket/collects $out/lib/racket -type d -exec chmod 755 {} +
+
+    printf > $out/bin/racket "#! /usr/bin/env bash\nexec ${racket-cmd} \"\$@\"\n"
+    chmod 555 $out/bin/racket
 
     # install and link us
     if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
