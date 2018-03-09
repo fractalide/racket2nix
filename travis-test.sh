@@ -3,14 +3,12 @@ set -e
 set -u
 
 printf 'travis_fold:start:racket2nix-stage0.prerequisites\r'
-nix-shell test.nix -A racket2nix-stage0 --run true
+nix-shell stage0.nix --run true
 printf 'travis_fold:end:racket2nix-stage0.prerequisites\r'
 
 printf 'travis_fold:start:racket2nix\r'
-nix-build test.nix -A racket2nix
-printf 'travis_fold:end:racket2nix\r'
-
 make
+printf 'travis_fold:end:racket2nix\r'
 
 make test | awk '
   BEGIN {

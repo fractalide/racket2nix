@@ -11,9 +11,9 @@ in
 , stdenvNoCC ? pkgs.stdenvNoCC
 , racket ? pkgs.racket-minimal
 , racket2nix ? pkgs.callPackage ./. { inherit racket; }
-, racket2nix-stage0 ? racket2nix.racket2nix-stage0
+, racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , colordiff ? pkgs.colordiff
-, racket-catalog ? racket2nix.racket-catalog
+, racket-catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
 }:
 
 let attrs = rec {
