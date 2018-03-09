@@ -19,10 +19,10 @@ let attrs = rec {
   inherit racket2nix;
   racket-doc-nix = stdenvNoCC.mkDerivation {
     name = "racket-doc.nix";
-    buildInputs = [ racket ];
+    buildInputs = [ racket2nix ];
     phases = "installPhase";
     installPhase = ''
-      racket -G ${racket2nix}/etc/racket -l- nix/racket2nix --catalog ${racket-catalog} racket-doc > $out
+      racket2nix --catalog ${racket-catalog} racket-doc > $out
     '';
   };
   racket-doc = pkgs.callPackage racket-doc-nix { inherit racket; };
