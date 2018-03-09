@@ -68,6 +68,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
       fi
     done
     chmod u+w -R .
+    find . -name '*.zo' -delete
     runHook postUnpack
   '';
 
