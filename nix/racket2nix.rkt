@@ -39,6 +39,8 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
+  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input attrs.reverseCircularBuildInputs) attrs.racketBuildInputs;
+  racketConfigBuildInputsStr = lib.concatStringsSep " " racketConfigBuildInputs;
   srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
   inherit racket;
 
@@ -137,7 +139,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
 
     mkdir -p $out/etc/racket $out/share/racket
     # Don't use racket-cmd as config.rktd doesn't exist yet.
-    racket ${make-config-rktd} $out ${racket} ${racketBuildInputsStr} > $out/etc/racket/config.rktd
+    racket ${make-config-rktd} $out ${racket} ${racketConfigBuildInputsStr} > $out/etc/racket/config.rktd
 
     remove_deps="${circularBuildInputsStr}"
     if [[ -n $remove_deps ]]; then
