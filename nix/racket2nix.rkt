@@ -123,6 +123,9 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   installPhase = ''
     runHook preInstall
 
+    restore_pipefail=$(shopt -po pipefail)
+    set -o pipefail
+
     if ! ulimit -n $maxFileDescriptors; then
       echo >&2 If the number of allowed file descriptors is lower than '~2048,'
       echo >&2 packages like drracket or racket-doc will not build correctly.
@@ -159,20 +162,22 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
     # install and link us
     if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
       install_names=$(for install_info in ./*/info.rkt; do echo ''${install_info%/info.rkt}; done)
-      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names
+      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names 2>&1 |
+        sed -Ee '/warning: tool "(setup|pkg|link)" registered twice/d'
       if [ -z "${circularBuildInputsStr}" ]; then
         for install_name in $install_names; do
           case ''${install_name#./} in
             racket-doc|drracket) ;;
             *)
-              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} # |
-                # sed -ne '/updating info-domain/,$p'
+              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} |
+                sed -ne '/updating info-domain/,$p'
               ;;
           esac
         done
       fi
     fi
 
+    eval "$restore_pipefail"
     runHook postInstall
 
     find $out/share/racket/collects $out/lib/racket -lname '${_racket-lib.out}/*' -delete
