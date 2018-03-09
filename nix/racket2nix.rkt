@@ -8,8 +8,19 @@
 (define never-dependency-names '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
-  ["racket-doc" . ("deinprogramm-signature")]
-  ["htdp-lib" . ("deinprogramm-signature")]))
+  ["drracket-tool-lib" . ("racket-index")]
+  ["plai-lib" . ("racket-index" "drracket-tool-lib")]
+  ["rackunit-typed" . ("racket-index")]
+  ["typed-racket-more" . ("racket-index" "rackunit-typed")]
+  ["htdp-lib" . ("deinprogramm-signature" "racket-index" "plai-lib" "drracket-tool-lib"
+                 "rackunit-typed" "typed-racket-more")]
+
+  ["math-lib" . ("racket-index" "rackunit-typed" "typed-racket-more")]
+  ["data-enumerate-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib")]
+  ["plot-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib")]
+  ["plot-gui-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib" "plot-lib")]
+  ["plot-compat" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib" "plot-lib"
+                    "plot-gui-lib")]))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
