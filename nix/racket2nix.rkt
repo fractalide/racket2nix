@@ -6,7 +6,6 @@
 (require setup/getinfo)
 
 (define never-dependency-names '("racket"))
-(define always-build-inputs '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
   ["htdp-lib" . ("deinprogramm-signature")]))
@@ -36,8 +35,12 @@
 }:
 
 let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+  buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
+  racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
   srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
+  inherit racket;
+
   phases = "unpackPhase patchPhase installPhase fixupPhase";
   unpackPhase = ''
     stripSuffix() {
@@ -79,9 +82,46 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   raco = "${racket-cmd} -N raco -l- raco";
   maxFileDescriptors = 2048;
 
-  passAsFile = [ "racketConfig" ];
+  make-config-rktd = builtins.toFile "make-config-rktd.rkt" ''
+    #lang racket
+
+    (define (make-config-rktd out racket deps)
+      (define out-deps-racket (append (list racket) (cons out deps)))
+      (define (share/racket suffix)
+        (for/list ((path out-deps-racket))
+                  (format "~a/share/racket/~a" path suffix)))
+
+      (define lib-dirs
+        (append
+          (for/list ((name (cons out deps)))
+                    (format "~a/share/racket/lib" name))
+          (list (format "~a/lib/racket" racket))))
+
+      (define config-rktd
+        `#hash(
+          (share-dir . ,(format "~a/share/racket" out))
+          (lib-search-dirs . ,lib-dirs)
+          (lib-dir . ,(format "~a/lib/racket" out))
+          (bin-dir . ,(format "~a/bin" out))
+          (absolute-installation . #t)
+          (installation-name . ".")
+
+          (links-search-files . ,(share/racket "links.rktd"))
+          (pkgs-search-dirs . ,(share/racket "pkgs"))
+          (collects-search-dirs . ,(share/racket "collects"))
+          (doc-search-dirs . ,(share/racket "doc"))
+        ))
+      (write config-rktd))
+
+    (command-line
+      #:program "make-config-rktd"
+      #:args (out racket . deps)
+             (make-config-rktd out racket deps))
+  '';
 
   installPhase = ''
+    runHook preInstall
+
     if ! ulimit -n $maxFileDescriptors; then
       echo >&2 If the number of allowed file descriptors is lower than '~2048,'
       echo >&2 packages like drracket or racket-doc will not build correctly.
@@ -94,7 +134,8 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
     fi
 
     mkdir -p $out/etc/racket $out/share/racket
-    sed -e 's|$out|'"$out|g" > $out/etc/racket/config.rktd < $racketConfigPath
+    # Don't use racket-cmd as config.rktd doesn't exist yet.
+    racket ${make-config-rktd} $out ${racket} ${racketBuildInputsStr} > $out/etc/racket/config.rktd
 
     remove_deps="${circularBuildInputsStr}"
     if [[ -n $remove_deps ]]; then
@@ -103,12 +144,16 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
 
     echo ${racket-cmd}
 
-    mkdir -p $out/share/racket/collects/
+    mkdir -p $out/share/racket/collects $out/lib $out/bin
     for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
       cp -rs ${racket.out}/share/racket/collects/$bootstrap_collection \
         $out/share/racket/collects/
     done
-    find $out/share/racket/collects -type d -exec chmod 755 {} +
+    cp -rs $racket/lib/racket $out/lib/racket
+    find $out/share/racket/collects $out/lib/racket -type d -exec chmod 755 {} +
+
+    printf > $out/bin/racket "#! /usr/bin/env bash\nexec ${racket-cmd} \"\$@\"\n"
+    chmod 555 $out/bin/racket
 
     # install and link us
     if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
@@ -119,15 +164,18 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
           case ''${install_name#./} in
             racket-doc|drracket) ;;
             *)
-              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} |
-                sed -ne '/updating info-domain/,$p'
+              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} # |
+                # sed -ne '/updating info-domain/,$p'
               ;;
           esac
         done
       fi
     fi
-    find $out/share/racket/collects -lname '${_racket-lib.out}/share/racket/collects/*' -delete
-    find $out/share/racket/collects -type d -empty -delete
+
+    runHook postInstall
+
+    find $out/share/racket/collects $out/lib/racket -lname '${_racket-lib.out}/*' -delete
+    find $out/share/racket/collects $out/lib/racket $out/bin -type d -empty -delete
   '';
 } // attrs));
 
@@ -152,20 +200,9 @@ EOM
 mkRacketDerivation rec {
   name = "~a";
 ~a
-  buildInputs = [ unzip ~a ];
+  racketBuildInputs = [ ~a ];
   circularBuildInputs = [ ~a ];
   reverseCircularBuildInputs = [ ~a ];
-  racketConfig = ''
-#hash(
-  (share-dir . "$out/share/racket")
-  (links-search-files . ( "$out/share/racket/links.rktd" ~a ))
-  (pkgs-search-dirs . ( "$out/share/racket/pkgs" ~a ))
-  (collects-search-dirs . ( "$out/share/racket/collects" ~a ))
-  (doc-search-dirs . ( "$out/share/racket/doc" ~a ))
-  (absolute-installation . #t)
-  (installation-name . ".")
-)
-  '';
   }
 EOM
   )
@@ -173,9 +210,8 @@ EOM
 (define (derivation name url sha1 dependency-names circular-dependency-names)
   (define build-inputs
     (string-join
-      (append always-build-inputs
-        (for/list ((name dependency-names))
-          (format "_~a" name)))))
+      (for/list ((name dependency-names))
+        (format "_~a" name))))
   (define circular-build-inputs
     (string-join
       (for/list ((name circular-dependency-names))
@@ -187,30 +223,13 @@ EOM
     (string-join (map (lambda (s) (format "_~a" s)) reverse-circular-build-inputs)))
   (define non-reverse-circular-dependency-names
     (remove* reverse-circular-build-inputs dependency-names))
-  (define link-files
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/links.rktd\"" name))))
-  (define pkgs-dirs
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/pkgs\"" name))))
-  (define collects-dirs
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/collects\"" name))))
-  (define doc-dirs
-    (string-join
-      (for/list ((name non-reverse-circular-dependency-names))
-                (format "\"${_~a.out}/share/racket/doc\"" name))))
   (define src
     (if (string-prefix? url "http")
       (format fetchurl-template url sha1)
       (format localfile-template url)))
 
   (format derivation-template name src build-inputs circular-build-inputs
-          reverse-circular-build-inputs-string
-          link-files pkgs-dirs collects-dirs doc-dirs))
+          reverse-circular-build-inputs-string))
 
 (define (header) header-template)
 
