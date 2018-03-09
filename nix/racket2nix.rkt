@@ -8,6 +8,7 @@
 (define never-dependency-names '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
+  ["racket-doc" . ("deinprogramm-signature")]
   ["htdp-lib" . ("deinprogramm-signature")]))
 
 (define header-template #<<EOM

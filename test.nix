@@ -11,12 +11,14 @@ in
 , stdenvNoCC ? pkgs.stdenvNoCC
 , racket ? pkgs.racket-minimal
 , racket2nix ? pkgs.callPackage ./. { inherit racket; }
+, racket2nix-stage0 ? racket2nix.racket2nix-stage0
 , colordiff ? pkgs.colordiff
 , racket-catalog ? racket2nix.racket-catalog
 }:
 
 let attrs = rec {
   inherit racket2nix;
+  inherit racket2nix-stage0;
   racket-doc-nix = stdenvNoCC.mkDerivation {
     name = "racket-doc.nix";
     buildInputs = [ racket2nix ];
