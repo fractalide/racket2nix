@@ -75,11 +75,9 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   '';
 
   patchPhase = ''
-    case $name in
-      racket-index)
+    if [ -d racket-index ]; then
         ( cd racket-index && patch -p3 < ${racketIndexPatch} )
-        ;;
-    esac
+    fi
   '';
 
   racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
