@@ -8,8 +8,19 @@
 (define never-dependency-names '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
-  ["racket-doc" . ("deinprogramm-signature")]
-  ["htdp-lib" . ("deinprogramm-signature")]))
+  ["drracket-tool-lib" . ("racket-index")]
+  ["plai-lib" . ("racket-index" "drracket-tool-lib")]
+  ["rackunit-typed" . ("racket-index")]
+  ["typed-racket-more" . ("racket-index" "rackunit-typed")]
+  ["htdp-lib" . ("deinprogramm-signature" "racket-index" "plai-lib" "drracket-tool-lib"
+                 "rackunit-typed" "typed-racket-more")]
+
+  ["math-lib" . ("racket-index" "rackunit-typed" "typed-racket-more")]
+  ["data-enumerate-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib")]
+  ["plot-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib")]
+  ["plot-gui-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib" "plot-lib")]
+  ["plot-compat" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib" "plot-lib"
+                    "plot-gui-lib")]))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -39,6 +50,8 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
+  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input attrs.reverseCircularBuildInputs) attrs.racketBuildInputs;
+  racketConfigBuildInputsStr = lib.concatStringsSep " " racketConfigBuildInputs;
   srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
   inherit racket;
 
@@ -73,11 +86,9 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   '';
 
   patchPhase = ''
-    case $name in
-      racket-index)
+    if [ -d racket-index ]; then
         ( cd racket-index && patch -p3 < ${racketIndexPatch} )
-        ;;
-    esac
+    fi
   '';
 
   racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
@@ -140,7 +151,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
 
     mkdir -p $out/etc/racket $out/share/racket
     # Don't use racket-cmd as config.rktd doesn't exist yet.
-    racket ${make-config-rktd} $out ${racket} ${racketBuildInputsStr} > $out/etc/racket/config.rktd
+    racket ${make-config-rktd} $out ${racket} ${racketConfigBuildInputsStr} > $out/etc/racket/config.rktd
 
     remove_deps="${circularBuildInputsStr}"
     if [[ -n $remove_deps ]]; then
@@ -168,7 +179,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
       if [ -z "${circularBuildInputsStr}" ]; then
         for install_name in $install_names; do
           case ''${install_name#./} in
-            racket-doc|drracket) ;;
+            drracket|racket-doc|racket-index) ;;
             *)
               ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} |
                 sed -ne '/updating info-domain/,$p'
