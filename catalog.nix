@@ -6,11 +6,11 @@
 
 stdenvNoCC.mkDerivation {
   name = "pkgs-all";
-  src = ./.;
+  src = ./nix;
   buildInputs = [ racket ];
   phases = "unpackPhase installPhase";
   installPhase = ''
-    $racket/bin/racket -N dump-catalogs ./nix/dump-catalogs.rkt https://download.racket-lang.org/releases/6.12/catalog/ > $out
+    $racket/bin/racket -N dump-catalogs ./dump-catalogs.rkt https://download.racket-lang.org/releases/6.12/catalog/ > $out
   '';
   inherit racket;
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
