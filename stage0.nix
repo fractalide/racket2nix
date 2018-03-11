@@ -7,11 +7,11 @@
 let attrs = rec {
   racket2nix-stage0-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix-stage0.nix";
-    src = ./.;
+    src = ./nix;
     buildInputs = [ racket ];
     phases = "unpackPhase installPhase";
     installPhase = ''
-      racket -N racket2nix ./nix/racket2nix.rkt --catalog ${racket-catalog} ./nix > $out
+      racket -N racket2nix ./racket2nix.rkt --catalog ${racket-catalog} ../nix > $out
     '';
   };
   racket2nix-stage0 = (pkgs.callPackage racket2nix-stage0-nix { inherit racket; }).overrideDerivation (drv: rec { src = ./nix; srcs = [ src ]; });

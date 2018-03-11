@@ -10,11 +10,11 @@
 let attrs = rec {
   racket2nix-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
-    src = ./.;
+    src = ./nix;
     buildInputs = [ racket2nix-stage0 ];
     phases = "unpackPhase installPhase";
     installPhase = ''
-      racket2nix --catalog ${racket-catalog} ./nix > $out
+      racket2nix --catalog ${racket-catalog} ../nix > $out
       diff ${racket2nix-stage0-nix} $out
     '';
   };
