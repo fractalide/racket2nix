@@ -28,7 +28,7 @@
 , lib ? stdenv.lib
 , fetchurl ? pkgs.fetchurl
 , racket ? pkgs.racket-minimal
-, racket-lib ? racket
+, racket-lib ? racket // { env = racket.out; }
 , unzip ? pkgs.unzip
 , racketIndexPatch ? builtins.toFile "racket-index.patch" ''
     diff --git a/pkgs/racket-index/setup/scribble.rkt b/pkgs/racket-index/setup/scribble.rkt
@@ -51,8 +51,9 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
   racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input attrs.reverseCircularBuildInputs) attrs.racketBuildInputs;
-  racketConfigBuildInputsStr = lib.concatStringsSep " " racketConfigBuildInputs;
+  racketConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) racketConfigBuildInputs);
   srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
+  outputs = [ "out" "env" ];
   inherit racket;
 
   phases = "unpackPhase patchPhase installPhase fixupPhase";
@@ -91,7 +92,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
     fi
   '';
 
-  racket-cmd = "${racket.out}/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects";
+  racket-cmd = "${racket}/bin/racket -G $env/etc/racket -U -X $env/share/racket/collects";
   raco = "${racket-cmd} -N raco -l- raco";
   maxFileDescriptors = 2048;
 
@@ -149,9 +150,9 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
       exit 2
     fi
 
-    mkdir -p $out/etc/racket $out/share/racket
+    mkdir -p $env/etc/racket $env/share/racket
     # Don't use racket-cmd as config.rktd doesn't exist yet.
-    racket ${make-config-rktd} $out ${racket} ${racketConfigBuildInputsStr} > $out/etc/racket/config.rktd
+    racket ${make-config-rktd} $env ${racket} ${racketConfigBuildInputsStr} > $env/etc/racket/config.rktd
 
     remove_deps="${circularBuildInputsStr}"
     if [[ -n $remove_deps ]]; then
@@ -160,19 +161,19 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
 
     echo ${racket-cmd}
 
-    mkdir -p $out/share/racket/collects $out/lib $out/bin
+    mkdir -p $env/share/racket/collects $env/lib $env/bin
     for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
-      cp -rs ${racket.out}/share/racket/collects/$bootstrap_collection \
-        $out/share/racket/collects/
+      cp -rs $racket/share/racket/collects/$bootstrap_collection \
+        $env/share/racket/collects/
     done
-    cp -rs $racket/lib/racket $out/lib/racket
-    find $out/share/racket/collects $out/lib/racket -type d -exec chmod 755 {} +
+    cp -rs $racket/lib/racket $env/lib/racket
+    find $env/share/racket/collects $env/lib/racket -type d -exec chmod 755 {} +
 
-    printf > $out/bin/racket "#! /usr/bin/env bash\nexec ${racket-cmd} \"\$@\"\n"
-    chmod 555 $out/bin/racket
+    printf > $env/bin/racket "#! /usr/bin/env bash\nexec ${racket-cmd} \"\$@\"\n"
+    chmod 555 $env/bin/racket
 
     # install and link us
-    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.out}/share/racket/pkgs\")))) 1 0))"; then
+    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.env}/share/racket/pkgs\")))) 1 0))"; then
       install_names=$(for install_info in ./*/info.rkt; do echo ''${install_info%/info.rkt}; done)
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names 2>&1 |
         sed -Ee '/warning: tool "(setup|pkg|link)" registered twice/d'
@@ -189,11 +190,18 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
       fi
     fi
 
+    mkdir -p $out/bin
+    for launcher in $env/bin/*; do
+      if ! [ "''${launcher##*/}" = racket ]; then
+        ln -s "$launcher" "$out/bin/''${launcher##*/}"
+      fi
+    done
+
     eval "$restore_pipefail"
     runHook postInstall
 
-    find $out/share/racket/collects $out/lib/racket -lname '${_racket-lib.out}/*' -delete
-    find $out/share/racket/collects $out/lib/racket $out/bin -type d -empty -delete
+    find $env/share/racket/collects $env/lib/racket -lname "$racket/*" -delete
+    find $env/share/racket/collects $env/lib/racket $env/bin -type d -empty -delete
   '';
 } // attrs));
 
