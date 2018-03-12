@@ -49,7 +49,7 @@
   ''
 }:
 
-let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
@@ -219,7 +219,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
     find $env/share/racket/collects $env/lib/racket -lname "$racket/*" -delete
     find $env/share/racket/collects $env/lib/racket $env/bin -type d -empty -delete
   '';
-} // attrs));
+} // attrs)) suppliedAttrs; in racketDerivation // { inherit racketDerivation; };
 
 
 EOM

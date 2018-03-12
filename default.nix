@@ -18,13 +18,12 @@ let attrs = rec {
       diff ${racket2nix-stage0-nix} $out
     '';
   };
-  racket2nix = (pkgs.callPackage racket2nix-nix { inherit racket; }).overrideDerivation (drv: rec {
+  racket2nix = (pkgs.callPackage racket2nix-nix { inherit racket; }).racketDerivation.override {
     src = ./nix;
-    srcs = [ src ];
     postInstall = ''
       $out/bin/racket2nix --test
     '';
-  });
+  };
 };
 in
 attrs.racket2nix // attrs
