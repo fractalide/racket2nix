@@ -55,9 +55,10 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
   racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input attrs.reverseCircularBuildInputs) attrs.racketBuildInputs;
   racketConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) racketConfigBuildInputs);
-  srcs = [ attrs.src ] ++ (map (input: input.src) attrs.reverseCircularBuildInputs);
-  outputs = [ "out" "env" ];
+  srcs = [ attrs.src ]
+           ++ attrs.extraSrcs or (map (input: input.src) attrs.reverseCircularBuildInputs);
   inherit racket;
+  outputs = [ "out" "env" ];
 
   phases = "unpackPhase patchPhase installPhase fixupPhase";
   unpackPhase = ''
@@ -249,28 +250,41 @@ mkRacketDerivation rec {
 EOM
   )
 
-(define (derivation name url sha1 dependency-names circular-dependency-names)
-  (define build-inputs
+(define (derivation name url sha1 dependency-names circular-dependency-names
+                    (override-reverse-circular-build-inputs #f))
+
+  (define reverse-circular-build-inputs
+    (if override-reverse-circular-build-inputs
+        override-reverse-circular-build-inputs
+        (hash-ref force-reverse-circular-build-inputs name list)))
+  (define non-reverse-circular-dependency-names
+    (remove* reverse-circular-build-inputs dependency-names))
+
+  (define racket-build-inputs
     (string-join
-      (for/list ((name dependency-names))
+      (for/list ((name non-reverse-circular-dependency-names))
         (format "_~a" name))))
   (define circular-build-inputs
     (string-join
       (for/list ((name circular-dependency-names))
         (format "\"~a\"" name))))
-  (define reverse-circular-build-inputs
-    (hash-ref force-reverse-circular-build-inputs name
-              (lambda () '())))
   (define reverse-circular-build-inputs-string
-    (string-join (map (lambda (s) (format "_~a" s)) reverse-circular-build-inputs)))
-  (define non-reverse-circular-dependency-names
-    (remove* reverse-circular-build-inputs dependency-names))
+    (string-join
+      (for/list ((input reverse-circular-build-inputs))
+        (format "\"~a\"" input))))
   (define src
     (if (string-prefix? url "http")
       (format fetchurl-template url sha1)
       (format localfile-template url)))
+  (define srcs
+    (cond
+      [(pair? reverse-circular-build-inputs)
+       (define srcs-refs (string-join (map (lambda (s) (format "_~a.src" s)) reverse-circular-build-inputs)))
+       (format "~n  extraSrcs = [ ~a ];" srcs-refs)]
+      [else ""]))
 
-  (format derivation-template name src build-inputs circular-build-inputs
+  (format derivation-template name (string-join (list src srcs) "")
+          racket-build-inputs circular-build-inputs
           reverse-circular-build-inputs-string))
 
 (define (header) header-template)
@@ -291,13 +305,13 @@ EOM
       (car pair-or-string)
       pair-or-string))
 
-(define (names->let-deps names package-dictionary)
+(define (names->let-deps #:flat? (flat? #f) names package-dictionary)
   (define terminal-derivations
     (for/list ((name terminal-package-names))
       (format "  _~a = ~a;" name name)))
   (define derivations
     (for/list ((name (remove* terminal-package-names names)))
-      (format "  _~a = ~a;" name (name->derivation name package-dictionary))))
+      (format "  _~a = ~a;" name (name->derivation #:flat? flat? name package-dictionary))))
   (define derivations-on-lines
     (string-join (append terminal-derivations derivations) (format "~n")))
   (format "~a~nin~n" derivations-on-lines))
@@ -339,11 +353,11 @@ EOM
       (name->transitive-dependency-names name package-dictionary breadcrumbs)))
   (append (remove-duplicates (append* name-lists)) (list name)))
 
-(define (name->derivation package-name package-dictionary)
+(define (name->derivation #:flat? (flat? #f) package-name package-dictionary)
   (define package (memo-lookup-package package-dictionary package-name))
-  (package->derivation package package-dictionary))
+  (package->derivation #:flat? flat? package package-dictionary))
 
-(define (package->derivation package package-dictionary)
+(define (package->derivation #:flat? (flat? #f) package package-dictionary)
   (define name (hash-ref package 'name))
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
@@ -354,17 +368,20 @@ EOM
      (append*
       (for/list ((name dependency-names))
         (name->transitive-dependency-names name package-dictionary)))))
-  (derivation name url sha1 trans-dep-names circular-dependency-names))
+  (cond [flat? (derivation name url sha1 trans-dep-names circular-dependency-names
+                           (remove* terminal-package-names trans-dep-names))]
+        [else (derivation name url sha1 trans-dep-names circular-dependency-names)]))
 
-(define (name->let-deps-and-reference package-name package-dictionary)
+(define (name->let-deps-and-reference #:flat? (flat? #f) package-name package-dictionary)
   (define package-names (name->transitive-dependency-names package-name package-dictionary))
-  (define package-definitions (names->let-deps package-names package-dictionary))
+  (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 
-(define (name->nix-function package-name package-dictionary)
-  (string-append (header) (name->let-deps-and-reference package-name package-dictionary)))
+(define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
+  (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
 
 (define catalog-paths #f)
+(define flat? #f)
 
 (define package-name-or-path
   (command-line
@@ -376,6 +393,8 @@ EOM
                         0)
                      (exit 1)
                      (exit 0))]
+    [("--flat")  "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
+                 (set! flat? #t)]
     #:multi
     ["--catalog" catalog-path
                "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs. Later given catalogs have lower precedence."
@@ -407,4 +426,4 @@ EOM
    name]
   [else package-name-or-path]))
 
-(display (name->nix-function package-name pkg-details))
+(display (name->nix-function #:flat? flat? package-name pkg-details))

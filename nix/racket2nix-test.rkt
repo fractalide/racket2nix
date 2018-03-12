@@ -47,9 +47,9 @@
        (match-define (list name deps) pkg-params)
        (new-pkg-values name (string-join (list "./" name) "") deps))))
 
-(define (deps (observed-top-name "a"))
+(define (deps #:flat? (flat? #f) (observed-top-name "a"))
   (define s (scaffold))
-  (name->nix-function "a" s)
+  (name->nix-function #:flat? flat? "a" s)
   (define observed-top (hash-ref s observed-top-name))
   (define transitive (hash-ref observed-top 'transitive-dependency-names))
   (define reverse-circular (hash-ref observed-top 'reverse-circular-build-inputs list))
@@ -64,9 +64,12 @@
       (check-not-false (member pkg-name transitive)
                        (format "~a is in the transitive dependencies ~a" pkg-name transitive)))))
 
-(define (test-reverse-circular-dependencies title #:observed-top (observed-top-name "a") . pkg-names)
+(define (test-reverse-circular-dependencies title
+                                            #:flat? (flat? #f)
+                                            #:observed-top (observed-top-name "a")
+                                            . pkg-names)
   (test-case title
-    (define-values (transitive reverse-circular) (deps observed-top-name))
+    (define-values (transitive reverse-circular) (deps #:flat? flat? observed-top-name))
     (for ([pkg-name pkg-names])
       ; (check-false (member pkg-name transitive)
       ;              (format "~a is not in the transitive dependencies ~a" pkg-name transitive))
@@ -75,6 +78,9 @@
 
 (define suite
   (test-suite "racket2nix"
+    ;; This test cannot work yet, as the flattening mechanism is currently done outside the transitive
+    ;; dependencies resolution mechanism.
+    ; (test-reverse-circular-dependencies "Flat" #:flat? #t (remove "a" pkgs-names))
     ; (test-reverse-circular-dependencies "Diamond cycle" "b" "c" "d")
     ; (test-reverse-circular-dependencies "Left inner cycle in main cycle" "g" "h" "i" "j")
     ; (test-reverse-circular-dependencies "Right inner cycle in main cycle" "o" "p" "q" "r")
