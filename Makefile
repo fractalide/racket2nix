@@ -10,7 +10,7 @@ pkgs-all:
 	nix-build --out-link pkgs-all catalog.nix
 
 test:
-	nix-shell test.nix --run true 2>&1
+	nix-build --no-out-link test.nix 2>&1
 
 test-flat:
 	nix-build --no-out-link test.nix -A racket-doc-flat 2>&1
