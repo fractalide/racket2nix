@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { }
 , stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.racket-minimal
+, racket ? pkgs.callPackage ./racket-minimal.nix {}
 , cacert ? pkgs.cacert
 }:
 
