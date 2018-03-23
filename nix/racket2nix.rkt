@@ -32,6 +32,7 @@
 , racket ? pkgs.racket-minimal
 , racket-lib ? racket // { env = racket.out; }
 , unzip ? pkgs.unzip
+, bash ? pkgs.bash
 , racketIndexPatch ? builtins.toFile "racket-index.patch" ''
     diff --git a/pkgs/racket-index/setup/scribble.rkt b/pkgs/racket-index/setup/scribble.rkt
     index c79af9bf85..e4a1cf93e3 100644
@@ -171,7 +172,7 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
     cp -rs $racket/lib/racket $env/lib/racket
     find $env/share/racket/collects $env/lib/racket -type d -exec chmod 755 {} +
 
-    printf > $env/bin/racket "#! /usr/bin/env bash\nexec ${racket-cmd} \"\$@\"\n"
+    printf > $env/bin/racket "#!${bash}/bin/bash\nexec ${racket-cmd} \"\$@\"\n"
     chmod 555 $env/bin/racket
 
     # install and link us
