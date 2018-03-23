@@ -5,6 +5,8 @@
 (require racket/hash)
 (require setup/getinfo)
 
+(provide (all-defined-out))
+
 (define never-dependency-names '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
@@ -345,11 +347,21 @@ EOM
   (define package-definitions (names->let-deps package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 
+(define (name->nix-function package-name package-dictionary)
+  (string-append (header) (name->let-deps-and-reference package-name package-dictionary)))
+
 (define catalog-paths #f)
 
 (define package-name-or-path
   (command-line
     #:program "racket2nix"
+    #:once-each
+    [("--test") "Ignore everything else and just run the tests."
+                 (if (> ((dynamic-require 'rackunit/text-ui 'run-tests)
+                         (dynamic-require 'nix/racket2nix-test 'suite))
+                        0)
+                     (exit 1)
+                     (exit 0))]
     #:multi
     ["--catalog" catalog-path
                "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs. Later given catalogs have lower precedence."
@@ -381,4 +393,4 @@ EOM
    name]
   [else package-name-or-path]))
 
-(display (string-append (header) (name->let-deps-and-reference package-name pkg-details)))
+(display (name->nix-function package-name pkg-details))
