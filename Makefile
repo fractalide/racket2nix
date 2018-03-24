@@ -4,7 +4,7 @@ racket2nix:
 	nix-build --no-out-link
 
 pkgs-all:
-	nix-build --out-link pkgs-all -A racket-catalog
+	nix-build --out-link pkgs-all catalog.nix
 
 test:
 	nix-shell test.nix --run true 2>&1
