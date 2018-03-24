@@ -176,8 +176,21 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
     chmod 555 $env/bin/racket
 
     # install and link us
-    if ${racket-cmd} -e "(require pkg/lib) (exit (if (member \"$name\" (installed-pkg-names #:scope (bytes->path (string->bytes/utf-8 \"${_racket-lib.env}/share/racket/pkgs\")))) 1 0))"; then
-      install_names=$(for install_info in ./*/info.rkt; do echo ''${install_info%/info.rkt}; done)
+    install_names=""
+    for install_info in ./*/info.rkt; do
+      install_name=''${install_info%/info.rkt}
+      if ${racket-cmd} -e "(require pkg/lib)
+                           (define name \"''${install_name#./}\")
+                           (for ((scope (get-all-pkg-scopes)))
+                             (when (member name (installed-pkg-names #:scope scope))
+                                   (eprintf \"WARNING: ~a already installed in ~a -- not installing~n\"
+                                            name scope)
+                                   (exit 1)))"; then
+        install_names+=" $install_name"
+      fi
+    done
+
+    if [ -n "$install_names" ]; then
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names 2>&1 |
         sed -Ee '/warning: tool "(setup|pkg|link)" registered twice/d'
       if [ -z "${circularBuildInputsStr}" ]; then

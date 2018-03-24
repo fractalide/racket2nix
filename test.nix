@@ -17,6 +17,7 @@ in
 }:
 
 let attrs = rec {
+  inherit pkgs;
   inherit racket2nix;
   inherit racket2nix-stage0;
   racket-doc-nix = stdenvNoCC.mkDerivation {
