@@ -194,15 +194,15 @@ let mkRacketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names 2>&1 |
         sed -Ee '/warning: tool "(setup|pkg|link)" registered twice/d'
       if [ -z "${circularBuildInputsStr}" ]; then
-        for install_name in $install_names; do
-          case ''${install_name#./} in
-            drracket|racket-doc|racket-index) ;;
-            *)
-              ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs ''${install_name#./} |
-                sed -ne '/updating info-domain/,$p'
-              ;;
+        setup_names=""
+        for setup_name in $install_names; do
+          case ''${setup_name#./} in
+            # racket-doc|racket-index) ;;
+            *) setup_names+=" ''${setup_name#./}" ;;
           esac
         done
+        ${raco} setup --no-user --no-pkg-deps --fail-fast --no-post-install --only --pkgs $setup_names |
+          sed -ne '/updating info-domain/,$p'
       fi
     fi
 
