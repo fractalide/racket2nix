@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { }
 , stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.racket-minimal
+, racket ? pkgs.callPackage ./racket-minimal.nix {}
 , cacert ? pkgs.cacert
 , racket-catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }

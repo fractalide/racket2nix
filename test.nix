@@ -9,7 +9,7 @@ let
 in
 { pkgs ? import remotePkgs { }
 , stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.racket-minimal
+, racket ? pkgs.callPackage ./racket-minimal.nix {}
 , racket2nix ? pkgs.callPackage ./. { inherit racket; }
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , colordiff ? pkgs.colordiff
