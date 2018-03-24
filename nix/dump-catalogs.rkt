@@ -6,6 +6,5 @@
 
 (command-line
   #:args catalogs
-  (begin
-    (pkg-private:current-pkg-catalogs (map string->url catalogs))
-    (write (get-all-pkg-details-from-catalogs))))
+  (pkg-private:current-pkg-catalogs (map string->url catalogs))
+  (write (get-all-pkg-details-from-catalogs)))
