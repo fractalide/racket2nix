@@ -20,15 +20,17 @@ let attrs = rec {
   inherit pkgs;
   inherit racket2nix;
   inherit racket2nix-stage0;
-  racket-doc-nix = stdenvNoCC.mkDerivation {
+  racket-doc-nix = { extraArgs ? ""} : stdenvNoCC.mkDerivation {
     name = "racket-doc.nix";
     buildInputs = [ racket2nix ];
     phases = "installPhase";
     installPhase = ''
-      racket2nix --catalog ${racket-catalog} racket-doc > $out
+      racket2nix ${extraArgs} --catalog ${racket-catalog} racket-doc > $out
     '';
   };
-  racket-doc = pkgs.callPackage racket-doc-nix { inherit racket; };
+  racket-doc = pkgs.callPackage (racket-doc-nix {}) { inherit racket; };
+  racket-doc-flat-nix = racket-doc-nix { extraArgs = "--flat"; };
+  racket-doc-flat = pkgs.callPackage racket-doc-flat-nix { inherit racket; };
 };
 in
 attrs.racket-doc // attrs
