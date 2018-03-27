@@ -201,7 +201,7 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       for setup_name in $install_names; do
         setup_names+=" ''${setup_name#./}"
       done
-      ${raco} setup --no-user --no-pkg-deps --fail-fast --no-post-install --only --pkgs $setup_names |&
+      ${raco} setup --no-user --no-pkg-deps --fail-fast --only --pkgs $setup_names |&
         sed -ne '/updating info-domain/,$p'
     fi
 
