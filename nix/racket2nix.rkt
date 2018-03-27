@@ -10,19 +10,9 @@
 (define never-dependency-names '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
-  ["drracket-tool-lib" . ("racket-index")]
-  ["plai-lib" . ("racket-index" "drracket-tool-lib")]
-  ["rackunit-typed" . ("racket-index")]
-  ["typed-racket-more" . ("racket-index" "rackunit-typed")]
-  ["htdp-lib" . ("deinprogramm-signature" "racket-index" "plai-lib" "drracket-tool-lib"
-                 "rackunit-typed" "typed-racket-more")]
-
-  ["math-lib" . ("racket-index" "rackunit-typed" "typed-racket-more")]
-  ["data-enumerate-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib")]
-  ["plot-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib")]
-  ["plot-gui-lib" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib" "plot-lib")]
-  ["plot-compat" . ("racket-index" "rackunit-typed" "typed-racket-more" "math-lib" "plot-lib"
-                    "plot-gui-lib")]))
+  ["racket-index" . ("scribble-lib")]
+  ["racket-doc" . ("scribble-lib")]
+))
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -323,35 +313,90 @@ EOM
                           0 package-name breadcrumbs))
 
   (define package (memo-lookup-package package-dictionary package-name))
+  (define transitive-dependency-names (hash-ref package 'transitive-dependency-names #f))
 
-  (hash-ref!
-   package
-   'transitive-dependency-names
-   (lambda ()
-     (cond
-       [(member package-name terminal-package-names) (list package-name)]
-       [else
-        (define new-crumbs (cons package-name breadcrumbs))
-        (define dependency-names
-          (package->transitive-dependency-names package package-dictionary new-crumbs))
-        dependency-names]))))
+  (cond [transitive-dependency-names (values transitive-dependency-names
+                                             transitive-dependency-names
+                                             (hash-ref package 'cycles))]
+        [(member package-name terminal-package-names) (values (list package-name)
+                                                              (list package-name)
+                                                              #hash())]
+        [else
+          (define new-crumbs (append breadcrumbs (list package-name)))
+          (package->transitive-dependency-names package package-dictionary new-crumbs)]))
 
 (define (package->transitive-dependency-names package package-dictionary breadcrumbs)
   (define name (hash-ref package 'name))
   (define raw-dependency-names (hash-ref package 'dependency-names))
 
+  ; We cannot trust set-subtract to retain order
   (define noncircular-parents (remove* raw-dependency-names breadcrumbs))
   (define circular-parents (remove* noncircular-parents breadcrumbs))
 
   (define dependency-names (remove* circular-parents raw-dependency-names))
 
-  (hash-set! package 'circular-dependencies circular-parents)
-  (hash-set! package 'dependency-names dependency-names)
+  (define-values (transitive-dependency-names
+                  trimmed-transitive-dependency-names
+                  cycles)
+    (for/fold ([transitive-dependency-names dependency-names]
+               [trimmed-transitive-dependency-names dependency-names]
+               [cycles (for/hash ([parent circular-parents]) (values parent (list name)))])
+              ([name dependency-names])
+      (define-values (sub-transnames sub-trimnames sub-cycles)
+        (name->transitive-dependency-names name package-dictionary breadcrumbs))
+      (values (remove-duplicates (append transitive-dependency-names sub-transnames))
+              (remove-duplicates (append trimmed-transitive-dependency-names sub-trimnames))
+              (for/hash ([key (remove-duplicates (append (hash-keys cycles)
+                                                         (hash-keys sub-cycles)))])
+                (values key
+                        (remove-duplicates (append (hash-ref cycles key list)
+                                                   (hash-ref sub-cycles key list))))))))
 
-  (define name-lists
-    (for/list ((name dependency-names))
-      (name->transitive-dependency-names name package-dictionary breadcrumbs)))
-  (append (remove-duplicates (append* name-lists)) (list name)))
+  (for ([key (hash-keys cycles)])
+    (cond [(equal? key name)]  ; If we're a cycle top, resolve that after other cycles.
+          [(member key breadcrumbs)
+           (set! cycles (hash-set cycles key
+                                  (remove-duplicates (append (hash-ref cycles key)
+                                                             (list name)))))
+           (set! circular-parents (remove-duplicates (append circular-parents (list key))))
+           (set! trimmed-transitive-dependency-names
+                 (remove* (hash-ref cycles key) trimmed-transitive-dependency-names))]
+          [else  ; We came to this cycle from the side
+           (let* ([cycle-top (hash-ref package-dictionary key)]
+                  [cycle-transdeps (hash-ref cycle-top 'transitive-dependency-names)]
+                  [cycle-revcircs (hash-ref cycle-top 'reverse-circular-build-inputs)])
+             (set! dependency-names (remove-duplicates
+                                     (append (remove* cycle-revcircs dependency-names)
+                                             (list key))))
+             (set! trimmed-transitive-dependency-names
+                   (remove-duplicates
+                    (append (remove* cycle-revcircs trimmed-transitive-dependency-names)
+                            cycle-transdeps)))
+             (set! cycles (hash-remove cycles key)))]))
+
+  (define my-cycle (hash-ref cycles name #f))
+  (when my-cycle
+        (hash-set! package 'reverse-circular-build-inputs my-cycle)
+        ; If our circle is within another circle, merge them.
+        (for ((other-cycle (remove name (hash-keys cycles))))
+          (set! cycles (hash-set cycles other-cycle
+                                 (remove-duplicates (append (hash-ref cycles other-cycle)
+                                                            my-cycle)))))
+        (set! cycles (hash-remove cycles name)))
+
+  (define full-circle-parents
+    (remove name
+            (remove-duplicates (append* (for/list ((parent circular-parents))
+                                          (member parent breadcrumbs))))))
+
+  (hash-set! package 'circular-dependencies full-circle-parents)
+  (hash-set! package 'dependency-names dependency-names)
+  (hash-set! package 'transitive-dependency-names trimmed-transitive-dependency-names)
+  (hash-set! package 'cycles cycles)
+
+  (values (append transitive-dependency-names (list name))
+          (append trimmed-transitive-dependency-names (list name))
+          cycles))
 
 (define (name->derivation #:flat? (flat? #f) package-name package-dictionary)
   (define package (memo-lookup-package package-dictionary package-name))
@@ -363,17 +408,24 @@ EOM
   (define sha1 (hash-ref package 'checksum))
   (define dependency-names (hash-ref package 'dependency-names))
   (define circular-dependency-names (hash-ref package 'circular-dependencies))
-  (define trans-dep-names
-    (remove-duplicates
-     (append*
-      (for/list ((name dependency-names))
-        (name->transitive-dependency-names name package-dictionary)))))
-  (cond [flat? (derivation name url sha1 trans-dep-names circular-dependency-names
-                           (remove* terminal-package-names trans-dep-names))]
-        [else (derivation name url sha1 trans-dep-names circular-dependency-names)]))
+  (define trans-dep-names (hash-ref package 'transitive-dependency-names))
+  (define reverse-circular-dependency-names
+    (cond
+      [flat? (remove* terminal-package-names trans-dep-names)]
+      [else
+        (define calculated-reverse-circular
+                (hash-ref package 'reverse-circular-build-inputs
+                          (lambda () '())))
+        (define forced-reverse-circular
+                (hash-ref force-reverse-circular-build-inputs name
+                          (lambda () '())))
+        (remove-duplicates (append calculated-reverse-circular forced-reverse-circular))]))
+    (derivation name url sha1 trans-dep-names circular-dependency-names
+                reverse-circular-dependency-names))
 
 (define (name->let-deps-and-reference #:flat? (flat? #f) package-name package-dictionary)
-  (define package-names (name->transitive-dependency-names package-name package-dictionary))
+  (define-values (package-names _ __)
+    (name->transitive-dependency-names package-name package-dictionary))
   (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 

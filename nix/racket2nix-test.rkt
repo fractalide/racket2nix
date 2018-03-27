@@ -80,13 +80,13 @@
   (test-suite "racket2nix"
     ;; This test cannot work yet, as the flattening mechanism is currently done outside the transitive
     ;; dependencies resolution mechanism.
-    ; (test-reverse-circular-dependencies "Flat" #:flat? #t (remove "a" pkgs-names))
-    ; (test-reverse-circular-dependencies "Diamond cycle" "b" "c" "d")
-    ; (test-reverse-circular-dependencies "Left inner cycle in main cycle" "g" "h" "i" "j")
-    ; (test-reverse-circular-dependencies "Right inner cycle in main cycle" "o" "p" "q" "r")
-    ; (test-reverse-circular-dependencies "Subcycle merged into main cycle" "s" "t" "u" "w")
-    ; (test-reverse-circular-dependencies "Plain cycle" "y" "z")
-    ; (test-reverse-circular-dependencies "Local cycle" #:observed-top "m" "l")
+    ; (apply test-reverse-circular-dependencies "Flat" #:flat? #t (remove* '("a" "k") pkgs-names))
+    (test-reverse-circular-dependencies "Diamond cycle" "b" "c" "d")
+    (test-reverse-circular-dependencies "Left inner cycle in main cycle" "g" "h" "i" "j")
+    (test-reverse-circular-dependencies "Right inner cycle in main cycle" "o" "p" "q" "r")
+    (test-reverse-circular-dependencies "Subcycle merged into main cycle" "s" "t" "u" "w")
+    (test-reverse-circular-dependencies "Plain cycle" "y" "z")
+    (test-reverse-circular-dependencies "Local cycle" #:observed-top "m" "l")
     (test-transitive-dependencies "Local cycle not in main cycle" "m")
     ; (test-not-transitive-dependencies "Local cycle bottom not in main transdeps" "l")
     (test-transitive-dependencies "Plain dependency" "f")
