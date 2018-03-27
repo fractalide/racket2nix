@@ -194,16 +194,14 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     done
 
     if [ -n "$install_names" ]; then
-      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names 2>&1 |
+      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names |&
         sed -Ee '/warning: tool "(setup|pkg|link)" registered twice/d'
+
       setup_names=""
       for setup_name in $install_names; do
-        case ''${setup_name#./} in
-          # racket-doc|racket-index) ;;
-          *) setup_names+=" ''${setup_name#./}" ;;
-        esac
+        setup_names+=" ''${setup_name#./}"
       done
-      ${raco} setup --no-user --no-pkg-deps --fail-fast --no-post-install --only --pkgs $setup_names |
+      ${raco} setup --no-user --no-pkg-deps --fail-fast --no-post-install --only --pkgs $setup_names |&
         sed -ne '/updating info-domain/,$p'
     fi
 
