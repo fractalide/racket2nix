@@ -52,6 +52,11 @@ let attrs = rec {
     '';
   };
   racket2nix-flat-nix = racket2nix-flat-stage1-nix;
+  racket2nix-env = stdenvNoCC.mkDerivation {
+    phases = [];
+    buildInputs = [ racket2nix ];
+    name = "racket2nix-env";
+  };
 };
 in
 attrs.racket2nix // attrs
