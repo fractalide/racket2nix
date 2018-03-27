@@ -98,7 +98,7 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 
   racket-cmd = "${racket}/bin/racket -G $env/etc/racket -U -X $env/share/racket/collects";
   raco = "${racket-cmd} -N raco -l- raco";
-  maxFileDescriptors = 2048;
+  maxFileDescriptors = 3072;
 
   make-config-rktd = builtins.toFile "make-config-rktd.rkt" ''
     #lang racket
@@ -144,7 +144,7 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     set -o pipefail
 
     if ! ulimit -n $maxFileDescriptors; then
-      echo >&2 If the number of allowed file descriptors is lower than '~2048,'
+      echo >&2 If the number of allowed file descriptors is lower than '~3072,'
       echo >&2 packages like drracket or racket-doc will not build correctly.
       echo >&2 If raising the soft limit fails '(like it just did)', you will
       echo >&2 have to raise the hard limit on your operating system.
