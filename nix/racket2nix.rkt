@@ -154,13 +154,15 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       exit 2
     fi
 
-    mkdir -p $env/etc/racket $env/share/racket
+    mkdir -p $env/etc/racket $env/share/racket $out
     # Don't use racket-cmd as config.rktd doesn't exist yet.
     racket ${make-config-rktd} $env ${racket} ${racketConfigBuildInputsStr} > $env/etc/racket/config.rktd
 
-    remove_deps="${circularBuildInputsStr}"
-    if [[ -n $remove_deps ]]; then
-      sed -i $(printf -- '-e s/"%s"//g ' $remove_deps) $name/info.rkt
+    if [ -n "${circularBuildInputsStr}" ]; then
+      echo >&2 WARNING: This derivation should not have been depended on.
+      echo >&2 Any derivation depending on this one should have depended on one of these instead:
+      echo >&2 "${circularBuildInputsStr}"
+      exit 0
     fi
 
     echo ${racket-cmd}
@@ -194,17 +196,15 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     if [ -n "$install_names" ]; then
       ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names 2>&1 |
         sed -Ee '/warning: tool "(setup|pkg|link)" registered twice/d'
-      if [ -z "${circularBuildInputsStr}" ]; then
-        setup_names=""
-        for setup_name in $install_names; do
-          case ''${setup_name#./} in
-            # racket-doc|racket-index) ;;
-            *) setup_names+=" ''${setup_name#./}" ;;
-          esac
-        done
-        ${raco} setup --no-user --no-pkg-deps --fail-fast --no-post-install --only --pkgs $setup_names |
-          sed -ne '/updating info-domain/,$p'
-      fi
+      setup_names=""
+      for setup_name in $install_names; do
+        case ''${setup_name#./} in
+          # racket-doc|racket-index) ;;
+          *) setup_names+=" ''${setup_name#./}" ;;
+        esac
+      done
+      ${raco} setup --no-user --no-pkg-deps --fail-fast --no-post-install --only --pkgs $setup_names |
+        sed -ne '/updating info-domain/,$p'
     fi
 
     mkdir -p $out/bin
