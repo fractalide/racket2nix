@@ -380,50 +380,51 @@ EOM
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
 
-(define catalog-paths #f)
-(define flat? #f)
+(module+ main
+  (define catalog-paths #f)
+  (define flat? #f)
 
-(define package-name-or-path
-  (command-line
-    #:program "racket2nix"
-    #:once-each
-    [("--test") "Ignore everything else and just run the tests."
-                 (if (> ((dynamic-require 'rackunit/text-ui 'run-tests)
-                         (dynamic-require 'nix/racket2nix-test 'suite))
-                        0)
-                     (exit 1)
-                     (exit 0))]
-    [("--flat")  "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
-                 (set! flat? #t)]
-    #:multi
-    ["--catalog" catalog-path
-               "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs. Later given catalogs have lower precedence."
-               (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
-    #:args (package-name) package-name))
+  (define package-name-or-path
+    (command-line
+      #:program "racket2nix"
+      #:once-each
+      [("--test") "Ignore everything else and just run the tests."
+                   (if (> ((dynamic-require 'rackunit/text-ui 'run-tests)
+                           (dynamic-require 'nix/racket2nix-test 'suite))
+                          0)
+                       (exit 1)
+                       (exit 0))]
+      [("--flat")  "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
+                   (set! flat? #t)]
+      #:multi
+      ["--catalog" catalog-path
+                   "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs. Later given catalogs have lower precedence."
+                   (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
+      #:args (package-name) package-name))
 
-(define pkg-details (make-hash))
+  (define pkg-details (make-hash))
 
-(cond
-  [catalog-paths
-    (for [(catalog-path catalog-paths)]
+  (cond
+    [catalog-paths
+      (for [(catalog-path catalog-paths)]
          (hash-union! pkg-details (call-with-input-file* catalog-path read)))]
-  [else
-    (eprintf "Fetching package catalogs...~n")
-    (hash-union! pkg-details (get-all-pkg-details-from-catalogs))])
+    [else
+      (eprintf "Fetching package catalogs...~n")
+      (hash-union! pkg-details (get-all-pkg-details-from-catalogs))])
 
-(define package-name (cond
-  [(string-contains? package-name-or-path "/")
-   (define name (string-replace package-name-or-path #rx".*/" ""))
-   (define path package-name-or-path)
-   (hash-set!
-     pkg-details name
-     `#hash(
-        (name . ,name)
-        (source . ,path)
-        (dependencies . ,(extract-pkg-dependencies (get-info/full path) #:build-deps? #t))
-        (checksum . "")
-      ))
-   name]
-  [else package-name-or-path]))
+  (define package-name (cond
+    [(string-contains? package-name-or-path "/")
+     (define name (string-replace package-name-or-path #rx".*/" ""))
+     (define path package-name-or-path)
+     (hash-set!
+       pkg-details name
+       `#hash(
+          (name . ,name)
+          (source . ,path)
+          (dependencies . ,(extract-pkg-dependencies (get-info/full path) #:build-deps? #t))
+          (checksum . "")
+        ))
+     name]
+    [else package-name-or-path]))
 
-(display (name->nix-function #:flat? flat? package-name pkg-details))
+  (display (name->nix-function #:flat? flat? package-name pkg-details)))
