@@ -1,4 +1,4 @@
-default: racket2nix racket2nix-flat-nix
+default: racket2nix-flat-nix racket2nix
 
 racket2nix:
 	nix-build --no-out-link
