@@ -2,6 +2,7 @@
 , stdenvNoCC ? pkgs.stdenvNoCC
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , cacert ? pkgs.cacert
+, nix-prefetch-git ? pkgs.nix-prefetch-git
 , racket-catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , racket2nix-stage0-nix ? racket2nix-stage0.racket2nix-stage0-nix
@@ -54,7 +55,7 @@ let attrs = rec {
   racket2nix-flat-nix = racket2nix-flat-stage1-nix;
   racket2nix-env = stdenvNoCC.mkDerivation {
     phases = [];
-    buildInputs = [ racket2nix ];
+    buildInputs = [ racket2nix nix-prefetch-git ];
     name = "racket2nix-env";
   };
 };
