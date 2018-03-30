@@ -1,6 +1,7 @@
 #! /usr/bin/env racket
 #lang racket
 
+(require json)
 (require pkg/lib)
 (require racket/hash)
 (require setup/getinfo)
@@ -19,6 +20,7 @@
 , stdenv ? pkgs.stdenv
 , lib ? stdenv.lib
 , fetchurl ? pkgs.fetchurl
+, fetchgit ? pkgs.fetchgit
 , racket ? pkgs.racket-minimal
 , racket-lib ? racket // { env = racket.out; }
 , unzip ? pkgs.unzip
@@ -39,7 +41,17 @@
   ''
 }:
 
-let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+let
+extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
+  inherit path src;
+  name = builtins.elemAt (builtins.match "(|.*/)([^/]*)" path) 1;
+  phases = "unpackPhase installPhase";
+  installPhase = ''
+    cp -a "${path}" $out
+  '';
+});
+
+mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
@@ -214,6 +226,15 @@ let mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 EOM
   )
 
+(define fetchgit-template #<<EOM
+  src = fetchgit {
+    url = "~a";
+    rev = "~a";
+    sha256 = "~a";
+  };
+EOM
+  )
+
 (define fetchurl-template #<<EOM
   src = fetchurl {
     url = "~a";
@@ -238,6 +259,65 @@ mkRacketDerivation rec {
 EOM
   )
 
+(define (generate-extract-path url rev)
+  (match-define (list noquery-url path) (string-split url "?path="))
+  (define git-src (generate-git-src noquery-url rev))
+  (format "  src = extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
+
+(define (github-url->git-url github-url)
+  (match-define (list user repo maybe-rev maybe-path)
+    (match github-url
+      [(regexp #rx"^github://github.com/([^/]*)/([^/]*)/([^/]*)(/([^/]*))?$"
+               (list _ user repo rev _ maybe-path))
+       (list user repo rev maybe-path)]
+      [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/]*)[.]git/?([?]path=([^#]*))?(#(.*))?$"
+               (list _ user repo _ maybe-path _ maybe-rev))
+       (list user repo maybe-rev maybe-path)]
+      [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/]*)/?([?]path=([^#]*))?(#(.*))?$"
+               (list _ user repo _ maybe-path _ maybe-rev))
+       (list user repo maybe-rev maybe-path)]
+      [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/]*)[.]git/tree/([^?]*)([?]path=(.*))?$"
+               (list _ user repo rev _ maybe-path))
+       (list user repo rev maybe-path)]
+      [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/]*)/tree/([^?]*)([?]path=(.*))?$"
+               (list _ user repo rev _ maybe-path))
+       (list user repo rev maybe-path)]))
+  (~a "git://github.com/" user "/" repo ".git"
+      (if maybe-path (~a "?path=" maybe-path) "")
+      (if maybe-rev (~a "#" maybe-rev) "")))
+
+(define (maybe-rev->rev rev fallback-rev)
+  (cond [(equal? 40 (string-length rev)) rev]
+        [else fallback-rev]))
+
+(define (github-url? url)
+  (regexp-match #rx"^(git|http|https)://github.com/" url))
+
+(define (git-url? url)
+  (match url
+    [(regexp #rx"^git://") #t]
+    [(regexp #rx"^https?://.*#") #t]
+    [(regexp #rx"^https?://.*[?]path=") #t]
+    [(regexp #rx"^https?://.*[.]git/?$") #t]
+    [_ #f]))
+
+(define (generate-git-src maybe-github-url fallback-rev)
+  (define maybe-fragment-url (if (github-url? maybe-github-url)
+                                 (github-url->git-url maybe-github-url)
+                                 maybe-github-url))
+  (match-define (list-rest url maybe-rev _) (append (string-split maybe-fragment-url "#") (list fallback-rev)))
+  (define rev (maybe-rev->rev maybe-rev fallback-rev))
+  (cond [(regexp-match #rx"[?]path=" url)
+         (generate-extract-path url rev)]
+        [else
+         (define git-json (with-output-to-string (lambda ()
+           (unless (equal? 0 (system*/exit-code (find-executable-path "nix-prefetch-git")
+                                                url rev))
+                   (exit 1)))))
+         (define git-dict (with-input-from-string git-json read-json))
+         (define git-sha256 (hash-ref git-dict 'sha256))
+         (format fetchgit-template url rev git-sha256)]))
+
 (define (derivation name url sha1 dependency-names circular-dependency-names
                     (override-reverse-circular-build-inputs #f))
 
@@ -261,9 +341,13 @@ EOM
       (for/list ((input reverse-circular-build-inputs))
         (format "\"~a\"" input))))
   (define src
-    (if (string-prefix? url "http")
-      (format fetchurl-template url sha1)
-      (format localfile-template url)))
+    (cond
+      [(or (github-url? url) (git-url? url))
+       (generate-git-src url sha1)]
+      [(or (string-prefix? url "http://") (string-prefix? url "https://"))
+       (format fetchurl-template url sha1)]
+      [else
+       (format localfile-template url)]))
   (define srcs
     (cond
       [(pair? reverse-circular-build-inputs)
