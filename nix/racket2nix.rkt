@@ -45,7 +45,7 @@ let
 extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   inherit path src;
   name = let
-    pathComponents = builtins.split "/" path;
+    pathComponents = lib.splitString "/" path;
     numComponents = builtins.length pathComponents;
   in builtins.elemAt pathComponents (numComponents - 1);
   phases = "unpackPhase installPhase";
