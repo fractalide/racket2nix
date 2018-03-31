@@ -1,13 +1,4 @@
-let
-  bootPkgs = import <nixpkgs> { };
-  remotePkgs = bootPkgs.fetchFromGitHub {
-    owner = "NixOS";
-    repo = "nixpkgs-channels";
-    rev = "a66ce38acea505c4b3bfac9806669d2ad8b34efa";
-    sha256 = "1jrz6lkhx64mvm0h4gky9b6iaazivq69smppkx33hmrm4553dx5h";
-  };
-in
-{ pkgs ? import remotePkgs { }
+{ pkgs ? import ./nixpkgs.nix { }
 , stdenvNoCC ? pkgs.stdenvNoCC
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , racket2nix ? pkgs.callPackage ./. { inherit racket; }
