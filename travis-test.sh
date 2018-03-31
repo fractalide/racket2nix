@@ -35,9 +35,7 @@ nix-shell stage0.nix --run true |& subfold racket2nix-stage0.prerequisites
 
 make |& subfold racket2nix
 
-## We need to build racket-doc-nix for (test.nix).pkgs below to be
-## resolvable
-nix-build --no-out-link test.nix -A racket-doc-nix |& subfold racket-doc-nix
+make test |& subfold test
 
 # Allow running travis-test.sh on macOS while full racket is not yet available
 if (( $(nix-instantiate --eval -E 'with (import ./test.nix {}).pkgs;
