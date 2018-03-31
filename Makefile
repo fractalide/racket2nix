@@ -12,7 +12,4 @@ pkgs-all:
 test:
 	nix-build --no-out-link test.nix 2>&1
 
-test-flat:
-	nix-build --no-out-link test.nix -A racket-doc-flat 2>&1
-
 .PHONY: racket2nix racket2nix-flat-nix test test-flat
