@@ -1,7 +1,7 @@
 { pkgs ? import ./nixpkgs.nix { }
 , stdenvNoCC ? pkgs.stdenvNoCC
+, build-racket ? pkgs.callPackage ./build-racket.nix { inherit racket; }
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
-, cacert ? pkgs.cacert
 , nix-prefetch-git ? pkgs.nix-prefetch-git
 , racket-catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
@@ -9,6 +9,7 @@
 }:
 
 let attrs = rec {
+  inherit (build-racket) buildRacket;
   racket2nix-stage1-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
     src = ./nix;
