@@ -52,4 +52,4 @@ let attrs = rec {
   };
 };
 in
-attrs.release-catalog // attrs
+attrs.merged-catalog // attrs
