@@ -262,9 +262,9 @@ mkRacketDerivation rec {
 EOM
   )
 
-(define (generate-extract-path url rev)
+(define (generate-extract-path url rev maybe-sha256)
   (match-define (list noquery-url path) (string-split url "?path="))
-  (define git-src (generate-git-src noquery-url rev))
+  (define git-src (generate-git-src noquery-url rev maybe-sha256))
   (format "  src = extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
 
 (define (github-url->git-url github-url)
@@ -304,22 +304,29 @@ EOM
     [(regexp #rx"^https?://.*[.]git/?$") #t]
     [_ #f]))
 
-(define (generate-git-src maybe-github-url fallback-rev)
+(define (discover-git-sha256 url rev)
+  (define git-json (with-output-to-string (lambda ()
+    (define npg-path (find-executable-path "nix-prefetch-git"))
+    (unless npg-path
+      (eprintf "ERROR: nix-prefetch-git not found on PATH~n")
+      (exit 1))
+    (unless (equal? 0 (system*/exit-code npg-path url rev))
+            (exit 1)))))
+  (define git-dict (with-input-from-string git-json read-json))
+  (hash-ref git-dict 'sha256))
+
+(define (generate-git-src maybe-github-url fallback-rev maybe-sha256)
   (define maybe-fragment-url (if (github-url? maybe-github-url)
                                  (github-url->git-url maybe-github-url)
                                  maybe-github-url))
   (match-define (list-rest url maybe-rev _) (append (string-split maybe-fragment-url "#") (list fallback-rev)))
   (define rev (maybe-rev->rev maybe-rev fallback-rev))
   (cond [(regexp-match #rx"[?]path=" url)
-         (generate-extract-path url rev)]
+         (generate-extract-path url rev maybe-sha256)]
         [else
-         (define git-json (with-output-to-string (lambda ()
-           (unless (equal? 0 (system*/exit-code (find-executable-path "nix-prefetch-git")
-                                                url rev))
-                   (exit 1)))))
-         (define git-dict (with-input-from-string git-json read-json))
-         (define git-sha256 (hash-ref git-dict 'sha256))
-         (format fetchgit-template url rev git-sha256)]))
+         (define sha256 (cond [maybe-sha256 maybe-sha256]
+                              [else (discover-git-sha256 url rev)]))
+         (format fetchgit-template url rev sha256)]))
 
 (define (derivation name url sha1 dependency-names circular-dependency-names
                     (override-reverse-circular-build-inputs #f))
@@ -346,7 +353,7 @@ EOM
   (define src
     (cond
       [(or (github-url? url) (git-url? url))
-       (generate-git-src url sha1)]
+       (generate-git-src url sha1 #f)]
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
        (format fetchurl-template url sha1)]
       [else
