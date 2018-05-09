@@ -38,7 +38,6 @@ make |& subfold racket2nix
 make test |& subfold test
 
 # Allow running travis-test.sh on macOS while full racket is not yet available
-if (( $(nix-instantiate --eval -E 'with ./nixpkgs.nix {};
-          if (builtins.elem builtins.currentSystem racket.meta.platforms) then 1 else 0') )); then
-  nix-build --no-out-link -E 'with ./nixpkgs.nix {}; callPackage ./. {}' |& subfold racket2nix.full-racket
+if (( $(nix-instantiate --eval -E 'if (import ./nixpkgs.nix {}).racket.meta.available then 1 else 0') )); then
+  nix-build --no-out-link -E 'with import ./nixpkgs.nix {}; callPackage ./. {}' |& subfold racket2nix.full-racket
 fi
