@@ -5,7 +5,7 @@
 , racket2nix ? pkgs.callPackage ./. { inherit racket; }
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , colordiff ? pkgs.colordiff
-, racket-catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
+, racket-catalog ? ./catalog.rktd
 }:
 
 let provided-racket = racket; in
@@ -21,7 +21,7 @@ let attrs = rec {
       racket2nix ${extraArgs} --catalog ${catalog} ${package} > $out
     '';
   };
-  buildPackage = { catalog ? racket-catalog.merged-catalog, racket ? provided-racket
+  buildPackage = { catalog ? racket-catalog, racket ? provided-racket
                  , extraArgs ? "", package }:
     let
       nix = generateNix {
