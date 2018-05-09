@@ -3,7 +3,7 @@
 , build-racket ? pkgs.callPackage ./build-racket.nix { inherit racket; }
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , nix-prefetch-git ? pkgs.nix-prefetch-git
-, racket-catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
+, racket-catalog ? ./catalog.rktd
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , racket2nix-stage0-nix ? racket2nix-stage0.racket2nix-stage0-nix
 }:

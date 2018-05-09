@@ -2,7 +2,7 @@
 , lib ? pkgs.lib
 , stdenvNoCC ? pkgs.stdenvNoCC
 , nix-prefetch-git ? pkgs.nix-prefetch-git
-, catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
+, catalog ? ./catalog.rktd
 , racket ? pkgs.callPackage ./racket-minimal.nix { }
 , racket2nix ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , package ? null
