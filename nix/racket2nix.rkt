@@ -329,7 +329,8 @@ EOM
          (format fetchgit-template url rev sha256)]))
 
 (define (derivation name url sha1 dependency-names circular-dependency-names
-                    (override-reverse-circular-build-inputs #f))
+                    (override-reverse-circular-build-inputs #f)
+                    (nix-sha256 #f))
 
   (define reverse-circular-build-inputs
     (if override-reverse-circular-build-inputs
@@ -353,7 +354,7 @@ EOM
   (define src
     (cond
       [(or (github-url? url) (git-url? url))
-       (generate-git-src url sha1 #f)]
+       (generate-git-src url sha1 nix-sha256)]
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
        (format fetchurl-template url sha1)]
       [else
@@ -498,6 +499,7 @@ EOM
   (define name (hash-ref package 'name))
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
+  (define nix-sha256 (hash-ref package 'nix-sha256 #f))
   (define dependency-names (hash-ref package 'dependency-names))
   (define circular-dependency-names (hash-ref package 'circular-dependencies))
   (define trans-dep-names (hash-ref package 'transitive-dependency-names))
@@ -512,8 +514,9 @@ EOM
                 (hash-ref force-reverse-circular-build-inputs name
                           (lambda () '())))
         (remove-duplicates (append calculated-reverse-circular forced-reverse-circular))]))
-    (derivation name url sha1 trans-dep-names circular-dependency-names
-                reverse-circular-dependency-names))
+  (derivation name url sha1 trans-dep-names circular-dependency-names
+              reverse-circular-dependency-names
+              nix-sha256))
 
 (define (name->let-deps-and-reference #:flat? (flat? #f) package-name package-dictionary)
   (define-values (package-names _ __)
