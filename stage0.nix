@@ -1,7 +1,7 @@
 { pkgs ? import ./nixpkgs.nix { }
 , stdenvNoCC ? pkgs.stdenvNoCC
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
-, racket-catalog ? pkgs.callPackage ./catalog.nix { inherit racket; }
+, racket-catalog ? ./catalog.rktd
 }:
 
 let attrs = rec {
