@@ -262,9 +262,8 @@ mkRacketDerivation rec {
 EOM
   )
 
-(define (generate-extract-path url rev maybe-sha256)
-  (match-define (list noquery-url path) (string-split url "?path="))
-  (define git-src (generate-git-src noquery-url rev maybe-sha256))
+(define (generate-extract-path url rev path sha256)
+  (define git-src (generate-git-src url rev sha256))
   (format "  src = extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
 
 (define (github-url->git-url github-url)
@@ -310,23 +309,41 @@ EOM
     (unless npg-path
       (eprintf "ERROR: nix-prefetch-git not found on PATH~n")
       (exit 1))
-    (unless (equal? 0 (system*/exit-code npg-path url rev))
+    (unless (equal? 0 (system*/exit-code npg-path "--no-deepClone" url rev))
             (exit 1)))))
   (define git-dict (with-input-from-string git-json read-json))
   (hash-ref git-dict 'sha256))
 
-(define (generate-git-src maybe-github-url fallback-rev maybe-sha256)
+(define (url->url-path url)
+  (match-define (list noquery-url path) (string-split url "?path="))
+  (values noquery-url path))
+
+(define (url-fallback-rev->url-rev-path maybe-github-url fallback-rev)
   (define maybe-fragment-url (if (github-url? maybe-github-url)
                                  (github-url->git-url maybe-github-url)
                                  maybe-github-url))
-  (match-define (list-rest url maybe-rev _) (append (string-split maybe-fragment-url "#") (list fallback-rev)))
+  (match-define (list-rest maybe-path-url maybe-rev _) (append (string-split maybe-fragment-url "#") (list fallback-rev)))
   (define rev (maybe-rev->rev maybe-rev fallback-rev))
-  (cond [(regexp-match #rx"[?]path=" url)
-         (generate-extract-path url rev maybe-sha256)]
+  (define-values (url path)
+    (match maybe-path-url
+      [(regexp #rx"[?]path=") (url->url-path maybe-path-url)]
+      [_ (values maybe-path-url #f)]))
+  (values url rev path))
+
+(define (generate-maybe-path-git-src maybe-github-url fallback-rev sha256)
+  (unless sha256
+    (raise-argument-error 'generate-maybe-path-git-src
+                          "sha256 required to be non-false"
+                          2 maybe-github-url fallback-rev sha256))
+
+  (define-values (url rev path) (url-fallback-rev->url-rev-path maybe-github-url fallback-rev))
+  (cond [path
+         (generate-extract-path url rev path sha256)]
         [else
-         (define sha256 (cond [maybe-sha256 maybe-sha256]
-                              [else (discover-git-sha256 url rev)]))
-         (format fetchgit-template url rev sha256)]))
+         (generate-git-src url rev sha256)]))
+
+(define (generate-git-src url rev sha256)
+  (format fetchgit-template url rev sha256))
 
 (define (derivation name url sha1 dependency-names circular-dependency-names
                     (override-reverse-circular-build-inputs #f)
@@ -354,7 +371,7 @@ EOM
   (define src
     (cond
       [(or (github-url? url) (git-url? url))
-       (generate-git-src url sha1 nix-sha256)]
+       (generate-maybe-path-git-src url sha1 nix-sha256)]
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
        (format fetchurl-template url sha1)]
       [else
@@ -372,16 +389,20 @@ EOM
 
 (define (header) header-template)
 
-(define (memo-lookup-package package-dictionary package-name)
-  (define package (hash-ref package-dictionary package-name))
-  (cond [(hash-ref package 'dependency-names (lambda () #f)) package]
-        [else
-          (define new-package (hash-copy package))
-          (hash-set! new-package 'dependency-names
-            (remove* never-dependency-names
-              (map dependency-name (hash-ref package 'dependencies (lambda () '())))))
-          (hash-set! package-dictionary package-name new-package)
-          new-package]))
+(define (memo-lookup-package catalog package-name)
+  (define package (hash-ref catalog package-name))
+  (cond [(immutable? package)
+         (define mutable-package (hash-copy package))
+         (hash-set! catalog package-name mutable-package)
+         mutable-package]
+        [else package]))
+
+(define (memo-lookup-preprocess-package package-dictionary package-name)
+  (define package (memo-lookup-package package-dictionary package-name))
+  (hash-ref! package 'dependency-names (lambda ()
+    (remove* never-dependency-names
+             (map dependency-name (hash-ref package 'dependencies '())))))
+  package)
 
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
@@ -405,7 +426,7 @@ EOM
                           "not supposed to be a circular dependency"
                           0 package-name breadcrumbs))
 
-  (define package (memo-lookup-package package-dictionary package-name))
+  (define package (memo-lookup-preprocess-package package-dictionary package-name))
   (define transitive-dependency-names (hash-ref package 'transitive-dependency-names #f))
 
   (cond [transitive-dependency-names (values transitive-dependency-names
@@ -492,7 +513,7 @@ EOM
           cycles))
 
 (define (name->derivation #:flat? (flat? #f) package-name package-dictionary)
-  (define package (memo-lookup-package package-dictionary package-name))
+  (define package (memo-lookup-preprocess-package package-dictionary package-name))
   (package->derivation #:flat? flat? package package-dictionary))
 
 (define (package->derivation #:flat? (flat? #f) package package-dictionary)
@@ -518,49 +539,103 @@ EOM
               reverse-circular-dependency-names
               nix-sha256))
 
+(define (catalog-add-nix-sha256! catalog (package-names #f))
+  (define names (if package-names package-names (hash-keys catalog)))
+  (define url-sha1-memo (make-hash))
+  (for ([name names])
+    (define package (memo-lookup-package catalog name))
+    (define url (hash-ref package 'source))
+    (define sha1 (hash-ref package 'checksum))
+    (define checksum-error? (hash-ref package 'checksum-error #f))
+    (define nix-sha256 (hash-ref package 'nix-sha256 #f))
+    (when (and (not nix-sha256)
+               (not checksum-error?)
+               (or (github-url? url) (git-url? url)))
+      (match-define-values (git-url git-sha1 _) (url-fallback-rev->url-rev-path url sha1))
+      (hash-set! package 'nix-sha256
+        (hash-ref! url-sha1-memo
+          (cons git-url git-sha1)
+          (lambda () (discover-git-sha256 git-url git-sha1)))))))
+
 (define (name->let-deps-and-reference #:flat? (flat? #f) package-name package-dictionary)
   (define-values (package-names _ __)
     (name->transitive-dependency-names package-name package-dictionary))
+  (catalog-add-nix-sha256! package-dictionary package-names)
   (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
 
+(define (maybe-name->catalog maybe-name pkg-details process-catalog?)
+  (define package-names (cond
+    [maybe-name
+     (match-let-values
+       ([(transdeps _ _)
+         (name->transitive-dependency-names maybe-name (hash-copy pkg-details))])
+       transdeps)]
+    [else
+     (hash-keys pkg-details)]))
+  (when process-catalog?
+    (catalog-add-nix-sha256! pkg-details package-names))
+
+  (for/hash ((name package-names))
+    (values name (hash-ref pkg-details name))))
+
 (module+ main
   (define catalog-paths #f)
   (define flat? #f)
+  (define export-catalog? #f)
+  (define process-catalog? #t)
 
   (define package-name-or-path
     (command-line
       #:program "racket2nix"
       #:once-each
-      [("--test") "Ignore everything else and just run the tests."
-                   (if (> ((dynamic-require 'rackunit/text-ui 'run-tests)
-                           (dynamic-require 'nix/racket2nix-test 'suite))
-                          0)
-                       (exit 1)
-                       (exit 0))]
-      [("--flat")  "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
-                   (set! flat? #t)]
+      [("--test")
+       "Ignore everything else and just run the tests."
+       (if (> ((dynamic-require 'rackunit/text-ui 'run-tests)
+               (dynamic-require 'nix/racket2nix-test 'suite))
+              0)
+           (exit 1)
+           (exit 0))]
+      [("--flat")
+       "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
+       (set! flat? #t)]
+      [("--export-catalog")
+       "Instead of outputting a nix expression, output a pre-processed catalog, with the nix-sha256 looked up and\
+ added. If a package name is given, only the subset of the catalog that includes that package and its dependencies will\
+ be output."
+       (set! export-catalog? #t)]
+      [("--no-process-catalog")
+       "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
+       (set! process-catalog? #f)]
       #:multi
-      ["--catalog" catalog-path
-                   "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs. Later given catalogs have lower precedence."
-                   (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
-      #:args (package-name) package-name))
+      ["--catalog"
+       catalog-path
+       "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs.\
+ Later given catalogs have lower precedence."
+       (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
+      #:args package-name
+      (if (= 1 (length package-name)) (car package-name) #f)))
 
-  (define pkg-details (make-hash))
+  (when (and (not export-catalog?) (not package-name-or-path))
+    (raise-user-error "racket2nix: expects 1 <package-name> on the command line, except with --export-catalog"))
 
-  (cond
+  (define pkg-details (cond
     [catalog-paths
-      (for [(catalog-path catalog-paths)]
-         (hash-union! pkg-details (call-with-input-file* catalog-path read)))]
+      (hash-copy (for/hash
+        ([kv (append* (for/list
+          ([catalog-path catalog-paths])
+          (hash->list (call-with-input-file* catalog-path read))))])
+        (match-define (cons k v) kv)
+        (values k v)))]
     [else
       (eprintf "Fetching package catalogs...~n")
-      (hash-union! pkg-details (get-all-pkg-details-from-catalogs))])
+      (get-all-pkg-details-from-catalogs)]))
 
   (define package-name (cond
-    [(string-contains? package-name-or-path "/")
+    [(and package-name-or-path (string-contains? package-name-or-path "/"))
      (define name (string-replace package-name-or-path #rx".*/" ""))
      (define path package-name-or-path)
      (hash-set!
@@ -574,4 +649,8 @@ EOM
      name]
     [else package-name-or-path]))
 
-  (display (name->nix-function #:flat? flat? package-name pkg-details)))
+  (cond
+    [export-catalog?
+     (write (maybe-name->catalog package-name pkg-details process-catalog?))]
+    [else
+     (display (name->nix-function #:flat? flat? package-name pkg-details))]))
