@@ -537,6 +537,7 @@ EOM
 
 (define (catalog-add-nix-sha256! catalog (package-names #f))
   (define names (if package-names package-names (hash-keys catalog)))
+  (define url-sha1-memo (make-hash))
   (for ([name names])
     (define package (memo-lookup-package catalog name))
     (define url (hash-ref package 'source))
@@ -545,7 +546,10 @@ EOM
     (when (and (not nix-sha256)
                (or (github-url? url) (git-url? url)))
       (match-define-values (git-url git-sha1 _) (url-fallback-rev->url-rev-path url sha1))
-      (hash-set! package 'nix-sha256 (discover-git-sha256 git-url git-sha1)))))
+      (hash-set! package 'nix-sha256
+        (hash-ref! url-sha1-memo
+          (cons git-url git-sha1)
+          (lambda () (discover-git-sha256 git-url git-sha1)))))))
 
 (define (name->let-deps-and-reference #:flat? (flat? #f) package-name package-dictionary)
   (define-values (package-names _ __)
