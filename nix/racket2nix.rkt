@@ -527,27 +527,54 @@ EOM
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
 
+(define (maybe-name->catalog maybe-name pkg-details)
+  (define package-names (cond
+    [maybe-name
+     (match-let-values
+       ([(transdeps _ _)
+         (name->transitive-dependency-names maybe-name (hash-copy pkg-details))])
+       transdeps)]
+    [else
+     (hash-keys pkg-details)]))
+
+  (for/hash ((name package-names))
+    (values name (hash-ref pkg-details name))))
+
 (module+ main
   (define catalog-paths #f)
   (define flat? #f)
+  (define export-catalog? #f)
 
   (define package-name-or-path
     (command-line
       #:program "racket2nix"
       #:once-each
-      [("--test") "Ignore everything else and just run the tests."
-                   (if (> ((dynamic-require 'rackunit/text-ui 'run-tests)
-                           (dynamic-require 'nix/racket2nix-test 'suite))
-                          0)
-                       (exit 1)
-                       (exit 0))]
-      [("--flat")  "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
-                   (set! flat? #t)]
+      [("--test")
+       "Ignore everything else and just run the tests."
+       (if (> ((dynamic-require 'rackunit/text-ui 'run-tests)
+               (dynamic-require 'nix/racket2nix-test 'suite))
+              0)
+           (exit 1)
+           (exit 0))]
+      [("--flat")
+       "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
+       (set! flat? #t)]
+      [("--export-catalog")
+       "Instead of outputting a nix expression, output a pre-processed catalog, with the nix-sha256 looked up and\
+ added. If a package name is given, only the subset of the catalog that includes that package and its dependencies will\
+ be output."
+       (set! export-catalog? #t)]
       #:multi
-      ["--catalog" catalog-path
-                   "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs. Later given catalogs have lower precedence."
-                   (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
-      #:args (package-name) package-name))
+      ["--catalog"
+       catalog-path
+       "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs.\
+ Later given catalogs have lower precedence."
+       (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
+      #:args package-name
+      (if (= 1 (length package-name)) (car package-name) #f)))
+
+  (when (and (not export-catalog?) (not package-name-or-path))
+    (raise-user-error "racket2nix: expects 1 <package-name> on the command line, except with --export-catalog"))
 
   (define pkg-details (make-hash))
 
@@ -560,7 +587,7 @@ EOM
       (hash-union! pkg-details (get-all-pkg-details-from-catalogs))])
 
   (define package-name (cond
-    [(string-contains? package-name-or-path "/")
+    [(and package-name-or-path (string-contains? package-name-or-path "/"))
      (define name (string-replace package-name-or-path #rx".*/" ""))
      (define path package-name-or-path)
      (hash-set!
@@ -574,4 +601,8 @@ EOM
      name]
     [else package-name-or-path]))
 
-  (display (name->nix-function #:flat? flat? package-name pkg-details)))
+  (cond
+    [export-catalog?
+     (maybe-name->catalog package-name pkg-details)]
+    [else
+     (display (name->nix-function #:flat? flat? package-name pkg-details))]))
