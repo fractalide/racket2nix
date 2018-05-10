@@ -391,7 +391,7 @@ EOM
 
 (define (memo-lookup-package package-dictionary package-name)
   (define package (hash-ref package-dictionary package-name))
-  (cond [(hash-ref package 'dependency-names (lambda () #f)) package]
+  (cond [(not (immutable? package)) package]
         [else
           (define new-package (hash-copy package))
           (hash-set! new-package 'dependency-names
