@@ -542,8 +542,10 @@ EOM
     (define package (memo-lookup-package catalog name))
     (define url (hash-ref package 'source))
     (define sha1 (hash-ref package 'checksum))
+    (define checksum-error? (hash-ref package 'checksum-error #f))
     (define nix-sha256 (hash-ref package 'nix-sha256 #f))
     (when (and (not nix-sha256)
+               (not checksum-error?)
                (or (github-url? url) (git-url? url)))
       (match-define-values (git-url git-sha1 _) (url-fallback-rev->url-rev-path url sha1))
       (hash-set! package 'nix-sha256
