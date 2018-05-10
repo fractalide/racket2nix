@@ -309,7 +309,7 @@ EOM
     (unless npg-path
       (eprintf "ERROR: nix-prefetch-git not found on PATH~n")
       (exit 1))
-    (unless (equal? 0 (system*/exit-code npg-path url rev))
+    (unless (equal? 0 (system*/exit-code npg-path "--no-deepClone" url rev))
             (exit 1)))))
   (define git-dict (with-input-from-string git-json read-json))
   (hash-ref git-dict 'sha256))
