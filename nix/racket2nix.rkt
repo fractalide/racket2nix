@@ -389,16 +389,20 @@ EOM
 
 (define (header) header-template)
 
-(define (memo-lookup-package package-dictionary package-name)
-  (define package (hash-ref package-dictionary package-name))
-  (cond [(not (immutable? package)) package]
-        [else
-          (define new-package (hash-copy package))
-          (hash-set! new-package 'dependency-names
-            (remove* never-dependency-names
-              (map dependency-name (hash-ref package 'dependencies (lambda () '())))))
-          (hash-set! package-dictionary package-name new-package)
-          new-package]))
+(define (memo-lookup-package catalog package-name)
+  (define package (hash-ref catalog package-name))
+  (cond [(immutable? package)
+         (define mutable-package (hash-copy package))
+         (hash-set! catalog package-name mutable-package)
+         mutable-package]
+        [else package]))
+
+(define (memo-lookup-preprocess-package package-dictionary package-name)
+  (define package (memo-lookup-package package-dictionary package-name))
+  (hash-ref! package 'dependency-names (lambda ()
+    (remove* never-dependency-names
+             (map dependency-name (hash-ref package 'dependencies '())))))
+  package)
 
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
@@ -422,7 +426,7 @@ EOM
                           "not supposed to be a circular dependency"
                           0 package-name breadcrumbs))
 
-  (define package (memo-lookup-package package-dictionary package-name))
+  (define package (memo-lookup-preprocess-package package-dictionary package-name))
   (define transitive-dependency-names (hash-ref package 'transitive-dependency-names #f))
 
   (cond [transitive-dependency-names (values transitive-dependency-names
@@ -509,7 +513,7 @@ EOM
           cycles))
 
 (define (name->derivation #:flat? (flat? #f) package-name package-dictionary)
-  (define package (memo-lookup-package package-dictionary package-name))
+  (define package (memo-lookup-preprocess-package package-dictionary package-name))
   (package->derivation #:flat? flat? package package-dictionary))
 
 (define (package->derivation #:flat? (flat? #f) package package-dictionary)
