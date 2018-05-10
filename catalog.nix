@@ -34,14 +34,13 @@ let attrs = rec {
     outputHashAlgo = "sha256";
     outputHash = "1snqa4wd5j14zmd4slqhcf6bmvqfd91mivil5294gjyxl1rirg7r";
   };
-  merged-catalog = stdenvNoCC.mkDerivation {
-    name = "merged-catalog.rktd";
+  merged-catalog = pkgs.runCommand "merged-catalog.rktd" {
+    inherit racket;
     buildInputs = [ racket ];
-    phases = "installPhase";
-    installPhase = ''
-      ${racket}/bin/racket -N merge-catalogs ${./merge-hashes.rkt} ${live-catalog} ${release-catalog} > $out
-    '';
-  };
+  } ''
+    $racket/bin/racket -N export-catalog ${./nix/racket2nix.rkt} --export-catalog \
+      --catalog ${release-catalog} --catalog ${live-catalog} > $out
+  '';
   pretty-merged-catalog = stdenvNoCC.mkDerivation {
     name = "pretty-merged-catalog.rktd";
     buildInputs = [ racket ];

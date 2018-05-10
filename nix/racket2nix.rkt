@@ -576,15 +576,17 @@ EOM
   (when (and (not export-catalog?) (not package-name-or-path))
     (raise-user-error "racket2nix: expects 1 <package-name> on the command line, except with --export-catalog"))
 
-  (define pkg-details (make-hash))
-
-  (cond
+  (define pkg-details (cond
     [catalog-paths
-      (for [(catalog-path catalog-paths)]
-         (hash-union! pkg-details (call-with-input-file* catalog-path read)))]
+      (hash-copy (for/hash
+        ([kv (append* (for/list
+          ([catalog-path catalog-paths])
+          (hash->list (call-with-input-file* catalog-path read))))])
+        (match-define (cons k v) kv)
+        (values k v)))]
     [else
       (eprintf "Fetching package catalogs...~n")
-      (hash-union! pkg-details (get-all-pkg-details-from-catalogs))])
+      (get-all-pkg-details-from-catalogs)]))
 
   (define package-name (cond
     [(and package-name-or-path (string-contains? package-name-or-path "/"))
@@ -603,6 +605,6 @@ EOM
 
   (cond
     [export-catalog?
-     (maybe-name->catalog package-name pkg-details)]
+     (write (maybe-name->catalog package-name pkg-details))]
     [else
      (display (name->nix-function #:flat? flat? package-name pkg-details))]))
