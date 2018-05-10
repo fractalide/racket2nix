@@ -567,7 +567,7 @@ EOM
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
 
-(define (maybe-name->catalog maybe-name pkg-details)
+(define (maybe-name->catalog maybe-name pkg-details process-catalog?)
   (define package-names (cond
     [maybe-name
      (match-let-values
@@ -576,7 +576,8 @@ EOM
        transdeps)]
     [else
      (hash-keys pkg-details)]))
-  (catalog-add-nix-sha256! pkg-details package-names)
+  (when process-catalog?
+    (catalog-add-nix-sha256! pkg-details package-names))
 
   (for/hash ((name package-names))
     (values name (hash-ref pkg-details name))))
@@ -585,6 +586,7 @@ EOM
   (define catalog-paths #f)
   (define flat? #f)
   (define export-catalog? #f)
+  (define process-catalog? #t)
 
   (define package-name-or-path
     (command-line
@@ -605,6 +607,9 @@ EOM
  added. If a package name is given, only the subset of the catalog that includes that package and its dependencies will\
  be output."
        (set! export-catalog? #t)]
+      [("--no-process-catalog")
+       "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
+       (set! process-catalog? #f)]
       #:multi
       ["--catalog"
        catalog-path
@@ -646,6 +651,6 @@ EOM
 
   (cond
     [export-catalog?
-     (write (maybe-name->catalog package-name pkg-details))]
+     (write (maybe-name->catalog package-name pkg-details process-catalog?))]
     [else
      (display (name->nix-function #:flat? flat? package-name pkg-details))]))

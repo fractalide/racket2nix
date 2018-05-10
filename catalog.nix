@@ -39,7 +39,7 @@ let attrs = rec {
     buildInputs = [ racket ];
   } ''
     $racket/bin/racket -N export-catalog ${./nix/racket2nix.rkt} --export-catalog \
-      --catalog ${release-catalog} --catalog ${live-catalog} > $out
+      --no-process-catalog --catalog ${release-catalog} --catalog ${live-catalog} > $out
   '';
   pretty-merged-catalog = stdenvNoCC.mkDerivation {
     name = "pretty-merged-catalog.rktd";
