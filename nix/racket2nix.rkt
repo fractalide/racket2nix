@@ -262,9 +262,8 @@ mkRacketDerivation rec {
 EOM
   )
 
-(define (generate-extract-path url rev maybe-sha256)
-  (match-define (list noquery-url path) (string-split url "?path="))
-  (define git-src (generate-git-src noquery-url rev maybe-sha256))
+(define (generate-extract-path url rev path sha256)
+  (define git-src (generate-git-src url rev sha256))
   (format "  src = extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
 
 (define (github-url->git-url github-url)
@@ -315,18 +314,36 @@ EOM
   (define git-dict (with-input-from-string git-json read-json))
   (hash-ref git-dict 'sha256))
 
-(define (generate-git-src maybe-github-url fallback-rev maybe-sha256)
+(define (url->url-path url)
+  (match-define (list noquery-url path) (string-split url "?path="))
+  (values noquery-url path))
+
+(define (url-fallback-rev->url-rev-path maybe-github-url fallback-rev)
   (define maybe-fragment-url (if (github-url? maybe-github-url)
                                  (github-url->git-url maybe-github-url)
                                  maybe-github-url))
-  (match-define (list-rest url maybe-rev _) (append (string-split maybe-fragment-url "#") (list fallback-rev)))
+  (match-define (list-rest maybe-path-url maybe-rev _) (append (string-split maybe-fragment-url "#") (list fallback-rev)))
   (define rev (maybe-rev->rev maybe-rev fallback-rev))
-  (cond [(regexp-match #rx"[?]path=" url)
-         (generate-extract-path url rev maybe-sha256)]
+  (define-values (url path)
+    (match maybe-path-url
+      [(regexp #rx"[?]path=") (url->url-path maybe-path-url)]
+      [_ (values maybe-path-url #f)]))
+  (values url rev path))
+
+(define (generate-maybe-path-git-src maybe-github-url fallback-rev sha256)
+  (unless sha256
+    (raise-argument-error 'generate-maybe-path-git-src
+                          "sha256 required to be non-false"
+                          2 maybe-github-url fallback-rev sha256))
+
+  (define-values (url rev path) (url-fallback-rev->url-rev-path maybe-github-url fallback-rev))
+  (cond [path
+         (generate-extract-path url rev path sha256)]
         [else
-         (define sha256 (cond [maybe-sha256 maybe-sha256]
-                              [else (discover-git-sha256 url rev)]))
-         (format fetchgit-template url rev sha256)]))
+         (generate-git-src url rev sha256)]))
+
+(define (generate-git-src url rev sha256)
+  (format fetchgit-template url rev sha256))
 
 (define (derivation name url sha1 dependency-names circular-dependency-names
                     (override-reverse-circular-build-inputs #f)
@@ -354,7 +371,7 @@ EOM
   (define src
     (cond
       [(or (github-url? url) (git-url? url))
-       (generate-git-src url sha1 nix-sha256)]
+       (generate-maybe-path-git-src url sha1 nix-sha256)]
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
        (format fetchurl-template url sha1)]
       [else
@@ -518,9 +535,22 @@ EOM
               reverse-circular-dependency-names
               nix-sha256))
 
+(define (catalog-add-nix-sha256! catalog (package-names #f))
+  (define names (if package-names package-names (hash-keys catalog)))
+  (for ([name names])
+    (define package (memo-lookup-package catalog name))
+    (define url (hash-ref package 'source))
+    (define sha1 (hash-ref package 'checksum))
+    (define nix-sha256 (hash-ref package 'nix-sha256 #f))
+    (when (and (not nix-sha256)
+               (or (github-url? url) (git-url? url)))
+      (match-define-values (git-url git-sha1 _) (url-fallback-rev->url-rev-path url sha1))
+      (hash-set! package 'nix-sha256 (discover-git-sha256 git-url git-sha1)))))
+
 (define (name->let-deps-and-reference #:flat? (flat? #f) package-name package-dictionary)
   (define-values (package-names _ __)
     (name->transitive-dependency-names package-name package-dictionary))
+  (catalog-add-nix-sha256! package-dictionary package-names)
   (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
   (string-append package-definitions (format "_~a~n" package-name)))
 
@@ -536,6 +566,7 @@ EOM
        transdeps)]
     [else
      (hash-keys pkg-details)]))
+  (catalog-add-nix-sha256! pkg-details package-names)
 
   (for/hash ((name package-names))
     (values name (hash-ref pkg-details name))))
