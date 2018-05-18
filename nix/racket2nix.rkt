@@ -231,6 +231,7 @@ EOM
 
 (define fetchgit-template #<<EOM
   src = fetchgit {
+    name = "~a";
     url = "~a";
     rev = "~a";
     sha256 = "~a";
@@ -262,8 +263,8 @@ mkRacketDerivation rec {
 EOM
   )
 
-(define (generate-extract-path url rev path sha256)
-  (define git-src (generate-git-src url rev sha256))
+(define (generate-extract-path name url rev path sha256)
+  (define git-src (generate-git-src name url rev sha256))
   (format "  src = extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
 
 (define (github-url->git-url github-url)
@@ -330,20 +331,20 @@ EOM
       [_ (values maybe-path-url #f)]))
   (values url rev path))
 
-(define (generate-maybe-path-git-src maybe-github-url fallback-rev sha256)
+(define (generate-maybe-path-git-src name maybe-github-url fallback-rev sha256)
   (unless sha256
     (raise-argument-error 'generate-maybe-path-git-src
                           "sha256 required to be non-false"
-                          2 maybe-github-url fallback-rev sha256))
+                          3 name maybe-github-url fallback-rev sha256))
 
   (define-values (url rev path) (url-fallback-rev->url-rev-path maybe-github-url fallback-rev))
   (cond [path
-         (generate-extract-path url rev path sha256)]
+         (generate-extract-path name url rev path sha256)]
         [else
-         (generate-git-src url rev sha256)]))
+         (generate-git-src name url rev sha256)]))
 
-(define (generate-git-src url rev sha256)
-  (format fetchgit-template url rev sha256))
+(define (generate-git-src name url rev sha256)
+  (format fetchgit-template name url rev sha256))
 
 (define (derivation name url sha1 dependency-names circular-dependency-names
                     (override-reverse-circular-build-inputs #f)
@@ -371,7 +372,7 @@ EOM
   (define src
     (cond
       [(or (github-url? url) (git-url? url))
-       (generate-maybe-path-git-src url sha1 nix-sha256)]
+       (generate-maybe-path-git-src name url sha1 nix-sha256)]
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
        (format fetchurl-template url sha1)]
       [else
