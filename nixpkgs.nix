@@ -1,5 +1,5 @@
 let
-  bootPkgs = import <nixpkgs> { };
+  bootPkgs = import <nixpkgs> {};
   pinnedPkgs = bootPkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs-channels";
