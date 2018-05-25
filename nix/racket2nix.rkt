@@ -54,8 +54,15 @@ extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   '';
 });
 
+stripHash = path:
+  let
+    storeStripped = lib.removePrefix "/" (lib.removePrefix builtins.storeDir path);
+    finalLength = (builtins.stringLength storeStripped) - 33;
+  in
+    builtins.substring 33 finalLength storeStripped;
+
 fixedRacketSource = { pathname, sha256 }: stdenv.mkDerivation {
-  name = baseNameOf pathname;
+  name = baseNameOf (stripHash pathname);
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
   outputHash = sha256;

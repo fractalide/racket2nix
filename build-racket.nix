@@ -9,32 +9,16 @@
 }:
 
 let
-  isStoreSubPath = path:
-    let storePrefix = builtins.substring 0 (builtins.stringLength builtins.storeDir);
-    in (storePrefix path) == builtins.storeDir;
-  stripHash = path:
-    let
-      storeStripped = lib.removePrefix "/" (lib.removePrefix builtins.storeDir path);
-      finalLength = (builtins.stringLength storeStripped) - 33;
-    in
-      builtins.substring 33 finalLength storeStripped;
   attrs = rec {
     buildRacketNix = { flat, package}:
     stdenvNoCC.mkDerivation {
       name = "racket-package.nix";
-      outputs = [ "out" "src" ];
+      inherit package;
       buildInputs = [ racket2nix nix ];
       phases = "installPhase";
       flatArg = lib.optionalString flat "--flat";
       installPhase = ''
-        mkdir $src
-        if (( ${if isStoreSubPath package then "1" else "0"} )); then
-          packageName=$src/${baseNameOf (stripHash package)}
-          cp -a ${package} $packageName
-        else
-          packageName=${package}
-        fi
-        racket2nix $flatArg --catalog ${catalog} $packageName > $out
+        racket2nix $flatArg --catalog ${catalog} $package > $out
       '';
     };
     buildRacket = lib.makeOverridable ({ flat ? false, package }:

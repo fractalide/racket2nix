@@ -41,17 +41,4 @@ function subfold() {
   '
 }
 
-make pkgs-all |& subfold catalog
-
-nix-shell stage0.nix --run true |& subfold racket2nix-stage0.prerequisites
-
-make |& subfold racket2nix
-
-make test |& subfold test
-
-# Allow running travis-test.sh on macOS while full racket is not yet available
-if (( $(nix-instantiate --eval -E 'if (import ./nixpkgs.nix {}).racket.meta.available then 1 else 0') )); then
-  nix-build --no-out-link -E 'with import ./nixpkgs.nix {}; callPackage ./. {}' |& subfold racket2nix.full-racket
-fi
-
-./support/utils/nix-build-travis-fold.sh build-racket.nix --arg package ./nix
+nix-build --option restrict-eval true -I . -I $(readlink ~/.nix-defexpr/channels/nixpkgs) --show-trace "$@" |& subfold ${!#}
