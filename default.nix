@@ -38,12 +38,12 @@ let attrs = rec {
       racket -N racket2nix ./racket2nix.rkt --flat --catalog ${racket-catalog} ../nix > $out
     '';
   };
-  racket2nix-flat-stage0 = (pkgs.callPackage racket2nix-flat-stage0-nix { inherit racket; }).racketDerivation.override {
+  racket2nix-flat-stage0 = ((pkgs.callPackage racket2nix-flat-stage0-nix { inherit racket; }).racketDerivation.override {
     src = ./nix;
     postInstall = ''
       $out/bin/racket2nix --test
     '';
-  };
+  }).overrideAttrs (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [ nix ]; });
   racket2nix-flat-stage1-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
     src = ./nix;
