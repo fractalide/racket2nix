@@ -2,6 +2,7 @@
 , stdenvNoCC ? pkgs.stdenvNoCC
 , build-racket ? pkgs.callPackage ./build-racket.nix { inherit racket; }
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
+, nix ? pkgs.nix
 , nix-prefetch-git ? pkgs.nix-prefetch-git
 , racket-catalog ? ./catalog.rktd
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
@@ -13,25 +14,25 @@ let attrs = rec {
   racket2nix-stage1-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
     src = ./nix;
-    buildInputs = [ racket2nix-stage0 ];
+    buildInputs = [ nix racket2nix-stage0 ];
     phases = "unpackPhase installPhase";
     installPhase = ''
       racket2nix --catalog ${racket-catalog} ../nix > $out
       diff ${racket2nix-stage0-nix} $out
     '';
   };
-  racket2nix-stage1 = (pkgs.callPackage racket2nix-stage1-nix { inherit racket; }).racketDerivation.override {
+  racket2nix-stage1 = ((pkgs.callPackage racket2nix-stage1-nix { inherit racket; }).racketDerivation.override {
     src = ./nix;
     postInstall = ''
       $out/bin/racket2nix --test
     '';
-  };
+  }).overrideAttrs (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [ nix ]; });
   racket2nix = racket2nix-stage1;
 
   racket2nix-flat-stage0-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
     src = ./nix;
-    buildInputs = [ racket ];
+    buildInputs = [ nix racket ];
     phases = "unpackPhase installPhase";
     installPhase = ''
       racket -N racket2nix ./racket2nix.rkt --flat --catalog ${racket-catalog} ../nix > $out
@@ -46,7 +47,7 @@ let attrs = rec {
   racket2nix-flat-stage1-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
     src = ./nix;
-    buildInputs = [ racket2nix-flat-stage0 ];
+    buildInputs = [ nix racket2nix-flat-stage0 ];
     phases = "unpackPhase installPhase";
     installPhase = ''
       racket2nix --flat --catalog ${racket-catalog} ../nix > $out
@@ -56,7 +57,7 @@ let attrs = rec {
   racket2nix-flat-nix = racket2nix-flat-stage1-nix;
   racket2nix-env = stdenvNoCC.mkDerivation {
     phases = [];
-    buildInputs = [ racket2nix nix-prefetch-git ];
+    buildInputs = [ nix nix-prefetch-git racket2nix ];
     name = "racket2nix-env";
   };
 };
