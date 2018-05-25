@@ -54,6 +54,18 @@ extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   '';
 });
 
+fixedRacketSource = { pathname, sha256 }: stdenv.mkDerivation {
+  name = baseNameOf pathname;
+  outputHashMode = "recursive";
+  outputHashAlgo = "sha256";
+  outputHash = sha256;
+
+  args = [ (builtins.toFile "noop-builder.sh" ''
+    echo ERROR: This source should have been put here as part of running racket2nix.
+    echo It has been garbage-collected through a confluence of unlikely events.
+  '') ];
+};
+
 mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
@@ -247,8 +259,16 @@ EOM
 EOM
   )
 
-(define localfile-template #<<EOM
+(define local-file-template #<<EOM
   src = ~a;
+EOM
+  )
+
+(define noop-fixed-output-template #<<EOM
+  src = fixedRacketSource {
+    pathname = "~a";
+    sha256 = "~a";
+  };
 EOM
   )
 
@@ -315,6 +335,39 @@ EOM
   (define git-dict (with-input-from-string git-json read-json))
   (hash-ref git-dict 'sha256))
 
+(define (discover-path-sha256 pathname)
+  (string-trim (with-output-to-string (lambda ()
+    (define nh-path (find-executable-path "nix-hash"))
+    (unless nh-path
+      (eprintf "ERROR: nix-hash not found on PATH~n")
+      (exit 1))
+    (unless (equal? 0 (system*/exit-code nh-path "--type" "sha256" pathname))
+            (exit 1))))))
+
+(define discover-store-path
+  (let ([store-path #f])
+    (lambda ()
+      (cond
+        [store-path store-path]
+        [else
+         (define store-path-string (with-output-to-string (lambda ()
+           (define ni-path (find-executable-path "nix-instantiate"))
+           (unless ni-path
+             (eprintf "ERROR: nix-instantiate not found on PATH~n")
+             (exit 1))
+           (unless (equal? 0 (system*/exit-code ni-path "--eval" "-E" "builtins.storeDir"))
+                   (exit 1)))))
+         (set! store-path (with-input-from-string store-path-string read-json))
+         store-path]))))
+
+(define (generate-local-file-src pathname)
+  (cond [(string-prefix? pathname (discover-store-path))
+         (generate-noop-fixed-output-src pathname)]
+        [else (format local-file-template pathname)]))
+
+(define (generate-noop-fixed-output-src pathname)
+  (format noop-fixed-output-template pathname (discover-path-sha256 pathname)))
+
 (define (url->url-path url)
   (match-define (list noquery-url path) (string-split url "?path="))
   (values noquery-url path))
@@ -376,7 +429,7 @@ EOM
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
        (format fetchurl-template url sha1)]
       [else
-       (format localfile-template url)]))
+       (generate-local-file-src url)]))
   (define srcs
     (cond
       [(pair? reverse-circular-build-inputs)

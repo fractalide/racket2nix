@@ -1,7 +1,7 @@
 { pkgs ? import ./nixpkgs.nix { }
 , lib ? pkgs.lib
 , stdenvNoCC ? pkgs.stdenvNoCC
-, nix-prefetch-git ? pkgs.nix-prefetch-git
+, nix ? pkgs.nix
 , catalog ? ./catalog.rktd
 , racket ? pkgs.callPackage ./racket-minimal.nix { }
 , racket2nix ? pkgs.callPackage ./stage0.nix { inherit racket; }
@@ -23,7 +23,7 @@ let
     stdenvNoCC.mkDerivation {
       name = "racket-package.nix";
       outputs = [ "out" "src" ];
-      buildInputs = [ racket2nix nix-prefetch-git ];
+      buildInputs = [ racket2nix nix ];
       phases = "installPhase";
       flatArg = lib.optionalString flat "--flat";
       installPhase = ''
