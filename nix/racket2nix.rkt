@@ -367,6 +367,12 @@ EOM
          (set! store-path (with-input-from-string store-path-string read-json))
          store-path]))))
 
+(define (strip-store-prefix pathname)
+  (define store-path (discover-store-path))
+  (cond [(string-prefix? pathname store-path)
+         (substring pathname (+ (string-length store-path) 34))]
+        [else pathname]))
+
 (define (generate-local-file-src pathname)
   (cond [(string-prefix? pathname (discover-store-path))
          (generate-noop-fixed-output-src pathname)]
@@ -697,7 +703,7 @@ EOM
 
   (define package-name (cond
     [(and package-name-or-path (string-contains? package-name-or-path "/"))
-     (define name (string-replace package-name-or-path #rx".*/" ""))
+     (define name (string-replace (strip-store-prefix package-name-or-path) #rx".*/" ""))
      (define path package-name-or-path)
      (hash-set!
        pkg-details name
