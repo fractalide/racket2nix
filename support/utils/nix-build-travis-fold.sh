@@ -11,7 +11,8 @@ function main() {
   if [[ -n $file ]] && fileHasAttr "$file" travisOrder; then
     while read attr; do
       # attr may be optional
-      fileHasAttr "$file" $attr && build "$@" -A $attr
+      fileHasAttr "$file" $attr &&
+        build "$@" -A $attr
     done < <(getOrder "$file")
   else
     build "$@"
@@ -21,9 +22,19 @@ function main() {
 
 
 function build() {
+  local nixpkgs_paths=()
+
+  for path in \
+    $HOME/.nix-defexpr/channel/nixpkgs \
+    /home/travis/.nix-defexpr/channels/nixpkgs \
+    /nix/var/nix/profiles/per-user/root/channels/nixpkgs \
+  ; do
+    [[ -e $path ]] &&
+    nixpkgs_paths+=(-I "$(readlink "$path")")
+  done
+
   nix-build --option restrict-eval true \
-    -I $(dirname $PWD)=. -I "$(readlink ~/.nix-defexpr/channels/nixpkgs)" \
-    -I "$(readlink /nix/var/nix/profiles/per-user/root/channels/nixpkgs)" \
+    "${nixpkgs_paths[@]}" \
     --show-trace "$@" |& subfold ${!#}
 }
 

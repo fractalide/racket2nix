@@ -2,4 +2,4 @@ language: nix
 os:
  - linux
  - osx
-script: ./support/utils/nix-build-travis-fold.sh release.nix
+script: ./support/utils/nix-build-travis-fold.sh -I racket2nix=$PWD release.nix
