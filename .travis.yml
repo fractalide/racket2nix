@@ -2,4 +2,4 @@ language: nix
 os:
  - linux
  - osx
-script: ./travis-test.sh
+script: ./support/utils/nix-build-travis-fold.sh release.nix
