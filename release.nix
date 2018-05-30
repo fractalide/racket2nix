@@ -10,4 +10,6 @@ in
   test = import (racket2nixPath "test.nix") {};
 } // nixpkgs.lib.optionalAttrs nixpkgs.racket.meta.available {
   racket2nix-full-racket = nixpkgs.callPackage <racket2nix> {};
+} // {
+  travisOrder = [ "pkgs-all" "stage0-nix" "racket2nix" "racket2nix-flat-nix" "test" "racket2nix-full-racket" ];
 }
