@@ -61,17 +61,16 @@ stripHash = path:
   in
     builtins.substring 33 finalLength storeStripped;
 
-fixedRacketSource = { pathname, sha256 }: stdenv.mkDerivation {
-  name = baseNameOf (stripHash pathname);
+fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (stripHash pathname)) {
+  inherit pathname;
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
   outputHash = sha256;
-
-  args = [ (builtins.toFile "noop-builder.sh" ''
-    echo ERROR: This source should have been put here as part of running racket2nix.
-    echo It has been garbage-collected through a confluence of unlikely events.
-  '') ];
-};
+  buildInputs = [ pkgs.coreutils ];
+} ''
+  cp -a $pathname $out && exit
+  echo ERROR: Unable to find source for $name: $pathname
+'';
 
 mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
