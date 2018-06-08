@@ -93,4 +93,8 @@
     (test-transitive-dependencies "Plain dependency below diamond" "e")
     (test-transitive-dependencies "Plain dependency below local cycle" "x")
     (test-transitive-dependencies "Plain dependency below subcycle" "v")
-    ))
+    (test-equal? "github-url->git-url turns github://.*/branch into git://.*#branch"
+                 (github-url->git-url "github://github.com/mordae/racket-systemd/master")
+                 "git://github.com/mordae/racket-systemd.git#master")
+    (test-not-false "github-url? detects github:// URL"
+                 (github-url? "github://github.com/mordae/racket-systemd/master"))))

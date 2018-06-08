@@ -320,7 +320,7 @@ EOM
         [else fallback-rev]))
 
 (define (github-url? url)
-  (regexp-match #rx"^(git|http|https)://github.com/" url))
+  (regexp-match #rx"^(git|github|http|https)://github.com/" url))
 
 (define (git-url? url)
   (match url
