@@ -3,6 +3,7 @@
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , cacert ? pkgs.cacert
 , exclusions ? ./catalog-exclusions.rktd
+, overrides ? ./catalog-overrides.rktd
 }:
 
 let attrs = rec {
@@ -36,11 +37,12 @@ let attrs = rec {
     outputHash = "1snqa4wd5j14zmd4slqhcf6bmvqfd91mivil5294gjyxl1rirg7r";
   };
   mergedUnfilteredCatalog = pkgs.runCommand "merged-unfiltered-catalog.rktd" {
-    inherit racket;
+    inherit overrides racket;
     buildInputs = [ racket ];
   } ''
-    $racket/bin/racket -N export-catalog ${./nix/racket2nix.rkt} --export-catalog \
-      --no-process-catalog --catalog ${release-catalog} --catalog ${live-catalog} > $out
+    $racket/bin/racket -N export-catalog ${./nix/racket2nix.rkt} \
+      --export-catalog --no-process-catalog --catalog $overrides \
+      --catalog ${release-catalog} --catalog ${live-catalog} > $out
   '';
   merged-catalog = pkgs.runCommand "merged-catalog.rktd" {
     inherit exclusions mergedUnfilteredCatalog racket;
