@@ -2,6 +2,7 @@
 , stdenvNoCC ? pkgs.stdenvNoCC
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , cacert ? pkgs.cacert
+, exclusions ? ./catalog-exclusions.rktd
 }:
 
 let attrs = rec {
@@ -34,12 +35,30 @@ let attrs = rec {
     outputHashAlgo = "sha256";
     outputHash = "1snqa4wd5j14zmd4slqhcf6bmvqfd91mivil5294gjyxl1rirg7r";
   };
-  merged-catalog = pkgs.runCommand "merged-catalog.rktd" {
+  mergedUnfilteredCatalog = pkgs.runCommand "merged-unfiltered-catalog.rktd" {
     inherit racket;
     buildInputs = [ racket ];
   } ''
     $racket/bin/racket -N export-catalog ${./nix/racket2nix.rkt} --export-catalog \
       --no-process-catalog --catalog ${release-catalog} --catalog ${live-catalog} > $out
+  '';
+  merged-catalog = pkgs.runCommand "merged-catalog.rktd" {
+    inherit exclusions mergedUnfilteredCatalog racket;
+    buildInputs = [ racket ];
+    filterCatalog = builtins.toFile "filter-catalog.scm" ''
+      #lang racket
+      (command-line
+        #:program "filter-catalog"
+        #:args (exclusions-file)
+          (let ([exclusions (call-with-input-file* exclusions-file read)])
+            (for/fold ([h (make-immutable-hash)]) ([(k v) (in-hash (read))])
+              (if (member k exclusions)
+                  h
+                  (hash-set h k v)))))
+    '';
+  } ''
+    $racket/bin/racket -N filter-catalog $filterCatalog $exclusions \
+      < $mergedUnfilteredCatalog > $out
   '';
   pretty-merged-catalog = stdenvNoCC.mkDerivation {
     name = "pretty-merged-catalog.rktd";
