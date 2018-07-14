@@ -3,16 +3,21 @@
 
 let
   racket2nixPath = relPath: "${builtins.toString <racket2nix>}/${relPath}";
-  nixpkgs = import (racket2nixPath "nixpkgs.nix") {};
+  pinned-nixpkgs-fn = import (racket2nixPath "nixpkgs.nix");
+  nixpkgs = pinned-nixpkgs-fn {};
+  genJobs = pkgs: rec {
+    pkgs-all = import (racket2nixPath "catalog.nix") { inherit pkgs; };
+    racket2nix = import <racket2nix> { inherit pkgs; };
+    racket2nix-flat-nix = racket2nix.racket2nix-flat-nix;
+    test = import (racket2nixPath "test.nix") { inherit pkgs;};
+  } // pkgs.lib.optionalAttrs pkgs.racket.meta.available {
+    racket2nix-full-racket = pkgs.callPackage <racket2nix> {};
+  };
 in
-{
-  pkgs-all = import (racket2nixPath "catalog.nix") {};
-  racket2nix = import <racket2nix> {};
-  racket2nix-flat-nix = (import <racket2nix> {}).racket2nix-flat-nix;
-  test = import (racket2nixPath "test.nix") {};
-} // nixpkgs.lib.optionalAttrs nixpkgs.racket.meta.available {
-  racket2nix-full-racket = nixpkgs.callPackage <racket2nix> {};
-} // nixpkgs.lib.optionalAttrs isTravis {
-  stage0-nix-prerequisites = (import (racket2nixPath "stage0.nix") {}).buildInputs;
-  travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "racket2nix-flat-nix" "test" "racket2nix-full-racket" ];
-}
+  (genJobs nixpkgs) //
+  {
+    latest-nixpkgs = genJobs (import <nixpkgs> {});
+  } // nixpkgs.lib.optionalAttrs isTravis {
+    stage0-nix-prerequisites = (import (racket2nixPath "stage0.nix") {}).buildInputs;
+    travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "racket2nix-flat-nix" "test" "racket2nix-full-racket" ];
+  }
