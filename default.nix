@@ -7,7 +7,7 @@
 , racket-catalog ? ./catalog.rktd
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , racket2nix-stage0-nix ? racket2nix-stage0.racket2nix-stage0-nix
-, system ? builtins.system
+, system ? builtins.currentSystem
 }:
 
 let attrs = rec {
