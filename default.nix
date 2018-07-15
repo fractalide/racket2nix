@@ -1,4 +1,4 @@
-{ pkgs ? import ./nixpkgs.nix { }
+{ pkgs ? import ./nixpkgs.nix { inherit system; }
 , stdenvNoCC ? pkgs.stdenvNoCC
 , build-racket ? pkgs.callPackage ./build-racket.nix { inherit racket; }
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
@@ -7,6 +7,7 @@
 , racket-catalog ? ./catalog.rktd
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , racket2nix-stage0-nix ? racket2nix-stage0.racket2nix-stage0-nix
+, system ? builtins.system
 }:
 
 let attrs = rec {
