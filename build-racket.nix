@@ -6,6 +6,7 @@
 , racket ? pkgs.callPackage ./racket-minimal.nix { }
 , racket2nix ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , package ? null
+, flat ? false
 }:
 
 let
@@ -27,4 +28,4 @@ let
     );
   };
 in
-if package != null then attrs.buildRacket { inherit package; } else attrs
+if package != null then attrs.buildRacket { inherit package flat; } else attrs
