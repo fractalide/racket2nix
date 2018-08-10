@@ -3,7 +3,7 @@
 
 let
   racket2nixPath = relPath: "${builtins.toString <racket2nix>}/${relPath}";
-  pinned-nixpkgs-fn = import (racket2nixPath "nixpkgs.nix");
+  pinned-nixpkgs-fn = import (racket2nixPath "nixpkgs");
   nixpkgs = pinned-nixpkgs-fn {};
   genJobs = pkgs: rec {
     pkgs-all = import (racket2nixPath "catalog.nix") { inherit pkgs; };

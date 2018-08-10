@@ -1,4 +1,4 @@
-{ pkgs ? import ./nixpkgs.nix { inherit system; }
+{ pkgs ? import ./nixpkgs { inherit system; }
 , stdenvNoCC ? pkgs.stdenvNoCC
 , build-racket ? pkgs.callPackage ./build-racket.nix { inherit racket; }
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
