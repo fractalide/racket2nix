@@ -1,4 +1,4 @@
-{ pkgs ? import ./nixpkgs.nix { }
+{ pkgs ? import ./nixpkgs { }
 , lib ? pkgs.lib
 , stdenvNoCC ? pkgs.stdenvNoCC
 , nix ? pkgs.nix

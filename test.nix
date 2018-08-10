@@ -1,4 +1,4 @@
-{ pkgs ? import ./nixpkgs.nix { }
+{ pkgs ? import ./nixpkgs { }
 , stdenvNoCC ? pkgs.stdenvNoCC
 , nix ? pkgs.nix
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
