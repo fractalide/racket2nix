@@ -658,7 +658,7 @@ EOM
   (define export-catalog? #f)
   (define process-catalog? #t)
 
-  (define package-name-or-path
+  (define package-names-or-paths
     (command-line
       #:program "racket2nix"
       #:once-each
@@ -675,7 +675,8 @@ EOM
       [("--export-catalog")
        "Instead of outputting a nix expression, output a pre-processed catalog, with the nix-sha256 looked up and\
  added. If a package name is given, only the subset of the catalog that includes that package and its dependencies will\
- be output."
+ be output. If several package names are given, do this for the first package, use the others to point out dependencies\
+ that aren't in the supplied or system catalogs."
        (set! export-catalog? #t)]
       [("--no-process-catalog")
        "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
@@ -686,11 +687,11 @@ EOM
        "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs.\
  Later given catalogs have lower precedence."
        (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
-      #:args package-name
-      (if (= 1 (length package-name)) (car package-name) #f)))
+      #:args package-names
+      package-names))
 
-  (when (and (not export-catalog?) (not package-name-or-path))
-    (raise-user-error "racket2nix: expects 1 <package-name> on the command line, except with --export-catalog"))
+  (when (and (not export-catalog?) (< (length package-names-or-paths) 1))
+    (raise-user-error "racket2nix: expects at least 1 <package-name> on the command line, except with --export-catalog"))
 
   (define pkg-details (cond
     [catalog-paths
@@ -704,7 +705,7 @@ EOM
       (eprintf "Fetching package catalogs...~n")
       (get-all-pkg-details-from-catalogs)]))
 
-  (define package-name (cond
+  (define package-names (map (lambda (package-name-or-path) (cond
     [(and package-name-or-path (string-contains? package-name-or-path "/"))
      (define name (string-replace (strip-store-prefix package-name-or-path) #rx".*/" ""))
      (define path package-name-or-path)
@@ -717,7 +718,9 @@ EOM
           (checksum . "")
         ))
      name]
-    [else package-name-or-path]))
+    [else package-name-or-path])) package-names-or-paths))
+
+  (define package-name (if (pair? package-names) (car package-names) #f))
 
   (cond
     [export-catalog?
