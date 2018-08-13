@@ -97,18 +97,16 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
     runHook preUnpack
     for unpackSrc in $srcs; do
       unpackName=$(stripSuffix $(stripHash $unpackSrc))
-      if ! [ -d $unpackName ]; then
-        mkdir $unpackName
-        cd $unpackName
-        unpackFile $unpackSrc
-        cd -
-        unpackedFiles=( $unpackName/* )
-        if [ "''${unpackedFiles[*]}" = "$unpackName/$unpackName" ]; then
-          mv $unpackName _
-          chmod u+w _/$unpackName
-          mv _/$unpackName $unpackName
-          rmdir _
-        fi
+      mkdir $unpackName
+      cd $unpackName
+      unpackFile $unpackSrc
+      cd -
+      unpackedFiles=( $unpackName/* )
+      if [ "''${unpackedFiles[*]}" = "$unpackName/$unpackName" ]; then
+        mv $unpackName _
+        chmod u+w _/$unpackName
+        mv _/$unpackName $unpackName
+        rmdir _
       fi
     done
     chmod u+w -R .
@@ -451,8 +449,8 @@ EOM
   (define srcs
     (cond
       [(pair? reverse-circular-build-inputs)
-       (define srcs-refs (string-join (map (lambda (s) (format "_~a.srcs" s)) reverse-circular-build-inputs) " ++ "))
-       (format "~n  extraSrcs = ~a;" srcs-refs)]
+       (define srcs-refs (string-join (map (lambda (s) (format "_~a.src" s)) reverse-circular-build-inputs)))
+       (format "~n  extraSrcs = [ ~a ];" srcs-refs)]
       [else ""]))
 
   (format derivation-template name (string-join (list src srcs) "")
@@ -598,7 +596,14 @@ EOM
   (define trans-dep-names (hash-ref package 'transitive-dependency-names))
   (define reverse-circular-dependency-names
     (cond
-      [flat? (remove* terminal-package-names trans-dep-names)]
+      [flat?
+        (define (expand-reverse-circulars package-name)
+          (define package (memo-lookup-package package-dictionary package-name))
+          (define rev-circ-dep-names (hash-ref package 'reverse-circular-build-inputs (lambda () '())))
+          (append (list package-name) rev-circ-dep-names))
+        (remove* terminal-package-names (remove-duplicates (append*
+          (hash-ref package 'reverse-circular-build-inputs (lambda () '()))
+          (map expand-reverse-circulars trans-dep-names))))]
       [else
         (define calculated-reverse-circular
                 (hash-ref package 'reverse-circular-build-inputs
