@@ -97,16 +97,18 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
     runHook preUnpack
     for unpackSrc in $srcs; do
       unpackName=$(stripSuffix $(stripHash $unpackSrc))
-      mkdir $unpackName
-      cd $unpackName
-      unpackFile $unpackSrc
-      cd -
-      unpackedFiles=( $unpackName/* )
-      if [ "''${unpackedFiles[*]}" = "$unpackName/$unpackName" ]; then
-        mv $unpackName _
-        chmod u+w _/$unpackName
-        mv _/$unpackName $unpackName
-        rmdir _
+      if ! [ -d $unpackName ]; then
+        mkdir $unpackName
+        cd $unpackName
+        unpackFile $unpackSrc
+        cd -
+        unpackedFiles=( $unpackName/* )
+        if [ "''${unpackedFiles[*]}" = "$unpackName/$unpackName" ]; then
+          mv $unpackName _
+          chmod u+w _/$unpackName
+          mv _/$unpackName $unpackName
+          rmdir _
+        fi
       fi
     done
     chmod u+w -R .
@@ -449,8 +451,8 @@ EOM
   (define srcs
     (cond
       [(pair? reverse-circular-build-inputs)
-       (define srcs-refs (string-join (map (lambda (s) (format "_~a.src" s)) reverse-circular-build-inputs)))
-       (format "~n  extraSrcs = [ ~a ];" srcs-refs)]
+       (define srcs-refs (string-join (map (lambda (s) (format "_~a.srcs" s)) reverse-circular-build-inputs) " ++ "))
+       (format "~n  extraSrcs = ~a;" srcs-refs)]
       [else ""]))
 
   (format derivation-template name (string-join (list src srcs) "")
