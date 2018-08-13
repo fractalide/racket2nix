@@ -242,7 +242,10 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
     find $env/share/racket/collects $env/lib/racket -lname "$racket/*" -delete
     find $env/share/racket/collects $env/lib/racket $env/bin -type d -empty -delete
   '';
-} // attrs)) suppliedAttrs; in racketDerivation // { inherit racketDerivation; };
+} // attrs)) suppliedAttrs; in racketDerivation // {
+  inherit racketDerivation;
+  overrideRacketDerivation = f: mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
+};
 
 
 EOM
