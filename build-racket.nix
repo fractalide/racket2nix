@@ -10,8 +10,9 @@
 }:
 
 let
+  default-catalog = catalog;
   attrs = rec {
-    buildRacketNix = { flat, package}:
+    buildRacketNix = { catalog, flat, package}:
     stdenvNoCC.mkDerivation {
       name = "racket-package.nix";
       inherit package;
@@ -22,10 +23,10 @@ let
         racket2nix $flatArg --catalog ${catalog} $package > $out
       '';
     };
-    buildRacket = lib.makeOverridable ({ flat ? false, package }:
-      let nix = buildRacketNix { inherit flat package; };
+    buildRacket = lib.makeOverridable ({ catalog ? default-catalog, flat ? false, package }:
+      let nix = buildRacketNix { inherit catalog flat package; };
       in (pkgs.callPackage nix { inherit racket; }) // { inherit nix; }
     );
   };
 in
-if package != null then attrs.buildRacket { inherit package flat; } else attrs
+if package != null then attrs.buildRacket { inherit catalog package flat; } else attrs

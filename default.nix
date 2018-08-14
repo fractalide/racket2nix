@@ -4,7 +4,7 @@
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , nix ? pkgs.nix
 , nix-prefetch-git ? pkgs.nix-prefetch-git
-, racket-catalog ? ./catalog.rktd
+, catalog ? ./catalog.rktd
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , racket2nix-stage0-nix ? racket2nix-stage0.nix
 , system ? builtins.currentSystem
@@ -20,7 +20,7 @@ let attrs = rec {
     buildInputs = [ nix racket2nix-stage0 ];
     phases = "unpackPhase installPhase";
     installPhase = ''
-      racket2nix --catalog ${racket-catalog} $src > $out
+      racket2nix --catalog ${catalog} $src > $out
       diff ${racket2nix-stage0-nix} $out
     '';
   };
@@ -37,7 +37,7 @@ let attrs = rec {
     buildInputs = [ nix racket ];
     phases = "unpackPhase installPhase";
     installPhase = ''
-      racket -N racket2nix ./racket2nix.rkt --flat --catalog ${racket-catalog} $src > $out
+      racket -N racket2nix ./racket2nix.rkt --flat --catalog ${catalog} $src > $out
     '';
   };
   racket2nix-flat-stage0 = ((pkgs.callPackage racket2nix-flat-stage0-nix { inherit racket; }).racketDerivation.override {
@@ -51,7 +51,7 @@ let attrs = rec {
     buildInputs = [ nix racket2nix-flat-stage0 ];
     phases = "unpackPhase installPhase";
     installPhase = ''
-      racket2nix --flat --catalog ${racket-catalog} $src > $out
+      racket2nix --flat --catalog ${catalog} $src > $out
       diff ${racket2nix-flat-stage0-nix} $out
     '';
   };
@@ -63,4 +63,4 @@ let attrs = rec {
   };
 };
 in
-if package == null then (attrs.racket2nix // attrs) else attrs.buildRacket { inherit package flat; }
+if package == null then (attrs.racket2nix // attrs) else attrs.buildRacket { inherit catalog package flat; }

@@ -596,7 +596,14 @@ EOM
   (define trans-dep-names (hash-ref package 'transitive-dependency-names))
   (define reverse-circular-dependency-names
     (cond
-      [flat? (remove* terminal-package-names trans-dep-names)]
+      [flat?
+        (define (expand-reverse-circulars package-name)
+          (define package (memo-lookup-package package-dictionary package-name))
+          (define rev-circ-dep-names (hash-ref package 'reverse-circular-build-inputs (lambda () '())))
+          (append (list package-name) rev-circ-dep-names))
+        (remove* terminal-package-names (remove-duplicates (append*
+          (hash-ref package 'reverse-circular-build-inputs (lambda () '()))
+          (map expand-reverse-circulars trans-dep-names))))]
       [else
         (define calculated-reverse-circular
                 (hash-ref package 'reverse-circular-build-inputs

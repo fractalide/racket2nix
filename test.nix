@@ -6,6 +6,7 @@
 , racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , colordiff ? pkgs.colordiff
 , racket-catalog ? ./catalog.rktd
+, integration-test ? import ./integration-test {}
 }:
 
 let provided-racket = racket; in
@@ -40,7 +41,8 @@ let attrs = rec {
   br-parser-tools-lib-flat = buildPackage { package = "br-parser-tools-lib"; extraArgs = "--flat"; };
   light-tests = stdenvNoCC.mkDerivation {
     name = "light-tests";
-    buildInputs = [ typed-map-lib typed-map-lib-flat br-parser-tools-lib br-parser-tools-lib-flat ];
+    buildInputs = [ typed-map-lib typed-map-lib-flat br-parser-tools-lib br-parser-tools-lib-flat ] ++
+      builtins.attrValues integration-test;
     phases = "installPhase";
     installPhase = ''touch $out'';
   };
