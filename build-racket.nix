@@ -12,7 +12,7 @@
 let
   default-catalog = catalog;
   attrs = rec {
-    buildRacketNix = { catalog ? catalog, flat, package}:
+    buildRacketNix = { catalog, flat, package}:
     stdenvNoCC.mkDerivation {
       name = "racket-package.nix";
       inherit package;
