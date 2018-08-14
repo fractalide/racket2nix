@@ -3,17 +3,12 @@
 , nix ? pkgs.nix
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , racket2nix ? pkgs.callPackage ./. { inherit racket; }
-, racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
-, colordiff ? pkgs.colordiff
 , racket-catalog ? ./catalog.rktd
 , integration-test ? import ./integration-test {}
 }:
 
 let provided-racket = racket; in
 let attrs = rec {
-  inherit pkgs;
-  inherit racket2nix;
-  inherit racket2nix-stage0;
   generateNix = { catalog, extraArgs, package }: stdenvNoCC.mkDerivation {
     name = "${package}.nix";
     buildInputs = [ racket2nix nix ];
@@ -32,9 +27,7 @@ let attrs = rec {
       (pkgs.callPackage nix { inherit racket; }) // { inherit nix; };
 
   racket-doc = buildPackage { package = "racket-doc"; };
-  racket-doc-nix = racket-doc.nix;
   racket-doc-flat = buildPackage { package = "racket-doc"; extraArgs = "--flat"; };
-  racket-doc-flat-nix = racket-doc-flat.nix;
   typed-map-lib = buildPackage { package = "typed-map-lib"; };
   typed-map-lib-flat = buildPackage { package = "typed-map-lib"; extraArgs = "--flat"; };
   br-parser-tools-lib = buildPackage { package = "br-parser-tools-lib"; };
