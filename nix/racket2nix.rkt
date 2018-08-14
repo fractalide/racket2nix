@@ -661,6 +661,13 @@ EOM
   (define package-names-or-paths
     (command-line
       #:program "racket2nix"
+      #:usage-help "Except with --export-catalog, at least one package name or path is required as an argument."
+                   "A path is an argument that contains at least one '/'. A path is treated as the path to a racket\
+ package, which will be named as the part of the path after the last '/'."
+                   "A package name is an argument with no '/'. It is looked up in the provided catalogs."
+                   "If several paths are given, the first one is to the main package to build, and the others are\
+ used for defining the paths to those packages and inserted into the catalog for the first package to use as\
+ dependencies. Providing several package names makes no sense."
       #:once-each
       [("--test")
        "Ignore everything else and just run the tests."
@@ -674,9 +681,9 @@ EOM
        (set! flat? #t)]
       [("--export-catalog")
        "Instead of outputting a nix expression, output a pre-processed catalog, with the nix-sha256 looked up and\
- added. If a package name is given, only the subset of the catalog that includes that package and its dependencies will\
- be output. If several package names are given, do this for the first package, use the others to point out dependencies\
- that aren't in the supplied or system catalogs."
+ added. If a package name or path is given, only the subset of the catalog that includes that package and its dependencies\
+ will be output. If several paths are given, the ones after the first one are used for extending the catalog, just like\
+ in the main use case. Providing several package names makes no sense."
        (set! export-catalog? #t)]
       [("--no-process-catalog")
        "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
@@ -687,8 +694,8 @@ EOM
        "Read from this catalog instead of downloading catalogs. Can be provided multiple times to use several catalogs.\
  Later given catalogs have lower precedence."
        (set! catalog-paths (cons catalog-path (or catalog-paths '())))]
-      #:args package-names
-      package-names))
+      #:args package-name-or-path
+      package-name-or-path))
 
   (when (and (not export-catalog?) (< (length package-names-or-paths) 1))
     (raise-user-error "racket2nix: expects at least 1 <package-name> on the command line, except with --export-catalog"))
