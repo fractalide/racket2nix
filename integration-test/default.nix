@@ -1,7 +1,8 @@
 { pkgs ? import ../nixpkgs {}
-, racket2nix ? pkgs.callPackage ./.. {}
+, racket2nix ? pkgs.callPackage ./.. { inherit racket; }
 , buildRacket ? racket2nix.buildRacket
 , catalog ? import ./catalog.nix {}
+, racket ? pkgs.callPackage ../racket-minimal.nix {}
 }:
 
 rec {
