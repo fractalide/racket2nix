@@ -6,6 +6,7 @@
 , integration-test ? pkgs.callPackage ./integration-test { inherit racket; }
 }:
 
+let it-attrs = integration-test.attrs; in
 let
   buildRacketAndFlat = package: (buildRacket { inherit package; }) // {
     flat = buildRacket { inherit package; flat = true; };
@@ -28,7 +29,7 @@ let
     phases = "installPhase";
     installPhase = ''touch $out'';
   };
-  inherit integration-test;
+  integration-test = it-attrs;
 };
 in
 attrs.light-tests // attrs
