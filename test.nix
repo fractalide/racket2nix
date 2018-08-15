@@ -1,13 +1,10 @@
-{ pkgs ? import ./nixpkgs { }
-, stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.callPackage ./racket-minimal.nix {}
-, racket2nix ? pkgs.callPackage ./. { inherit racket; }
-, buildRacket ? racket2nix.buildRacket
-, integration-test ? pkgs.callPackage ./integration-test { inherit racket; }
+{ pkgs ? import ./pkgs {}
+, integration-test ? pkgs.callPackage ./integration-test {}
 }:
 
 let it-attrs = integration-test.attrs; in
 let
+  inherit (pkgs) buildRacket racket racket2nix stdenvNoCC;
   buildRacketAndFlat = package: (buildRacket { inherit package; }) // {
     flat = buildRacket { inherit package; flat = true; };
   };
