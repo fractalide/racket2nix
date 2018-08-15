@@ -1,4 +1,4 @@
-{ pkgs ? import <stdenv> {}
+{ pkgs ? import ../nixpkgs {}
 , stdenv ? pkgs.stdenv
 , libiconv ? pkgs.libiconv
 }:
