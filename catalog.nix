@@ -1,12 +1,11 @@
-{ pkgs ? import ./nixpkgs { }
-, stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.callPackage ./racket-minimal.nix {}
-, cacert ? pkgs.cacert
+{ pkgs ? import ./pkgs { }
 , exclusions ? ./catalog-exclusions.rktd
 , overrides ? ./catalog-overrides.rktd
 }:
 
-let attrs = rec {
+let
+inherit (pkgs) cacert racket stdenvNoCC;
+attrs = rec {
   release-catalog = stdenvNoCC.mkDerivation {
     name = "release-catalog";
     src = ./nix;

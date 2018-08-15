@@ -1,15 +1,11 @@
-{ pkgs ? import ./nixpkgs { }
-, lib ? pkgs.lib
-, stdenvNoCC ? pkgs.stdenvNoCC
-, nix ? pkgs.nix
+{ pkgs ? import ./pkgs {}
 , catalog ? ./catalog.rktd
-, racket ? pkgs.callPackage ./racket-minimal.nix { }
-, racket2nix ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , package ? null
 , flat ? false
 }:
 
 let
+  inherit (pkgs) lib nix racket racket2nix stdenvNoCC;
   default-catalog = catalog;
   attrs = rec {
     buildRacketNix = { catalog, flat, package}:

@@ -1,7 +1,8 @@
-{ pkgs ? import ../nixpkgs {}
-, racket2nix ? import ./.. {}
+{ pkgs ? import ../pkgs {}
 , catalog ? ../catalog.rktd
 }:
+
+let inherit (pkgs) racket2nix; in
 
 pkgs.runCommand "catalog.rktd" {
   buildInputs = [ racket2nix ];
