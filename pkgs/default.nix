@@ -4,12 +4,12 @@
 , ...
 }@args:
 
-pkgs ({ overlays = [ (self: super: let racket2nix-pkgs = {
-  racket-full = (pkgs args).racket;
+pkgs (args // { overlays = [ (self: super: let racket2nix-pkgs = {
+  racket-full = (pkgs (removeAttrs args [ "overlays" ])).racket;
   racket-minimal = self.callPackage ../racket-minimal {};
   racket = self.racket-minimal;
 
   racket2nix-stage0 = self.callPackage ../stage0.nix {};
   racket2nix = self.racket2nix-stage0;
   inherit (self.callPackage ../build-racket.nix {}) buildRacket;
-}; in racket2nix-pkgs // { inherit racket2nix-pkgs; }) ] ++ overlays; } // args)
+}; in racket2nix-pkgs // { inherit racket2nix-pkgs; }) ] ++ overlays; })
