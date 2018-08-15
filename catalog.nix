@@ -1,6 +1,6 @@
-{ pkgs ? import ./nixpkgs { }
+{ pkgs ? import ./pkgs { }
 , stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.callPackage ./racket-minimal.nix {}
+, racket ? pkgs.racket
 , cacert ? pkgs.cacert
 , exclusions ? ./catalog-exclusions.rktd
 , overrides ? ./catalog-overrides.rktd

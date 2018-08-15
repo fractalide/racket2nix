@@ -1,19 +1,19 @@
-{ pkgs ? import ./nixpkgs { inherit system; }
+{ system ? builtins.currentSystem
+, pkgs ? import ./pkgs { inherit system; }
 , stdenvNoCC ? pkgs.stdenvNoCC
-, build-racket ? pkgs.callPackage ./build-racket.nix { inherit racket; }
-, racket ? pkgs.callPackage ./racket-minimal.nix {}
+, buildRacket ? pkgs.buildRacket
+, racket ? pkgs.racket
 , nix ? pkgs.nix
 , nix-prefetch-git ? pkgs.nix-prefetch-git
-, catalog ? ./catalog.rktd
-, racket2nix-stage0 ? pkgs.callPackage ./stage0.nix { inherit racket; }
+, racket2nix-stage0 ? pkgs.racket2nix
 , racket2nix-stage0-nix ? racket2nix-stage0.nix
-, system ? builtins.currentSystem
 , package ? null
 , flat ? false
+, catalog ? ./catalog.rktd
 }:
 
 let attrs = rec {
-  inherit (build-racket) buildRacket;
+  inherit buildRacket;
   racket2nix-stage1-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
     src = ./nix;
@@ -63,4 +63,5 @@ let attrs = rec {
   };
 };
 in
-if package == null then (attrs.racket2nix // attrs) else attrs.buildRacket { inherit catalog package flat; }
+if package == null then (attrs.racket2nix // attrs) else
+buildRacket { inherit catalog package flat; }

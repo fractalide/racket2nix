@@ -1,5 +1,5 @@
-{ pkgs ? import ../nixpkgs {}
-, racket2nix ? import ./.. {}
+{ pkgs ? import ../pkgs {}
+, racket2nix ? pkgs.racket2nix
 , catalog ? ../catalog.rktd
 }:
 

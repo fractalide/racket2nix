@@ -1,8 +1,8 @@
-{ pkgs ? import ./nixpkgs { }
+{ pkgs ? import ./pkgs {}
 , stdenvNoCC ? pkgs.stdenvNoCC
 , nix ? pkgs.nix
-, racket ? pkgs.callPackage ./racket-minimal.nix {}
-, racket-catalog ? ./catalog.rktd
+, racket ? pkgs.racket
+, catalog ? ./catalog.rktd
 }:
 
 let
@@ -12,7 +12,7 @@ let
     buildInputs = [ nix racket ];
     phases = "unpackPhase installPhase";
     installPhase = ''
-      racket -N racket2nix ./racket2nix.rkt --catalog ${racket-catalog} $src > $out
+      racket -N racket2nix ./racket2nix.rkt --catalog ${catalog} $src > $out
     '';
   };
   stage0 = pkgs.callPackage stage0-nix { inherit racket; };

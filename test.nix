@@ -1,9 +1,9 @@
-{ pkgs ? import ./nixpkgs { }
+{ pkgs ? import ./pkgs {}
 , stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.callPackage ./racket-minimal.nix {}
-, racket2nix ? pkgs.callPackage ./. { inherit racket; }
-, buildRacket ? racket2nix.buildRacket
-, integration-test ? pkgs.callPackage ./integration-test { inherit racket; }
+, racket ? pkgs.racket
+, racket2nix ? pkgs.racket2nix
+, buildRacket ? pkgs.buildRacket
+, integration-test ? pkgs.callPackage ./integration-test {}
 }:
 
 let it-attrs = integration-test.attrs; in

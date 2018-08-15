@@ -1,8 +1,8 @@
-{ pkgs ? import ../nixpkgs {}
-, racket2nix ? pkgs.callPackage ./.. { inherit racket; }
-, buildRacket ? racket2nix.buildRacket
+{ pkgs ? import ../pkgs {}
+, racket2nix ? pkgs.racket2nix
+, buildRacket ? pkgs.buildRacket
 , catalog ? import ./catalog.nix {}
-, racket ? pkgs.callPackage ../racket-minimal.nix {}
+, racket ? pkgs.racket
 }:
 
 let attrs = rec {

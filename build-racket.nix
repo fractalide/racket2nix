@@ -1,10 +1,10 @@
-{ pkgs ? import ./nixpkgs { }
+{ pkgs ? import ./pkgs {}
 , lib ? pkgs.lib
 , stdenvNoCC ? pkgs.stdenvNoCC
 , nix ? pkgs.nix
+, racket ? pkgs.racket
+, racket2nix ? pkgs.racket2nix
 , catalog ? ./catalog.rktd
-, racket ? pkgs.callPackage ./racket-minimal.nix { }
-, racket2nix ? pkgs.callPackage ./stage0.nix { inherit racket; }
 , package ? null
 , flat ? false
 }:
