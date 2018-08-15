@@ -26,20 +26,9 @@ attrs = rec {
   }).overrideAttrs (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [ nix ]; });
   racket2nix = racket2nix-stage1;
 
-  racket2nix-flat-stage0-nix = stdenvNoCC.mkDerivation {
-    name = "racket2nix.nix";
-    src = ./nix;
-    buildInputs = [ nix racket ];
-    phases = "unpackPhase installPhase";
-    installPhase = ''
-      racket -N racket2nix ./racket2nix.rkt --flat --catalog ${catalog} $src > $out
-    '';
-  };
-  racket2nix-flat-stage0 = ((pkgs.callPackage racket2nix-flat-stage0-nix { inherit racket; }).racketDerivation.override {
-    postInstall = ''
-      $out/bin/racket2nix --test
-    '';
-  }).overrideAttrs (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [ nix ]; });
+  racket2nix-flat-stage0 = racket2nix-stage0.flat;
+  racket2nix-flat-stage0-nix = racket2nix-stage0.flat.nix;
+
   racket2nix-flat-stage1-nix = stdenvNoCC.mkDerivation {
     name = "racket2nix.nix";
     src = ./nix;

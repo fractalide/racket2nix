@@ -3,13 +3,25 @@
 }:
 
 let
-  inherit (pkgs) nix racket runCommand;
-  stage0-nix = runCommand "racket2nix-stage0.nix" {
+inherit (pkgs) nix racket runCommand;
+nix-command = nix;
+bootstrap = name: extraArgs: let
+  nix = runCommand "${name}.nix" {
     src = ./nix;
-    buildInputs = [ nix racket ];
+    buildInputs = [ nix-command racket ];
+    inherit extraArgs;
   } ''
-    racket -N racket2nix $src/racket2nix.rkt --catalog ${catalog} $src > $out
+    racket -N racket2nix $src/racket2nix.rkt $extraArgs --catalog ${catalog} $src > $out
   '';
-  stage0 = pkgs.callPackage stage0-nix { inherit racket; };
+  out = (pkgs.callPackage nix {}).overrideAttrs (oldAttrs: {
+    name = "${name}";
+    postInstall = "$out/bin/racket2nix --test";
+    buildInputs = oldAttrs.buildInputs ++ [ nix-command ];
+  });
 in
-stage0 // { nix = stage0-nix; }
+  out // { inherit nix; };
+in
+
+(bootstrap "racket2nix-stage0" "") // {
+  flat = bootstrap "racket2nix-stage0.flat" "--flat";
+}
