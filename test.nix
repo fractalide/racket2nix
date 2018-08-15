@@ -3,7 +3,7 @@
 , racket ? pkgs.callPackage ./racket-minimal.nix {}
 , racket2nix ? pkgs.callPackage ./. { inherit racket; }
 , buildRacket ? racket2nix.buildRacket
-, integration-test ? import ./integration-test {}
+, integration-test ? pkgs.callPackage ./integration-test { inherit racket; }
 }:
 
 let
@@ -28,6 +28,7 @@ let
     phases = "installPhase";
     installPhase = ''touch $out'';
   };
+  inherit integration-test;
 };
 in
 attrs.light-tests // attrs
