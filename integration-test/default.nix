@@ -1,5 +1,6 @@
-{ pkgs ? import ../nixpkgs {}
-, racket2nix ? import ./.. {}
+{ system ? builtins.currentSystem
+, pkgs ? import ../nixpkgs { inherit system; }
+, racket2nix ? import ./.. { inherit system; }
 , buildRacket ? racket2nix.buildRacket
 , catalog ? import ./catalog.nix {}
 }:
