@@ -25,4 +25,4 @@ let
     );
   };
 in
-if package != null then attrs.buildRacket { inherit catalog package flat; } else attrs
+attrs
