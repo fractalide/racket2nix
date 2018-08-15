@@ -1,13 +1,10 @@
 { pkgs ? import ./pkgs {}
-, stdenvNoCC ? pkgs.stdenvNoCC
-, racket ? pkgs.racket
-, racket2nix ? pkgs.racket2nix
-, buildRacket ? pkgs.buildRacket
 , integration-test ? pkgs.callPackage ./integration-test {}
 }:
 
 let it-attrs = integration-test.attrs; in
 let
+  inherit (pkgs) buildRacket racket racket2nix stdenvNoCC;
   buildRacketAndFlat = package: (buildRacket { inherit package; }) // {
     flat = buildRacket { inherit package; flat = true; };
   };

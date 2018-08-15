@@ -1,9 +1,7 @@
 { pkgs ? import ../pkgs {}
-, racket-full ? pkgs.racket-full
-, stdenv ? pkgs.stdenv
-, lib ? pkgs.lib
-, libiconv ? pkgs.libiconv
 }:
+
+let inherit (pkgs) lib libiconv racket-full stdenv; in
 
 racket-full.overrideAttrs (oldAttrs: rec {
   name = "racket-minimal-${oldAttrs.version}";
