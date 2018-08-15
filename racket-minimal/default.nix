@@ -1,7 +1,11 @@
-{ racket
+{ pkgs ? import ../pkgs {}
+, racket-full ? pkgs.racket-full
+, stdenv ? pkgs.stdenv
+, lib ? pkgs.lib
+, libiconv ? pkgs.libiconv
 }:
 
-racket.overrideAttrs (oldAttrs: rec {
+racket-full.overrideAttrs (oldAttrs: rec {
   name = "racket-minimal-${oldAttrs.version}";
   src = oldAttrs.src.override {
     inherit name;
@@ -16,4 +20,6 @@ racket.overrideAttrs (oldAttrs: rec {
     '';
     platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
   };
+} // lib.optionalAttrs stdenv.isDarwin {
+  buildInputs = oldAttrs.buildInputs ++ [ libiconv ];
 })
