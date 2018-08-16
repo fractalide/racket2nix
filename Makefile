@@ -1,15 +1,13 @@
-default: racket2nix-flat-nix racket2nix
+default: racket2nix
 
 racket2nix:
 	nix-build --no-out-link
 
-racket2nix-flat-nix:
-	nix-build --no-out-link -A racket2nix-flat-nix
-
-pkgs-all:
-	nix-build --out-link pkgs-all catalog.nix
+release:
+	./support/utils/nix-build-travis-fold.sh -I racket2nix=$(PWD) --no-out-link release.nix
+        echo
 
 test:
 	nix-build --no-out-link test.nix 2>&1
 
-.PHONY: racket2nix racket2nix-flat-nix test test-flat
+.PHONY: racket2nix test
