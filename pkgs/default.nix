@@ -15,6 +15,8 @@ pkgsFn = args: args.pkgs ((removeAttrs args [ "pkgs" ]) // { overlays = [ (self:
   racket2nix = self.racket2nix-stage0;
   inherit (self.callPackage ../build-racket.nix {}) buildRacket buildRacketPackage;
 }; in racket2nix-pkgs // { inherit racket2nix-pkgs; }) ] ++ args.overlays; });
-makeOverridable = g: args: (g args) // { overridePkgs = f: makeOverridable g (args // (f args)); };
+makeOverridable = g: args: (g (args // { overlays = args.overlays ++ [
+  (self: super: { overridePkgs = f: makeOverridable g (args // (f args)); })
+]; }));
 in
 makeOverridable pkgsFn ({ inherit pkgs overlays system; } // args)
