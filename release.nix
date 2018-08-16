@@ -9,7 +9,6 @@ let
   genJobs = pkgs: rec {
     pkgs-all = pkgs.callPackage (racket2nixPath "catalog.nix") {};
     racket2nix = pkgs.callPackage <racket2nix> {};
-    racket2nix-flat-nix = racket2nix.racket2nix-flat-nix;
     test = pkgs.callPackage (racket2nixPath "test.nix") {};
   };
 in
@@ -23,6 +22,5 @@ in
     racket-full = genJobs (pkgs { overlays = [ (self: super: { racket = self.racket-full; }) ]; });
   } // lib.optionalAttrs isTravis {
     stage0-nix-prerequisites = (pkgs {}).racket2nix-stage0.buildInputs;
-    travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix"
-                    "racket2nix-flat-nix" "test" "racket-full.racket2nix" ];
+    travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "test" "racket-full.racket2nix" ];
   }
