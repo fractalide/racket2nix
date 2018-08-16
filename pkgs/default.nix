@@ -4,12 +4,16 @@
 , ...
 }@args:
 
-pkgs (args // { overlays = [ (self: super: let racket2nix-pkgs = {
-  racket-full = (pkgs (removeAttrs args [ "overlays" ])).racket;
+let
+pkgsFn = args: args.pkgs ((removeAttrs args [ "pkgs" ]) // { overlays = [ (self: super: let racket2nix-pkgs = {
+  racket-full = (args.pkgs (removeAttrs args [ "overlays" "pkgs" ])).racket;
   racket-minimal = self.callPackage ../racket-minimal {};
   racket = self.racket-minimal;
 
   racket2nix-stage0 = self.callPackage ../stage0.nix {};
   racket2nix = self.racket2nix-stage0;
   inherit (self.callPackage ../build-racket.nix {}) buildRacket buildRacketPackage;
-}; in racket2nix-pkgs // { inherit racket2nix-pkgs; }) ] ++ overlays; })
+}; in racket2nix-pkgs // { inherit racket2nix-pkgs; }) ] ++ args.overlays; });
+makeOverridable = g: args: (g args) // { overridePkgs = f: makeOverridable g (args // (f args)); };
+in
+makeOverridable pkgsFn ({ inherit pkgs overlays system; } // args)
