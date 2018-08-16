@@ -4,14 +4,11 @@
 
 let it-attrs = integration-test.attrs; in
 let
-  inherit (pkgs) buildRacket racket racket2nix stdenvNoCC;
-  buildRacketAndFlat = package: (buildRacket { inherit package; }) // {
-    flat = buildRacket { inherit package; flat = true; };
-  };
+  inherit (pkgs) buildRacketPackage racket2nix stdenvNoCC;
   attrs = rec {
-  racket-doc = buildRacketAndFlat "racket-doc";
-  typed-map-lib = buildRacketAndFlat "typed-map-lib";
-  br-parser-tools-lib = buildRacketAndFlat "br-parser-tools-lib";
+  racket-doc = buildRacketPackage "racket-doc";
+  typed-map-lib = buildRacketPackage "typed-map-lib";
+  br-parser-tools-lib = buildRacketPackage "br-parser-tools-lib";
 
   light-tests = stdenvNoCC.mkDerivation {
     name = "light-tests";
