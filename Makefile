@@ -1,10 +1,7 @@
-default: racket2nix-flat-nix racket2nix
+default: racket2nix
 
 racket2nix:
 	nix-build --no-out-link
-
-racket2nix-flat-nix:
-	nix-build --no-out-link -A racket2nix-flat-nix
 
 pkgs-all:
 	nix-build --out-link pkgs-all catalog.nix
