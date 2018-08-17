@@ -74,6 +74,8 @@ fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (stripHash
 '';
 
 mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+  name = "${racket.name}-${pname}";
+  inherit (attrs) pname;
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
   circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
@@ -284,7 +286,7 @@ EOM
 
 (define derivation-template #<<EOM
 mkRacketDerivation rec {
-  name = "~a";
+  pname = "~a";
 ~a
   racketBuildInputs = [ ~a ];
   circularBuildInputs = [ ~a ];
