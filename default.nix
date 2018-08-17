@@ -1,5 +1,6 @@
 { system ? builtins.currentSystem
-, pkgs ? import ./pkgs { inherit system; }
+, overlays ? []
+, pkgs ? import ./pkgs { inherit overlays system; }
 , package ? null
 , flat ? false
 , catalog ? ./catalog.rktd
