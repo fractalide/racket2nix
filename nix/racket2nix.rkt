@@ -11,6 +11,7 @@
 (define never-dependency-names '("racket"))
 (define terminal-package-names '("racket-lib"))
 (define force-reverse-circular-build-inputs #hash(
+  ["make" . ("scribble-lib")]
   ["memoize" . ("scribble-lib")]
   ["racket-index" . ("scribble-lib")]
   ["racket-doc" . ("scribble-lib")]
@@ -199,6 +200,7 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
         $env/share/racket/collects/
     done
     cp -rs $racket/lib/racket $env/lib/racket
+    ln -s $racket/include/racket $env/share/racket/include
     find $env/share/racket/collects $env/lib/racket -type d -exec chmod 755 {} +
 
     printf > $env/bin/racket "#!${bash}/bin/bash\nexec ${racket-cmd} \"\$@\"\n"
@@ -243,6 +245,7 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
 
     find $env/share/racket/collects $env/lib/racket -lname "$racket/*" -delete
     find $env/share/racket/collects $env/lib/racket $env/bin -type d -empty -delete
+    rm $env/share/racket/include
   '';
 } // attrs)) suppliedAttrs; in racketDerivation // {
   inherit racketDerivation;
