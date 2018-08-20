@@ -49,11 +49,11 @@ attrs = rec {
       (command-line
         #:program "filter-catalog"
         #:args (exclusions-file)
-          (let ([exclusions (call-with-input-file* exclusions-file read)])
+          (write (let ([exclusions (call-with-input-file* exclusions-file read)])
             (for/fold ([h (make-immutable-hash)]) ([(k v) (in-hash (read))])
               (if (member k exclusions)
                   h
-                  (hash-set h k v)))))
+                  (hash-set h k v))))))
     '';
   } ''
     racket -N filter-catalog $filterCatalog $exclusions \
