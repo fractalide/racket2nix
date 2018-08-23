@@ -5,8 +5,9 @@
 }:
 
 let
-  inherit (pkgs) lib nix racket racket2nix runCommand;
+  inherit (pkgs) lib nix racket2nix runCommand;
   default-catalog = catalog;
+
   attrs = rec {
     buildRacketNix = { catalog, flat, package}:
     runCommand "racket-package.nix" {
@@ -18,7 +19,7 @@ let
     '';
     buildRacket = lib.makeOverridable ({ catalog ? default-catalog, flat ? false, package }:
       let nix = buildRacketNix { inherit catalog flat package; };
-      in (pkgs.callPackage nix { inherit racket; }) // { inherit nix; } //
+      in pkgs.callPackage nix {} // { inherit nix; } //
         lib.optionalAttrs (! flat) { flat = buildRacket { inherit catalog package; flat = true; }; }
     );
     buildRacketPackage = package: buildRacket { inherit package; };
