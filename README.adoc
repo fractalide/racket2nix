@@ -15,10 +15,9 @@ something like Python's virtualenv, Ruby's Bundler or node's npm,
 racket2nix is for you!
 
 If you want something that Just Works, with no surprises or rough
-edges, racket2nix may not yet be quite for you.
-
-It did just reach the stage where it can package itself, so if
-you're adventurous, do try it out!
+edges, racket2nix may not yet be quite for you. But maybe! Have a
+look at the <<Quick start guide>> at the bottom of this page. Simple
+packages actually Just Work, and there's not much you need to do.
 
 === What is it?
 
@@ -97,3 +96,49 @@ Here are the specifics for what you need to to when writing your PR:
 
 That's basically it. Join us, and make racket, nix and the future of
 programming better!
+
+=== Quick start guide
+
+Here are some gotchas:
+
+ - Native dependencies
+ - Racket dependencies that run into corner cases
+   * Circular dependencies can work, there are measures in place, but in particular interactions with `racket-doc` can go bad. (https://github.com/fractalide/racket2nix/issues/153[#153])
+   * Indirect discovery of functionality across packages using `info-cache.rktd` (https://github.com/fractalide/racket2nix/issues/153[#78])
+   * Packages that build documentation and depend on `racket-index` often try to recompile
+     bits of `racket-index` for reasons not yet understood.
+
+Remember to always depend on e.g. `rackunit-lib` rather than `rackunit`,
+that can often keep you out of trouble. If you don't have any of the
+issues above (if you're just depending on `base` and `rackunit-lib`
+you definitely don't), make sure you have a valid `info.rkt`,
+and then add this `default.nix` to the same directory:
+
+```
+{ pkgs ? import <nixpkgs> {}
+, racket2nix ? pkgs.fetchFromGitHub {
+  owner = "fractalide"; repo = "racket2nix";
+  rev = "df7d4d4500d0326d47a9f6831f1eef3800a78eae";
+  sha256 = "0rr3y8glljdr7zirl5zjgy8i6pnq24lxyb6w0k2465wdfk4gc11b"; }
+}:
+
+with import racket2nix {};
+
+buildRacketPackage ./.
+```
+
+That's it! Now you can just:
+
+```
+$ nix-build
+[ . . . ]
+/nix/store/5zij7bnws7ifs9ix1j7z9s6ijgbvyb6l-racket-minimal-6.12-mypackage
+```
+
+And if your `info.rkt` has any launchers listed, you can run them with:
+
+```
+$ nix-shell -A buildEnv --run 'my-cli-command'
+```
+
+If you run into any issues, get in touch!
