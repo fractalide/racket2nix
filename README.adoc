@@ -87,10 +87,13 @@ process and ideals.
 
 Here are the specifics for what you need to to when writing your PR:
 
- - Run `make`.
-   - This verifies that `racket2nix` can still package itself and that
+ - Run `make release`.
+   * This verifies that `racket2nix` can still package itself and that
      the self-packaged version still works.
-   - NOTE: You will need Nix installed and running for this to work.
+   * NOTE: You will need Nix installed and running for this to work.
+ - Make a functionality-specific branch and make a minimal change that
+   mostly just implements that functionality. Small whitespace changes
+   and minor refactoring are allowed to ride on the same PR.
 
 That's basically it. Join us, and make racket, nix and the future of
 programming better!
