@@ -9,17 +9,18 @@ let
   default-catalog = catalog;
 
   attrs = rec {
-    buildRacketNix = { catalog, flat, package}:
-    runCommand "racket-package.nix" {
+    buildRacketNix = { catalog, flat, package, pname ? "racket-package" }:
+    runCommand "${pname}.nix" {
       inherit package;
       buildInputs = [ racket2nix nix ];
       flatArg = lib.optionalString flat "--flat";
     } ''
       racket2nix $flatArg --catalog ${catalog} $package > $out
     '';
-    buildRacket = lib.makeOverridable ({ catalog ? default-catalog, flat ? false, package, attrOverrides ? (oldAttrs: {}) }:
+    buildRacket = lib.makeOverridable ({ catalog ? default-catalog, flat ? false, package, pname ? false,
+                                         attrOverrides ? (oldAttrs: {}) }:
       let
-        nix = buildRacketNix { inherit catalog flat package; };
+        nix = buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
         self = (pkgs.callPackage nix {}).overrideAttrs attrOverrides;
       in self // {
         # We put the deps both in paths and buildInputs, so you can use this either as just

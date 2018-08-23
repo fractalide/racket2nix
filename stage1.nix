@@ -15,12 +15,8 @@ attrOverrides = oldAttrs: {
   postInstall = "$out/bin/racket2nix --test";
 };
 
-stage1 = buildRacket { package = ./nix; attrOverrides = (oldAttrs: attrOverrides oldAttrs // {
-  pname = "racket2nix-stage1";
-}); } // {
-  flat = buildRacketFlat { package = ./nix; attrOverrides = (oldAttrs: attrOverrides oldAttrs // {
-    pname = "racket2nix-stage1.flat";
-  }); };
+stage1 = buildRacket { package = ./nix; pname = "racket2nix-stage1"; inherit attrOverrides; } // {
+  flat = buildRacketFlat { package = ./nix; pname = "racket2nix-stage1.flat"; inherit attrOverrides; };
 };
 
 verify = runCommand "verify-stage1.sh" {} ''
