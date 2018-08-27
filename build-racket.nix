@@ -39,6 +39,19 @@ let
         lib.optionalAttrs (! flat) { flat = buildRacket { inherit catalog package; flat = true; }; }
     );
     buildRacketPackage = package: buildRacket { inherit package; };
+    buildRacketCatalog = packages: let
+      buildOneCatalog = package: runCommand "subcatalog.rktd" {
+        buildInputs = [ racket2nix nix ];
+        inherit catalog package packages;
+      } ''
+        racket2nix --export-catalog --no-process-catalog --catalog $catalog $package $packages --export-catalog > $out
+      '';
+    in runCommand "catalog.rktd" {
+      buildInputs = [ racket2nix nix ];
+      catalogs = map buildOneCatalog packages;
+    } ''
+      racket2nix --export-catalog --no-process-catalog $(printf -- '--catalog %s ' $catalogs) > $out
+    '';
   };
 in
 attrs
