@@ -1,8 +1,8 @@
 { pkgs ? import ./pkgs {}
-, integration-test ? pkgs.callPackage ./integration-test {}
+, integration-tests ? pkgs.callPackage ./integration-tests {}
 }:
 
-let it-attrs = integration-test.attrs; in
+let it-attrs = integration-tests.attrs; in
 let
   inherit (pkgs) buildRacketPackage racket2nix runCommand;
   attrs = rec {
@@ -12,12 +12,12 @@ let
 
   light-tests = runCommand "light-tests" {
     buildInputs = [ typed-map-lib typed-map-lib.flat br-parser-tools-lib br-parser-tools-lib.flat ] ++
-      builtins.attrValues integration-test;
+      builtins.attrValues integration-tests;
   } ''touch $out'';
   heavy-tests = runCommand "heavy-tests" {
     buildInputs = [ racket-doc racket-doc.flat ];
   } ''touch $out'';
-  integration-test = it-attrs;
+  integration-tests = it-attrs;
 };
 in
 attrs.light-tests // attrs

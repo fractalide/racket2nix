@@ -1,8 +1,7 @@
 /raco.out
-/result
 compiled
 /default.nix.in
 /default.nix.in.timestamp
 /pkgs-all
-/result*
+result*
 /catalog.rktd.new

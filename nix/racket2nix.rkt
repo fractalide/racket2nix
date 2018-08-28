@@ -247,10 +247,11 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
     find $env/share/racket/collects $env/lib/racket $env/bin -type d -empty -delete
     rm $env/share/racket/include
   '';
-} // attrs)) suppliedAttrs; in racketDerivation // {
-  inherit racketDerivation;
-  overrideRacketDerivation = f: mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
-};
+} // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
+  passthru = oldAttrs.passthru or {} // {
+    inherit racketDerivation;
+    overrideRacketDerivation = f: mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
+  };});
 
 
 EOM
