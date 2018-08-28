@@ -249,6 +249,7 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
   '';
 } // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
   passthru = oldAttrs.passthru or {} // {
+    inherit (suppliedAttrs) pname;
     inherit racketDerivation;
     overrideRacketDerivation = f: mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
   };});
