@@ -8,8 +8,8 @@ let
 
   genJobs = pkgs: rec {
     api = {
-      # buildRacket is tested by ./integration-test
-      # buildRacketCatalog is tested by ./integration-test
+      # buildRacket is tested by ./integration-tests
+      # buildRacketCatalog is tested by ./integration-tests
       # buildRacketPackage is tested by ./test.nix
       override-racket-derivation = (buildRacketPackage ./nix).overrideRacketDerivation (oldAttrs: {});
     };
