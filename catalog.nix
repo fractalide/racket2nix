@@ -12,11 +12,11 @@ attrs = rec {
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
-    outputHash = "1p8f4yrnv9ny135a41brxh7k740aiz6m41l67bz8ap1rlq2x7pgm";
+    outputHash = "1ckyw31h4mshi72cczvb2n3kgdybjzxlm4acqfriqrzxw3q10w2l";
   } ''
     cd $src
     racket -N dump-catalogs ./dump-catalogs.rkt \
-      https://download.racket-lang.org/releases/6.12/catalog/ > $out
+      https://download.racket-lang.org/releases/7.0/catalog/ > $out
   '';
   liveCatalog = runCommand "live-catalog" {
     src = ./nix;
