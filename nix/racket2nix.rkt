@@ -640,15 +640,27 @@ EOM
           (cons git-url git-sha1)
           (lambda () (discover-git-sha256 git-url git-sha1)))))))
 
-(define (name->let-deps-and-reference #:flat? (flat? #f) package-name package-dictionary)
-  (define-values (package-names _ __)
-    (name->transitive-dependency-names package-name package-dictionary))
-  (catalog-add-nix-sha256! package-dictionary package-names)
-  (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
-  (string-append package-definitions (format "}); in racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n" package-name)))
+(define (names->deps-and-references #:flat? (flat? #f) package-names package-dictionary)
+  (define packages-and-deps (append*
+    (map (lambda (name) (match/values (name->transitive-dependency-names name package-dictionary)
+                         [(dep-names _ _) dep-names]))
+         package-names)))
+  (catalog-add-nix-sha256! package-dictionary packages-and-deps)
+  (define package-definitions (names->let-deps #:flat? flat? packages-and-deps package-dictionary))
+  (define prologue (string-append package-definitions (format "}); in~n")))
+  (define package-template "racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n")
+  (match package-names
+   [(list)
+    (string-append prologue "racket-packages")]
+   [(list package-name)
+    (string-append prologue (format package-template package-name))]
+   [(list package-names ...)
+    (string-join (append (list prologue) (list (format "[~n"))
+      (map (curry format package-template) package-names)
+      (list (format "]~n"))))]))
 
-(define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
-  (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
+(define (names->nix-function #:flat? (flat? #f) package-names package-dictionary)
+  (string-append (header) (names->deps-and-references #:flat? flat? package-names package-dictionary)))
 
 (define (maybe-name->catalog maybe-name pkg-details process-catalog?)
   (define package-names (cond
@@ -710,9 +722,6 @@ EOM
       #:args package-name-or-path
       package-name-or-path))
 
-  (when (and (not export-catalog?) (< (length package-names-or-paths) 1))
-    (raise-user-error "racket2nix: expects at least 1 <package-name> on the command line, except with --export-catalog"))
-
   (define pkg-details (cond
     [catalog-paths
       (hash-copy (for/hash
@@ -726,7 +735,7 @@ EOM
       (get-all-pkg-details-from-catalogs)]))
 
   (define package-names (map (lambda (package-name-or-path) (cond
-    [(and package-name-or-path (string-contains? package-name-or-path "/"))
+    [(string-contains? package-name-or-path "/")
      (define name (string-replace (strip-store-prefix package-name-or-path) #rx".*/" ""))
      (define path package-name-or-path)
      (hash-set!
@@ -738,12 +747,11 @@ EOM
           (checksum . "")
         ))
      name]
-    [else package-name-or-path])) package-names-or-paths))
-
-  (define package-name (if (pair? package-names) (car package-names) #f))
+    [else package-name-or-path]))
+    package-names-or-paths))
 
   (cond
     [export-catalog?
-     (write (maybe-name->catalog package-name pkg-details process-catalog?))]
+     (write (maybe-name->catalog package-names pkg-details process-catalog?))]
     [else
-     (display (name->nix-function #:flat? flat? package-name pkg-details))]))
+     (display (names->nix-function #:flat? flat? package-names pkg-details))]))
