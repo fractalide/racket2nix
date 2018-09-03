@@ -645,7 +645,7 @@ EOM
     (name->transitive-dependency-names package-name package-dictionary))
   (catalog-add-nix-sha256! package-dictionary package-names)
   (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
-  (string-append package-definitions (format "}; in racket-packages._~a~n" package-name)))
+  (string-append package-definitions (format "}; in racket-packages._~a.overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n" package-name)))
 
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
