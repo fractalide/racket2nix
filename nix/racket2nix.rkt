@@ -43,7 +43,7 @@
   ''
 }:
 
-let
+let racket-packages = rec {
 extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   inherit path src;
   name = let
@@ -494,7 +494,7 @@ EOM
       (format "  _~a = ~a;" name (name->derivation #:flat? flat? name package-dictionary))))
   (define derivations-on-lines
     (string-join (append terminal-derivations derivations) (format "~n")))
-  (format "~a~nin~n" derivations-on-lines))
+  (format "~a~n" derivations-on-lines))
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
   (when (member package-name breadcrumbs)
@@ -645,7 +645,7 @@ EOM
     (name->transitive-dependency-names package-name package-dictionary))
   (catalog-add-nix-sha256! package-dictionary package-names)
   (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
-  (string-append package-definitions (format "_~a~n" package-name)))
+  (string-append package-definitions (format "}; in racket-packages._~a~n" package-name)))
 
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
