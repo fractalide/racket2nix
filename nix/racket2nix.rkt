@@ -43,8 +43,8 @@
   ''
 }:
 
-let
-extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
+let racket-packages = lib.makeExtensible (self: {
+lib.extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   inherit path src;
   name = let
     pathComponents = lib.splitString "/" path;
@@ -56,14 +56,14 @@ extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   '';
 });
 
-stripHash = path:
+lib.stripHash = path:
   let
     storeStripped = lib.removePrefix "/" (lib.removePrefix builtins.storeDir path);
     finalLength = (builtins.stringLength storeStripped) - 33;
   in
     builtins.substring 33 finalLength storeStripped;
 
-fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (stripHash pathname)) {
+lib.fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.lib.stripHash pathname)) {
   inherit pathname;
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
@@ -74,7 +74,7 @@ fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (stripHash
   echo ERROR: Unable to find source for $name: $pathname
 '';
 
-mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   name = "${racket.name}-${pname}";
   inherit (attrs) pname;
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
@@ -250,7 +250,7 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
 } // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
   passthru = oldAttrs.passthru or {} // {
     inherit racketDerivation;
-    overrideRacketDerivation = f: mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
+    overrideRacketDerivation = f: self.lib.mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
   };});
 
 
@@ -281,7 +281,7 @@ EOM
   )
 
 (define noop-fixed-output-template #<<EOM
-  src = fixedRacketSource {
+  src = self.lib.fixedRacketSource {
     pathname = "~a";
     sha256 = "~a";
   };
@@ -289,7 +289,7 @@ EOM
   )
 
 (define derivation-template #<<EOM
-mkRacketDerivation rec {
+self.lib.mkRacketDerivation rec {
   pname = "~a";
 ~a
   racketBuildInputs = [ ~a ];
@@ -301,7 +301,7 @@ EOM
 
 (define (generate-extract-path name url rev path sha256)
   (define git-src (generate-git-src name url rev sha256))
-  (format "  src = extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
+  (format "  src = self.lib.extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
 
 (define (github-url->git-url github-url)
   (match-define (list user repo maybe-rev maybe-path)
@@ -435,7 +435,7 @@ EOM
   (define racket-build-inputs
     (string-join
       (for/list ((name non-reverse-circular-dependency-names))
-        (format "_~a" name))))
+        (format "self.\"~a\"" name))))
   (define circular-build-inputs
     (string-join
       (for/list ((name circular-dependency-names))
@@ -455,7 +455,7 @@ EOM
   (define srcs
     (cond
       [(pair? reverse-circular-build-inputs)
-       (define srcs-refs (string-join (map (lambda (s) (format "_~a.src" s)) reverse-circular-build-inputs)))
+       (define srcs-refs (string-join (map (lambda (s) (format "self.\"~a\".src" s)) reverse-circular-build-inputs)))
        (format "~n  extraSrcs = [ ~a ];" srcs-refs)]
       [else ""]))
 
@@ -488,13 +488,13 @@ EOM
 (define (names->let-deps #:flat? (flat? #f) names package-dictionary)
   (define terminal-derivations
     (for/list ((name terminal-package-names))
-      (format "  _~a = ~a;" name name)))
+      (format "  \"~a\" = ~a;" name name)))
   (define derivations
     (for/list ((name (remove* terminal-package-names names)))
-      (format "  _~a = ~a;" name (name->derivation #:flat? flat? name package-dictionary))))
+      (format "  \"~a\" = ~a;" name (name->derivation #:flat? flat? name package-dictionary))))
   (define derivations-on-lines
     (string-join (append terminal-derivations derivations) (format "~n")))
-  (format "~a~nin~n" derivations-on-lines))
+  (format "~a~n" derivations-on-lines))
 
 (define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
   (when (member package-name breadcrumbs)
@@ -645,7 +645,7 @@ EOM
     (name->transitive-dependency-names package-name package-dictionary))
   (catalog-add-nix-sha256! package-dictionary package-names)
   (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
-  (string-append package-definitions (format "_~a~n" package-name)))
+  (string-append package-definitions (format "}); in racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n" package-name)))
 
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
