@@ -435,7 +435,7 @@ EOM
   (define racket-build-inputs
     (string-join
       (for/list ((name non-reverse-circular-dependency-names))
-        (format "self._~a" name))))
+        (format "self.\"~a\"" name))))
   (define circular-build-inputs
     (string-join
       (for/list ((name circular-dependency-names))
@@ -455,7 +455,7 @@ EOM
   (define srcs
     (cond
       [(pair? reverse-circular-build-inputs)
-       (define srcs-refs (string-join (map (lambda (s) (format "self._~a.src" s)) reverse-circular-build-inputs)))
+       (define srcs-refs (string-join (map (lambda (s) (format "self.\"~a\".src" s)) reverse-circular-build-inputs)))
        (format "~n  extraSrcs = [ ~a ];" srcs-refs)]
       [else ""]))
 
@@ -488,10 +488,10 @@ EOM
 (define (names->let-deps #:flat? (flat? #f) names package-dictionary)
   (define terminal-derivations
     (for/list ((name terminal-package-names))
-      (format "  _~a = ~a;" name name)))
+      (format "  \"~a\" = ~a;" name name)))
   (define derivations
     (for/list ((name (remove* terminal-package-names names)))
-      (format "  _~a = ~a;" name (name->derivation #:flat? flat? name package-dictionary))))
+      (format "  \"~a\" = ~a;" name (name->derivation #:flat? flat? name package-dictionary))))
   (define derivations-on-lines
     (string-join (append terminal-derivations derivations) (format "~n")))
   (format "~a~n" derivations-on-lines))
@@ -645,7 +645,7 @@ EOM
     (name->transitive-dependency-names package-name package-dictionary))
   (catalog-add-nix-sha256! package-dictionary package-names)
   (define package-definitions (names->let-deps #:flat? flat? package-names package-dictionary))
-  (string-append package-definitions (format "}); in racket-packages._~a.overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n" package-name)))
+  (string-append package-definitions (format "}); in racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n" package-name)))
 
 (define (name->nix-function #:flat? (flat? #f) package-name package-dictionary)
   (string-append (header) (name->let-deps-and-reference #:flat? flat? package-name package-dictionary)))
