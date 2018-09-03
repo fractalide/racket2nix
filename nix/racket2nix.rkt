@@ -148,7 +148,7 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
           (lib-search-dirs . ,lib-dirs)
           (lib-dir . ,(format "~a/lib/racket" out))
           (bin-dir . ,(format "~a/bin" out))
-          (absolute-installation . #t)
+          (absolute-installation? . #t)
           (installation-name . ".")
 
           (links-search-files . ,(share/racket "links.rktd"))
