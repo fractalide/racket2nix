@@ -44,7 +44,7 @@
 }:
 
 let racket-packages = lib.makeExtensible (self: {
- extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
+lib.extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   inherit path src;
   name = let
     pathComponents = lib.splitString "/" path;
@@ -56,14 +56,14 @@ let racket-packages = lib.makeExtensible (self: {
   '';
 });
 
-stripHash = path:
+lib.stripHash = path:
   let
     storeStripped = lib.removePrefix "/" (lib.removePrefix builtins.storeDir path);
     finalLength = (builtins.stringLength storeStripped) - 33;
   in
     builtins.substring 33 finalLength storeStripped;
 
-fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.stripHash pathname)) {
+lib.fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.lib.stripHash pathname)) {
   inherit pathname;
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
@@ -74,7 +74,7 @@ fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.stri
   echo ERROR: Unable to find source for $name: $pathname
 '';
 
-mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   name = "${racket.name}-${pname}";
   inherit (attrs) pname;
   buildInputs = [ unzip racket attrs.racketBuildInputs ];
@@ -250,7 +250,7 @@ mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (
 } // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
   passthru = oldAttrs.passthru or {} // {
     inherit racketDerivation;
-    overrideRacketDerivation = f: self.mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
+    overrideRacketDerivation = f: self.lib.mkRacketDerivation (suppliedAttrs // (f suppliedAttrs));
   };});
 
 
@@ -281,7 +281,7 @@ EOM
   )
 
 (define noop-fixed-output-template #<<EOM
-  src = self.fixedRacketSource {
+  src = self.lib.fixedRacketSource {
     pathname = "~a";
     sha256 = "~a";
   };
@@ -289,7 +289,7 @@ EOM
   )
 
 (define derivation-template #<<EOM
-self.mkRacketDerivation rec {
+self.lib.mkRacketDerivation rec {
   pname = "~a";
 ~a
   racketBuildInputs = [ ~a ];
@@ -301,7 +301,7 @@ EOM
 
 (define (generate-extract-path name url rev path sha256)
   (define git-src (generate-git-src name url rev sha256))
-  (format "  src = self.extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
+  (format "  src = self.lib.extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
 
 (define (github-url->git-url github-url)
   (match-define (list user repo maybe-rev maybe-path)
