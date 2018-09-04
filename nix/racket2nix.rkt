@@ -643,6 +643,8 @@ EOM
 (define (names->deps-and-references #:flat? (flat? #f) package-names package-dictionary)
   (define packages-and-deps (match package-names
     [(list)
+     (for ([name (hash-keys package-dictionary)]) ; for side-effects only
+       (name->transitive-dependency-names name package-dictionary))
      (hash-keys package-dictionary)]
     [(list package-names ...)
      (append* (map
