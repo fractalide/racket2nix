@@ -645,7 +645,9 @@ EOM
     [(list)
      (for ([name (hash-keys package-dictionary)]) ; for side-effects only
        (name->transitive-dependency-names name package-dictionary))
-     (hash-keys package-dictionary)]
+     (filter-map (lambda (name) (and (not (hash-ref (hash-ref package-dictionary name) 'checksum-error #f))
+                                     name))
+                 (hash-keys package-dictionary))]
     [(list package-names ...)
      (append* (map
        (lambda (name) (match/values (name->transitive-dependency-names name package-dictionary)
