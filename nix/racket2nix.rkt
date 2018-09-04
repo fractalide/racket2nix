@@ -643,7 +643,11 @@ EOM
 (define (names->deps-and-references #:flat? (flat? #f) package-names package-dictionary)
   (define packages-and-deps (match package-names
     [(list)
-     (hash-keys package-dictionary)]
+     (for ([name (hash-keys package-dictionary)]) ; for side-effects only
+       (name->transitive-dependency-names name package-dictionary))
+     (filter-map (lambda (name) (and (not (hash-ref (hash-ref package-dictionary name) 'checksum-error #f))
+                                     name))
+                 (hash-keys package-dictionary))]
     [(list package-names ...)
      (append* (map
        (lambda (name) (match/values (name->transitive-dependency-names name package-dictionary)
