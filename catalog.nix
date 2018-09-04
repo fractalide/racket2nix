@@ -62,7 +62,7 @@ attrs = rec {
   pretty-merged-catalog = runCommand "pretty-merged-catalog.rktd" {
     buildInputs = [ racket ];
   } ''
-    racket -e '(pretty-print (read))' < ${merged-catalog} > $out
+    racket -e '(pretty-write (read))' < ${merged-catalog} > $out
   '';
 };
 in
