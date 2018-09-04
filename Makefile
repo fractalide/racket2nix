@@ -5,7 +5,6 @@ racket2nix:
 
 release:
 	./support/utils/nix-build-travis-fold.sh -I racket2nix=$(PWD) --no-out-link release.nix 2>&1 | sed -e 's/travis_.*\r//'
-	echo
 
 test:
 	nix-build --no-out-link test.nix 2>&1
