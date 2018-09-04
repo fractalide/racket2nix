@@ -54,16 +54,23 @@ lib.fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.
   echo ERROR: Unable to find source for $name: $pathname
 '';
 
+lib.resolveThinInputs = let resolve = thinInputs: if thinInputs == [] then [] else
+  let head = builtins.head thinInputs; tail = builtins.tail thinInputs; in
+  [ head ] ++ head.racketBuildInputs or [] ++ resolve head.racketThinBuildInputs or [] ++ resolve tail;
+  in resolve;
 lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   name = "${racket.name}-${pname}";
   inherit (attrs) pname;
-  buildInputs = [ unzip racket attrs.racketBuildInputs ];
-  circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
-  racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
-  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input attrs.reverseCircularBuildInputs) attrs.racketBuildInputs;
+  racketBuildInputs = attrs.racketBuildInputs or [] ++ self.lib.resolveThinInputs attrs.racketThinBuildInputs or [];
+  buildInputs = [ unzip racket ] ++ racketBuildInputs;
+  circularBuildInputs = attrs.circularBuildInputs or [];
+  circularBuildInputsStr = lib.concatStringsSep " " circularBuildInputs;
+  racketBuildInputsStr = lib.concatStringsSep " " racketBuildInputs;
+  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input reverseCircularBuildInputs) racketBuildInputs;
   racketConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) racketConfigBuildInputs);
+  reverseCircularBuildInputs = attrs.reverseCircularBuildInputs or [];
   srcs = [ attrs.src ]
-           ++ attrs.extraSrcs or (map (input: input.src) attrs.reverseCircularBuildInputs);
+           ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
   inherit racket;
   outputs = [ "out" "env" ];
 

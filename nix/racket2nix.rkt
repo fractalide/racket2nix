@@ -74,16 +74,23 @@ lib.fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.
   echo ERROR: Unable to find source for $name: $pathname
 '';
 
+lib.resolveThinInputs = let resolve = thinInputs: if thinInputs == [] then [] else
+  let head = builtins.head thinInputs; tail = builtins.tail thinInputs; in
+  [ head ] ++ head.racketBuildInputs or [] ++ resolve head.racketThinBuildInputs or [] ++ resolve tail;
+  in resolve;
 lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   name = "${racket.name}-${pname}";
   inherit (attrs) pname;
-  buildInputs = [ unzip racket attrs.racketBuildInputs ];
-  circularBuildInputsStr = lib.concatStringsSep " " attrs.circularBuildInputs;
-  racketBuildInputsStr = lib.concatStringsSep " " attrs.racketBuildInputs;
-  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input attrs.reverseCircularBuildInputs) attrs.racketBuildInputs;
+  racketBuildInputs = attrs.racketBuildInputs or [] ++ self.lib.resolveThinInputs attrs.racketThinBuildInputs or [];
+  buildInputs = [ unzip racket ] ++ racketBuildInputs;
+  circularBuildInputs = attrs.circularBuildInputs or [];
+  circularBuildInputsStr = lib.concatStringsSep " " circularBuildInputs;
+  racketBuildInputsStr = lib.concatStringsSep " " racketBuildInputs;
+  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input reverseCircularBuildInputs) racketBuildInputs;
   racketConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) racketConfigBuildInputs);
+  reverseCircularBuildInputs = attrs.reverseCircularBuildInputs or [];
   srcs = [ attrs.src ]
-           ++ attrs.extraSrcs or (map (input: input.src) attrs.reverseCircularBuildInputs);
+           ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
   inherit racket;
   outputs = [ "out" "env" ];
 
@@ -257,6 +264,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 EOM
   )
 
+(define thin-template #<<EOM
+self: super: {
+~a
+}
+
+EOM
+)
+
 (define fetchgit-template #<<EOM
   src = fetchgit {
     name = "~a";
@@ -299,6 +314,14 @@ self.lib.mkRacketDerivation rec {
 EOM
   )
 
+(define thin-derivation-template #<<EOM
+self.lib.mkRacketDerivation rec {
+  pname = "~a";
+~a
+  racketThinBuildInputs = [ ~a ];
+  }
+EOM
+  )
 (define (generate-extract-path name url rev path sha256)
   (define git-src (generate-git-src name url rev sha256))
   (format "  src = self.lib.extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
@@ -421,7 +444,8 @@ EOM
 (define (generate-git-src name url rev sha256)
   (format fetchgit-template name url rev sha256))
 
-(define (derivation name url sha1 dependency-names circular-dependency-names
+(define (derivation #:thin? (thin? #f)
+                    name url sha1 dependency-names circular-dependency-names
                     (override-reverse-circular-build-inputs #f)
                     (nix-sha256 #f))
 
@@ -459,9 +483,11 @@ EOM
        (format "~n  extraSrcs = [ ~a ];" srcs-refs)]
       [else ""]))
 
-  (format derivation-template name (string-join (list src srcs) "")
-          racket-build-inputs circular-build-inputs
-          reverse-circular-build-inputs-string))
+  (if thin?
+    (format thin-derivation-template name (string-join (list src srcs) "") racket-build-inputs)
+    (format derivation-template name (string-join (list src srcs) "")
+            racket-build-inputs circular-build-inputs
+            reverse-circular-build-inputs-string)))
 
 (define (header) header-template)
 
@@ -485,13 +511,14 @@ EOM
       (car pair-or-string)
       pair-or-string))
 
-(define (names->let-deps #:flat? (flat? #f) names package-dictionary)
-  (define terminal-derivations
+(define (names->let-deps #:flat? (flat? #f) #:thin? (thin? #f) names package-dictionary)
+  (define terminal-derivations (if thin?
+    '()
     (for/list ((name terminal-package-names))
-      (format "  \"~a\" = ~a;" name name)))
+      (format "  \"~a\" = ~a;" name name))))
   (define derivations
     (for/list ((name (remove* terminal-package-names names)))
-      (format "  \"~a\" = ~a;" name (name->derivation #:flat? flat? name package-dictionary))))
+      (format "  \"~a\" = ~a;" name (name->derivation #:flat? flat? #:thin? thin? name package-dictionary))))
   (define derivations-on-lines
     (string-join (append terminal-derivations derivations) (format "~n")))
   (format "~a~n" derivations-on-lines))
@@ -588,18 +615,22 @@ EOM
           (append trimmed-transitive-dependency-names (list name))
           cycles))
 
-(define (name->derivation #:flat? (flat? #f) package-name package-dictionary)
+(define (name->derivation #:flat? (flat? #f) #:thin? (thin? #f) package-name package-dictionary)
   (define package (memo-lookup-preprocess-package package-dictionary package-name))
-  (package->derivation #:flat? flat? package package-dictionary))
+  (package->derivation #:flat? flat? #:thin? thin? package package-dictionary))
 
-(define (package->derivation #:flat? (flat? #f) package package-dictionary)
+(define (package->derivation #:flat? (flat? #f) #:thin? (thin? #f) package package-dictionary)
   (define name (hash-ref package 'name))
   (define url (hash-ref package 'source))
   (define sha1 (hash-ref package 'checksum))
   (define nix-sha256 (hash-ref package 'nix-sha256 #f))
   (define dependency-names (hash-ref package 'dependency-names))
-  (define circular-dependency-names (hash-ref package 'circular-dependencies))
-  (define trans-dep-names (hash-ref package 'transitive-dependency-names))
+  (define circular-dependency-names (if thin?
+    '()
+    (hash-ref package 'circular-dependencies)))
+  (define trans-dep-names (if thin?
+    dependency-names
+    (hash-ref package 'transitive-dependency-names)))
   (define reverse-circular-dependency-names
     (cond
       [flat?
@@ -618,7 +649,8 @@ EOM
                 (hash-ref force-reverse-circular-build-inputs name
                           (lambda () '())))
         (remove-duplicates (append calculated-reverse-circular forced-reverse-circular))]))
-  (derivation name url sha1 trans-dep-names circular-dependency-names
+  (derivation #:thin? thin?
+              name url sha1 trans-dep-names circular-dependency-names
               reverse-circular-dependency-names
               nix-sha256))
 
@@ -681,11 +713,17 @@ EOM
   (for/hash ((name package-names))
     (values name (hash-ref pkg-details name))))
 
+(define (names->thin-nix-function names packages-dictionary)
+  (catalog-add-nix-sha256! packages-dictionary names)
+  (define package-definitions (names->let-deps #:thin? #t names packages-dictionary))
+  (format thin-template package-definitions))
+
 (module+ main
   (define catalog-paths #f)
   (define flat? #f)
   (define export-catalog? #f)
   (define process-catalog? #t)
+  (define thin? #f)
 
   (define package-names-or-paths
     (command-line
@@ -708,15 +746,21 @@ EOM
       [("--flat")
        "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
        (set! flat? #t)]
+      [("--no-process-catalog")
+       "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
+       (set! process-catalog? #f)]
+      #:once-any
       [("--export-catalog")
        "Instead of outputting a nix expression, output a pre-processed catalog, with the nix-sha256 looked up and\
  added. If a package name or path is given, only the subset of the catalog that includes that package and its dependencies\
  will be output. If several paths are given, the ones after the first one are used for extending the catalog, just like\
  in the main use case. Providing several package names makes no sense."
        (set! export-catalog? #t)]
-      [("--no-process-catalog")
-       "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
-       (set! process-catalog? #f)]
+      [("--thin")
+       "Do not read any catalogs, do not output a full stand-alone nix expression, just output an expression suitable\
+ for extending racket-catalog.nix, and which assumes that any dependencies will be resolved by the catalog (or its\
+ extensions)."
+       (set! thin? #t)]
       #:multi
       ["--catalog"
        catalog-path
@@ -727,6 +771,7 @@ EOM
       package-name-or-path))
 
   (define pkg-details (cond
+    [thin? (make-hash)]
     [catalog-paths
       (hash-copy (for/hash
         ([kv (append* (for/list
@@ -755,6 +800,9 @@ EOM
     package-names-or-paths))
 
   (cond
+    [thin?
+     (when flat? (raise-user-error "--flat and --thin is not a supported combination."))
+     (display (names->thin-nix-function package-names pkg-details))]
     [export-catalog?
      (write (maybe-name->catalog
        (if (= 1 (length package-names)) (car package-names) #f)
