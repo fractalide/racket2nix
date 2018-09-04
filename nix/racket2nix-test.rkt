@@ -49,7 +49,7 @@
 
 (define (deps #:flat? (flat? #f) (observed-top-name "a"))
   (define s (scaffold))
-  (name->nix-function #:flat? flat? "a" s)
+  (names->nix-function #:flat? flat? '("a") s)
   (define observed-top (hash-ref s observed-top-name))
   (define transitive (hash-ref observed-top 'transitive-dependency-names))
   (define reverse-circular (hash-ref observed-top 'reverse-circular-build-inputs list))
