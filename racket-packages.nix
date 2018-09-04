@@ -13303,18 +13303,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "gaming" = self.lib.mkRacketDerivation rec {
-  pname = "gaming";
-  src = fetchgit {
-    name = "gaming";
-    url = "git://github.com/samvv/racket-gaming.git";
-    rev = "5658b815fe37bbc758b346131fbc53cfd40ea4b3";
-    sha256 = "0gywjpvdgsld5d4krwcp1xvwdh7jc615mv8dwfx4kaafy56409v2";
-  };
-  racketBuildInputs = [ self."ramunk" self."rx" self."scribble-lib" self."scheme-lib" self."base" self."net-lib" self."sandbox-lib" self."racket-index" self."at-exp-lib" self."rackunit-lib" self."serialize-cstruct-lib" self."cext-lib" self."compiler-lib" self."math-lib" self."racket-lib" self."srfi-lite-lib" self."errortrace-lib" self."source-syntax" self."compatibility-lib" self."scribble-text-lib" self."scribble-html-lib" self."planet-lib" self."draw-lib" self."syntax-color-lib" self."typed-racket-lib" self."draw-i386-macosx-2" self."draw-x86_64-macosx-2" self."draw-ppc-macosx-2" self."draw-win32-i386-2" self."draw-win32-x86_64-2" self."draw-x86_64-linux-natipkg-2" self."draw-x11-x86_64-linux-natipkg" self."draw-ttf-x86_64-linux-natipkg" self."parser-tools-lib" self."option-contract-lib" self."testing-util-lib" self."string-constants-lib" self."rackunit-gui" self."class-iop-lib" self."data-lib" self."gui-lib" self."snip-lib" self."wxme-lib" self."pict-lib" self."2d-lib" self."tex-table" self."gui-i386-macosx" self."gui-x86_64-macosx" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."pconvert-lib" self."zo-lib" self."data-enumerate-lib" self."plot-lib" self."r6rs-lib" self."typed-racket-more" self."math-i386-macosx" self."math-x86_64-macosx" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."r5rs-lib" self."web-server-lib" self."db-lib" self."rackunit-typed" self."images-lib" self."net-cookies-lib" self."unix-socket-lib" self."sasl-lib" self."plot-gui-lib" self."plot-compat" self."slideshow-lib" self."macro-debugger-text-lib" self."profile-lib" self."readline-lib" self."xrepl-lib" self."images-gui-lib" self."typed-racket-compatibility" self."srfi-lib" self."distributed-places-lib" self."dynext-lib" self."html-lib" self."icons" self."htdp-lib" self."drracket-plugin-lib" self."gui-pkg-manager-lib" self."drracket-tool-lib" self."pict-snip-lib" self."plai-lib" self."deinprogramm-signature" self."eli-tester" self."r5rs-doc" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
   "colon-kw" = self.lib.mkRacketDerivation rec {
   pname = "colon-kw";
   src = fetchgit {
