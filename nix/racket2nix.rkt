@@ -752,6 +752,8 @@ EOM
 
   (cond
     [export-catalog?
-     (write (maybe-name->catalog package-names pkg-details process-catalog?))]
+     (write (maybe-name->catalog
+       (if (= 1 (length package-names)) (car package-names) #f)
+       pkg-details process-catalog?))]
     [else
      (display (names->nix-function #:flat? flat? package-names pkg-details))]))
