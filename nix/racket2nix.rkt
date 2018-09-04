@@ -641,23 +641,23 @@ EOM
           (lambda () (discover-git-sha256 git-url git-sha1)))))))
 
 (define (names->deps-and-references #:flat? (flat? #f) package-names package-dictionary)
-  (define packages-and-deps (append*
-    (map (lambda (name) (match/values (name->transitive-dependency-names name package-dictionary)
-                         [(dep-names _ _) dep-names]))
-         package-names)))
+  (define packages-and-deps (match package-names
+    [(list)
+     (hash-keys package-dictionary)]
+    [(list package-names ...)
+     (append* (map
+       (lambda (name) (match/values (name->transitive-dependency-names name package-dictionary)
+                        [(dep-names _ _) dep-names]))
+       package-names))]))
   (catalog-add-nix-sha256! package-dictionary packages-and-deps)
   (define package-definitions (names->let-deps #:flat? flat? packages-and-deps package-dictionary))
   (define prologue (string-append package-definitions (format "}); in~n")))
   (define package-template "racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n")
   (match package-names
-   [(list)
-    (string-append prologue "racket-packages")]
    [(list package-name)
     (string-append prologue (format package-template package-name))]
-   [(list package-names ...)
-    (string-join (append (list prologue) (list (format "[~n"))
-      (map (curry format package-template) package-names)
-      (list (format "]~n"))))]))
+   [(list package-names ...) ; including the empty list
+    (string-append prologue (format "racket-packages~n"))]))
 
 (define (names->nix-function #:flat? (flat? #f) package-names package-dictionary)
   (string-append (header) (names->deps-and-references #:flat? flat? package-names package-dictionary)))
