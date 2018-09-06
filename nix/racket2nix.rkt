@@ -89,8 +89,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input reverseCircularBuildInputs) racketBuildInputs;
   racketConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) racketConfigBuildInputs);
   reverseCircularBuildInputs = attrs.reverseCircularBuildInputs or [];
-  srcs = [ attrs.src ]
-           ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
+  src = attrs.src or null;
+  srcs = [ src ] ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
   inherit racket;
   outputs = [ "out" "env" ];
 
