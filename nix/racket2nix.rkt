@@ -212,6 +212,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 
     printf > $env/bin/racket "#!${bash}/bin/bash\nexec ${racket-cmd} \"\$@\"\n"
     chmod 555 $env/bin/racket
+    PATH=$env/bin:$PATH
 
     # install and link us
     install_names=""
