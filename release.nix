@@ -15,7 +15,9 @@ let
     };
     pkgs-all = pkgs.callPackage (racket2nixPath "catalog.nix") {};
     racket2nix = pkgs.callPackage <racket2nix> {};
-    test = pkgs.callPackage (racket2nixPath "test.nix") {};
+    tests = {
+      inherit (pkgs.callPackage (racket2nixPath "test.nix") {}) light-tests heavy-tests;
+    };
   };
 in
   (genJobs (pkgs {})) //
@@ -28,6 +30,6 @@ in
     racket-full = genJobs (pkgs { overlays = [ (self: super: { racket = self.racket-full; }) ]; });
   } // lib.optionalAttrs isTravis {
     stage0-nix-prerequisites = (pkgs {}).racket2nix-stage0.buildInputs;
-    travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "test" "racket-full.racket2nix"
-                    "api.override-racket-derivation" ];
+    travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "tests.light-tests"
+                    "racket-full.racket2nix" "api.override-racket-derivation" ];
   }
