@@ -206,6 +206,13 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       cp -rs $racket/share/racket/collects/$bootstrap_collection \
         $env/share/racket/collects/
     done
+
+    mkdir -p $env/share/racket/pkgs
+    for depEnv in $racketConfigBuildInputsStr; do
+      cp -frs $depEnv/share/racket/pkgs/*/ $env/share/racket/pkgs/
+      find $env/share/racket/pkgs -type d -exec chmod 755 {} +
+    done
+
     cp -rs $racket/lib/racket $env/lib/racket
     ln -s $racket/include/racket $env/share/racket/include
     find $env/share/racket/collects $env/lib/racket -type d -exec chmod 755 {} +
@@ -252,7 +259,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     runHook postInstall
 
     find $env/share/racket/collects $env/lib/racket -lname "$racket/*" -delete
-    find $env/share/racket/collects $env/lib/racket $env/bin -type d -empty -delete
+    for depEnv in $racketConfigBuildInputsStr; do
+      find $env/share/racket/pkgs -lname "$depEnv/*" -delete
+    done
+    find $env/share/racket/collects $env/share/racket/pkgs $env/lib/racket $env/bin -type d -empty -delete
     rm $env/share/racket/include
   '';
 } // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
