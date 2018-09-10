@@ -1,5 +1,6 @@
 { pkgs ? import ./pkgs {}
 , catalog ? ./catalog.rktd
+, racket-package-overlays ? [ (import ./build-racket-default-overlay.nix) ]
 , package ? null
 , flat ? false
 }:
@@ -7,6 +8,7 @@
 let
   inherit (pkgs) buildEnv lib nix racket2nix runCommand;
   default-catalog = catalog;
+  default-overlays = racket-package-overlays;
 
   attrs = rec {
     buildRacketNix = { catalog, flat, package, pname ? "racket-package" }:
@@ -18,10 +20,19 @@ let
       racket2nix $flatArg --catalog ${catalog} $package > $out
     '';
     buildRacket = lib.makeOverridable ({ catalog ? default-catalog, flat ? false, package, pname ? false,
-                                         attrOverrides ? (oldAttrs: {}) }:
+                                         attrOverrides ? (oldAttrs: {}), overlays ? default-overlays }:
       let
         nix = buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
-        self = (pkgs.callPackage nix {}).overrideAttrs attrOverrides;
+        self = let
+          pname = ((pkgs.callPackage nix {}).overrideAttrs attrOverrides).pname;
+          rpkgs = (pkgs.callPackage nix {}).racket-packages;
+          racket-packages = let apply-overlays = rpkgs: overlays: if overlays == [] then rpkgs else
+            apply-overlays (rpkgs.extend (builtins.head overlays)) (builtins.tail overlays);
+          in
+            apply-overlays rpkgs overlays;
+        in
+          racket-packages."${pname}".overrideAttrs (oldAttrs:
+            { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; });
       in self // {
         # We put the deps both in paths and buildInputs, so you can use this either as just
         #     nix-shell -A buildEnv
