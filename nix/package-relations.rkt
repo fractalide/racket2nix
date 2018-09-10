@@ -2,7 +2,7 @@
 
 (require datalog)
 
-(provide calculate-package-relations)
+(provide (all-defined-out))
 
 (define (package-rules)
   (define rules (make-theory))
@@ -27,6 +27,44 @@
   (if (<= (string-length long-name) 32)
     long-name
     (string-append (substring long-name 0 29) "...")))
+
+(define (quick-transitive-dependencies name package done catalog)
+  (define deps (hash-ref package 'dependency-names))
+  (cond
+   [(for/and ([dep deps])
+      (unless (hash-ref catalog dep #f)
+        (raise-user-error (format "Invalid catalog: Package ~a has unresolved dependency ~a.~n"
+          name dep)))
+      (hash-ref done dep #f))
+    (define new-done
+      (hash-set done name (hash-set package 'transitive-dependency-names
+        (remove-duplicates (append* (cons (hash-ref package 'dependency-names) (map
+          (lambda (dep) (hash-ref (hash-ref done dep) 'transitive-dependency-names)) deps)))))))
+    (values #hash() new-done)]
+   [else
+    (define new-todo (for/fold ([new-todo #hash()]) ([todo-name (cons name deps)])
+      (if (hash-ref done todo-name #f)
+        new-todo
+        (hash-set new-todo todo-name (hash-ref catalog todo-name)))))
+          (values new-todo done)]))
+
+(define (hash-merge . hs)
+  (for/fold ([h (car hs)]) ([k-v (append* (map hash->list (cdr hs)))])
+    (match-define (cons k v) k-v)
+    (hash-set h k v)))
+
+(define (calculate-transitive-dependencies catalog names)
+  (let loop ([todo (make-immutable-hash (map (lambda (name) (cons name (hash-ref catalog name))) names))]
+             [done #hash()])
+    (cond
+     [(hash-empty? todo) done]
+     [else
+      (define-values (new-todo new-done) (for/fold ([todo #hash()] [done done]) ([(name package) (in-hash todo)])
+        (define-values (part-todo part-done) (quick-transitive-dependencies name package done catalog))
+        (values (hash-merge todo part-todo) (hash-merge done part-done))))
+      (if (and (equal? new-todo todo) (equal? new-done done)) ; only cycles left
+          (hash-merge new-todo new-done)
+          (loop new-todo new-done))])))
 
 (define (calculate-package-relations catalog)
   (define rules (package-rules))

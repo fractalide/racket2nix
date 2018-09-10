@@ -541,9 +541,7 @@ EOM
   (define sha1 (hash-ref package 'checksum #f))
   (define nix-sha256 (hash-ref package 'nix-sha256 #f))
   (define dependency-names (hash-ref package 'dependency-names))
-  (define circular-dependency-names (if thin?
-    '()
-    (hash-ref package 'circular-dependencies)))
+  (define circular-dependency-names (hash-ref package 'circular-dependencies '()))
   (define trans-dep-names (if thin?
     dependency-names
     (hash-ref package 'transitive-dependency-names)))
@@ -589,6 +587,15 @@ EOM
               (hash-set catalog name new-package))]
      [else (values url-sha1-memo catalog)])))
 
+(define (simplify-package-dependency-names catalog)
+  (for/hash ([(name package) (in-hash catalog)])
+    (define deps (if (member name terminal-package-names)
+      '()
+      (remove* never-dependency-names
+               (map dependency-name (hash-ref package 'dependencies '())))))
+
+    (values name (hash-set package 'dependency-names deps))))
+
 (define (names->deps-and-references #:flat? (flat? #f) package-names catalog)
   (define packages-and-deps (match package-names
     [(list)
@@ -628,9 +635,12 @@ EOM
   (define package-definitions (names->let-deps #:thin? #t names catalog))
   (format thin-template package-definitions))
 
+; these require the datalog library in our racket environment
 (define-runtime-path package-relations-path "package-relations.rkt")
-(define (calculate-package-relations catalog) ; requires the datalog library in our racket environment
+(define (calculate-package-relations catalog)
   ((dynamic-require package-relations-path 'calculate-package-relations) catalog))
+(define (calculate-transitive-dependencies catalog names)
+  ((dynamic-require package-relations-path 'calculate-transitive-dependencies) catalog names))
 
 (module+ main
   (define catalog-paths #f)
@@ -713,21 +723,16 @@ EOM
     [else package-name-or-path]))
     package-names-or-paths))
 
-  (define massaged-packages (for/hash ([(name package) (in-hash pkg-details)])
-    (define deps (if (member name terminal-package-names)
-      '()
-      (remove* never-dependency-names
-               (map dependency-name (hash-ref package 'dependencies '())))))
-
-    (values name (hash-set package 'dependency-names deps))))
+  (define catalog-with-package-dependency-names
+    (simplify-package-dependency-names pkg-details))
 
   (cond
     [thin?
-     (display (names->thin-nix-function package-names massaged-packages))]
+     (display (names->thin-nix-function package-names catalog-with-package-dependency-names))]
     [export-catalog?
      (write (maybe-name->catalog
        (if (= 1 (length package-names)) (car package-names) #f)
-       massaged-packages process-catalog?))]
+       catalog-with-package-dependency-names process-catalog?))]
     [else
      (display (names->nix-function #:flat? flat? package-names
-                                   (calculate-package-relations massaged-packages)))]))
+                                   (calculate-transitive-dependencies catalog-with-package-dependency-names package-names)))]))
