@@ -4,6 +4,7 @@
 (require json)
 (require pkg/lib)
 (require racket/hash)
+(require racket/runtime-path)
 (require setup/getinfo)
 
 (provide (all-defined-out))
@@ -482,6 +483,7 @@ EOM
         (format "\"~a\"" input))))
   (define src
     (cond
+      [(and (not url) (not sha1)) ""]
       [(or (github-url? url) (git-url? url))
        (generate-maybe-path-git-src name url sha1 nix-sha256)]
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
@@ -503,20 +505,8 @@ EOM
 
 (define (header) header-template)
 
-(define (memo-lookup-package catalog package-name)
-  (define package (hash-ref catalog package-name))
-  (cond [(immutable? package)
-         (define mutable-package (hash-copy package))
-         (hash-set! catalog package-name mutable-package)
-         mutable-package]
-        [else package]))
-
-(define (memo-lookup-preprocess-package package-dictionary package-name)
-  (define package (memo-lookup-package package-dictionary package-name))
-  (hash-ref! package 'dependency-names (lambda ()
-    (remove* never-dependency-names
-             (map dependency-name (hash-ref package 'dependencies '())))))
-  package)
+(define memo-lookup-package hash-ref)
+(define memo-lookup-preprocess-package memo-lookup-package)
 
 (define (dependency-name pair-or-string)
   (if (pair? pair-or-string)
@@ -535,97 +525,11 @@ EOM
     (string-join (append terminal-derivations derivations) (format "~n")))
   (format "~a~n" derivations-on-lines))
 
-(define (name->transitive-dependency-names package-name package-dictionary (breadcrumbs '()))
-  (when (member package-name breadcrumbs)
-    (raise-argument-error 'name->transitive-dependency-names
-                          "not supposed to be a circular dependency"
-                          0 package-name breadcrumbs))
+(define (name->transitive-dependency-names package-name package-dictionary)
+  (package->transitive-dependency-names (hash-ref package-dictionary package-name)))
 
-  (define package (memo-lookup-preprocess-package package-dictionary package-name))
-  (define transitive-dependency-names (hash-ref package 'transitive-dependency-names #f))
-
-  (cond [transitive-dependency-names (values transitive-dependency-names
-                                             transitive-dependency-names
-                                             (hash-ref package 'cycles))]
-        [(member package-name terminal-package-names) (values (list package-name)
-                                                              (list package-name)
-                                                              #hash())]
-        [else
-          (define new-crumbs (append breadcrumbs (list package-name)))
-          (package->transitive-dependency-names package package-dictionary new-crumbs)]))
-
-(define (package->transitive-dependency-names package package-dictionary breadcrumbs)
-  (define name (hash-ref package 'name))
-  (define raw-dependency-names (hash-ref package 'dependency-names))
-
-  ; We cannot trust set-subtract to retain order
-  (define noncircular-parents (remove* raw-dependency-names breadcrumbs))
-  (define circular-parents (remove* noncircular-parents breadcrumbs))
-
-  (define dependency-names (remove* circular-parents raw-dependency-names))
-
-  (define-values (transitive-dependency-names
-                  trimmed-transitive-dependency-names
-                  cycles)
-    (for/fold ([transitive-dependency-names dependency-names]
-               [trimmed-transitive-dependency-names dependency-names]
-               [cycles (for/hash ([parent circular-parents]) (values parent (list name)))])
-              ([name dependency-names])
-      (define-values (sub-transnames sub-trimnames sub-cycles)
-        (name->transitive-dependency-names name package-dictionary breadcrumbs))
-      (values (remove-duplicates (append transitive-dependency-names sub-transnames))
-              (remove-duplicates (append trimmed-transitive-dependency-names sub-trimnames))
-              (for/hash ([key (remove-duplicates (append (hash-keys cycles)
-                                                         (hash-keys sub-cycles)))])
-                (values key
-                        (remove-duplicates (append (hash-ref cycles key list)
-                                                   (hash-ref sub-cycles key list))))))))
-
-  (for ([key (hash-keys cycles)])
-    (cond [(equal? key name)]  ; If we're a cycle top, resolve that after other cycles.
-          [(member key breadcrumbs)
-           (set! cycles (hash-set cycles key
-                                  (remove-duplicates (append (hash-ref cycles key)
-                                                             (list name)))))
-           (set! circular-parents (remove-duplicates (append circular-parents (list key))))
-           (set! trimmed-transitive-dependency-names
-                 (remove* (hash-ref cycles key) trimmed-transitive-dependency-names))]
-          [else  ; We came to this cycle from the side
-           (let* ([cycle-top (hash-ref package-dictionary key)]
-                  [cycle-transdeps (hash-ref cycle-top 'transitive-dependency-names)]
-                  [cycle-revcircs (hash-ref cycle-top 'reverse-circular-build-inputs)])
-             (set! dependency-names (remove-duplicates
-                                     (append (remove* cycle-revcircs dependency-names)
-                                             (list key))))
-             (set! trimmed-transitive-dependency-names
-                   (remove-duplicates
-                    (append (remove* cycle-revcircs trimmed-transitive-dependency-names)
-                            cycle-transdeps)))
-             (set! cycles (hash-remove cycles key)))]))
-
-  (define my-cycle (hash-ref cycles name #f))
-  (when my-cycle
-        (hash-set! package 'reverse-circular-build-inputs my-cycle)
-        ; If our circle is within another circle, merge them.
-        (for ((other-cycle (remove name (hash-keys cycles))))
-          (set! cycles (hash-set cycles other-cycle
-                                 (remove-duplicates (append (hash-ref cycles other-cycle)
-                                                            my-cycle)))))
-        (set! cycles (hash-remove cycles name)))
-
-  (define full-circle-parents
-    (remove name
-            (remove-duplicates (append* (for/list ((parent circular-parents))
-                                          (member parent breadcrumbs))))))
-
-  (hash-set! package 'circular-dependencies full-circle-parents)
-  (hash-set! package 'dependency-names dependency-names)
-  (hash-set! package 'transitive-dependency-names trimmed-transitive-dependency-names)
-  (hash-set! package 'cycles cycles)
-
-  (values (append transitive-dependency-names (list name))
-          (append trimmed-transitive-dependency-names (list name))
-          cycles))
+(define (package->transitive-dependency-names package)
+  (hash-ref package 'transitive-dependency-names))
 
 (define (name->derivation #:flat? (flat? #f) #:thin? (thin? #f) package-name package-dictionary)
   (define package (memo-lookup-preprocess-package package-dictionary package-name))
@@ -633,8 +537,8 @@ EOM
 
 (define (package->derivation #:flat? (flat? #f) #:thin? (thin? #f) package package-dictionary)
   (define name (hash-ref package 'name))
-  (define url (hash-ref package 'source))
-  (define sha1 (hash-ref package 'checksum))
+  (define url (hash-ref package 'source #f))
+  (define sha1 (hash-ref package 'checksum #f))
   (define nix-sha256 (hash-ref package 'nix-sha256 #f))
   (define dependency-names (hash-ref package 'dependency-names))
   (define circular-dependency-names (if thin?
@@ -666,39 +570,37 @@ EOM
               reverse-circular-dependency-names
               nix-sha256))
 
-(define (catalog-add-nix-sha256! catalog (package-names #f))
+(define (catalog-add-nix-sha256 catalog (package-names #f))
   (define names (if package-names package-names (hash-keys catalog)))
-  (define url-sha1-memo (make-hash))
-  (for ([name names])
+  (for/fold ([url-sha1-memo #hash()] [catalog catalog] #:result catalog) ([name names])
     (define package (memo-lookup-package catalog name))
-    (define url (hash-ref package 'source))
-    (define sha1 (hash-ref package 'checksum))
+    (define url (hash-ref package 'source #f))
+    (define sha1 (hash-ref package 'checksum #f))
     (define checksum-error? (hash-ref package 'checksum-error #f))
     (define nix-sha256 (hash-ref package 'nix-sha256 #f))
-    (when (and (not nix-sha256)
-               (not checksum-error?)
-               (or (github-url? url) (git-url? url)))
+    (cond
+     [(and (not nix-sha256) (not checksum-error?) url sha1
+	   (or (github-url? url) (git-url? url)))
       (match-define-values (git-url git-sha1 _) (url-fallback-rev->url-rev-path url sha1))
-      (hash-set! package 'nix-sha256
-        (hash-ref! url-sha1-memo
-          (cons git-url git-sha1)
-          (lambda () (discover-git-sha256 git-url git-sha1)))))))
+      (define nix-sha256 (hash-ref url-sha1-memo (cons git-url git-sha1) (lambda () (discover-git-sha256 git-url git-sha1))))
+      (define new-package (hash-set package 'nix-sha256 nix-sha256))
+      (define new-url-sha1-memo (hash-set url-sha1-memo (cons git-url git-sha1) nix-sha256))
+      (values new-url-sha1-memo
+              (hash-set catalog name new-package))]
+     [else (values url-sha1-memo catalog)])))
 
-(define (names->deps-and-references #:flat? (flat? #f) package-names package-dictionary)
+(define (names->deps-and-references #:flat? (flat? #f) package-names catalog)
   (define packages-and-deps (match package-names
     [(list)
-     (for ([name (hash-keys package-dictionary)]) ; for side-effects only
-       (name->transitive-dependency-names name package-dictionary))
-     (filter-map (lambda (name) (and (not (hash-ref (hash-ref package-dictionary name) 'checksum-error #f))
+     (filter-map (lambda (name) (and (not (hash-ref (hash-ref catalog name) 'checksum-error #f))
                                      name))
-                 (hash-keys package-dictionary))]
+                 (hash-keys catalog))]
     [(list package-names ...)
      (append* (map
-       (lambda (name) (match/values (name->transitive-dependency-names name package-dictionary)
-                        [(dep-names _ _) dep-names]))
+       (lambda (name) (name->transitive-dependency-names name catalog))
        package-names))]))
-  (catalog-add-nix-sha256! package-dictionary packages-and-deps)
-  (define package-definitions (names->let-deps #:flat? flat? packages-and-deps package-dictionary))
+  (define catalog-with-sha256 (catalog-add-nix-sha256 catalog packages-and-deps))
+  (define package-definitions (names->let-deps #:flat? flat? packages-and-deps catalog-with-sha256))
   (define prologue (string-append package-definitions (format "}); in~n")))
   (define package-template "racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n")
   (match package-names
@@ -710,25 +612,25 @@ EOM
 (define (names->nix-function #:flat? (flat? #f) package-names package-dictionary)
   (string-append (header) (names->deps-and-references #:flat? flat? package-names package-dictionary)))
 
-(define (maybe-name->catalog maybe-name pkg-details process-catalog?)
-  (define package-names (cond
-    [maybe-name
-     (match-let-values
-       ([(transdeps _ _)
-         (name->transitive-dependency-names maybe-name (hash-copy pkg-details))])
-       transdeps)]
-    [else
-     (hash-keys pkg-details)]))
-  (when process-catalog?
-    (catalog-add-nix-sha256! pkg-details package-names))
+(define (maybe-name->catalog maybe-name catalog process-catalog?)
+  (define package-names (if maybe-name
+    (name->transitive-dependency-names maybe-name (calculate-package-relations catalog))
+    (hash-keys catalog)))
+  (define processed-catalog (if process-catalog?
+    (catalog-add-nix-sha256 catalog package-names)
+    catalog))
 
   (for/hash ((name package-names))
-    (values name (hash-ref pkg-details name))))
+    (values name (hash-ref catalog name))))
 
 (define (names->thin-nix-function names packages-dictionary)
-  (catalog-add-nix-sha256! packages-dictionary names)
-  (define package-definitions (names->let-deps #:thin? #t names packages-dictionary))
+  (define catalog (catalog-add-nix-sha256 packages-dictionary names))
+  (define package-definitions (names->let-deps #:thin? #t names catalog))
   (format thin-template package-definitions))
+
+(define-runtime-path package-relations-path "package-relations.rkt")
+(define (calculate-package-relations catalog) ; requires the datalog library in our racket environment
+  ((dynamic-require package-relations-path 'calculate-package-relations) catalog))
 
 (module+ main
   (define catalog-paths #f)
@@ -811,12 +713,21 @@ EOM
     [else package-name-or-path]))
     package-names-or-paths))
 
+  (define massaged-packages (for/hash ([(name package) (in-hash pkg-details)])
+    (define deps (if (member name terminal-package-names)
+      '()
+      (remove* never-dependency-names
+               (map dependency-name (hash-ref package 'dependencies '())))))
+
+    (values name (hash-set package 'dependency-names deps))))
+
   (cond
     [thin?
-     (display (names->thin-nix-function package-names pkg-details))]
+     (display (names->thin-nix-function package-names massaged-packages))]
     [export-catalog?
      (write (maybe-name->catalog
        (if (= 1 (length package-names)) (car package-names) #f)
-       pkg-details process-catalog?))]
+       massaged-packages process-catalog?))]
     [else
-     (display (names->nix-function #:flat? flat? package-names pkg-details))]))
+     (display (names->nix-function #:flat? flat? package-names
+                                   (calculate-package-relations massaged-packages)))]))
