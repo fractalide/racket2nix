@@ -513,23 +513,27 @@ EOM
       (car pair-or-string)
       pair-or-string))
 
-(define (names->let-deps #:flat? (flat? #f) #:thin? (thin? #f) names package-dictionary)
+(define (catalog->let-deps #:flat? (flat? #f) #:thin? (thin? #f) catalog)
+  (define names (sort (hash-keys catalog) string<?))
   (define terminal-derivations (if thin?
     '()
     (for/list ((name terminal-package-names))
       (format "  \"~a\" = ~a;" name name))))
   (define derivations
     (for/list ((name (remove* terminal-package-names names)))
-      (format "  \"~a\" = ~a;" name (name->derivation #:flat? flat? #:thin? thin? name package-dictionary))))
+      (format "  \"~a\" = ~a;" name (name->derivation #:flat? flat? #:thin? thin? name catalog))))
   (define derivations-on-lines
     (string-join (append terminal-derivations derivations) (format "~n")))
   (format "~a~n" derivations-on-lines))
 
-(define (name->transitive-dependency-names package-name package-dictionary)
-  (package->transitive-dependency-names (hash-ref package-dictionary package-name)))
-
-(define (package->transitive-dependency-names package)
-  (hash-ref package 'transitive-dependency-names))
+(define (names->transitive-dependency-names-and-cycles names catalog)
+  (define transdeps (append* (map
+    (compose (curryr hash-ref 'transitive-dependency-names) (curry hash-ref catalog))
+    names)))
+  (define cycles (map
+    (lambda (name) (hash-ref (hash-ref catalog name) 'circular-dependencies '()))
+    transdeps))
+  (apply set-union (list* transdeps cycles)))
 
 (define (name->derivation #:flat? (flat? #f) #:thin? (thin? #f) package-name package-dictionary)
   (define package (memo-lookup-preprocess-package package-dictionary package-name))
@@ -603,11 +607,9 @@ EOM
                                      name))
                  (hash-keys catalog))]
     [(list package-names ...)
-     (append* (map
-       (lambda (name) (name->transitive-dependency-names name catalog))
-       package-names))]))
+     (names->transitive-dependency-names-and-cycles package-names catalog)]))
   (define catalog-with-sha256 (catalog-add-nix-sha256 catalog packages-and-deps))
-  (define package-definitions (names->let-deps #:flat? flat? packages-and-deps catalog-with-sha256))
+  (define package-definitions (catalog->let-deps #:flat? flat? catalog-with-sha256))
   (define prologue (string-append package-definitions (format "}); in~n")))
   (define package-template "racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n")
   (match package-names
@@ -621,10 +623,10 @@ EOM
 
 (define (maybe-name->catalog maybe-name catalog process-catalog?)
   (define package-names (if maybe-name
-    (name->transitive-dependency-names maybe-name (calculate-package-relations catalog))
+    (names->transitive-dependency-names-and-cycles (list maybe-name) (calculate-package-relations catalog))
     (hash-keys catalog)))
   (define processed-catalog (if process-catalog?
-    (catalog-add-nix-sha256 catalog package-names)
+    (catalog-add-nix-sha256 catalog (set-intersect package-names (hash-keys catalog)))
     catalog))
 
   (for/hash ((name package-names))
@@ -632,13 +634,13 @@ EOM
 
 (define (names->thin-nix-function names packages-dictionary)
   (define catalog (catalog-add-nix-sha256 packages-dictionary names))
-  (define package-definitions (names->let-deps #:thin? #t names catalog))
+  (define package-definitions (catalog->let-deps #:thin? #t catalog))
   (format thin-template package-definitions))
 
 ; these require the datalog library in our racket environment
 (define-runtime-path package-relations-path "package-relations.rkt")
-(define (calculate-package-relations catalog)
-  ((dynamic-require package-relations-path 'calculate-package-relations) catalog))
+(define (calculate-package-relations catalog (names #f))
+  ((dynamic-require package-relations-path 'calculate-package-relations) catalog names))
 (define (calculate-transitive-dependencies catalog names)
   ((dynamic-require package-relations-path 'calculate-transitive-dependencies) catalog names))
 
@@ -735,4 +737,4 @@ EOM
        catalog-with-package-dependency-names process-catalog?))]
     [else
      (display (names->nix-function #:flat? flat? package-names
-                                   (calculate-transitive-dependencies catalog-with-package-dependency-names package-names)))]))
+                                   (calculate-package-relations catalog-with-package-dependency-names package-names)))]))

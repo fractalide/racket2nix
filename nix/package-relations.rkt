@@ -1,26 +1,6 @@
 #lang racket
 
-(require datalog)
-
 (provide (all-defined-out))
-
-(define (package-rules)
-  (define rules (make-theory))
-  (datalog rules
-    (! (:- (transdepends X Y)
-           (depends X Y)))
-    (! (:- (transdepends X Z)
-           (transdepends X Y)
-           (transdepends Y Z)))
-    (! (:- (cycle X Y)
-           (stored-transdepends X Y)
-           (stored-transdepends Y X))))
-  rules)
-
-(define (sort-and-extract-X result)
-  (sort (map (match-lambda [(hash-table ('X v)) v])
-             result)
-        string<?))
 
 (define (cycle-name cycle)
   (define long-name (string-join cycle "-"))
@@ -66,57 +46,110 @@
           (hash-merge new-todo new-done)
           (loop new-todo new-done))])))
 
-(define (calculate-package-relations catalog)
-  (define rules (package-rules))
+(define (merge-cycles name my-cycle other-cycles found-cycles breadcrumbs memo)
+  (for/fold ([my-cycle my-cycle] [other-cycles other-cycles] [memo memo]) ([cycle found-cycles])
+    (cond
+     [(member name cycle)
+      (define new-my-cycle (sort (set-union my-cycle cycle) string<?))
+      (values new-my-cycle other-cycles (set-union memo new-my-cycle))]
+     [else
+      (define new-other-cycles (set-union (list cycle) other-cycles))
+      (values my-cycle new-other-cycles (apply set-union (list* memo new-other-cycles)))])))
 
-  (for ([(name package) (in-hash catalog)])
-    (define deps (hash-ref package 'dependency-names))
-    (for ([dep deps])
-      (datalog rules (! (depends #,(datum-intern-literal name) #,(datum-intern-literal dep))))))
+(define (find-cycles catalog name package breadcrumbs memo)
+  (define deps (hash-ref package 'dependency-names))
+  (for/fold ([my-cycle '()] [other-cycles '()] [memo memo]
+             #:result (append (if (pair? my-cycle) (list my-cycle) '()) other-cycles))
+            ([dep-name deps])
+    (define dep (hash-ref catalog dep-name))
+    (cond
+     [(member dep-name breadcrumbs)
+      (define new-my-cycle (sort
+        (set-union my-cycle (list name dep-name))
+        string<?))
+       (values new-my-cycle other-cycles (set-union memo new-my-cycle))]
+     [(member dep-name memo) ; known cycle, let's not go there
+      (values my-cycle other-cycles memo)]
+     [(hash-ref dep 'transitive-dependency-names #f) ; a dep with a nice tree, no cycles
+      (values my-cycle other-cycles memo)]
+     [else
+      (define found-cycles (find-cycles catalog dep-name dep (cons name breadcrumbs) memo))
+      (merge-cycles name my-cycle other-cycles found-cycles breadcrumbs memo)])))
 
-  (time (for ([(name package) (in-hash catalog)])
-    (define transdeps (sort-and-extract-X
-      (datalog rules (? (transdepends #,(datum-intern-literal name) X)))))
+; assumes catalog has has calculate-transitive-dependencies run on it
+(define (calculate-cycles catalog names)
+  (define cycles (apply set-union (cons '() (map
+    (lambda (name) (find-cycles catalog name (hash-ref catalog name) '() '()))
+    names))))
+  cycles)
 
-    (for ([dep transdeps])
-      (datalog rules (! (stored-transdepends #,(datum-intern-literal name) #,dep))))))
+(define (find-transdeps-avoid-cycles catalog name cycles)
+  (define my-cycle (or (for/or ([cycle cycles]) (and (member name cycle) cycle)) '()))
+  (define package (hash-ref catalog name))
+  (define dep-names (remove* my-cycle (hash-ref package 'dependency-names)))
 
-  (define catalog-with-transdeps-and-cycles (time (for/hash ([(name package) (in-hash catalog)])
-    (define transdeps (sort-and-extract-X
-      (datalog rules (? (stored-transdepends #,(datum-intern-literal name) X)))))
+  (define quick-transdeps (hash-ref package 'transitive-dependency-names #f))
 
-    (define circdeps (sort-and-extract-X
-      (datalog rules (? (cycle #,(datum-intern-literal name) X)))))
+  (define-values (new-transdeps new-catalog) (cond
+   [quick-transdeps (values quick-transdeps catalog)]
+   [else (for/fold
+    ([transdeps dep-names] [memo-catalog catalog])
+    ([dep-name dep-names])
 
-    (values name
-            (hash-set (hash-set package 'circular-dependencies circdeps)
-              'transitive-dependency-names (remove* circdeps transdeps))))))
+    (define-values (sub-transdeps new-catalog)
+      (find-transdeps-avoid-cycles memo-catalog dep-name cycles))
+    (values (set-union transdeps sub-transdeps) new-catalog))]))
 
-  (define cycles (remove-duplicates
-    (map (lambda (package) (hash-ref package 'circular-dependencies))
-         (hash-values catalog-with-transdeps-and-cycles))))
+  (values
+    new-transdeps
+    (hash-set new-catalog name (hash-set package 'transitive-dependency-names new-transdeps))))
+
+(define (calculate-package-relations catalog (package-names '()))
+  (define names (if (pair? package-names)  package-names (hash-keys catalog)))
+  (define catalog-with-transdeps (calculate-transitive-dependencies catalog names))
+
+  (define cycles (calculate-cycles catalog names))
+
+  (define catalog-with-transdeps-and-cycles (for/fold ([acc-catalog catalog]) ([name (append* names cycles)])
+    (define circdeps (or (for/or ([cycle cycles]) (if (member name cycle) cycle #f)) '()))
+    (define-values (transdeps new-catalog) (find-transdeps-avoid-cycles acc-catalog name cycles))
+
+    (hash-set new-catalog name (hash-set* (hash-ref new-catalog name)
+      'transitive-dependency-names (remove* circdeps transdeps)
+      'circular-dependencies circdeps))))
 
   (define reified-cycles (for/hash ([cycle cycles])
     (define name (cycle-name cycle))
-    (define circular-packages (map (curry hash-ref catalog-with-transdeps-and-cycles) cycle))
+    (define cycle-packages (map (curry hash-ref catalog-with-transdeps-and-cycles) cycle))
     (define package (make-hash (list
       (cons 'name name)
       (cons 'reverse-circular-build-inputs cycle)
       (cons 'dependency-names
-            (sort (remove-duplicates (append*
-                    (map (lambda (pkg) (hash-ref pkg 'dependency-names)) circular-packages)))
+            (sort (apply set-union
+                    (map (lambda (pkg) (hash-ref pkg 'dependency-names)) cycle-packages))
                   string<?))
       (cons 'transitive-dependency-names
-            (sort (remove-duplicates (append*
-                    (map (lambda (pkg) (hash-ref pkg 'transitive-dependency-names)) circular-packages)))
+            (sort (apply set-union
+                    (map (lambda (pkg) (hash-ref pkg 'transitive-dependency-names (lambda ()
+                                         (error (format "pkg ~a no transdeps~n" (hash-ref pkg 'name))))))
+                    cycle-packages))
                   string<?)))))
     (values name package)))
 
-  (define catalog-with-reified-cycles (for/hash ([(name package) (in-hash catalog-with-transdeps-and-cycles)])
-    (define cycle (hash-ref package 'circular-dependencies))
-    (define transdeps (hash-ref package 'transitive-dependency-names))
-    (if (null? cycle)
-        (values name package)
-        (values name (hash-set package 'transitive-dependency-names (cons (cycle-name cycle) transdeps))))))
+  (define names-with-transdeps
+    (apply set-union (cons names (append cycles (map
+      (lambda (name) (hash-ref (hash-ref catalog-with-transdeps-and-cycles name) 'transitive-dependency-names))
+    (append* names cycles))))))
+
+  (define catalog-with-reified-cycles (for/hash ([name names-with-transdeps])
+    (define package (hash-ref catalog-with-transdeps-and-cycles name))
+    (define cycle (hash-ref package 'circular-dependencies '()))
+    (cond
+     [(null? cycle) (values name package)]
+     [else
+      (define cycle-packages (map (curry hash-ref catalog-with-transdeps-and-cycles) cycle))
+      (define merged-transdeps (list* (list (cycle-name cycle)) (map (curryr hash-ref 'transitive-dependency-names) cycle-packages)))
+      (define normalized-transdeps (sort (apply set-union merged-transdeps) string<?))
+      (values name (hash-set package 'transitive-dependency-names normalized-transdeps))])))
 
   (make-immutable-hash (append (hash->list catalog-with-reified-cycles) (hash->list reified-cycles))))
