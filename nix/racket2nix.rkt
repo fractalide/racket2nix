@@ -744,9 +744,6 @@ EOM
               0)
            (exit 1)
            (exit 0))]
-      [("--flat")
-       "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
-       (set! flat? #t)]
       [("--no-process-catalog")
        "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
        (set! process-catalog? #f)]
@@ -762,6 +759,9 @@ EOM
  for extending racket-catalog.nix, and which assumes that any dependencies will be resolved by the catalog (or its\
  extensions)."
        (set! thin? #t)]
+      [("--flat")
+       "Do not try to install each dependency separately, just install and setup all dependencies in the main derivation."
+       (set! flat? #t)]
       #:multi
       ["--catalog"
        catalog-path
@@ -802,7 +802,6 @@ EOM
 
   (cond
     [thin?
-     (when flat? (raise-user-error "--flat and --thin is not a supported combination."))
      (display (names->thin-nix-function package-names pkg-details))]
     [export-catalog?
      (write (maybe-name->catalog
