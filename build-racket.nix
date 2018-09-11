@@ -12,12 +12,22 @@ let
 
   attrs = rec {
     buildThinRacketNix = { package, pname }:
-    runCommand "${pname}.nix" {
-      package = builtins.path { path = package; name = pname; };
-      buildInputs = [ racket2nix nix ];
-    } ''
-      racket2nix --thin $package > $out
-    '';
+      let
+        sha256 = runCommand "${pname}.sha256" { buildInputs = [ nix ]; inherit package; } ''
+          printf '%s' $(nix-hash --base32 --type sha256 $package) > $out
+        '';
+        path = runCommand pname {
+          inherit package; outputHashMode = "recursive"; outputHashAlgo = "sha256";
+          outputHash = builtins.readFile sha256;
+        } ''
+          cp -a $path $out
+        '';
+      in runCommand "${pname}.nix" {
+        buildInputs = [ racket2nix nix ];
+        inherit path;
+      } ''
+        racket2nix --thin $path > $out
+      '';
     buildThinRacket = { package, racket-packages ? default.racket-packages
                       , overlays ? default.racket-package-overlays
                       , attrOverrides ? (oldAttrs: {})
