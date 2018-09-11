@@ -526,13 +526,13 @@ EOM
   (format "~a~n" derivations-on-lines))
 
 (define (names->transitive-dependency-names-and-cycles names catalog)
-  (define transdeps (append* (map
+  (define transdeps (append* names (map
     (compose (curryr hash-ref 'transitive-dependency-names) (curry hash-ref catalog))
     names)))
   (define cycles (map
     (lambda (name) (hash-ref (hash-ref catalog name) 'circular-dependencies '()))
     transdeps))
-  (apply set-union (list* names transdeps cycles)))
+  (apply set-union (list* transdeps cycles)))
 
 (define (name->derivation #:flat? (flat? #f) #:thin? (thin? #f) package-name package-dictionary)
   (define package (memo-lookup-preprocess-package package-dictionary package-name))
@@ -573,6 +573,7 @@ EOM
 
 (define (catalog-add-nix-sha256 catalog (package-names #f))
   (define names (if package-names package-names (hash-keys catalog)))
+
   (for/fold ([url-sha1-memo #hash()] [acc-catalog #hash()] #:result acc-catalog) ([name names])
     (define package (memo-lookup-package catalog name))
     (define url (hash-ref package 'source #f))
@@ -609,6 +610,7 @@ EOM
     [(list package-names ...)
      (names->transitive-dependency-names-and-cycles package-names catalog)]))
   (define catalog-with-sha256 (catalog-add-nix-sha256 catalog packages-and-deps))
+
   (define package-definitions (catalog->let-deps #:flat? flat? catalog-with-sha256))
   (define prologue (string-append package-definitions (format "}); in~n")))
   (define package-template "racket-packages.\"~a\".overrideAttrs (oldAttrs: { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; })~n")
