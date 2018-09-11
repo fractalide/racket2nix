@@ -159,7 +159,7 @@
   (define reified-cycles (for/hash ([cycle cycles])
     (define name (cycle-name cycle))
     (define cycle-packages (map (curry hash-ref catalog-with-transdeps-and-cycles) cycle))
-    (define package (make-hash (list
+    (define package (make-immutable-hash (list
       (cons 'name name)
       (cons 'reverse-circular-build-inputs cycle)
       (cons 'dependency-names
@@ -174,16 +174,20 @@
                   string<?)))))
     (values name package)))
 
-  (define names-with-transdeps
-    (apply set-union (cons names (append cycles (map
-      (lambda (name) (hash-ref (hash-ref catalog-with-transdeps-and-cycles name) 'transitive-dependency-names))
+  (define (lookup-package name)
+    (hash-ref catalog-with-transdeps-and-cycles name (lambda ()
+      (hash-ref reified-cycles name))))
+
+  (define names-with-transdeps-and-reified-cycles
+    (apply set-union (list* names (map cycle-name cycles) (append cycles (map
+      (lambda (name) (hash-ref (lookup-package name) 'transitive-dependency-names))
     (append* names cycles))))))
 
-  (define catalog-with-reified-cycles (for/hash ([name names-with-transdeps])
-    (define package (hash-ref catalog-with-transdeps-and-cycles name))
+  (define catalog-with-reified-cycles (for/hash ([name names-with-transdeps-and-reified-cycles])
+    (define package (lookup-package name))
     (define transdeps (hash-ref package 'transitive-dependency-names))
     (define cycles (remove '() (remove-duplicates (map
-      (lambda (name) (hash-ref (hash-ref catalog-with-transdeps-and-cycles name) 'circular-dependencies '()))
+      (lambda (name) (hash-ref (lookup-package name) 'circular-dependencies '()))
       (cons name transdeps)))))
     (define cycle-names (map cycle-name cycles))
     (define reified-cycle-transdeps (append* cycle-names (map
@@ -192,4 +196,4 @@
     (define normalized-transdeps (remove name (sort (set-union transdeps reified-cycle-transdeps) string<?)))
     (values name (hash-set package 'transitive-dependency-names normalized-transdeps))))
 
-  (make-immutable-hash (append (hash->list catalog-with-reified-cycles) (hash->list reified-cycles))))
+  catalog-with-reified-cycles)
