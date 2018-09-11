@@ -4,9 +4,9 @@
 
 (define (cycle-name cycle)
   (define long-name (string-join cycle "-"))
-  (if (<= (string-length long-name) 32)
+  (if (<= (string-length long-name) 64)
     long-name
-    (string-append (substring long-name 0 29) "...")))
+    (string-append (substring long-name 0 61) "...")))
 
 (define (quick-transitive-dependencies name package done catalog)
   (define deps (hash-ref package 'dependency-names))
