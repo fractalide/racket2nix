@@ -173,9 +173,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     racket ${make-config-rktd} $env ${racket} ${racketConfigBuildInputsStr} > $env/etc/racket/config.rktd
 
     if [ -n "${circularBuildInputsStr}" ]; then
-      echo >&2 WARNING: This derivation should not have been depended on.
-      echo >&2 Any derivation depending on this one should have depended on one of these instead:
-      echo >&2 "${circularBuildInputsStr}"
+      echo >&2 NOTE: This derivation intentionally left blank.
+      echo >&2 NOTE: It is a dummy depending on the real circular-dependency package.
       exit 0
     fi
 
