@@ -46,19 +46,41 @@
           (hash-merge new-todo new-done)
           (loop new-todo new-done))])))
 
-(define (merge-cycles name my-cycle other-cycles found-cycles breadcrumbs memo)
-  (for/fold ([my-cycle my-cycle] [other-cycles other-cycles] [memo memo]) ([cycle found-cycles])
+(define (merge-cycles name my-cycle other-cycles found-cycles breadcrumbs memo known-cycles)
+  (for/fold
+    ([my-cycle my-cycle] [other-cycles other-cycles] [memo memo] [known-cycles known-cycles])
+    ([cycle found-cycles])
     (cond
      [(member name cycle)
       (define new-my-cycle (sort (set-union my-cycle cycle) string<?))
-      (values new-my-cycle other-cycles (set-union memo new-my-cycle))]
+      (values new-my-cycle other-cycles
+        (set-union memo new-my-cycle)
+        (normalize-cycles (list new-my-cycle) known-cycles))]
+     [(pair? (set-intersect breadcrumbs cycle))
+      (define new-cycle (sort (cons name cycle) string<?))
+      (define new-other-cycles (set-union '() (cons new-cycle other-cycles)))
+      (values my-cycle new-other-cycles
+        (apply set-union (list* memo new-other-cycles))
+        (normalize-cycles new-other-cycles known-cycles))]
      [else
       (define new-other-cycles (set-union (list cycle) other-cycles))
-      (values my-cycle new-other-cycles (apply set-union (list* memo new-other-cycles)))])))
+      (values my-cycle new-other-cycles
+        (apply set-union (list* memo new-other-cycles))
+        (normalize-cycles new-other-cycles known-cycles))])))
 
-(define (find-cycles catalog name package breadcrumbs memo)
+(define (normalize-cycles . cycleses)
+  (define cycles (apply set-union cycleses))
+  (remove '() (set-union '() (map
+    (lambda (cycle) (for/fold ([acc cycle]) ([other-cycle cycles])
+      (if (null? (set-intersect acc other-cycle))
+          acc
+          (sort (set-union '() acc other-cycle) string<?))))
+    cycles))))
+
+(define (find-cycles catalog name package breadcrumbs memo known-cycles)
   (define deps (hash-ref package 'dependency-names))
-  (for/fold ([my-cycle '()] [other-cycles '()] [memo memo]
+
+  (for/fold ([my-cycle '()] [other-cycles '()] [memo memo] [known-cycles known-cycles]
              #:result (append (if (pair? my-cycle) (list my-cycle) '()) other-cycles))
             ([dep-name deps])
     (define dep (hash-ref catalog dep-name))
@@ -67,19 +89,33 @@
       (define new-my-cycle (sort
         (set-union my-cycle (list name dep-name))
         string<?))
-       (values new-my-cycle other-cycles (set-union memo new-my-cycle))]
-     [(member dep-name memo) ; known cycle, let's not go there
-      (values my-cycle other-cycles memo)]
+      (values new-my-cycle other-cycles
+        (set-union memo new-my-cycle)
+        (normalize-cycles (list new-my-cycle) other-cycles known-cycles))]
+     [(member dep-name memo) ; known cycle, join if relevant
+      (define maybe-relevant-cycle (for/or ([cycle known-cycles])
+        (define intersection (set-intersect (cons name breadcrumbs) cycle))
+        (and (pair? intersection) intersection)))
+      (cond
+       [maybe-relevant-cycle
+        (define new-my-cycle (sort
+          (set-union my-cycle (list name) maybe-relevant-cycle)
+          string<?))
+        (values new-my-cycle other-cycles
+          (set-union memo new-my-cycle)
+          (normalize-cycles (list new-my-cycle) other-cycles known-cycles))]
+       [else
+        (values my-cycle other-cycles memo known-cycles)])]
      [(hash-ref dep 'transitive-dependency-names #f) ; a dep with a nice tree, no cycles
-      (values my-cycle other-cycles memo)]
+      (values my-cycle other-cycles memo known-cycles)]
      [else
-      (define found-cycles (find-cycles catalog dep-name dep (cons name breadcrumbs) memo))
-      (merge-cycles name my-cycle other-cycles found-cycles breadcrumbs memo)])))
+      (define found-cycles (find-cycles catalog dep-name dep (cons name breadcrumbs) memo known-cycles))
+      (merge-cycles name my-cycle other-cycles found-cycles breadcrumbs memo known-cycles)])))
 
 ; assumes catalog has has calculate-transitive-dependencies run on it
 (define (calculate-cycles catalog names)
   (define cycles (apply set-union (cons '() (map
-    (lambda (name) (find-cycles catalog name (hash-ref catalog name) '() '()))
+    (lambda (name) (find-cycles catalog name (hash-ref catalog name) '() '() '()))
     names))))
   cycles)
 
@@ -147,7 +183,6 @@
     (define cycles (remove '() (remove-duplicates (map
       (lambda (name) (hash-ref (hash-ref catalog-with-transdeps-and-cycles name) 'circular-dependencies '()))
       (cons name transdeps)))))
-    (eprintf "cycles ~a~n" cycles)
     (define cycle-names (map cycle-name cycles))
     (define reified-cycle-transdeps (append* cycle-names (map
       (compose (curryr hash-ref 'transitive-dependency-names) (curry hash-ref reified-cycles))
