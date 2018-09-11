@@ -5,8 +5,7 @@
 
 let
   inherit (pkgs) buildEnv lib nix racket2nix runCommand;
-  default-catalog = catalog;
-  default-overlays = racket-package-overlays;
+  default = { inherit catalog racket-package-overlays; };
 
   attrs = rec {
     buildRacketNix = { catalog, flat, package, pname ? "racket-package" }:
@@ -17,8 +16,8 @@ let
     } ''
       racket2nix $flatArg --catalog ${catalog} $package > $out
     '';
-    buildRacket = lib.makeOverridable ({ catalog ? default-catalog, flat ? false, package, pname ? false,
-                                         attrOverrides ? (oldAttrs: {}), overlays ? default-overlays }:
+    buildRacket = lib.makeOverridable ({ catalog ? default.catalog, flat ? false, package, pname ? false,
+                                         attrOverrides ? (oldAttrs: {}), overlays ? default.racket-package-overlays }:
       let
         nix = buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
         self = let
