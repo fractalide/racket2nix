@@ -31,8 +31,9 @@ let
           in
             apply-overlays rpkgs overlays;
         in
-          racket-packages."${pname}".overrideAttrs (oldAttrs:
-            { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; });
+          (racket-packages."${pname}".overrideAttrs (oldAttrs: {
+            passthru = oldAttrs.passthru or {} // { inherit racket-packages; };
+          })).overrideAttrs attrOverrides;
       in self // {
         # We put the deps both in paths and buildInputs, so you can use this either as just
         #     nix-shell -A buildEnv
