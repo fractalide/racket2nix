@@ -1,8 +1,6 @@
 { pkgs ? import ./pkgs {}
 , catalog ? ./catalog.rktd
 , racket-package-overlays ? [ (import ./build-racket-default-overlay.nix) ]
-, package ? null
-, flat ? false
 }:
 
 let
