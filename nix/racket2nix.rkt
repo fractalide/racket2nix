@@ -209,8 +209,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 
     mkdir -p $env/share/racket/pkgs
     for depEnv in $racketConfigBuildInputsStr; do
-      cp -frs $depEnv/share/racket/pkgs/*/ $env/share/racket/pkgs/
-      find $env/share/racket/pkgs -type d -exec chmod 755 {} +
+      if ( shopt -s nullglob; pkgs=($depEnv/share/racket/pkgs/*/); (( ''${#pkgs[@]} > 0 )) ); then
+        cp -frs $depEnv/share/racket/pkgs/*/ $env/share/racket/pkgs/
+        find $env/share/racket/pkgs -type d -exec chmod 755 {} +
+      fi
     done
 
     cp -rs $racket/lib/racket $env/lib/racket
