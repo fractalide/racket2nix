@@ -532,7 +532,7 @@ EOM
   (define cycles (map
     (lambda (name) (hash-ref (hash-ref catalog name) 'circular-dependencies '()))
     transdeps))
-  (apply set-union (list* transdeps cycles)))
+  (apply set-union (list* names transdeps cycles)))
 
 (define (name->derivation #:flat? (flat? #f) #:thin? (thin? #f) package-name package-dictionary)
   (define package (memo-lookup-preprocess-package package-dictionary package-name))
