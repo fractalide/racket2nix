@@ -15,8 +15,7 @@
   ["make" . ("scribble-lib")]
   ["memoize" . ("scribble-lib")]
   ["racket-index" . ("scribble-lib")]
-  ["racket-doc" . ("scribble-lib")]
-  ["compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." . ("scribble-lib")]
+  ["compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." . ("scribble-lib" "racket-index")]
 ))
 
 (define header-template #<<EOM
