@@ -394,7 +394,7 @@ EOM
     (unless nh-path
       (eprintf "ERROR: nix-hash not found on PATH~n")
       (exit 1))
-    (unless (equal? 0 (system*/exit-code nh-path "--type" "sha256" pathname))
+    (unless (equal? 0 (system*/exit-code nh-path "--base32" "--type" "sha256" pathname))
             (exit 1))))))
 
 (define discover-store-path
