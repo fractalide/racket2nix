@@ -572,7 +572,7 @@ EOM
                           (lambda () '())))
         (remove-duplicates (append calculated-reverse-circular forced-reverse-circular))]))
   (derivation #:thin? thin?
-              name url sha1 trans-dep-names circular-dependency-names
+              name url sha1 trans-dep-names (if flat? '() circular-dependency-names)
               reverse-circular-dependency-names
               nix-sha256))
 
