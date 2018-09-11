@@ -527,14 +527,17 @@ EOM
     (string-join (append terminal-derivations derivations) (format "~n")))
   (format "~a~n" derivations-on-lines))
 
-(define (names->transitive-dependency-names-and-cycles names catalog)
-  (define transdeps (append* names (map
+(define (names->transitive-dependency-names names catalog)
+  (append* names (map
     (compose (curryr hash-ref 'transitive-dependency-names) (curry hash-ref catalog))
     names)))
+
+(define (names->transitive-dependency-names-and-cycles names catalog)
+  (define transdeps (names->transitive-dependency-names names catalog))
   (define cycles (map
-    (lambda (name) (hash-ref (hash-ref catalog name) 'circular-dependencies '()))
+    (compose (curryr hash-ref 'circular-dependencies '()) (curry hash-ref catalog))
     transdeps))
-  (apply set-union (list* transdeps cycles)))
+  (sort (remove-duplicates (append* transdeps cycles)) string<?))
 
 (define (name->derivation #:flat? (flat? #f) #:thin? (thin? #f) package-name package-dictionary)
   (define package (memo-lookup-preprocess-package package-dictionary package-name))

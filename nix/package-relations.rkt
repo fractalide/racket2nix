@@ -174,26 +174,30 @@
                   string<?)))))
     (values name package)))
 
-  (define (lookup-package name)
-    (hash-ref catalog-with-transdeps-and-cycles name (lambda ()
-      (hash-ref reified-cycles name))))
+  (define catalog-with-reified-cycles (let loop
+    ([catalog (hash-merge catalog-with-transdeps-and-cycles reified-cycles)])
+    (define (lookup-package name) (hash-ref catalog name))
 
-  (define names-with-transdeps-and-reified-cycles
-    (apply set-union (list* names (map cycle-name cycles) (append cycles (map
-      (lambda (name) (hash-ref (lookup-package name) 'transitive-dependency-names))
-    (append* names cycles))))))
+    (define names-with-transdeps-and-cycles
+      (apply set-union (list* names (map cycle-name cycles) (append cycles (map
+        (lambda (name) (hash-ref (lookup-package name) 'transitive-dependency-names))
+          (append* names cycles))))))
 
-  (define catalog-with-reified-cycles (for/hash ([name names-with-transdeps-and-reified-cycles])
-    (define package (lookup-package name))
-    (define transdeps (hash-ref package 'transitive-dependency-names))
-    (define cycles (remove '() (remove-duplicates (map
-      (lambda (name) (hash-ref (lookup-package name) 'circular-dependencies '()))
-      (cons name transdeps)))))
-    (define cycle-names (map cycle-name cycles))
-    (define reified-cycle-transdeps (append* cycle-names (map
-      (compose (curryr hash-ref 'transitive-dependency-names) (curry hash-ref reified-cycles))
-      cycle-names)))
-    (define normalized-transdeps (remove name (sort (set-union transdeps reified-cycle-transdeps) string<?)))
-    (values name (hash-set package 'transitive-dependency-names normalized-transdeps))))
+    (define new-catalog (for/fold ([catalog catalog]) ([name names-with-transdeps-and-cycles])
+      (define package (lookup-package name))
+      (define transdeps (hash-ref package 'transitive-dependency-names))
+      (define cycles (remove '() (remove-duplicates (map
+        (lambda (name) (hash-ref (lookup-package name) 'circular-dependencies '()))
+        (cons name transdeps)))))
+      (define cycle-names (map cycle-name cycles))
+      (define reified-cycle-transdeps (append* cycle-names (map
+        (compose (curryr hash-ref 'transitive-dependency-names) (curry hash-ref reified-cycles))
+        cycle-names)))
+      (define normalized-transdeps (remove name (sort (set-union transdeps reified-cycle-transdeps) string<?)))
+      (hash-set catalog name (hash-set package 'transitive-dependency-names normalized-transdeps))))
+
+    (if (equal? catalog new-catalog)
+        (for/hash ([name names-with-transdeps-and-cycles]) (values name (lookup-package name)))
+        (loop new-catalog))))
 
   catalog-with-reified-cycles)
