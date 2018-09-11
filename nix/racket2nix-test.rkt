@@ -76,7 +76,7 @@
       (check-not-false (member pkg-name reverse-circular)
                        (format "~a is in the cycle ~a" pkg-name reverse-circular)))))
 
-(define suite
+(define suite (begin
   (test-suite "racket2nix"
     ;; This test cannot work yet, as the flattening mechanism is currently done outside the transitive
     ;; dependencies resolution mechanism.
@@ -105,4 +105,5 @@
                        "github://github.com/stchang/parsack/master/"
                        "b45f0f5ed5f8dd3f1ccebaaec3204b27032843c6")])
                    url)
-                 "git://github.com/stchang/parsack.git")))
+                 "git://github.com/stchang/parsack.git"))
+  (test-suite "empty")))
