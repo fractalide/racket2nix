@@ -1,13 +1,45 @@
 { pkgs ? import ./pkgs {}
 , catalog ? ./catalog.rktd
 , racket-package-overlays ? [ (import ./build-racket-default-overlay.nix) ]
+, racket-packages ? pkgs.callPackage ./racket-packages.nix {}
 }:
 
 let
   inherit (pkgs) buildEnv lib nix racket2nix runCommand;
-  default = { inherit catalog racket-package-overlays; };
+  default = { inherit catalog racket-package-overlays racket-packages; };
+  apply-overlays = rpkgs: overlays: if overlays == [] then rpkgs else
+    apply-overlays (rpkgs.extend (builtins.head overlays)) (builtins.tail overlays);
 
   attrs = rec {
+    buildThinRacketNix = { package, pname }:
+    runCommand "${pname}.nix" {
+      package = builtins.path { path = package; name = pname; };
+      buildInputs = [ racket2nix nix ];
+    } ''
+      racket2nix --thin $package > $out
+    '';
+    buildThinRacket = { package, racket-packages ? default.racket-packages
+                      , overlays ? default.racket-package-overlays
+                      , attrOverrides ? (oldAttrs: {})
+                      , pname ? builtins.readFile (runCommand "pname" { inherit package; } ''
+                          printf '%s' $(basename $(stripHash "$package")) > $out
+                        '')
+                      }: let
+      base = { inherit pname racket-packages overlays; }; in let
+      nix = buildThinRacketNix { inherit package pname; };
+      overlays = base.overlays ++ [ (import nix) ];
+      racket-packages = apply-overlays base.racket-packages overlays;
+      buildEnv = buildEnv rec {
+        name = "${pname}-env";
+        buildInputs = [ self ] ++ (self.propagatedBuildInputs or []);
+        paths = buildInputs;
+      };
+      self = (racket-packages."${pname}".overrideAttrs (oldAttrs: {
+        passthru = oldAttrs.passthru or {} // { inherit nix overlays racket-packages buildEnv; };
+      })).overrideAttrs attrOverrides;
+    in self;
+    buildThinRacketPackage = package: buildThinRacket { inherit package; };
+
     buildRacketNix = { catalog, flat, package, pname ? "racket-package" }:
     runCommand "${pname}.nix" {
       inherit package;
@@ -23,10 +55,7 @@ let
         self = let
           pname = ((pkgs.callPackage nix {}).overrideAttrs attrOverrides).pname;
           rpkgs = (pkgs.callPackage nix {}).racket-packages;
-          racket-packages = let apply-overlays = rpkgs: overlays: if overlays == [] then rpkgs else
-            apply-overlays (rpkgs.extend (builtins.head overlays)) (builtins.tail overlays);
-          in
-            apply-overlays rpkgs overlays;
+          racket-packages = apply-overlays rpkgs overlays;
         in
           racket-packages."${pname}".overrideAttrs (oldAttrs:
             { passthru = oldAttrs.passthru or {} // { inherit racket-packages; }; });

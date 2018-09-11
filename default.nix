@@ -2,15 +2,16 @@
 , overlays ? []
 , pkgs ? import ./pkgs { inherit overlays system; }
 , package ? null
-, flat ? false
-, catalog ? ./catalog.rktd
+, pname ? null
 }:
 
 let
-  inherit (pkgs) buildRacket racket2nix-stage1;
+  inherit (pkgs) buildThinRacket lib racket2nix-stage1;
   attrs = pkgs // {
     racket2nix = racket2nix-stage1;
   };
 in
 if package == null then (attrs.racket2nix // attrs) else
-buildRacket { inherit catalog package flat; }
+if builtins.isString package then (pkgs.callPackage ./racket-packages.nix {})."${package}"
+else buildThinRacket ({ inherit package; } //
+  lib.optionalAttrs (builtins.isString pname) { inherit pname; })
