@@ -143,13 +143,16 @@
 
   (define catalog-with-reified-cycles (for/hash ([name names-with-transdeps])
     (define package (hash-ref catalog-with-transdeps-and-cycles name))
-    (define cycle (hash-ref package 'circular-dependencies '()))
-    (cond
-     [(null? cycle) (values name package)]
-     [else
-      (define cycle-packages (map (curry hash-ref catalog-with-transdeps-and-cycles) cycle))
-      (define merged-transdeps (list* (list (cycle-name cycle)) (map (curryr hash-ref 'transitive-dependency-names) cycle-packages)))
-      (define normalized-transdeps (sort (apply set-union merged-transdeps) string<?))
-      (values name (hash-set package 'transitive-dependency-names normalized-transdeps))])))
+    (define transdeps (hash-ref package 'transitive-dependency-names))
+    (define cycles (remove '() (remove-duplicates (map
+      (lambda (name) (hash-ref (hash-ref catalog-with-transdeps-and-cycles name) 'circular-dependencies '()))
+      (cons name transdeps)))))
+    (eprintf "cycles ~a~n" cycles)
+    (define cycle-names (map cycle-name cycles))
+    (define reified-cycle-transdeps (append* cycle-names (map
+      (compose (curryr hash-ref 'transitive-dependency-names) (curry hash-ref reified-cycles))
+      cycle-names)))
+    (define normalized-transdeps (remove name (sort (set-union transdeps reified-cycle-transdeps) string<?)))
+    (values name (hash-set package 'transitive-dependency-names normalized-transdeps))))
 
   (make-immutable-hash (append (hash->list catalog-with-reified-cycles) (hash->list reified-cycles))))
