@@ -560,9 +560,9 @@ EOM
           (define package (memo-lookup-package package-dictionary package-name))
           (define rev-circ-dep-names (hash-ref package 'reverse-circular-build-inputs (lambda () '())))
           (append (list package-name) rev-circ-dep-names))
-        (remove* terminal-package-names (remove-duplicates (append*
+        (remove name (remove* terminal-package-names (remove-duplicates (append*
           (hash-ref package 'reverse-circular-build-inputs (lambda () '()))
-          (map expand-reverse-circulars trans-dep-names))))]
+          (map expand-reverse-circulars trans-dep-names)))))]
       [else
         (define calculated-reverse-circular
                 (hash-ref package 'reverse-circular-build-inputs
