@@ -3,7 +3,7 @@
 (provide (all-defined-out))
 
 (define (cycle-name cycle)
-  (define long-name (string-join cycle "-"))
+  (define long-name (string-join cycle "+"))
   (if (<= (string-length long-name) 64)
     long-name
     (string-append (substring long-name 0 61) "...")))
