@@ -114,10 +114,12 @@
 
 ; assumes catalog has has calculate-transitive-dependencies run on it
 (define (calculate-cycles catalog names)
-  (define cycles (apply set-union (cons '() (map
-    (lambda (name) (find-cycles catalog name (hash-ref catalog name) '() '() '()))
-    names))))
-  cycles)
+  (for/fold ([cycles '()]) ([name names])
+    (define memo (apply set-union (cons '() cycles)))
+
+    (define new-cycles (find-cycles catalog names (hash-ref catalog name) '()
+                                    memo cycles))
+    (normalize-cycles cycles new-cycles)))
 
 (define (find-transdeps-avoid-cycles catalog name cycles)
   (define my-cycle (or (for/or ([cycle cycles]) (and (member name cycle) cycle)) '()))
