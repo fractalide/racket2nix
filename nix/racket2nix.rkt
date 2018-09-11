@@ -574,22 +574,23 @@ EOM
 
 (define (catalog-add-nix-sha256 catalog (package-names #f))
   (define names (if package-names package-names (hash-keys catalog)))
-  (for/fold ([url-sha1-memo #hash()] [catalog catalog] #:result catalog) ([name names])
+  (for/fold ([url-sha1-memo #hash()] [acc-catalog #hash()] #:result acc-catalog) ([name names])
     (define package (memo-lookup-package catalog name))
     (define url (hash-ref package 'source #f))
     (define sha1 (hash-ref package 'checksum #f))
     (define checksum-error? (hash-ref package 'checksum-error #f))
     (define nix-sha256 (hash-ref package 'nix-sha256 #f))
     (cond
-     [(and (not nix-sha256) (not checksum-error?) url sha1
+     [checksum-error? (values url-sha1-memo acc-catalog)]
+     [(and (not nix-sha256) url sha1
 	   (or (github-url? url) (git-url? url)))
       (match-define-values (git-url git-sha1 _) (url-fallback-rev->url-rev-path url sha1))
       (define nix-sha256 (hash-ref url-sha1-memo (cons git-url git-sha1) (lambda () (discover-git-sha256 git-url git-sha1))))
       (define new-package (hash-set package 'nix-sha256 nix-sha256))
       (define new-url-sha1-memo (hash-set url-sha1-memo (cons git-url git-sha1) nix-sha256))
       (values new-url-sha1-memo
-              (hash-set catalog name new-package))]
-     [else (values url-sha1-memo catalog)])))
+              (hash-set acc-catalog name new-package))]
+     [else (values url-sha1-memo (hash-set acc-catalog name package))])))
 
 (define (simplify-package-dependency-names catalog)
   (for/hash ([(name package) (in-hash catalog)])
