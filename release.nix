@@ -12,6 +12,10 @@ let
       # buildRacketCatalog is tested by ./integration-tests
       # buildRacketPackage is tested by ./test.nix
       override-racket-derivation = (buildRacketPackage ./nix).overrideRacketDerivation (oldAttrs: {});
+      one-liner = {
+        string = pkgs.callPackage ./. { package = "gui-lib"; };
+        path = pkgs.callPackage ./. { package = ./nix; };
+      };
     };
     pkgs-all = pkgs.callPackage (racket2nixPath "catalog.nix") {};
     racket2nix = pkgs.callPackage <racket2nix> {};
@@ -31,5 +35,5 @@ in
   } // lib.optionalAttrs isTravis {
     stage0-nix-prerequisites = (pkgs {}).racket2nix-stage0.buildInputs;
     travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "tests.light-tests"
-                    "racket-full.racket2nix" "api.override-racket-derivation" ];
+                    "racket-full.racket2nix" "api" ];
   }
