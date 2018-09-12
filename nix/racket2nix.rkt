@@ -220,7 +220,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     find $env/share/racket/collects $env/lib/racket -type d -exec chmod 755 {} +
 
     printf > $env/bin/racket "#!${bash}/bin/bash\nexec ${racket-cmd} \"\$@\"\n"
-    chmod 555 $env/bin/racket
+    printf > $env/bin/gracket "#!${bash}/bin/bash\nexec $racket/bin/gracket -G $env/etc/racket -U -X $env/share/racket/collects \"\$@\"\n"
+    chmod 555 $env/bin/racket $env/bin/gracket
     PATH=$env/bin:$PATH
     export PLT_COMPILED_FILE_CHECK=exists
 
