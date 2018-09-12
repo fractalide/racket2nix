@@ -20,7 +20,7 @@ let
           inherit package; outputHashMode = "recursive"; outputHashAlgo = "sha256";
           outputHash = builtins.readFile sha256;
         } ''
-          cp -a $path $out
+          cp -a $package $out
         '';
       in runCommand "${pname}.nix" {
         buildInputs = [ racket2nix nix ];
