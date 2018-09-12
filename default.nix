@@ -12,6 +12,8 @@ let
   };
 in
 if package == null then (attrs.racket2nix // attrs) else
-if builtins.isString package then (pkgs.callPackage ./racket-packages.nix {})."${package}"
+if builtins.isString package then
+  ((pkgs.callPackage ./racket-packages.nix {}).extend
+    (import ./build-racket-default-overlay.nix))."${package}"
 else buildThinRacket ({ inherit package; } //
   lib.optionalAttrs (builtins.isString pname) { inherit pname; })
