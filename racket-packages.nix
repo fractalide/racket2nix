@@ -24,6 +24,8 @@
 }:
 
 let racket-packages = lib.makeExtensible (self: {
+inherit pkgs;
+
 lib.extractPath = lib.makeOverridable ({ path, src }: stdenv.mkDerivation {
   inherit path src;
   name = let
@@ -123,16 +125,19 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
         (for/list ((path out-deps-racket))
                   (format "~a/share/racket/~a" path suffix)))
 
-      (define lib-dirs
+      (define racket-lib-dirs
         (append
           (for/list ((name (cons out deps)))
                     (format "~a/share/racket/lib" name))
           (list (format "~a/lib/racket" racket))))
 
+      (define system-lib-dirs
+        (string-split (or (getenv "LD_LIBRARY_PATH") '()) ":"))
+
       (define config-rktd
         `#hash(
           (share-dir . ,(format "~a/share/racket" out))
-          (lib-search-dirs . ,lib-dirs)
+          (lib-search-dirs . ,(append racket-lib-dirs system-lib-dirs))
           (lib-dir . ,(format "~a/lib/racket" out))
           (bin-dir . ,(format "~a/bin" out))
           (absolute-installation? . #t)
@@ -199,8 +204,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     find $env/share/racket/collects $env/lib/racket -type d -exec chmod 755 {} +
 
     printf > $env/bin/racket "#!${bash}/bin/bash\nexec ${racket-cmd} \"\$@\"\n"
-    printf > $env/bin/gracket "#!${bash}/bin/bash\nexec $racket/bin/gracket -G $env/etc/racket -U -X $env/share/racket/collects \"\$@\"\n"
-    chmod 555 $env/bin/racket $env/bin/gracket
+    rm -f $env/lib/racket/gracket
+    printf > $env/lib/racket/gracket "#!${bash}/bin/bash\nexec $racket/lib/racket/gracket -G $env/etc/racket -U -X $env/share/racket/collects \"\$@\"\n"
+    chmod 555 $env/bin/racket $env/lib/racket/gracket
     PATH=$env/bin:$PATH
     export PLT_COMPILED_FILE_CHECK=exists
 
