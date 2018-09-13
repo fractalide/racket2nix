@@ -1,6 +1,8 @@
-let inherit (import ./pkgs {}) lib; in
-
 self: super:
+let
+  inherit (super.pkgs) lib;
+in
+
 lib.optionalAttrs (super ? "deinprogramm-signature" && super ? "icons") {
   deinprogramm-signature = super.deinprogramm-signature.overrideRacketDerivation (oldAttrs: { racketBuildInputs = oldAttrs.racketBuildInputs ++ [ self.icons ]; });
 } //
@@ -12,4 +14,10 @@ lib.optionalAttrs (super ? "gui-lib" && super ? "icons") {
 } //
 lib.optionalAttrs (super ? "htdp-lib" && super ? "icons") {
   htdp-lib = super.htdp-lib.overrideRacketDerivation (oldAttrs: { racketBuildInputs = oldAttrs.racketBuildInputs ++ [ self.icons ]; });
+} //
+lib.optionalAttrs (super ? "compatibility+compatibility-doc+data-doc+db-doc+distributed-p...") {
+  "compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." = super."compatibility+compatibility-doc+data-doc+db-doc+distributed-p...".overrideAttrs (oldAttrs: {
+  buildInputs = oldAttrs.buildInputs or [] ++ builtins.attrValues {
+    inherit (self.pkgs) glib cairo fontconfig gmp gtk3 gsettings-desktop-schemas libedit libjpeg_turbo libpng mpfr openssl pango poppler readline sqlite;
+  }; });
 }
