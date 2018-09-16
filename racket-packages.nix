@@ -195,13 +195,13 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     for depEnv in $racketConfigBuildInputsStr; do
       if ( shopt -s nullglob; pkgs=($depEnv/share/racket/pkgs/*/); (( ''${#pkgs[@]} > 0 )) ); then
         cp -frs $depEnv/share/racket/pkgs/*/ $env/share/racket/pkgs/
-        find $env/share/racket/pkgs -type d -exec chmod 755 {} +
+        find $env/share/racket/pkgs -type d -print0 | xargs -0 chmod 755
       fi
     done
 
     cp -rs $racket/lib/racket $env/lib/racket
     ln -s $racket/include/racket $env/share/racket/include
-    find $env/share/racket/collects $env/lib/racket -type d -exec chmod 755 {} +
+    find $env/share/racket/collects $env/lib/racket -type d -print0 | xargs -0 chmod 755
 
     printf > $env/bin/racket "#!${bash}/bin/bash\nexec ${racket-cmd} \"\$@\"\n"
     rm -f $env/lib/racket/gracket
