@@ -407,18 +407,7 @@ EOM
 (define discover-store-path
   (let ([store-path #f])
     (lambda ()
-      (cond
-        [store-path store-path]
-        [else
-         (define store-path-string (with-output-to-string (lambda ()
-           (define ni-path (find-executable-path "nix-instantiate"))
-           (unless ni-path
-             (eprintf "ERROR: nix-instantiate not found on PATH~n")
-             (exit 1))
-           (unless (equal? 0 (system*/exit-code ni-path "--eval" "-E" "builtins.storeDir"))
-                   (exit 1)))))
-         (set! store-path (with-input-from-string store-path-string read-json))
-         store-path]))))
+      (set! store-path "/nix/store"))))
 
 (define (strip-store-prefix pathname)
   (define store-path (discover-store-path))
