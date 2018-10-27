@@ -405,7 +405,7 @@ EOM
             (exit 1))))))
 
 (define (store-basename pathname)
-  (third (regexp-match #px"^.*/([a-z0-9]{32}-)?([^/]*)$" pathname)))
+  (third (regexp-match #px"^.*/([a-df-np-sv-z0-9]{32}-)?([^/]*)$" pathname)))
 
 (define (generate-noop-fixed-output-src pathname)
   (format noop-fixed-output-template pathname (discover-path-sha256 pathname)))
