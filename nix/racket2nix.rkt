@@ -404,18 +404,8 @@ EOM
     (unless (equal? 0 (system*/exit-code nh-path "--base32" "--type" "sha256" pathname))
             (exit 1))))))
 
-(define (discover-store-path) "/nix/store")
-
-(define (strip-store-prefix pathname)
-  (define store-path (discover-store-path))
-  (cond [(string-prefix? pathname store-path)
-         (substring pathname (+ (string-length store-path) 34))]
-        [else pathname]))
-
-(define (generate-local-file-src pathname)
-  (cond [(string-prefix? pathname (discover-store-path))
-         (generate-noop-fixed-output-src pathname)]
-        [else (format local-file-template pathname)]))
+(define (store-basename pathname)
+  (third (regexp-match #px"^.*/([a-z0-9]{32}-)?([^/]*)$" pathname)))
 
 (define (generate-noop-fixed-output-src pathname)
   (format noop-fixed-output-template pathname (discover-path-sha256 pathname)))
@@ -483,7 +473,7 @@ EOM
       [(or (string-prefix? url "http://") (string-prefix? url "https://"))
        (format fetchurl-template url sha1)]
       [else
-       (generate-local-file-src url)]))
+       (generate-noop-fixed-output-src url)]))
   (define srcs
     (cond
       [(pair? reverse-circular-build-inputs)
@@ -903,7 +893,7 @@ EOM
 
   (define package-names (map (lambda (package-name-or-path) (cond
     [(string-contains? package-name-or-path "/")
-     (define name (string-replace (strip-store-prefix package-name-or-path) #rx".*/" ""))
+     (define name (store-basename package-name-or-path))
      (define path package-name-or-path)
      (hash-set!
        pkg-details name
