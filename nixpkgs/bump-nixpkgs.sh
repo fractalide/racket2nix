@@ -21,7 +21,7 @@ fi
 if (( $# == 1 )); then
   rev=$1
 else
-  rev=$(git ls-remote github:$owner/$repo |
+  rev=$(git ls-remote https://github.com/$owner/$repo |
           awk "/$branch/"' { print $1 }')
 fi
 
