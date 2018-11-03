@@ -3,8 +3,8 @@ let
   pinnedPkgs = bootPkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs-channels";
-    rev = "4477cf04b6779a537cdb5f0bd3dd30e75aeb4a3b";
-    sha256 = "1i39wsfwkvj9yryj8di3jibpdg3b3j86ych7s9rb6z79k08yaaxc";
+    rev = "5e5e57c5728722450091160b2b0dbf53a311b230";
+    sha256 = "1dcs2rsfwf7fpypbdxbvxqyd7dl1sjd9xl7h77l89fklfrdwfsk7";
   };
 in
 import pinnedPkgs
