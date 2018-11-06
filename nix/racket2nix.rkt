@@ -618,8 +618,11 @@ EOM
   (define processed-catalog (if process-catalog?
     (catalog-add-nix-sha256 catalog (set-intersect package-names (hash-keys catalog)))
     catalog))
+  (define filtered-package-names (if maybe-name
+    package-names
+    (hash-keys processed-catalog)))
 
-  (for/hash ((name package-names))
+  (for/hash ((name filtered-package-names))
     (values name (hash-ref processed-catalog name))))
 
 (define (names->thin-nix-function names packages-dictionary)
