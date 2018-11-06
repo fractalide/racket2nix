@@ -25,11 +25,11 @@ attrs = rec {
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
-    outputHash = "1hrpc1p2dkizyrvwziv0pmshbaywz2c3gpmysxxl483d3ig7k5v8";
+    outputHash = "0h1s04smfxhywddkwklibnlcpaffp60jw6xpblmx7y73d71g9k7x";
+    url = "https://web.archive.org/web/20181106081240if_/https://pkgs.racket-lang.org/";
   } ''
     cd $src
-    racket > $out -N dump-catalogs ./dump-catalogs.rkt \
-      https://web.archive.org/web/20180909142750if_/https://pkgs.racket-lang.org/
+    racket > $out -N dump-catalogs ./dump-catalogs.rkt $url
   '';
   mergedUnfilteredCatalog = runCommand "merged-unfiltered-catalog.rktd" {
     src = ./nix;
