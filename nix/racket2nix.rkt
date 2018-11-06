@@ -620,7 +620,7 @@ EOM
     catalog))
 
   (for/hash ((name package-names))
-    (values name (hash-ref catalog name))))
+    (values name (hash-ref processed-catalog name))))
 
 (define (names->thin-nix-function names packages-dictionary)
   (define catalog (catalog-add-nix-sha256 packages-dictionary names))
