@@ -6,17 +6,17 @@
 let
 inherit (pkgs) cacert racket runCommand;
 attrs = rec {
-  releaseCatalog = runCommand "release-catalog" {
+  releaseCatalog = with (builtins.fromJSON (builtins.readFile ./release-catalog.json));
+  runCommand "release-catalog" {
     src = ./nix;
     buildInputs = [ racket ];
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
-    outputHash = "1ckyw31h4mshi72cczvb2n3kgdybjzxlm4acqfriqrzxw3q10w2l";
+    inherit outputHash;
   } ''
     cd $src
-    racket -N dump-catalogs ./dump-catalogs.rkt \
-      https://download.racket-lang.org/releases/7.0/catalog/ > $out
+    racket -N dump-catalogs ./dump-catalogs.rkt ${url} > $out
   '';
   liveCatalog = runCommand "live-catalog" {
     src = ./nix;
