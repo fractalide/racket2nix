@@ -35,6 +35,7 @@ attrs = rec {
     src = ./nix;
     inherit liveCatalog overrides releaseCatalog;
     buildInputs = [ racket ];
+    SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
   } ''
     cd $src
     racket -N export-catalog ./racket2nix.rkt \
