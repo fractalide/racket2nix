@@ -1,1 +1,16 @@
-("dracula" "gaming" "magenc" "net-jwt")
+("brick-snip"
+ "brick-tool"
+ "character-creator"
+ "dracula"
+ "game-engine"
+ "game-engine-demos-common"
+ "game-engine-rpg"
+ "game-engine-style-demos"
+ "gaming"
+ "hdf5"
+ "magenc"
+ "net-jwt"
+ "racket-bricks"
+ "spaceship-game-demo"
+ "ts-curric-puzzles")
+

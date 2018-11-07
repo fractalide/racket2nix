@@ -1,4 +1,4 @@
-{ pkgs ? import ../nixpkgs
+{ pkgs ? import (import ../nixpkgs)
 , overlays ? []
 , system ? builtins.currentSystem
 , ...
