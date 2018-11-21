@@ -4,7 +4,6 @@
 
 let
   inherit (pkgs {}) lib buildRacketPackage;
-  racket2nixPath = relPath: "${builtins.toString <racket2nix>}/${relPath}";
 
   genJobs = pkgs: rec {
     api = {
@@ -17,10 +16,10 @@ let
         path = pkgs.callPackage ./. { package = ./nix; };
       };
     };
-    pkgs-all = pkgs.callPackage (racket2nixPath "catalog.nix") {};
+    pkgs-all = pkgs.callPackage <racket2nix/catalog.nix> {};
     racket2nix = pkgs.callPackage <racket2nix> {};
     tests = {
-      inherit (pkgs.callPackage (racket2nixPath "test.nix") {}) light-tests heavy-tests;
+      inherit (pkgs.callPackage <racket2nix/test.nix> {}) light-tests heavy-tests;
     };
   };
 in
