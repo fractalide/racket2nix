@@ -25,7 +25,6 @@ function build() {
   local nixpkgs_paths=()
   if local nixpkgs_path=$(nix-instantiate --eval -E 'builtins.toString <nixpkgs>'); then
     nixpkgs_paths+=( -I nixpkgs="$(eval "readlink $nixpkgs_path")" )
-    echo I read the link and now the parameters are "${nixpkgs_paths[@]}"
   fi
 
   nix-build --fallback --option restrict-eval true --arg isTravis true \
