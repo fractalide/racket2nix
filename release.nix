@@ -19,7 +19,9 @@ let
     pkgs-all = pkgs.callPackage <racket2nix/catalog.nix> {};
     racket2nix = pkgs.callPackage <racket2nix> {};
     tests = {
-      inherit (pkgs.callPackage <racket2nix/test.nix> {}) light-tests heavy-tests;
+      inherit (pkgs.callPackage <racket2nix/test.nix> {}) light-tests;
+    } // lib.optionalAttrs ((builtins.match ".*racket-minimal.*" pkgs.racket.name) != null) {
+      inherit (pkgs.callPackage <racket2nix/test.nix> {}) heavy-tests;
     };
   };
 in
