@@ -7,7 +7,7 @@
 let
 pkgsFn = args: args.pkgs ((removeAttrs args [ "pkgs" ]) // { overlays = [ (self: super: let racket2nix-pkgs = {
   racket-full = (args.pkgs (removeAttrs args [ "overlays" "pkgs" ])).racket;
-  racket-minimal = self.callPackage ../racket-minimal {};
+  inherit (args.pkgs (removeAttrs args [ "overlays" "pkgs" ])) racket-minimal;
   racket = self.racket-minimal;
 
   racket2nix-stage0 = self.callPackage ../stage0.nix {};
