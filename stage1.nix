@@ -1,4 +1,5 @@
 { pkgs ? import ./pkgs {}
+, cacert ? pkgs.cacert
 }:
 
 let
@@ -24,7 +25,9 @@ stage1 = buildRacket { package = ./nix; pname = "racket2nix-stage1"; inherit att
   thin = buildThin { package = ./nix; inherit attrOverrides; };
 };
 
-verify = runCommand "verify-stage1.sh" {} ''
+verify = runCommand "verify-stage1.sh" {
+  buildInputs = [ cacert ];
+} ''
   set -e; set -u
   diff ${racket2nix-stage0.nix} ${stage1.nix} >> $out
   diff ${racket2nix-stage0.flat.nix} ${stage1.flat.nix} >> $out

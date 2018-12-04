@@ -1,4 +1,5 @@
 { pkgs ? import ./pkgs {}
+, cacert ? pkgs.cacert
 , catalog ? ./catalog.rktd
 }:
 
@@ -8,7 +9,7 @@ nix-command = nix;
 bootstrap = name: extraArgs: let
   nix = runCommand "${name}.nix" {
     src = ./nix;
-    buildInputs = [ nix-command racket ];
+    buildInputs = [ cacert nix-command racket ];
     inherit extraArgs;
   } ''
     racket -N racket2nix $src/racket2nix.rkt $extraArgs --catalog ${catalog} $src > $out

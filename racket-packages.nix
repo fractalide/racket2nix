@@ -1,6 +1,7 @@
 { pkgs ? import <nixpkgs> {}
 , stdenv ? pkgs.stdenv
 , lib ? stdenv.lib
+, cacert ? pkgs.cacert
 , fetchurl ? pkgs.fetchurl
 , fetchgit ? pkgs.fetchgit
 , racket ? pkgs.racket-minimal
@@ -64,7 +65,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   name = "${racket.name}-${pname}";
   inherit (attrs) pname;
   racketBuildInputs = attrs.racketBuildInputs or [] ++ self.lib.resolveThinInputs attrs.racketThinBuildInputs or [];
-  buildInputs = [ unzip racket ] ++ racketBuildInputs;
+  buildInputs = [ cacert unzip racket ] ++ racketBuildInputs;
   circularBuildInputs = attrs.circularBuildInputs or [];
   circularBuildInputsStr = lib.concatStringsSep " " circularBuildInputs;
   racketBuildInputsStr = lib.concatStringsSep " " racketBuildInputs;

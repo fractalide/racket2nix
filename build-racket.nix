@@ -1,4 +1,5 @@
 { pkgs ? import ./pkgs {}
+, cacert ? pkgs.cacert
 , catalog ? ./catalog.rktd
 , racket-package-overlays ? [ (import ./build-racket-default-overlay.nix) ]
 , racket-packages ? pkgs.callPackage ./racket-packages.nix {}
@@ -23,7 +24,7 @@ let
           cp -a $package $out
         '';
       in runCommand "${pname}.nix" {
-        buildInputs = [ racket2nix nix ];
+        buildInputs = [ cacert racket2nix nix ];
         inherit path;
       } ''
         racket2nix --thin $path > $out
@@ -53,7 +54,7 @@ let
     buildRacketNix = { catalog, flat, package, pname ? "racket-package" }:
     runCommand "${pname}.nix" {
       inherit package;
-      buildInputs = [ racket2nix nix ];
+      buildInputs = [ cacert racket2nix nix ];
       flatArg = lib.optionalString flat "--flat";
     } ''
       racket2nix $flatArg --catalog ${catalog} $package > $out
@@ -89,13 +90,13 @@ let
     buildRacketPackage = package: buildRacket { inherit package; };
     buildRacketCatalog = packages: let
       buildOneCatalog = package: runCommand "subcatalog.rktd" {
-        buildInputs = [ racket2nix nix ];
+        buildInputs = [ cacert racket2nix nix ];
         inherit catalog package packages;
       } ''
         racket2nix --export-catalog --no-process-catalog --catalog $catalog $package $packages --export-catalog > $out
       '';
     in runCommand "catalog.rktd" {
-      buildInputs = [ racket2nix nix ];
+      buildInputs = [ cacert racket2nix nix ];
       catalogs = map buildOneCatalog packages;
     } ''
       racket2nix --export-catalog --no-process-catalog $(printf -- '--catalog %s ' $catalogs) > $out

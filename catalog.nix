@@ -1,4 +1,5 @@
 { pkgs ? import ./pkgs { }
+, cacert ? pkgs.cacert
 , exclusions ? ./catalog-exclusions.rktd
 , overrides ? ./catalog-overrides.rktd
 }:
@@ -9,8 +10,7 @@ attrs = rec {
   releaseCatalog = with (builtins.fromJSON (builtins.readFile ./release-catalog.json));
   runCommand "release-catalog" {
     src = ./nix;
-    buildInputs = [ racket ];
-    SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+    buildInputs = [ cacert racket ];
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
     inherit outputHash;
@@ -20,9 +20,8 @@ attrs = rec {
   '';
   liveCatalog = runCommand "live-catalog" {
     src = ./nix;
-    buildInputs = [ racket ];
+    buildInputs = [ cacert racket ];
     inherit racket;
-    SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
     outputHash = "0h1s04smfxhywddkwklibnlcpaffp60jw6xpblmx7y73d71g9k7x";
@@ -34,8 +33,7 @@ attrs = rec {
   mergedUnfilteredCatalog = runCommand "merged-unfiltered-catalog.rktd" {
     src = ./nix;
     inherit liveCatalog overrides releaseCatalog;
-    buildInputs = [ racket ];
-    SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+    buildInputs = [ cacert racket ];
   } ''
     cd $src
     racket -N export-catalog ./racket2nix.rkt \
@@ -44,7 +42,7 @@ attrs = rec {
   '';
   merged-catalog = runCommand "merged-catalog.rktd" {
     inherit exclusions mergedUnfilteredCatalog racket;
-    buildInputs = [ racket ];
+    buildInputs = [ cacert racket ];
     filterCatalog = builtins.toFile "filter-catalog.scm" ''
       #lang racket
       (command-line
@@ -61,7 +59,7 @@ attrs = rec {
       < $mergedUnfilteredCatalog > $out
   '';
   pretty-merged-catalog = runCommand "pretty-merged-catalog.rktd" {
-    buildInputs = [ racket ];
+    buildInputs = [ cacert racket ];
   } ''
     racket -e '(pretty-write (read))' < ${merged-catalog} > $out
   '';
