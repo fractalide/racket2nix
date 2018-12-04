@@ -86,7 +86,7 @@ process and ideals.
 
 Here are the specifics for what you need to to when writing your PR:
 
- - Run `make release`.
+ - Run `./release.sh`.
    * This verifies that `racket2nix` can still package itself and that
      the self-packaged version still works.
    * NOTE: You will need Nix installed and running for this to work.
