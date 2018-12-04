@@ -118,8 +118,8 @@ and then add this `default.nix` to the same directory:
 { pkgs ? import <nixpkgs> {}
 , racket2nix ? pkgs.fetchFromGitHub {
   owner = "fractalide"; repo = "racket2nix";
-  rev = "df7d4d4500d0326d47a9f6831f1eef3800a78eae";
-  sha256 = "0rr3y8glljdr7zirl5zjgy8i6pnq24lxyb6w0k2465wdfk4gc11b"; }
+  rev = "59c614406d4796f40620f6490b0b05ecb51ed976";
+  sha256 = "0z5y1jm60vkwvi66q39p88ygkgyal81486h577gikmpqjxkg9d6i"; }
 }:
 
 with import racket2nix {};
