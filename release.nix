@@ -1,5 +1,6 @@
 { isTravis ? false
 , pkgs ? import ./pkgs
+, cacert ? (pkgs {}).cacert
 }:
 
 let
@@ -30,7 +31,7 @@ in
     racket-packages-updated = (pkgs {}).runCommand "racket-packages-updated" rec {
       src = <racket2nix>;
       inherit (pkgs {}) racket2nix;
-      buildInputs = [ racket2nix ];
+      buildInputs = [ cacert racket2nix ];
     } ''
       set -e; set -u
       racket2nix --catalog $src/catalog.rktd > racket-packages.nix
