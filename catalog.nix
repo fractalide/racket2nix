@@ -5,7 +5,7 @@
 }:
 
 let
-inherit (pkgs) cacert racket runCommand;
+inherit (pkgs) cacert racket runCommand fetchurl;
 attrs = rec {
   releaseCatalog = with (builtins.fromJSON (builtins.readFile ./release-catalog.json));
   runCommand "release-catalog" {
@@ -18,18 +18,7 @@ attrs = rec {
     cd $src
     racket -N dump-catalogs ./dump-catalogs.rkt ${url} > $out
   '';
-  liveCatalog = runCommand "live-catalog" {
-    src = ./nix;
-    buildInputs = [ cacert racket ];
-    inherit racket;
-    outputHashMode = "flat";
-    outputHashAlgo = "sha256";
-    outputHash = "0h1s04smfxhywddkwklibnlcpaffp60jw6xpblmx7y73d71g9k7x";
-    url = "https://web.archive.org/web/20181106081240if_/https://pkgs.racket-lang.org/";
-  } ''
-    cd $src
-    racket > $out -N dump-catalogs ./dump-catalogs.rkt $url
-  '';
+  liveCatalog = fetchurl (builtins.fromJSON (builtins.readFile ./live-catalog.json));
   mergedUnfilteredCatalog = runCommand "merged-unfiltered-catalog.rktd" {
     src = ./nix;
     inherit liveCatalog overrides releaseCatalog;
