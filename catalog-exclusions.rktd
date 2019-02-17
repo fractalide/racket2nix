@@ -1,4 +1,5 @@
-("brick-snip"
+("battle-arena"
+ "brick-snip"
  "brick-tool"
  "character-creator"
  "dracula"
@@ -11,6 +12,11 @@
  "magenc"
  "net-jwt"
  "racket-bricks"
+ "simple-oauth2"
  "spaceship-game-demo"
- "ts-curric-puzzles")
+ "survival"
+ "ts-camp-jam-1"
+ "ts-game-jam-1"
+ "ts-curric-puzzles"
+ "video-unstable")
 
