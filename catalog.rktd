@@ -9733,6 +9733,99 @@
                                (source_url
                                 .
                                 "http://github.com/videolang/native-pkgs/tree/master?path=libvid-x86_64-macosx")))))))
+      ("net-jwt"
+       .
+       #hasheq((author . "jmj@fellowhuman.com")
+               (authors . ("jmj@fellowhuman.com"))
+               (build
+                .
+                #hash((conflicts-log . #f)
+                      (dep-failure-log . #f)
+                      (docs . ())
+                      (failure-log . #f)
+                      (min-failure-log . #f)
+                      (success-log . #f)
+                      (test-failure-log . #f)
+                      (test-success-log . #f)))
+               (checksum . "9ba9f06101b71f2f148dc338e2d577389b588ec4")
+               (checksum-error . #f)
+               (conflicts . ())
+               (dependencies
+                .
+                ("srfi-lite-lib"
+                 ("base" #:version "6.10")
+                 "typed-racket-lib"
+                 "typed-racket-more"
+                 "sha"
+                 "rackunit-lib"
+                 "web-server-lib"
+                 "racket-doc"
+                 "scribble-lib"
+                 "typed-racket-lib"
+                 "typed-racket-more"
+                 "typed-racket-doc"
+                 "option-bind"))
+               (dependency-names
+                .
+                ("srfi-lite-lib"
+                 "base"
+                 "typed-racket-lib"
+                 "typed-racket-more"
+                 "sha"
+                 "rackunit-lib"
+                 "web-server-lib"
+                 "racket-doc"
+                 "scribble-lib"
+                 "typed-racket-lib"
+                 "typed-racket-more"
+                 "typed-racket-doc"
+                 "option-bind"))
+               (description
+                .
+                "JSON Web Token / JSON Web Signature codec, verification, signing")
+               (implies . ())
+               (last-checked . 1550429540)
+               (last-edit . 1439185700)
+               (last-updated . 1537246670)
+               (modules
+                .
+                ((lib "net/jwt/encode-decode.rkt")
+                 (lib "net/jwt.rkt")
+                 (lib "tests/net/jwt/base64.rkt")
+                 (lib "net/jwt/misc.rkt")
+                 (lib "net/jwt/base64.rkt")
+                 (lib "net/jwt/algorithms.rkt")
+                 (lib "net/jwt/jwt.scrbl")
+                 (lib "net/jwt/structs.rkt")
+                 (lib "tests/net/jwt/algorithms.rkt")
+                 (lib "tests/net/jwt/encode-decode.rkt")))
+               (name . "net-jwt")
+               (nix-sha256
+                .
+                "09ad6lw8cm9f2nzqzafckc151n6134cd8d4dlwj8wlsd47maa6kf")
+               (ring . 1)
+               (search-terms
+                .
+                #hasheq((author:jmj@fellowhuman.com . #t)
+                        (json . #t)
+                        (net . #t)
+                        (ring:1 . #t)
+                        (web . #t)))
+               (source . "git://github.com/RenaissanceBug/racket-jwt")
+               (tags . ("json" "net" "web"))
+               (versions
+                .
+                #hash((default
+                       .
+                       #hasheq((checksum
+                                .
+                                "9ba9f06101b71f2f148dc338e2d577389b588ec4")
+                               (source
+                                .
+                                "git://github.com/RenaissanceBug/racket-jwt")
+                               (source_url
+                                .
+                                "http://github.com/RenaissanceBug/racket-jwt/tree/master")))))))
       ("rml-decisiontrees"
        .
        #hasheq((author . "johnstonskj@gmail.com")
@@ -47228,6 +47321,101 @@
                                (source_url
                                 .
                                 "http://github.com/takikawa/racket-libnotify/tree/master")))))))
+      ("hdf5"
+       .
+       #hasheq((author . "petersamarin@gmail.com")
+               (authors . ("petersamarin@gmail.com"))
+               (build
+                .
+                #hash((conflicts-log . #f)
+                      (dep-failure-log . #f)
+                      (docs . ())
+                      (failure-log . #f)
+                      (min-failure-log . #f)
+                      (success-log . #f)
+                      (test-failure-log . #f)
+                      (test-success-log . #f)))
+               (checksum . "5836fc438ee36f94c80362b7da79b252a6429009")
+               (checksum-error . #f)
+               (conflicts . ())
+               (dependencies . ("base" "rackunit" "math"))
+               (dependency-names . ("base" "rackunit" "math"))
+               (description . "FFI bindings to the hdf5 library")
+               (implies . ())
+               (last-checked . 1550429442)
+               (last-edit . 1524859998)
+               (last-updated . 1544510595)
+               (modules
+                .
+                ((lib "examples/hl-open.rkt")
+                 (lib "hdf5/unsafe.rkt")
+                 (lib "examples/h5ex_d_unlimgzip.rkt")
+                 (lib "examples/h5ex_t_commit.rkt")
+                 (lib "examples/getting-data-format.rkt")
+                 (lib "hdf5/unsafe/h5spublic.rkt")
+                 (lib "hdf5/unsafe/h5opublic.rkt")
+                 (lib "hdf5/unsafe/hdf5.rkt")
+                 (lib "hdf5/hl.rkt")
+                 (lib "hdf5/unsafe/h5mmpublic.rkt")
+                 (lib "examples/h5ex_g_traverse.rkt")
+                 (lib "examples/h5ex_t_vlen.rkt")
+                 (lib "examples/h5ex_t_enum.rkt")
+                 (lib "hdf5/hl/hdf5.rkt")
+                 (lib "hdf5/hl/utilities.rkt")
+                 (lib "hdf5/unsafe/h5dpublic.rkt")
+                 (lib "hdf5/unsafe/h5public.rkt")
+                 (lib "examples/h5ex_d_unlimadd.rkt")
+                 (lib "hdf5/unsafe/utilities.rkt")
+                 (lib "hdf5/unsafe/h5fdpublic.rkt")
+                 (lib "hdf5/unsafe/h5cpublic.rkt")
+                 (lib "examples/h5ex_t_cmpd.rkt")
+                 (lib "hdf5/unsafe/h5ppublic.rkt")
+                 (lib "hdf5/unsafe/h5tpublic.rkt")
+                 (lib "hdf5/unsafe/h5fpublic.rkt")
+                 (lib "hdf5/unsafe/h5acpublic.rkt")
+                 (lib "hdf5/unsafe/h5rpublic.rkt")
+                 (lib "examples/h5ex_t_array.rkt")
+                 (lib "hdf5/unsafe/h5gpublic.rkt")
+                 (lib "examples/h5ex_t_int.rkt")
+                 (lib "hdf5/unsafe/h5epublic.rkt")
+                 (lib "hdf5/unsafe/h5apublic.rkt")
+                 (lib "examples/h5ex_t_opaque.rkt")
+                 (lib "hdf5/unsafe/h5zpublic.rkt")
+                 (lib "hdf5/unsafe/h5lpublic.rkt")
+                 (lib "hdf5/unsafe/h5-utilities.rkt")
+                 (lib "hdf5/unsafe/h5epubgen.rkt")
+                 (lib "hdf5/hl/h5file.rkt")
+                 (lib "examples/h5ex_g_iterate.rkt")
+                 (lib "examples/h5ex_t_string.rkt")
+                 (lib "examples/h5ex_t_cpxcmpd.rkt")
+                 (lib "hdf5/unsafe/h5ipublic.rkt")))
+               (name . "hdf5")
+               (nix-sha256
+                .
+                "1kl44s3fhkyv5yf8ya69wx8yw905zskjv79k6sj97hjm8f9rls1h")
+               (ring . 2)
+               (search-terms
+                .
+                #hasheq((author:petersamarin@gmail.com . #t)
+                        (data . #t)
+                        (ffi . #t)
+                        (hdf5 . #t)
+                        (ring:2 . #t)))
+               (source . "https://github.com/oetr/racket-hdf5.git")
+               (tags . ("data" "ffi" "hdf5"))
+               (versions
+                .
+                #hash((default
+                       .
+                       #hasheq((checksum
+                                .
+                                "5836fc438ee36f94c80362b7da79b252a6429009")
+                               (source
+                                .
+                                "https://github.com/oetr/racket-hdf5.git")
+                               (source_url
+                                .
+                                "https://github.com/oetr/racket-hdf5.git")))))))
       ("libvid-i386-win32"
        .
        #hasheq((author . "leif@leifandersen.net")
@@ -62580,6 +62768,109 @@
                                (source_url
                                 .
                                 "http://github.com/takikawa/raco-find-collection/tree/master")))))))
+      ("simple-oauth2"
+       .
+       #hasheq((author . "johnstonskj@gmail.com")
+               (authors . ("johnstonskj@gmail.com"))
+               (build
+                .
+                #hash((conflicts-log . #f)
+                      (dep-failure-log . #f)
+                      (docs . ())
+                      (failure-log . #f)
+                      (min-failure-log . #f)
+                      (success-log . #f)
+                      (test-failure-log . #f)
+                      (test-success-log . #f)))
+               (checksum . "5393058265f20669ab3c683e4aa660f80f0e0d30")
+               (checksum-error . #f)
+               (conflicts . ())
+               (date-added . 1549389191)
+               (dependencies
+                .
+                ("base"
+                 "crypto-lib"
+                 "dali"
+                 "net-jwt"
+                 "threading"
+                 "web-server-lib"
+                 "rackunit-lib"
+                 "rackunit-spec"
+                 "scribble-lib"
+                 "racket-doc"
+                 "racket-index"
+                 "sandbox-lib"
+                 "cover-coveralls"))
+               (dependency-names
+                .
+                ("base"
+                 "crypto-lib"
+                 "dali"
+                 "net-jwt"
+                 "threading"
+                 "web-server-lib"
+                 "rackunit-lib"
+                 "rackunit-spec"
+                 "scribble-lib"
+                 "racket-doc"
+                 "racket-index"
+                 "sandbox-lib"
+                 "cover-coveralls"))
+               (description . "Simple OAuth 2.0 client implementation")
+               (implies . ())
+               (last-checked . 1550429599)
+               (last-edit . 1549389191)
+               (last-updated . 1550267455)
+               (modules
+                .
+                ((lib "oauth2/private/external-ip.rkt")
+                 (lib "oauth2/scribblings/simple-oauth2.scrbl")
+                 (lib "oauth2/tools/common.rkt")
+                 (lib "oauth2/client.rkt")
+                 (lib "oauth2/private/logging.rkt")
+                 (lib "oauth2/client/pkce.rkt")
+                 (lib "oauth2/storage/config.rkt")
+                 (lib "oauth2/private/storage.rkt")
+                 (lib "oauth2/tools/fitbit.rkt")
+                 (lib "oauth2/scribblings/storage.scrbl")
+                 (lib "oauth2/client/flow.rkt")
+                 (lib "oauth2/scribblings/oauth2.scrbl")
+                 (lib "oauth2/tests/test-doc-complete.rkt")
+                 (lib "oauth2/main.rkt")
+                 (lib "oauth2/scribblings/client.scrbl")
+                 (lib "oauth2/tools/livongo.rkt")
+                 (lib "oauth2/storage/clients.rkt")
+                 (lib "oauth2/private/http.rkt")
+                 (lib "oauth2/private/privacy.rkt")
+                 (lib "oauth2/storage/tokens.rkt")
+                 (lib "oauth2/private/template.rkt")
+                 (lib "oauth2/private/redirect-server.rkt")
+                 (lib "oauth2/scribblings/tools.scrbl")))
+               (name . "simple-oauth2")
+               (nix-sha256
+                .
+                "0r4x8pmc08ax41jijblwfv9ml0npnv8nafphx1zdskh1csnakmbl")
+               (ring . 2)
+               (search-terms
+                .
+                #hasheq((author:johnstonskj@gmail.com . #t)
+                        (oauth . #t)
+                        (ring:2 . #t)))
+               (source . "https://github.com/johnstonskj/simple-oauth2.git")
+               (tags . ("oauth"))
+               (versions
+                .
+                #hash((default
+                       .
+                       #hasheq((checksum
+                                .
+                                "5393058265f20669ab3c683e4aa660f80f0e0d30")
+                               (source
+                                .
+                                "https://github.com/johnstonskj/simple-oauth2.git")
+                               (source_url
+                                .
+                                "https://github.com/johnstonskj/simple-oauth2.git")))))))
       ("temp-c-doc"
        .
        #hasheq((author . "jay.mccarthy@gmail.com")
@@ -82741,6 +83032,70 @@
               .
               "https://download.racket-lang.org/releases/7.1/pkgs/main-distribution-test.zip")
              (tags . ())))
+      ("magenc"
+       .
+       #hasheq((author . "cwebber@dustycloud.org")
+               (authors . ("cwebber@dustycloud.org"))
+               (build
+                .
+                #hash((conflicts-log . #f)
+                      (dep-failure-log . #f)
+                      (docs . ())
+                      (failure-log . #f)
+                      (min-failure-log . #f)
+                      (success-log . #f)
+                      (test-failure-log . #f)
+                      (test-success-log . #f)))
+               (checksum . "79245b4e2e7558f3de289bd0e6243eb70b8f67a9")
+               (checksum-error . #f)
+               (conflicts . ())
+               (dependencies . ("crypto" "csexp" "sql"))
+               (dependency-names . ("crypto" "csexp" "sql"))
+               (description
+                .
+                "Symmetric encryption for magnet URIs (code and docs)")
+               (implies . ())
+               (last-checked . 1550429527)
+               (last-edit . 1536087294)
+               (last-updated . 1550253125)
+               (modules
+                .
+                ((lib "magenc/sqlite-store.rkt")
+                 (lib "magenc/hungry-store.rkt")
+                 (lib "magenc/memory-store.rkt")
+                 (lib "magenc/install-factory.rkt")
+                 (lib "magenc/url-base64.rkt")
+                 (lib "magenc/web-store.rkt")
+                 (lib "magenc/cas-server.rkt")
+                 (lib "magenc/debug-store.rkt")
+                 (lib "magenc/client.rkt")
+                 (lib "magenc/get-put.rkt")))
+               (name . "magenc")
+               (nix-sha256
+                .
+                "0r7zancmq40395zwl18ibrcsfh1xgaj7a8ns2dq7lpmcpa3r7vmw")
+               (ring . 2)
+               (search-terms
+                .
+                #hasheq((author:cwebber@dustycloud.org . #t)
+                        (crypto . #t)
+                        (demos . #t)
+                        (ring:2 . #t)))
+               (source . "https://gitlab.com/dustyweb/magenc.git?path=magenc")
+               (tags . ("crypto" "demos"))
+               (versions
+                .
+                #hash((default
+                       .
+                       #hasheq((checksum
+                                .
+                                "79245b4e2e7558f3de289bd0e6243eb70b8f67a9")
+                               (source
+                                .
+                                "https://gitlab.com/dustyweb/magenc.git?path=magenc")
+                               (source_url
+                                .
+                                "https://gitlab.com/dustyweb/magenc.git?path=magenc")))))))
       ("sdraw"
        .
        #hasheq((author . "jack@rosenth.al")
@@ -85473,6 +85828,78 @@
                                (source_url
                                 .
                                 "http://github.com/mflatt/values-plus/tree/master")))))))
+      ("gaming"
+       .
+       #hasheq((author . "vervaeck.sam@skynet.be")
+               (authors . ("vervaeck.sam@skynet.be"))
+               (build
+                .
+                #hash((conflicts-log . #f)
+                      (dep-failure-log . #f)
+                      (docs . ())
+                      (failure-log . #f)
+                      (min-failure-log . #f)
+                      (success-log . #f)
+                      (test-failure-log . #f)
+                      (test-success-log . #f)))
+               (checksum . "01280d0c64e4b3e43a2dace83c7bfa132fc1b206")
+               (checksum-error . #f)
+               (conflicts . ())
+               (dependencies . (("ramunk" "1.0") ("rx" "0.2")))
+               (dependency-names . ("ramunk" "rx"))
+               (description . "")
+               (implies . ())
+               (last-checked . 1550429430)
+               (last-edit . 1488409269)
+               (last-updated . 1544971358)
+               (modules
+                .
+                ((lib "gaming/shapes/circle.rkt")
+                 (lib "gaming/examples/ball-pool.rkt")
+                 (lib "gaming/scribblings/gaming.scrbl")
+                 (lib "gaming/main.rkt")
+                 (lib "gaming/examples/fireworks.rkt")
+                 (lib "gaming/screen.rkt")
+                 (lib "gaming/examples/readme.rkt")
+                 (lib "gaming/scribblings/devices.scrbl")
+                 (lib "gaming/point.rkt")
+                 (lib "gaming/timing.rkt")
+                 (lib "gaming/game-object.rkt")
+                 (lib "gaming/syntax.rkt")
+                 (lib "gaming/examples/mario.rkt")
+                 (lib "gaming/scribblings/world.scrbl")
+                 (lib "gaming/helpers.rkt")
+                 (lib "gaming/world.rkt")
+                 (lib "gaming/scribblings/objects.scrbl")
+                 (lib "gaming/shapes/segment.rkt")))
+               (name . "gaming")
+               (nix-sha256
+                .
+                "0kl1ib7x30a4y06bg4ym5rqhafsfhy1h7lwh3xsy8q9xq0x50ci5")
+               (ring . 1)
+               (search-terms
+                .
+                #hasheq((2d . #t)
+                        (:no-desc: . #t)
+                        (author:vervaeck.sam@skynet.be . #t)
+                        (framework . #t)
+                        (game-engine . #t)
+                        (ring:1 . #t)))
+               (source . "git://github.com/samvv/racket-gaming")
+               (tags . ("2d" "framework" "game-engine"))
+               (versions
+                .
+                #hash((default
+                       .
+                       #hasheq((checksum
+                                .
+                                "01280d0c64e4b3e43a2dace83c7bfa132fc1b206")
+                               (source
+                                .
+                                "git://github.com/samvv/racket-gaming")
+                               (source_url
+                                .
+                                "http://github.com/samvv/racket-gaming/tree/master")))))))
       ("cldr-core"
        .
        #hasheq((author . "zeppieri@gmail.com")
