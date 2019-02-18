@@ -18,4 +18,7 @@
                        "github://github.com/stchang/parsack/master/"
                        "b45f0f5ed5f8dd3f1ccebaaec3204b27032843c6")])
                    url)
-                 "git://github.com/stchang/parsack.git"))))
+                 "git://github.com/stchang/parsack.git")
+    (test-equal? "github-url->git-url puts the .git in the right place when path query and no trailing slash"
+                 (github-url->git-url "git://github.com/rmculpepper/binaryio?path=binaryio")
+                 "git://github.com/rmculpepper/binaryio.git?path=binaryio"))))
