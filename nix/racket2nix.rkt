@@ -357,7 +357,7 @@ EOM
       [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/]*)[.]git/?([?]path=([^#]*))?(#(.*))?$"
                (list _ user repo _ maybe-path _ maybe-rev))
        (list user repo maybe-rev maybe-path)]
-      [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/]*)/?([?]path=([^#]*))?(#(.*))?$"
+      [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/?]*)/?([?]path=([^#]*))?(#(.*))?$"
                (list _ user repo _ maybe-path _ maybe-rev))
        (list user repo maybe-rev maybe-path)]
       [(regexp #rx"^[^:]*://github.com/([^/]*)/([^/]*)[.]git/tree/([^?]*)([?]path=(.*))?$"
