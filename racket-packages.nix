@@ -107,7 +107,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     runHook postUnpack
   '';
 
-  patchPhase = ''
+  postPatch = ''
     if [ -d racket-index ]; then
         ( cd racket-index && patch -p3 < ${racketIndexPatch} )
     fi
