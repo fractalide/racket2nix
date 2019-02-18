@@ -54752,15 +54752,61 @@
        .
        #hasheq((author . "tonygarnockjones@gmail.com")
                (authors . ("tonygarnockjones@gmail.com"))
-               (checksum . "c2454badf7d9401425bab91ba44e4287e690607b")
+               (build
+                .
+                #hash((conflicts-log . #f)
+                      (dep-failure-log . #f)
+                      (docs . ())
+                      (failure-log . #f)
+                      (min-failure-log . #f)
+                      (success-log . #f)
+                      (test-failure-log . #f)
+                      (test-success-log . #f)))
+               (checksum . "d3f1e04bd759b7c3f75c7f14a3d700c1ee87f799")
+               (checksum-error . #f)
+               (conflicts . ())
                (dependencies . ("base" "dynext-lib" "make" "rackunit-lib"))
                (dependency-names . ("base" "dynext-lib" "make" "rackunit-lib"))
                (description . "ANSI and VT10x escape sequences for Racket.")
+               (implies . ())
+               (last-checked . 1550429339)
+               (last-edit . 1443044744)
+               (last-updated . 1534153327)
+               (modules
+                .
+                ((lib "ansi/test-screen-size.rkt")
+                 (lib "ansi/ansi.rkt")
+                 (lib "ansi/main.rkt")
+                 (lib "ansi/private/install.rkt")
+                 (lib "ansi/test-ansi.rkt")
+                 (lib "ansi/test-raw.rkt")
+                 (lib "ansi/lcd-terminal.rkt")
+                 (lib "ansi/test-modes.rkt")))
                (name . "ansi")
                (nix-sha256
                 .
-                "1rm4bm8h04paa23j059w7fak2gim3zkxcq4dy65rq4r6xqyvwdln")
-               (source . "github://github.com/tonyg/racket-ansi/master")))
+                "05p589wksy0s6wj8wniqqiw4ihmh7k95hsa5121fsx09v80dw26a")
+               (ring . 1)
+               (search-terms
+                .
+                #hasheq((author:tonygarnockjones@gmail.com . #t)
+                        (ring:1 . #t)
+                        (terminal . #t)))
+               (source . "github://github.com/tonyg/racket-ansi/master")
+               (tags . ("terminal"))
+               (versions
+                .
+                #hash((default
+                       .
+                       #hasheq((checksum
+                                .
+                                "d3f1e04bd759b7c3f75c7f14a3d700c1ee87f799")
+                               (source
+                                .
+                                "github://github.com/tonyg/racket-ansi/master")
+                               (source_url
+                                .
+                                "http://github.com/tonyg/racket-ansi/tree/master")))))))
       ("plai-typed"
        .
        #hasheq((author . "mflatt@cs.utah.edu")
