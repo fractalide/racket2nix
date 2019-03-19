@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#! /usr/bin/env nix-shell
+#! nix-shell --quiet -i bash -p bash
 
 set -euo pipefail
 
