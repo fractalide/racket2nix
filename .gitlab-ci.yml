@@ -1,0 +1,5 @@
+nix:
+  image: nixos/nix:latest
+  script:
+   - ./support/utils/setup-hydra.fractalide.com.sh
+   - ./release.sh
