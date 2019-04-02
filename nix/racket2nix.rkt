@@ -205,8 +205,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       exit 0
     fi
 
-    echo ${racket-cmd}
-
     mkdir -p $env/share/racket/collects $env/lib $env/bin
     for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
       cp -rs $racket/share/racket/collects/$bootstrap_collection \
