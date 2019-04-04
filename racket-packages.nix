@@ -8,6 +8,9 @@
 , racket-lib ? racket // { env = racket.out; }
 , unzip ? pkgs.unzip
 , bash ? pkgs.bash
+, findutils ? pkgs.findutils
+, gnused ? pkgs.gnused
+, time ? pkgs.time
 , racketIndexPatch ? builtins.toFile "racket-index.patch" ''
     diff --git a/pkgs/racket-index/setup/scribble.rkt b/pkgs/racket-index/setup/scribble.rkt
     index c79af9bf85..e4a1cf93e3 100644
@@ -74,10 +77,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   reverseCircularBuildInputs = attrs.reverseCircularBuildInputs or [];
   src = attrs.src or null;
   srcs = [ src ] ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
+  doInstallCheck = attrs.doInstallCheck or false;
   inherit racket;
-  outputs = [ "out" "env" ];
+  outputs = [ "out" "env" ] ++ lib.optionals doInstallCheck [ "test" "testEnv" ];
 
-  phases = "unpackPhase patchPhase installPhase fixupPhase";
+  phases = "unpackPhase patchPhase installPhase fixupPhase installCheckPhase";
   unpackPhase = ''
     stripSuffix() {
       stripped=$1
@@ -252,6 +256,27 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     done
     find $env/share/racket/collects $env/share/racket/pkgs $env/lib/racket $env/bin -type d -empty -delete
     rm $env/share/racket/include
+  '';
+
+  installCheckPhase = if !doInstallCheck then null else let
+    testConfigBuildInputs = [ self.compiler-lib ] ++ self.compiler-lib.racketConfigBuildInputs ++
+      (builtins.filter (input: !builtins.elem input reverseCircularBuildInputs) racketBuildInputs);
+    testConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) testConfigBuildInputs);
+  in ''
+    runHook preInstallCheck
+    mkdir -p $testEnv/etc/racket $testEnv/share
+    racket ${make-config-rktd} $testEnv ${racket} $env ${testConfigBuildInputsStr} > $testEnv/etc/racket/config.rktd
+    ln -s ${self.compiler-lib.env}/share/racket $testEnv/share/racket
+    ${findutils}/bin/xargs -I {} -0 -n 1 -P ''${NIX_BUILD_CORES:-1} bash -c '
+      set -eu
+      testpath=''${1#*/share/racket/pkgs/}
+      logdir="$test/log/''${testpath%/*}"
+      mkdir -p "$logdir"
+      timeout 60 ${time}/bin/time -f "%e s $testpath" racket -G $testEnv/etc/racket -U -l- raco test -q "$1" |&
+        grep -v -e "warning: tool .* registered twice" -e "@[(]test-responsible" |
+        tee "$logdir/''${1##*/}"
+    ' {} {} < <(${findutils}/bin/find "$env"/share/racket/pkgs/"$pname" -name '*.rkt' -print0)
+    runHook postInstallCheck
   '';
 } // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
   passthru = oldAttrs.passthru or {} // {

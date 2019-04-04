@@ -20,4 +20,7 @@ lib.optionalAttrs (super ? "compatibility+compatibility-doc+data-doc+db-doc+dist
   buildInputs = oldAttrs.buildInputs or [] ++ builtins.attrValues {
     inherit (self.pkgs) glib cairo fontconfig gmp gtk3 gsettings-desktop-schemas libedit libjpeg_turbo libpng mpfr openssl pango poppler readline sqlite;
   }; });
+} //
+lib.optionalAttrs (super ? "br-parser-tools-lib" && super ? "compiler-lib") {
+  br-parser-tools-lib = super.br-parser-tools-lib.overrideRacketDerivation (oldAttrs: { doInstallCheck = true; });
 }
