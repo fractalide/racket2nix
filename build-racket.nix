@@ -62,10 +62,11 @@ let
     buildRacket = lib.makeOverridable ({ catalog ? default.catalog, flat ? false, package, pname ? false,
                                          attrOverrides ? (oldAttrs: {}), overlays ? default.racket-package-overlays }:
       let
-        nix = buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
+        nix = if builtins.isString package then null else
+          buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
         self = let
-          pname = ((pkgs.callPackage nix {}).overrideAttrs attrOverrides).pname;
-          rpkgs = (pkgs.callPackage nix {}).racket-packages;
+          pname = if builtins.isString package then package else ((pkgs.callPackage nix {}).overrideAttrs attrOverrides).pname;
+          rpkgs = if builtins.isString package then default.racket-packages else (pkgs.callPackage nix {}).racket-packages;
           racket-packages = apply-overlays rpkgs overlays;
         in
           (racket-packages."${pname}".overrideAttrs (oldAttrs: {
