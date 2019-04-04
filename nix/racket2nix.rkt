@@ -279,6 +279,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     rm $env/share/racket/include
   '';
 
+  installCheckFileFinder = ''find "$env"/share/racket/pkgs/"$pname" -name '*.rkt' -print0'';
   installCheckPhase = if !doInstallCheck then null else let
     testConfigBuildInputs = [ self.compiler-lib ] ++ self.compiler-lib.racketConfigBuildInputs ++
       (builtins.filter (input: !builtins.elem input reverseCircularBuildInputs) racketBuildInputs);
@@ -296,7 +297,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       timeout 60 ${time}/bin/time -f "%e s $testpath" racket -G $testEnv/etc/racket -U -l- raco test -q "$1" |&
         grep -v -e "warning: tool .* registered twice" -e "@[(]test-responsible" |
         tee "$logdir/''${1##*/}"
-    ' {} {} < <(${findutils}/bin/find "$env"/share/racket/pkgs/"$pname" -name '*.rkt' -print0)
+    ' {} {} < <(runHook installCheckFileFinder)
     runHook postInstallCheck
   '';
 } // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
