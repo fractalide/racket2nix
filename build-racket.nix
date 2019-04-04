@@ -59,13 +59,16 @@ let
     } ''
       racket2nix $flatArg --catalog ${catalog} $package > $out
     '';
-    buildRacket = lib.makeOverridable ({ catalog ? default.catalog, flat ? false, package, pname ? false,
-                                         attrOverrides ? (oldAttrs: {}), overlays ? default.racket-package-overlays }:
+    buildRacket = lib.makeOverridable ({ catalog ? default.catalog, flat ? false, package, pname ? false
+                                       , attrOverrides ? (oldAttrs: {}), overlays ? default.racket-package-overlays
+                                       , buildNix ? !(builtins.isString package) || flat
+                                       }:
       let
-        nix = buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
+        nix = if !buildNix then null else
+          buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
         self = let
-          pname = ((pkgs.callPackage nix {}).overrideAttrs attrOverrides).pname;
-          rpkgs = (pkgs.callPackage nix {}).racket-packages;
+          pname = if buildNix then ((pkgs.callPackage nix {}).overrideAttrs attrOverrides).pname else package;
+          rpkgs = if buildNix then (pkgs.callPackage nix {}).racket-packages else default.racket-packages;
           racket-packages = apply-overlays rpkgs overlays;
         in
           (racket-packages."${pname}".overrideAttrs (oldAttrs: {
