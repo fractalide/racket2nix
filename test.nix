@@ -4,10 +4,10 @@
 
 let it-attrs = integration-tests.attrs; in
 let
-  inherit (pkgs) buildRacketPackage racket2nix runCommand;
+  inherit (pkgs) buildRacket buildRacketPackage racket2nix runCommand;
   attrs = rec {
   racket-doc = buildRacketPackage "racket-doc";
-  typed-map-lib = buildRacketPackage "typed-map-lib";
+  typed-map-lib = buildRacket { package = "typed-map-lib"; buildNix = true; };
   br-parser-tools-lib = buildRacketPackage "br-parser-tools-lib";
 
   light-tests = runCommand "light-tests" {
