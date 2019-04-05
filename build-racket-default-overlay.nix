@@ -21,6 +21,9 @@ lib.optionalAttrs (super ? "compatibility+compatibility-doc+data-doc+db-doc+dist
     inherit (self.pkgs) glib cairo fontconfig gmp gtk3 gsettings-desktop-schemas libedit libjpeg_turbo libpng mpfr openssl pango poppler readline sqlite;
   }; });
 } //
-lib.optionalAttrs (super ? "br-parser-tools-lib" && super ? "compiler-lib") {
-  br-parser-tools-lib = super.br-parser-tools-lib.overrideRacketDerivation (oldAttrs: { doInstallCheck = true; });
-}
+lib.optionalAttrs (super ? "compiler-lib") (let
+  mergeAttrs = builtins.foldl' (acc: attrs: acc // attrs) {};
+  wordsToList = words: builtins.filter (s: (builtins.isString s) && s != "") (builtins.split "[ \n]+" words);
+in mergeAttrs (map (package: lib.optionalAttrs (super ? "${package}") {
+  "${package}" = super."${package}".overrideRacketDerivation (oldAttrs: { doInstallCheck = true; });
+}) (wordsToList "br-parser-tools-lib data-lib pict-lib scribble-lib srfi-lib typed-racket-lib")))
