@@ -22,7 +22,7 @@ let
     tests = {
       inherit (pkgs.callPackage <racket2nix/test.nix> {}) light-tests;
     } // lib.optionalAttrs ((builtins.match ".*racket-minimal.*" pkgs.racket.name) != null) {
-      inherit (pkgs.callPackage <racket2nix/test.nix> {}) heavy-tests;
+      inherit (pkgs.callPackage <racket2nix/test.nix> {}) all-checked-packages heavy-tests;
     };
   };
 in
