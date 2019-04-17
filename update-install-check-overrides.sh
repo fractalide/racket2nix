@@ -5,7 +5,15 @@ set -euo pipefail
 
 cd "${BASH_SOURCE[0]%/*}"
 
-packages=($(nix-instantiate --eval -E  'builtins.concatStringsSep " " (builtins.attrNames (import ./racket-packages.nix {}))' | tr -d '"'))
+## Evaluate packages provided on the command line, if any, otherwise
+## all packages in racket-packages.nix
+
+if (( $# == 0)); then
+  packages=($(nix-instantiate --eval -E  'builtins.concatStringsSep " "
+    (builtins.attrNames (import ./racket-packages.nix {}))' | tr -d '"'))
+else
+  packages=("$@")
+fi
 
 i=1
 for package in ${packages[@]}; do
