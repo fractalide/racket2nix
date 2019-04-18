@@ -22,4 +22,6 @@ for package in ${packages[@]}; do
   echo $package
 done > build-racket-install-check-overrides.txt.new
 
-mv build-racket-install-check-overrides.txt{.new,}
+sort -u build-racket-install-check-overrides.txt{,.new} | grep -v '^$' > build-racket-install-check-overrides.txt.new2
+rm build-racket-install-check-overrides.txt.new
+mv build-racket-install-check-overrides.txt{.new2,}
