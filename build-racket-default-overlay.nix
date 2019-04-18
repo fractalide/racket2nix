@@ -26,4 +26,4 @@ lib.optionalAttrs (super ? "compiler-lib") (let
   wordsToList = words: builtins.filter (s: (builtins.isString s) && s != "") (builtins.split "[ \n]+" words);
 in mergeAttrs (map (package: lib.optionalAttrs (super ? "${package}") {
   "${package}" = super."${package}".overrideRacketDerivation (oldAttrs: { doInstallCheck = true; });
-}) (wordsToList "br-parser-tools-lib data-lib pict-lib scribble-lib srfi-lib typed-racket-lib")))
+}) (wordsToList (builtins.readFile ./build-racket-install-check-overrides.txt))))
