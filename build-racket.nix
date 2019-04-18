@@ -1,7 +1,7 @@
 { pkgs ? import ./pkgs {}
 , cacert ? pkgs.cacert
 , catalog ? ./catalog.rktd
-, racket-package-overlays ? [ (import ./build-racket-default-overlay.nix) ]
+, racket-package-overlays ? [ (import ./build-racket-racket2nix-overlay.nix) (import ./build-racket-default-overlay.nix) ]
 , racket-packages ? pkgs.callPackage ./racket-packages.nix {}
 }:
 

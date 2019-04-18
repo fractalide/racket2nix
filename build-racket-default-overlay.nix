@@ -3,6 +3,9 @@ let
   inherit (super.pkgs) lib;
 in
 
+lib.optionalAttrs (super ? "nix") {
+  racket2nix = super.nix.overrideRacketDerivation (oldAttrs: { pname = "racket2nix"; });
+} //
 lib.optionalAttrs (super ? "deinprogramm-signature" && super ? "icons") {
   deinprogramm-signature = super.deinprogramm-signature.overrideRacketDerivation (oldAttrs: { racketBuildInputs = oldAttrs.racketBuildInputs ++ [ self.icons ]; });
 } //

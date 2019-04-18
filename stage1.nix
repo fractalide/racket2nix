@@ -7,11 +7,11 @@ inherit (pkgs) buildRacket nix nix-prefetch-git racket2nix-stage0 runCommand;
 
 # Don't just build a flat package, build it with flat racket2nix.
 buildRacketFlat = { ... }@args: (pkgs.overridePkgs (oldAttrs: {
-  overlays = oldAttrs.overlays ++ [ (self: super: { racket2nix = super.racket2nix.flat; }) ];
+  overlays = oldAttrs.overlays ++ [ (self: super: { racket2nix = super.racket2nix-stage0.flat; }) ];
 })).buildRacket (args // { flat = true; });
 
 buildThin = { ... }@args: (pkgs.overridePkgs (oldAttrs: {
-  overlays = oldAttrs.overlays ++ [ (self: super: { racket2nix = super.racket2nix.thin; }) ];
+  overlays = oldAttrs.overlays ++ [ (self: super: { racket2nix = super.racket2nix-stage0.thin; }) ];
 })).buildThinRacket args;
 
 attrOverrides = oldAttrs: {

@@ -12,7 +12,7 @@ pkgsFn = args: args.pkgs ((removeAttrs args [ "pkgs" ]) // { overlays = [ (self:
 
   racket2nix-stage0 = self.callPackage ../stage0.nix {};
   racket2nix-stage1 = self.callPackage ../stage1.nix {};
-  racket2nix = self.racket2nix-stage0;
+  racket2nix = self.buildRacketPackage "racket2nix";
   inherit (self.callPackage ../build-racket.nix {})
     buildRacket buildRacketPackage buildRacketCatalog
     buildThinRacket buildThinRacketPackage;
