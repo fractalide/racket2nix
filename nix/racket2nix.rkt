@@ -596,7 +596,7 @@ EOM
 (define (catalog-add-nix-sha256 catalog (package-names #f))
   (define names (if package-names package-names (hash-keys catalog)))
 
-  (for/fold ([url-sha1-memo #hash()] [acc-catalog #hash()] #:result acc-catalog) ([name names])
+  (for/fold ([url-sha1-memo (current-sha256-cache)] [acc-catalog #hash()] #:result acc-catalog) ([name names])
     (define package (memo-lookup-package catalog name))
     (define url (hash-ref package 'source #f))
     (define sha1 (hash-ref package 'checksum #f))
@@ -604,12 +604,17 @@ EOM
     (define nix-sha256 (hash-ref package 'nix-sha256 #f))
     (cond
      [checksum-error? (values url-sha1-memo acc-catalog)]
+     [(and (not nix-sha256) url sha1 (hash-has-key? url-sha1-memo (cons url sha1)))
+      (define new-package (hash-set package 'nix-sha256 (hash-ref url-sha1-memo (cons url sha1))))
+      (values url-sha1-memo (hash-set acc-catalog name new-package))]
      [(and (not nix-sha256) url sha1
 	   (or (github-url? url) (git-url? url)))
       (match-define-values (git-url git-sha1 _) (url-fallback-rev->url-rev-path url sha1))
       (define nix-sha256 (hash-ref url-sha1-memo (cons git-url git-sha1) (lambda () (discover-git-sha256 git-url git-sha1))))
       (define new-package (hash-set package 'nix-sha256 nix-sha256))
-      (define new-url-sha1-memo (hash-set url-sha1-memo (cons git-url git-sha1) nix-sha256))
+      (define new-url-sha1-memo (hash-set* url-sha1-memo
+                                           (cons git-url git-sha1) nix-sha256
+                                           (cons url sha1) nix-sha256))
       (values new-url-sha1-memo
               (hash-set acc-catalog name new-package))]
      [else (values url-sha1-memo (hash-set acc-catalog name package))])))
@@ -622,6 +627,15 @@ EOM
                (map dependency-name (hash-ref package 'dependencies '())))))
 
     (values name (hash-set package 'dependency-names deps))))
+
+(define (catalog->sha256-cache catalog)
+  (for/fold ([cache #hash()]) ([package (hash-values catalog)])
+    (define source (hash-ref package 'source #f))
+    (define checksum (hash-ref package 'checksum #f))
+    (define nix-sha256 (hash-ref package 'nix-sha256 #f))
+    (if (and checksum source nix-sha256)
+      (hash-set cache (cons source checksum) nix-sha256)
+      cache)))
 
 (define (names->deps-and-references #:flat? (flat? #f) package-names catalog)
   (define packages-and-deps (match package-names
@@ -863,6 +877,8 @@ EOM
 
   catalog-with-reified-cycles)
 
+(define current-sha256-cache (make-parameter #hash()))
+
 (module+ main
   (define catalog-paths #f)
   (define flat? #f)
@@ -888,6 +904,10 @@ EOM
               0)
            (exit 1)
            (exit 0))]
+      [("--cache-catalog")
+       catalog-path
+       "When looking up the nix-sha256 for sources, re-use any values already in this catalog."
+       (current-sha256-cache (catalog->sha256-cache (call-with-input-file* catalog-path read)))]
       [("--no-process-catalog")
        "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
        (set! process-catalog? #f)]
