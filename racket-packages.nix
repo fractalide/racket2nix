@@ -5720,8 +5720,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea";
+    sha256 = "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib";
   };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."curly-fn-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."hackett-doc" self."hackett-lib" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."namespaced-transformer-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-classes-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."threading-lib" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
@@ -5735,8 +5735,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-demo";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea";
+    sha256 = "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib";
   };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."class-iop-lib" self."compatibility-lib" self."curly-fn-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."hackett-lib" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."namespaced-transformer-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."plai-lib" self."planet-lib" self."r5rs-lib" self."r6rs-lib" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-classes-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."threading-lib" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" ];
@@ -5750,8 +5750,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-doc";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea";
+    sha256 = "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib";
   };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."curly-fn-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."hackett-lib" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."namespaced-transformer-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-classes-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."threading-lib" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
@@ -5765,8 +5765,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-lib";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea";
+    sha256 = "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib";
   };
   };
   racketBuildInputs = [ self."base" self."curly-fn-lib" self."data-lib" self."namespaced-transformer-lib" self."racket-lib" self."rackunit-lib" self."syntax-classes-lib" self."testing-util-lib" self."threading-lib" ];
@@ -5780,8 +5780,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-test";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea";
+    sha256 = "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib";
   };
   };
   racketBuildInputs = [ self."base" self."curly-fn-lib" self."data-lib" self."errortrace-lib" self."hackett-lib" self."namespaced-transformer-lib" self."racket-lib" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."source-syntax" self."syntax-classes-lib" self."testing-util-lib" self."threading-lib" ];

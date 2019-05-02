@@ -709,9 +709,9 @@ EOM
 (define (resolve-source catalog)
   (for/hash ([(name package) (in-hash catalog)])
     (define versions (hash-ref package 'versions #f))
-    (define default (and versions (hash-ref versions 'default #f)))
-    (define checksum (or (and default (hash-ref default 'checksum #f)) (hash-ref package 'checksum)))
-    (define source (or (and default (hash-ref default 'source #f)) (hash-ref package 'source)))
+    (define our-version (and versions (or (hash-ref versions (version) #f) (hash-ref versions 'default #f))))
+    (define checksum (or (and our-version (hash-ref our-version 'checksum #f)) (hash-ref package 'checksum)))
+    (define source (or (and our-version (hash-ref our-version 'source #f)) (hash-ref package 'source)))
     (values name (hash-set* package 'checksum checksum 'source source))))
 
 (define (names->deps-and-references #:flat? (flat? #f) package-names catalog)

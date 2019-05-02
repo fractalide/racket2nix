@@ -27910,7 +27910,7 @@
                     (test-success-log .
                      #f)))
              (checksum .
-              "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f")
+              "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (checksum-error .
               #f)
              (conflicts .
@@ -27936,7 +27936,7 @@
              (name .
               "hackett")
              (nix-sha256 .
-              "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq")
+              "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib")
              (ring .
               1)
              (search-terms .
@@ -27951,7 +27951,7 @@
                     (ring:1 .
                      #t)))
              (source .
-              "https://github.com/lexi-lambda/hackett.git?path=hackett")
+              "https://github.com/lexi-lambda/hackett.git?path=hackett#f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (tags .
               ("lang" "language"))
              (versions .
@@ -28013,7 +28013,7 @@
                     (test-success-log .
                      #f)))
              (checksum .
-              "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f")
+              "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (checksum-error .
               #f)
              (conflicts .
@@ -28039,7 +28039,7 @@
              (name .
               "hackett-demo")
              (nix-sha256 .
-              "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq")
+              "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib")
              (ring .
               1)
              (search-terms .
@@ -28052,7 +28052,7 @@
                     (ring:1 .
                      #t)))
              (source .
-              "https://github.com/lexi-lambda/hackett.git?path=hackett-demo")
+              "https://github.com/lexi-lambda/hackett.git?path=hackett-demo#f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (tags .
               ())
              (versions .
@@ -28114,7 +28114,7 @@
                     (test-success-log .
                      #f)))
              (checksum .
-              "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f")
+              "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (checksum-error .
               #f)
              (conflicts .
@@ -28140,7 +28140,7 @@
              (name .
               "hackett-doc")
              (nix-sha256 .
-              "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq")
+              "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib")
              (ring .
               1)
              (search-terms .
@@ -28153,7 +28153,7 @@
                     (ring:1 .
                      #t)))
              (source .
-              "https://github.com/lexi-lambda/hackett.git?path=hackett-doc")
+              "https://github.com/lexi-lambda/hackett.git?path=hackett-doc#f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (tags .
               ())
              (versions .
@@ -28215,7 +28215,7 @@
                     (test-success-log .
                      #f)))
              (checksum .
-              "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f")
+              "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (checksum-error .
               #f)
              (conflicts .
@@ -28241,7 +28241,7 @@
              (name .
               "hackett-lib")
              (nix-sha256 .
-              "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq")
+              "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib")
              (ring .
               1)
              (search-terms .
@@ -28254,7 +28254,7 @@
                     (ring:1 .
                      #t)))
              (source .
-              "https://github.com/lexi-lambda/hackett.git?path=hackett-lib")
+              "https://github.com/lexi-lambda/hackett.git?path=hackett-lib#f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (tags .
               ())
              (versions .
@@ -28316,7 +28316,7 @@
                     (test-success-log .
                      #f)))
              (checksum .
-              "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f")
+              "f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (checksum-error .
               #f)
              (conflicts .
@@ -28342,7 +28342,7 @@
              (name .
               "hackett-test")
              (nix-sha256 .
-              "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq")
+              "0rfwrm6ddrwzc1j4x8sd1ld5lmnmj9qg34mhknmfi1jn28ya2zib")
              (ring .
               1)
              (search-terms .
@@ -28355,7 +28355,7 @@
                     (ring:1 .
                      #t)))
              (source .
-              "https://github.com/lexi-lambda/hackett.git?path=hackett-test")
+              "https://github.com/lexi-lambda/hackett.git?path=hackett-test#f5a080ebcf9e2ca1fbf5be98517f4991ec2405ea")
              (tags .
               ())
              (versions .
