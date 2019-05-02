@@ -3478,9 +3478,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "distributed-places-test" = self.lib.mkRacketDerivation rec {
   pname = "distributed-places-test";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "distributed-places-test";
+    src = fetchgit {
+    name = "distributed-places-test";
+    url = "git://github.com/racket/distributed-places.git";
+    rev = "490ee40e32cbaa818798aacca89fe4e3b3fc772b";
+    sha256 = "009sflz25ps7mj07slv1gw3z9i6b3wzpyxaxn8ji0wbry02w0vvd";
+  };
   };
   racketBuildInputs = [ self."base" self."distributed-places-lib" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3488,9 +3493,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "distro-build" = self.lib.mkRacketDerivation rec {
   pname = "distro-build";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "distro-build";
+    src = fetchgit {
+    name = "distro-build";
+    url = "git://github.com/racket/distro-build.git";
+    rev = "2338b6dbb7c4b3c4ad35917a09eb173059387668";
+    sha256 = "1qpr6hc8z60y9ngg0v54cp4wri5z3ng4ns7yabnrdccacylwvk19";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."distro-build-client" self."distro-build-doc" self."distro-build-lib" self."distro-build-server" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."ds-store-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."plt-web-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."remote-shell-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -3678,8 +3688,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-i386-macosx" = self.lib.mkRacketDerivation rec {
   pname = "draw-i386-macosx";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/8632512357c53d2d085a68545b2e093a9f9677be/draw-i386-macosx.zip";
+    sha1 = "8632512357c53d2d085a68545b2e093a9f9677be";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3688,8 +3698,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-i386-macosx-2" = self.lib.mkRacketDerivation rec {
   pname = "draw-i386-macosx-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/ecd61bfff1daa6e72ab14c73bfa480499717da29/draw-i386-macosx-2.zip";
+    sha1 = "ecd61bfff1daa6e72ab14c73bfa480499717da29";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3718,8 +3728,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-ppc-macosx" = self.lib.mkRacketDerivation rec {
   pname = "draw-ppc-macosx";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/552c18b393b3377b051da48aef8b8d6883615029/draw-ppc-macosx.zip";
+    sha1 = "552c18b393b3377b051da48aef8b8d6883615029";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3728,8 +3738,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-ppc-macosx-2" = self.lib.mkRacketDerivation rec {
   pname = "draw-ppc-macosx-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/a68c25d5794dff8f4f46eaccea942d2f04f32ca3/draw-ppc-macosx-2.zip";
+    sha1 = "a68c25d5794dff8f4f46eaccea942d2f04f32ca3";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3768,8 +3778,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-win32-i386" = self.lib.mkRacketDerivation rec {
   pname = "draw-win32-i386";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/915598defe21a2213c2833b45ace0c62fa31b39e/draw-win32-i386.zip";
+    sha1 = "915598defe21a2213c2833b45ace0c62fa31b39e";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3778,8 +3788,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-win32-i386-2" = self.lib.mkRacketDerivation rec {
   pname = "draw-win32-i386-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/3f5fb8b2e1ce9802a71328ee338e277573eb9cc9/draw-win32-i386-2.zip";
+    sha1 = "3f5fb8b2e1ce9802a71328ee338e277573eb9cc9";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3798,8 +3808,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-win32-x86_64" = self.lib.mkRacketDerivation rec {
   pname = "draw-win32-x86_64";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/d5769e02a39715de02b3c91c55a4d366dbbcb7fd/draw-win32-x86_64.zip";
+    sha1 = "d5769e02a39715de02b3c91c55a4d366dbbcb7fd";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3808,8 +3818,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-win32-x86_64-2" = self.lib.mkRacketDerivation rec {
   pname = "draw-win32-x86_64-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/c6c2edb3e086033e24a8121d85675f1bc11b7705/draw-win32-x86_64-2.zip";
+    sha1 = "c6c2edb3e086033e24a8121d85675f1bc11b7705";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3838,8 +3848,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-x86_64-linux-natipkg-2" = self.lib.mkRacketDerivation rec {
   pname = "draw-x86_64-linux-natipkg-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/bbbbcdc28aa69e11c7d7796d6796f34acf48b8e9/draw-x86_64-linux-natipkg-2.zip";
+    sha1 = "bbbbcdc28aa69e11c7d7796d6796f34acf48b8e9";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3858,8 +3868,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-x86_64-macosx" = self.lib.mkRacketDerivation rec {
   pname = "draw-x86_64-macosx";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/d47568a60e3e12793f2c49b322ad49c2a8ec8d26/draw-x86_64-macosx.zip";
+    sha1 = "d47568a60e3e12793f2c49b322ad49c2a8ec8d26";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -3868,8 +3878,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-x86_64-macosx-2" = self.lib.mkRacketDerivation rec {
   pname = "draw-x86_64-macosx-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/552725bedd421a4c9979c639b5082ea0352f9ee6/draw-x86_64-macosx-2.zip";
+    sha1 = "552725bedd421a4c9979c639b5082ea0352f9ee6";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -5605,9 +5615,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "gui-pkg-manager" = self.lib.mkRacketDerivation rec {
   pname = "gui-pkg-manager";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "gui-pkg-manager";
+    src = fetchgit {
+    name = "gui-pkg-manager";
+    url = "git://github.com/racket/gui-pkg-manager.git";
+    rev = "eb80f658a4b35757687eb26fa48a16d57685ef82";
+    sha256 = "1f59a35lw537h5gcg8mhif70mmhaa0kmfw4i6bwv4d15pz3zzrlf";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-doc" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -5615,9 +5630,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "gui-pkg-manager-doc" = self.lib.mkRacketDerivation rec {
   pname = "gui-pkg-manager-doc";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "gui-pkg-manager-doc";
+    src = fetchgit {
+    name = "gui-pkg-manager-doc";
+    url = "git://github.com/racket/gui-pkg-manager.git";
+    rev = "eb80f658a4b35757687eb26fa48a16d57685ef82";
+    sha256 = "1f59a35lw537h5gcg8mhif70mmhaa0kmfw4i6bwv4d15pz3zzrlf";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -5785,8 +5805,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "handin";
     url = "git://github.com/plt/handin.git";
-    rev = "3c31daccf0f61bb06aa65e36d72acc0ef2f453da";
-    sha256 = "09vqljgvz43gymc2q4i40mg551xxhb9pf4zkgnprdrvjhi6ihdss";
+    rev = "233b17e820bdd9b859f551bf4714204718d04306";
+    sha256 = "1n46sj9wxq22gqbn1jd3q4pjhf3vmdxix5lji2h5zffa0rmakyda";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-doc" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -5917,9 +5937,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "honu" = self.lib.mkRacketDerivation rec {
   pname = "honu";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "honu";
+    url = "git://github.com/racket/honu.git";
+    rev = "fd89d2af7df5aa3db770049663437484d7700820";
+    sha256 = "10ph1fj376drx8p9g4ak5cdjrhmjgwpd4w7h334b6fx4aja2bkss";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -10137,8 +10159,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "plai-typed";
     url = "git://github.com/mflatt/plai-typed.git";
-    rev = "e11e7e4cd655b958296055f490ea8eadf5ea5ce7";
-    sha256 = "1sc9xjnqrkq1fv6ymlbln1cnbpw8sxzlwwi93scl8ngqq1wdvff2";
+    rev = "582728d7a724674b58c6af8d2b20a6513947152a";
+    sha256 = "03bqrf53ll6yzzh41slmdaqsffpi92wsshj8vy2i36mbkc7rzy15";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai" self."plai-doc" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-doc" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -10149,8 +10171,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "plai-typed-s-exp-match";
     url = "git://github.com/mflatt/plai-typed-s-exp-match.git";
-    rev = "e010d9718916394b1b3545cb2f7a49c27904e873";
-    sha256 = "1rfa6zxngx1x011m7vlizrs6v6r6vn586icwzh0m0gj077dwslww";
+    rev = "ff05b257cc8739d2f4ad8f33b65440635ab9cce0";
+    sha256 = "0k2knsg04s641aw4gn5ncwbvjp973px0jrm919vxy8gdizlvri22";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai" self."plai-doc" self."plai-lib" self."plai-typed" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-doc" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -10342,9 +10364,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "plt-services" = self.lib.mkRacketDerivation rec {
   pname = "plt-services";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "pkgs/plt-services";
+    src = fetchgit {
+    name = "plt-services";
+    url = "git://github.com/racket/racket.git";
+    rev = "cb8fde7a9e5fad41e4f90ecca5f92921fdc00a52";
+    sha256 = "10kmcq77wjrf5maimbc6ac6c34xvmf45cb8l3k35alz2kag3i07x";
+  };
   };
   racketBuildInputs = [  ];
   circularBuildInputs = [  ];
@@ -10352,9 +10379,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "plt-web" = self.lib.mkRacketDerivation rec {
   pname = "plt-web";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "plt-web";
+    src = fetchgit {
+    name = "plt-web";
+    url = "git://github.com/racket/plt-web.git";
+    rev = "5697a81d84117f9341686783b02299f74656918a";
+    sha256 = "0hzrp84cg3gl489y9nidzjqdya64wkqd48w2rlarv3w5ldw0nppl";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."plt-web-doc" self."plt-web-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-doc" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -10362,9 +10394,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "plt-web-doc" = self.lib.mkRacketDerivation rec {
   pname = "plt-web-doc";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "plt-web-doc";
+    src = fetchgit {
+    name = "plt-web-doc";
+    url = "git://github.com/racket/plt-web.git";
+    rev = "5697a81d84117f9341686783b02299f74656918a";
+    sha256 = "0hzrp84cg3gl489y9nidzjqdya64wkqd48w2rlarv3w5ldw0nppl";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."plt-web-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-doc" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -10616,8 +10653,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "portaudio";
     url = "git://github.com/jbclements/portaudio.git";
-    rev = "74dfaf1d6317a9f5479ae5492e874e9e73888a46";
-    sha256 = "1zczwx2z5kw85h15bw3xikwnjb4mxw4n4g8x7wkzqfrkvll8xmsb";
+    rev = "3703edda0c6b9f5ef7e7bf39b933cb1d0e9a82b5";
+    sha256 = "1132wfqdapn7yswhkp7rbvc6lymqs1wgala8rnka92j6z5ms8rln";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -11317,8 +11354,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-i386-macosx-2" = self.lib.mkRacketDerivation rec {
   pname = "racket-i386-macosx-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/2b0a4a12fc5fc8a304bcba60c09af2f8b75988c5/racket-i386-macosx-2.zip";
+    sha1 = "2b0a4a12fc5fc8a304bcba60c09af2f8b75988c5";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -11420,8 +11457,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-ppc-macosx-2" = self.lib.mkRacketDerivation rec {
   pname = "racket-ppc-macosx-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/a36e58d540359092d684bd3a277d0068cff04afa/racket-ppc-macosx-2.zip";
+    sha1 = "a36e58d540359092d684bd3a277d0068cff04afa";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -11576,8 +11613,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-win32-i386" = self.lib.mkRacketDerivation rec {
   pname = "racket-win32-i386";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/c57a6dae91081a4284d329364ad566c108d84747/racket-win32-i386.zip";
+    sha1 = "c57a6dae91081a4284d329364ad566c108d84747";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -11586,8 +11623,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-win32-i386-2" = self.lib.mkRacketDerivation rec {
   pname = "racket-win32-i386-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/5eeac0afec99043631567829e4450694c1a913e2/racket-win32-i386-2.zip";
+    sha1 = "5eeac0afec99043631567829e4450694c1a913e2";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -11606,8 +11643,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-win32-x86_64" = self.lib.mkRacketDerivation rec {
   pname = "racket-win32-x86_64";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/1026e430bb077a696084e702f5e8889f5b7dd55e/racket-win32-x86_64.zip";
+    sha1 = "1026e430bb077a696084e702f5e8889f5b7dd55e";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -11616,8 +11653,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-win32-x86_64-2" = self.lib.mkRacketDerivation rec {
   pname = "racket-win32-x86_64-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/cf14b039901df7ede55fa128e206679f44d2f9dd/racket-win32-x86_64-2.zip";
+    sha1 = "cf14b039901df7ede55fa128e206679f44d2f9dd";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -11636,8 +11673,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-x86_64-linux-natipkg-2" = self.lib.mkRacketDerivation rec {
   pname = "racket-x86_64-linux-natipkg-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/3dff4171c999fbd84f8a4af38446502eeff0ec04/racket-x86_64-linux-natipkg-2.zip";
+    sha1 = "3dff4171c999fbd84f8a4af38446502eeff0ec04";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -11656,8 +11693,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-x86_64-macosx-2" = self.lib.mkRacketDerivation rec {
   pname = "racket-x86_64-macosx-2";
   src = fetchurl {
-    url = "https://pkg-sources.racket-lang.org/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+    url = "https://pkg-sources.racket-lang.org/pkgs/ba9215b58db4c38ad60d0fc788f51ff740d79858/racket-x86_64-macosx-2.zip";
+    sha1 = "ba9215b58db4c38ad60d0fc788f51ff740d79858";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -12419,9 +12456,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "remote-shell" = self.lib.mkRacketDerivation rec {
   pname = "remote-shell";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "remote-shell";
+    src = fetchgit {
+    name = "remote-shell";
+    url = "git://github.com/racket/remote-shell.git";
+    rev = "4829323916d295d4d11faa9af9b60303b599e872";
+    sha256 = "02mkd149cxqwnm68qdb6jiyfrjb7ifcmh6xdssx665dazdn0390j";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."remote-shell-doc" self."remote-shell-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -12429,9 +12471,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "remote-shell-doc" = self.lib.mkRacketDerivation rec {
   pname = "remote-shell-doc";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "remote-shell-doc";
+    src = fetchgit {
+    name = "remote-shell-doc";
+    url = "git://github.com/racket/remote-shell.git";
+    rev = "4829323916d295d4d11faa9af9b60303b599e872";
+    sha256 = "02mkd149cxqwnm68qdb6jiyfrjb7ifcmh6xdssx665dazdn0390j";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."remote-shell-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -12775,8 +12822,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rsound";
     url = "git://github.com/jbclements/RSound.git";
-    rev = "39580725993288d4f8495fd988f3d99e8db60613";
-    sha256 = "03q03s60lj365k9nwiglnzdyxmn8j4rq2y7nf4k8z432cym0vv33";
+    rev = "f21ce268bca7aabbebc70f9fb10703351cbcf02b";
+    sha256 = "1rfq40h4al5qaj9pggbrf1aiqyx8943kn1q0h1rmsc9dnhxxxaj7";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."memoize" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."portaudio" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -13813,9 +13860,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   pname = "socketcan";
   src = fetchgit {
     name = "socketcan";
-    url = "git://github.com/abencz/racket-socketcan.git";
-    rev = "e87aa767038b78386d18e3c0af8e9a482ca6e421";
-    sha256 = "01rn39gsr5ipirgvga8ps9d1433f3n8wyrxqbpfygf2py8rm4nik";
+    url = "git://github.com/abencz/racket-socketcan";
+    rev = "744bf37d7a347a55d1ec72885f87d35919f68b7b";
+    sha256 = "0y005rgkkbaly7z6k40pprj8icxrad5qifh77zy847sd0cg4lciv";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."make" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -15120,11 +15167,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "threading" = self.lib.mkRacketDerivation rec {
   pname = "threading";
-  src = fetchgit {
+  src = self.lib.extractPath {
+    path = "threading";
+    src = fetchgit {
     name = "threading";
-    url = "git://github.com/lexi-lambda/threading";
-    rev = "abed5715993ec2e53d201d55c3c9b57be30874fc";
-    sha256 = "1yd0lqndzpybisj288p1d9z9n5jml10xcd2q2hfdlp8dnpwrqvlb";
+    url = "git://github.com/lexi-lambda/threading.git";
+    rev = "de68f80c91b47b5860709a0bb31b462b8300eb09";
+    sha256 = "03c7z97nn3l6033g99hhjmywrksf3ii4617kxnla8q8jsjpwzf81";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."alexis-util+auto-syntax-e+scope-operations+scribble-math+stxp..." self."at-exp-lib" self."backport-template-pr1514" self."base" self."cext-lib" self."class-iop-lib" self."collections-lib+functional-lib+match-plus+static-rename+stati..." self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."curly-fn-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."debug-scopes" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."fancy-app+kw-make-struct+lang-file+lens-common+lens-data+repr..." self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."hyper-literate" self."icons" self."images-gui-lib" self."images-lib" self."kw-utils" self."macro-debugger-text-lib" self."match-plus" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."mutable-match-lambda" self."namespaced-transformer-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."phc-toolkit" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."predicates" self."pretty-format" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackjure" self."rackunit-doc" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."reprovide-lang" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-doc" self."scribble-enhanced" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."sexp-diff" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."static-rename" self."static-rename-lib" self."string-constants-lib" self."struct-update-lib" self."sweet-exp-lib" self."syntax-classes-lib" self."syntax-color-lib" self."syntax-macro-lang" self."testing-util-lib" self."tex-table" self."threading-lib" self."tr-immutable" self."type-expander" self."typed-map-lib" self."typed-racket-compatibility" self."typed-racket-doc" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."unstable-list-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [ "alexis-util" "auto-syntax-e" "scope-operations" "scribble-math" "stxparse-info" "subtemplate" "threading" "threading-doc" "version-case" ];
@@ -15869,9 +15919,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable" = self.lib.mkRacketDerivation rec {
   pname = "unstable";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "unstable";
+    src = fetchgit {
+    name = "unstable";
+    url = "git://github.com/racket/unstable.git";
+    rev = "480535837da0cc72112b9edc601885620ba8a55d";
+    sha256 = "1l133jg699d8cn4gylv279vcaanzskna40ffdzapvl3fzn8r5v5s";
+  };
   };
   racketBuildInputs = [ self."2d-doc" self."2d-lib" self."at-exp-lib" self."automata" self."automata-doc" self."automata-lib" self."base" self."cext-lib" self."class-iop-doc" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-doc" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-doc" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."markparam-doc" self."markparam-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-doc" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-doc" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."ppict" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-doc" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-doc" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-doc" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."staged-slide" self."string-constants-lib" self."syntax-color-doc" self."syntax-color-lib" self."temp-c-doc" self."temp-c-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-doc" self."unix-socket-lib" self."unstable-2d" self."unstable-contract-lib" self."unstable-debug-lib" self."unstable-doc" self."unstable-lib" self."unstable-list-lib" self."unstable-macro-testing-lib" self."unstable-options-lib" self."unstable-parameter-group-lib" self."unstable-pretty-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -15879,9 +15934,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-2d" = self.lib.mkRacketDerivation rec {
   pname = "unstable-2d";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-2d";
+    url = "git://github.com/racket/unstable-2d.git";
+    rev = "abe368e38bf860c607a6b11c212e86519ac8f80e";
+    sha256 = "1vdhglzwzljy03ca4b6h9mdfk6wz89cgyplapiy4xc1ijxh3197l";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."compatibility-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."errortrace-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."planet-lib" self."racket-lib" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."source-syntax" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."typed-racket-lib" ];
   circularBuildInputs = [  ];
@@ -15889,9 +15946,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-contract-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-contract-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-contract-lib";
+    url = "git://github.com/racket/unstable-contract-lib.git";
+    rev = "36f4e320c574cef6630ec34ac73f69a2911b86b0";
+    sha256 = "1m8rp3kqfg6lmm96hlaknns0014dvixik6sm4qxjsf80dfvp57wf";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -15899,9 +15958,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-debug-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-debug-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-debug-lib";
+    url = "git://github.com/racket/unstable-debug-lib.git";
+    rev = "f72727898e9a59429eeb419752f5c55926d1a6c4";
+    sha256 = "195bjfbgf42gbrdpay4zscwlq493xpnaik683vzmqms3akdykhxl";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -15909,9 +15970,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-doc" = self.lib.mkRacketDerivation rec {
   pname = "unstable-doc";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "unstable-doc";
+    src = fetchgit {
+    name = "unstable-doc";
+    url = "git://github.com/racket/unstable.git";
+    rev = "480535837da0cc72112b9edc601885620ba8a55d";
+    sha256 = "1l133jg699d8cn4gylv279vcaanzskna40ffdzapvl3fzn8r5v5s";
+  };
   };
   racketBuildInputs = [ self."2d-doc" self."2d-lib" self."at-exp-lib" self."automata" self."automata-doc" self."automata-lib" self."base" self."cext-lib" self."class-iop-doc" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-doc" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-doc" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."markparam-doc" self."markparam-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-doc" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-doc" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."ppict" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-doc" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-doc" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-doc" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."staged-slide" self."string-constants-lib" self."syntax-color-doc" self."syntax-color-lib" self."temp-c-doc" self."temp-c-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-doc" self."unix-socket-lib" self."unstable-2d" self."unstable-contract-lib" self."unstable-debug-lib" self."unstable-lib" self."unstable-list-lib" self."unstable-macro-testing-lib" self."unstable-options-lib" self."unstable-parameter-group-lib" self."unstable-pretty-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -15919,9 +15985,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-flonum-doc" = self.lib.mkRacketDerivation rec {
   pname = "unstable-flonum-doc";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "unstable-flonum-doc";
+    src = fetchgit {
+    name = "unstable-flonum-doc";
+    url = "git://github.com/racket/unstable-flonum.git";
+    rev = "7071d9a3ee0ad60f947c0a597ddd4b64bed3d94a";
+    sha256 = "0ll6mqmyi3pisgpnv8ilji90c91d2kzc6bhqiyqqrm8930kymqld";
+  };
   };
   racketBuildInputs = [ self."2d-doc" self."2d-lib" self."at-exp-lib" self."automata" self."automata-doc" self."automata-lib" self."base" self."cext-lib" self."class-iop-doc" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-doc" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-doc" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."markparam-doc" self."markparam-lib" self."math-doc" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-doc" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-doc" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot" self."plot-compat" self."plot-doc" self."plot-gui-lib" self."plot-lib" self."ppict" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-doc" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-doc" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-doc" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."staged-slide" self."string-constants-lib" self."syntax-color-doc" self."syntax-color-lib" self."temp-c-doc" self."temp-c-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-doc" self."unix-socket-lib" self."unstable" self."unstable-2d" self."unstable-contract-lib" self."unstable-debug-lib" self."unstable-doc" self."unstable-flonum-lib" self."unstable-lib" self."unstable-list-lib" self."unstable-macro-testing-lib" self."unstable-options-lib" self."unstable-parameter-group-lib" self."unstable-pretty-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -15929,9 +16000,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-flonum-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-flonum-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "unstable-flonum-lib";
+    src = fetchgit {
+    name = "unstable-flonum-lib";
+    url = "git://github.com/racket/unstable-flonum.git";
+    rev = "7071d9a3ee0ad60f947c0a597ddd4b64bed3d94a";
+    sha256 = "0ll6mqmyi3pisgpnv8ilji90c91d2kzc6bhqiyqqrm8930kymqld";
+  };
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -15939,9 +16015,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-latent-contract-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-latent-contract-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-latent-contract-lib";
+    url = "git://github.com/racket/unstable-latent-contract-lib.git";
+    rev = "3bd435890dae3365abe90fd1b5f7c62837e3801e";
+    sha256 = "0wv0kh6mr97yz16yy3f3zkc7pv1f2jvc41jqs5wlilb7dkqz0csc";
   };
   racketBuildInputs = [ self."at-exp-lib" self."base" self."compatibility-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."errortrace-lib" self."images-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."planet-lib" self."racket-lib" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."source-syntax" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."typed-racket-lib" ];
   circularBuildInputs = [  ];
@@ -15949,9 +16027,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "unstable-lib";
+    src = fetchgit {
+    name = "unstable-lib";
+    url = "git://github.com/racket/unstable.git";
+    rev = "480535837da0cc72112b9edc601885620ba8a55d";
+    sha256 = "1l133jg699d8cn4gylv279vcaanzskna40ffdzapvl3fzn8r5v5s";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."automata-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."markparam-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-doc" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."ppict" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-doc" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."staged-slide" self."string-constants-lib" self."syntax-color-lib" self."temp-c-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."unstable-macro-testing-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -15959,9 +16042,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-list-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-list-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-list-lib";
+    url = "git://github.com/racket/unstable-list-lib.git";
+    rev = "a328c5e663072779f70a42a722d2c3e9f2c430c3";
+    sha256 = "1vjccqyqysbkb45j5nrdgl3i92vzy99g1mh303lr5gh72h6v6b4h";
   };
   racketBuildInputs = [ self."base" self."class-iop-lib" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -15969,9 +16054,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-macro-testing-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-macro-testing-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-macro-testing-lib";
+    url = "git://github.com/racket/unstable-macro-testing-lib.git";
+    rev = "92c7c6d8fb35f17fb74ab4f2ad995f487cca0d96";
+    sha256 = "03x9vl9i2sr4v41wik5zaxljy40dw4srxkbbakskisz8sw25w6q6";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -15979,9 +16066,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-options-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-options-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-options-lib";
+    url = "git://github.com/racket/unstable-options-lib.git";
+    rev = "1063efe9e8f02ecdf8aefd6200d759ba1f0e8d5c";
+    sha256 = "1msq3fqsrqxx93yc1fp7v1wh2bjak19jkkd7i008867hclvw8p5z";
   };
   racketBuildInputs = [ self."base" self."option-contract-lib" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -15989,9 +16078,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-parameter-group-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-parameter-group-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-parameter-group-lib";
+    url = "git://github.com/racket/unstable-parameter-group-lib.git";
+    rev = "30de3acb3487c9c3ed4e8ef664ca18bb9667be09";
+    sha256 = "1bxwkf6j6pkm1j4wx6ypx6qs82mgiq0vc00n50brrh72sf4qdv2w";
   };
   racketBuildInputs = [ self."at-exp-lib" self."base" self."compatibility-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."errortrace-lib" self."images-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."planet-lib" self."racket-lib" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."source-syntax" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."typed-racket-lib" ];
   circularBuildInputs = [  ];
@@ -15999,9 +16090,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-pretty-lib" = self.lib.mkRacketDerivation rec {
   pname = "unstable-pretty-lib";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-pretty-lib";
+    url = "git://github.com/racket/unstable-pretty-lib.git";
+    rev = "5d6d24be2b0a9c773ac30a22c870b7817ce9f90a";
+    sha256 = "02nv3l1x0fljqr5isrxf98z25zm3jpjfjiy6827g37vwc7iq6d7r";
   };
   racketBuildInputs = [ self."base" self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -16009,9 +16102,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-redex" = self.lib.mkRacketDerivation rec {
   pname = "unstable-redex";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = fetchgit {
+    name = "unstable-redex";
+    url = "git://github.com/racket/unstable-redex.git";
+    rev = "a132a56200d99be9e3cec3928d8580559402beb6";
+    sha256 = "0f45vjk67hc4fcjpxqmpfrmg8qlzvgsnmx801ifyg74v48dw3s2m";
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-doc" self."compatibility-lib" self."compiler-lib" self."data-doc" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-doc" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-doc" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-doc" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."mzscheme-doc" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-doc" self."pict-lib" self."pict-snip-lib" self."plai" self."plai-doc" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."redex-benchmark" self."redex-doc" self."redex-examples" self."redex-gui-lib" self."redex-lib" self."redex-pict-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-doc" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."web-server-doc" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -16019,9 +16114,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "unstable-test" = self.lib.mkRacketDerivation rec {
   pname = "unstable-test";
-  src = fetchurl {
-    url = "http://racket-packages.s3-us-west-2.amazonaws.com/pkgs/empty.zip";
-    sha1 = "9f098dddde7f217879070816090c1e8e74d49432";
+  src = self.lib.extractPath {
+    path = "unstable-test";
+    src = fetchgit {
+    name = "unstable-test";
+    url = "git://github.com/racket/unstable.git";
+    rev = "480535837da0cc72112b9edc601885620ba8a55d";
+    sha256 = "1l133jg699d8cn4gylv279vcaanzskna40ffdzapvl3fzn8r5v5s";
+  };
   };
   racketBuildInputs = [ self."2d-lib" self."at-exp-lib" self."automata-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."deinprogramm-signature+htdp-lib" self."distributed-places-lib" self."draw-i386-macosx-3" self."draw-lib" self."draw-ppc-macosx-3" self."draw-ttf-x86_64-linux-natipkg" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x11-x86_64-linux-natipkg" self."draw-x86_64-linux-natipkg-3" self."draw-x86_64-macosx-3" self."drracket-plugin-lib" self."drracket-tool-lib" self."dynext-lib" self."eli-tester" self."errortrace-lib" self."gui-i386-macosx" self."gui-lib" self."gui-pkg-manager-lib" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."gui-x86_64-macosx" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."markparam-lib" self."math-i386-macosx" self."math-lib" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" self."math-x86_64-macosx" self."net-cookies-lib" self."net-lib" self."net-test+racket-test" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-doc" self."pict-lib" self."pict-snip-lib" self."plai-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."ppict" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-doc" self."racket-index" self."racket-lib" self."racket-test" self."racket-test-core" self."rackunit-gui" self."rackunit-lib" self."rackunit-typed" self."readline-lib" self."sandbox-lib" self."sasl-lib" self."scheme-lib" self."scribble-html-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-doc" self."slideshow-lib" self."snip-lib" self."source-syntax" self."srfi-lib" self."srfi-lite-lib" self."staged-slide" self."string-constants-lib" self."syntax-color-lib" self."temp-c-lib" self."testing-util-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."unix-socket-lib" self."unstable-2d" self."unstable-contract-lib" self."unstable-debug-lib" self."unstable-lib" self."unstable-list-lib" self."unstable-macro-testing-lib" self."unstable-options-lib" self."unstable-parameter-group-lib" self."web-server-lib" self."wxme-lib" self."xrepl-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
