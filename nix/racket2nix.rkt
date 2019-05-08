@@ -694,6 +694,16 @@ EOM
       (hash-set cache (cons source checksum) nix-sha256)
       cache)))
 
+(define (sanitize-catalog catalog)
+  (define-values (new-catalog removed) (for/fold ([acc #hash()] [removed '()]) ([k (hash-keys catalog)])
+    (define package (hash-ref catalog k))
+    (if (for/and ([dep (hash-ref package 'dependency-names)]) (hash-has-key? catalog dep))
+      (values (hash-set acc k (hash-ref catalog k)) removed)
+      (values acc (cons k removed)))))
+  (if (null? removed)
+    new-catalog
+    (sanitize-catalog new-catalog)))
+
 (define (names->deps-and-references #:flat? (flat? #f) package-names catalog)
   (define packages-and-deps (match package-names
     [(list)
@@ -717,12 +727,15 @@ EOM
   (string-append (header) (names->deps-and-references #:flat? flat? package-names package-dictionary)))
 
 (define (maybe-name->catalog maybe-name catalog process-catalog?)
-  (define package-names (if maybe-name
-    (names->transitive-dependency-names-and-cycles (list maybe-name) (calculate-package-relations catalog))
-    (hash-keys catalog)))
-  (define processed-catalog (if process-catalog?
-    (catalog-add-nix-sha256 catalog (set-intersect package-names (hash-keys catalog)))
+  (define sanitized-catalog (if (sanitize-catalog?)
+    (sanitize-catalog catalog)
     catalog))
+  (define package-names (if maybe-name
+    (names->transitive-dependency-names-and-cycles (list maybe-name) (calculate-package-relations sanitized-catalog))
+    (hash-keys sanitized-catalog)))
+  (define processed-catalog (if process-catalog?
+    (catalog-add-nix-sha256 sanitized-catalog (set-intersect package-names (hash-keys sanitized-catalog)))
+    sanitized-catalog))
   (define filtered-package-names (if maybe-name
     package-names
     (hash-keys processed-catalog)))
@@ -935,6 +948,7 @@ EOM
   catalog-with-reified-cycles)
 
 (define current-sha256-cache (make-parameter #hash()))
+(define sanitize-catalog? (make-parameter #f))
 
 (module+ main
   (define catalog-paths #f)
@@ -968,6 +982,9 @@ EOM
       [("--no-process-catalog")
        "When exporting a catalog, do not process it, just merge the --catalog inputs and export as they are."
        (set! process-catalog? #f)]
+      [("--sanitize-catalog")
+       "When exporting a catalog, remove any packages that transitively depend on packages not in the catalog."
+       (sanitize-catalog? #t)]
       #:once-any
       [("--export-catalog")
        "Instead of outputting a nix expression, output a pre-processed catalog, with the nix-sha256 looked up and\
