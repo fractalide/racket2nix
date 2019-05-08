@@ -367,6 +367,16 @@ self.lib.mkRacketDerivation rec {
   }
 EOM
   )
+
+(define (compare-string-alist a b)
+  (string<? (car a) (car b)))
+
+(define (pretty-write-sorted-string-hash h)
+  (define alist (hash->list h))
+  (define sorted-alist (sort alist compare-string-alist))
+  (define pretty-alist (pretty-format #:mode 'write sorted-alist 78))
+  (printf "#hash~a~n" pretty-alist))
+
 (define (generate-extract-path name url rev path sha256)
   (define git-src (generate-git-src name url rev sha256))
   (format "  src = self.lib.extractPath {~n    path = \"~a\";~n  ~a~n  };" path git-src))
@@ -941,7 +951,7 @@ EOM
     [thin?
      (display (names->thin-nix-function package-names catalog-with-package-dependency-names))]
     [export-catalog?
-     (write (maybe-name->catalog
+     (pretty-write-sorted-string-hash (maybe-name->catalog
        (if (= 1 (length package-names)) (car package-names) #f)
        catalog-with-package-dependency-names process-catalog?))]
     [else
