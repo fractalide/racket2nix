@@ -1,6 +1,7 @@
 { pkgs ? import (import ../nixpkgs)
 , overlays ? []
 , system ? builtins.currentSystem
+, bash ? (pkgs {}).bash
 , ...
 }@args:
 
@@ -10,6 +11,11 @@ pkgsFn = args: args.pkgs ((removeAttrs args [ "pkgs" ]) // { overlays = [ (self:
   inherit (args.pkgs (removeAttrs args [ "overlays" "pkgs" ])) racket-minimal;
   racket = self.racket-minimal;
 
+  buildDrvs = name: buildInputs: derivation {
+    inherit name buildInputs system;
+    builder = bash + "/bin/bash";
+    args = [ "-c" "echo -n > $out" ];
+  };
   racket2nix-stage0 = self.callPackage ../stage0.nix {};
   racket2nix-stage1 = self.callPackage ../stage1.nix {};
   racket2nix = self.buildRacketPackage "racket2nix";
