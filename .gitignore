@@ -5,3 +5,4 @@ compiled
 /pkgs-all
 result*
 /catalog.rktd.new
+/racket-packages.nix.??????
