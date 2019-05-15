@@ -368,14 +368,71 @@ self.lib.mkRacketDerivation rec {
 EOM
   )
 
-(define (compare-string-alist a b)
-  (string<? (car a) (car b)))
+(define (string-ish<? a b) (string<? (~a a) (~a b)))
 
-(define (pretty-write-sorted-string-hash h)
-  (define alist (hash->list h))
-  (define sorted-alist (sort alist compare-string-alist))
-  (define pretty-alist (pretty-format #:mode 'write sorted-alist 78))
-  (printf "#hash~a~n" pretty-alist))
+(define (car-string-ish<? a b) (string-ish<? (car a) (car b)))
+
+(define pretty-write-sorted-hash (let ([current-indent (make-parameter 0)]
+                                       [current-hash-list? (make-parameter #f)]
+                                       [current-hash-pair? (make-parameter #f)]
+                                       [current-first? (make-parameter #t)])
+  (define (_write v [out (current-output-port)])
+    (cond
+      [(hash? v)
+       (define sorted-alist (sort (hash->list v) car-string-ish<?))
+       (write-string "#hash" out)
+       (current-indent (+ 5 (current-indent)))
+       (parameterize ([current-hash-list? #t])
+                     (_write sorted-alist out))]
+      [(and (list? v) (not (current-hash-pair?)))
+       (write-string "(" out)
+       (current-indent (+ 1 (current-indent)))
+       (parameterize ([current-first? #t]
+                      [current-hash-pair? (current-hash-list?)]
+                      [current-hash-list? #f])
+         (let loop ([vs v])
+           (cond
+             [(null? vs)
+              (write-string ")" out)
+              (current-indent (+ 1 (current-indent)))]
+             [else
+              (define old-indent (current-indent))
+              (_write (car vs) out)
+              (unless (or (null? (cdr vs)) (= old-indent (current-indent)))
+                (write-string " " out)
+                (current-indent (+ 1 (current-indent))))
+              (current-first? #f)
+              (loop (cdr vs))])))]
+      [(pair? v)
+       (when (and (current-hash-pair?) (not (current-first?)))
+             (write-string "\n" out)
+             (write-string (build-string (current-indent) (lambda (_) #\ )) out))
+       (write-string "(" out)
+       (parameterize ([current-hash-pair? #f]
+                      [current-indent (+ 1 (current-indent))])
+         (_write (car v) out))
+       (cond
+         [(current-hash-pair?)
+          (write-string " .\n" out)
+          (write-string (build-string (+ 1 (current-indent)) (lambda (_) #\ )) out)
+          (parameterize ([current-hash-pair? #f]
+                         [current-indent (+ 1 (current-indent))])
+                        (_write (cdr v) out))
+          (write-string ")" out)]
+         [else
+          (write-string " . " out)
+          (current-indent (+ 3 (current-indent)))
+          (_write (cdr v) out)
+          (write-string ")" out)])]
+       [(symbol? v)
+        (define s (~s v))
+        (write-string s out)
+        (current-indent (+ (string-length s) (current-indent)))]
+       [else
+        (define s (~v v))
+        (write-string s out)
+        (current-indent (+ (string-length s) (current-indent)))]))
+  _write))
 
 (define (generate-extract-path name url rev path sha256)
   (define git-src (generate-git-src name url rev sha256))
@@ -971,7 +1028,7 @@ EOM
     [thin?
      (display (names->thin-nix-function package-names catalog-with-package-dependency-names))]
     [export-catalog?
-     (pretty-write-sorted-string-hash (maybe-name->catalog
+     (pretty-write-sorted-hash (maybe-name->catalog
        (if (= 1 (length package-names)) (car package-names) #f)
        catalog-with-package-dependency-names process-catalog?))]
     [else
