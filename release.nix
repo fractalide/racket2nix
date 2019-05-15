@@ -57,9 +57,6 @@ in
       fi
     '';
     latest-nixpkgs = genJobs (pkgs { pkgs = import <nixpkgs>; });
-    x86_64-darwin = genJobs (pkgs { system = "x86_64-darwin"; }) // {
-      latest-nixpkgs = genJobs (pkgs { pkgs = import <nixpkgs>; system = "x86_64-darwin"; });
-    };
   } // lib.optionalAttrs isTravis {
     stage0-nix-prerequisites = (pkgs {}).racket2nix-stage0.buildInputs;
     travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "tests.light-tests"
