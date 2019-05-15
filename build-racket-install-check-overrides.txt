@@ -1,6 +1,5 @@
 acl2s-scribblings
 adjutor
-admiral-edu-server
 algebraic
 anaphoric
 ansi-color
@@ -24,11 +23,9 @@ choose-out
 colon-kw
 colon-match
 command-tree
-compatibility-test
 component-test
 compose-app
 continued-fractions
-contract-profile
 control
 crc32c
 cs2500f16-jsonlab
