@@ -23,10 +23,4 @@ lib.optionalAttrs (super ? "compatibility+compatibility-doc+data-doc+db-doc+dist
   buildInputs = oldAttrs.buildInputs or [] ++ builtins.attrValues {
     inherit (self.pkgs) glib cairo fontconfig gmp gtk3 gsettings-desktop-schemas libedit libjpeg_turbo libpng mpfr openssl pango poppler readline sqlite;
   }; });
-} //
-lib.optionalAttrs (super ? "compiler-lib") (let
-  mergeAttrs = builtins.foldl' (acc: attrs: acc // attrs) {};
-  wordsToList = words: builtins.filter (s: (builtins.isString s) && s != "") (builtins.split "[ \n]+" words);
-in mergeAttrs (map (package: lib.optionalAttrs (super ? "${package}") {
-  "${package}" = super."${package}".overrideRacketDerivation (oldAttrs: { doInstallCheck = true; });
-}) (wordsToList (builtins.readFile ./build-racket-install-check-overrides.txt))))
+}
