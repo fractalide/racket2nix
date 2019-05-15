@@ -1,6 +1,5 @@
 acl2s-scribblings
 adjutor
-admiral-edu-server
 algebraic
 anaphoric
 ansi-color
