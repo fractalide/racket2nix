@@ -1,14 +1,21 @@
-{ pkgs ? import (import ../nixpkgs)
-, overlays ? []
+{ pkgs ? import (import ../nixpkgs) {}
 , system ? builtins.currentSystem
-, bash ? (pkgs {}).bash
+, racket-minimal ? pkgs.racket-minimal
 , ...
 }@args:
 
 let
-pkgsFn = args: args.pkgs ((removeAttrs args [ "pkgs" ]) // { overlays = [ (self: super: let racket2nix-pkgs = {
-  racket-full = (args.pkgs (removeAttrs args [ "overlays" "pkgs" ])).racket;
-  inherit (args.pkgs (removeAttrs args [ "overlays" "pkgs" ])) racket-minimal;
+  nixpkgs = pkgs;
+  inherit (nixpkgs) bash lib newScope racket;
+  inherit (lib) makeScope;
+in
+makeScope newScope (self: {
+  pkgs = self;
+  callPackageFull = (makeScope self.newScope (fullself: nixpkgs // self //
+    { pkgs = fullself; extend = fullself.overrideScope'; })).callPackage;
+  extend = self.overrideScope';
+  racket-full = racket;
+  inherit racket-minimal;
   racket = self.racket-minimal;
 
   buildDrvs = name: buildInputs: derivation {
@@ -22,9 +29,4 @@ pkgsFn = args: args.pkgs ((removeAttrs args [ "pkgs" ]) // { overlays = [ (self:
   inherit (self.callPackage ../build-racket.nix {})
     buildRacket buildRacketPackage buildRacketCatalog
     buildThinRacket buildThinRacketPackage;
-}; in racket2nix-pkgs // { inherit racket2nix-pkgs; }) ] ++ args.overlays; });
-makeOverridable = g: args: (g (args // { overlays = args.overlays ++ [
-  (self: super: { overridePkgs = f: makeOverridable g (args // (f args)); })
-]; }));
-in
-makeOverridable pkgsFn ({ inherit pkgs overlays system; } // args)
+})

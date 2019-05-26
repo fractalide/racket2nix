@@ -1,14 +1,12 @@
 { system ? builtins.currentSystem
-, overlays ? []
-, pkgs ? import ./pkgs { inherit overlays system; }
-, buildRacketPackage ? pkgs.buildRacketPackage
-, buildThinRacket ? pkgs.buildThinRacket
-, lib ? pkgs.lib
+, pkgs ? import ./pkgs { inherit system; }
+, callPackage ? pkgs.callPackage
 , package ? null
 , pname ? null
 }:
 
-if package == null then (pkgs.racket2nix // pkgs)
+callPackage ({buildRacketPackage, buildThinRacket, lib, racket2nix}:
+if package == null then (racket2nix // pkgs)
 else if builtins.isString package then buildRacketPackage package
 else buildThinRacket ({ inherit package; } //
-  lib.optionalAttrs (builtins.isString pname) { inherit pname; })
+  lib.optionalAttrs (builtins.isString pname) { inherit pname; })) {}

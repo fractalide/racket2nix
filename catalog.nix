@@ -1,11 +1,10 @@
-{ pkgs ? import ./pkgs { }
-, cacert ? pkgs.cacert
+{ pkgs ? import ./pkgs {}
+, callPackage ? pkgs.callPackage
 , exclusions ? ./catalog-exclusions.rktd
 , overrides ? ./catalog-overrides.rktd
 }:
 
-let
-inherit (pkgs) cacert racket runCommand fetchurl;
+callPackage ({cacert, fetchurl, racket, runCommand}: let
 attrs = rec {
   releaseCatalog = with (builtins.fromJSON (builtins.readFile ./release-catalog.json));
   runCommand "release-catalog" {
@@ -54,4 +53,4 @@ attrs = rec {
   '';
 };
 in
-attrs.merged-catalog // attrs // { inherit attrs; }
+attrs.merged-catalog // attrs // { inherit attrs; }) {}

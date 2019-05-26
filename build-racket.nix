@@ -1,12 +1,12 @@
 { pkgs ? import ./pkgs {}
-, cacert ? pkgs.cacert
+, callPackage ? pkgs.callPackage
+, callPackageFull ? pkgs.callPackageFull
 , catalog ? ./catalog.rktd
 , racket-package-overlays ? [ (import ./build-racket-racket2nix-overlay.nix) (import ./build-racket-install-check-overlay.nix) (import ./build-racket-default-overlay.nix) ]
-, racket-packages ? pkgs.callPackage ./racket-packages.nix {}
+, racket-packages ? callPackageFull ./racket-packages.nix {}
 }:
 
-let
-  inherit (pkgs) buildEnv lib nix racket2nix runCommand;
+callPackage ({buildEnv, cacert, lib, nix, racket2nix, runCommand}: let
   default = { inherit catalog racket-package-overlays racket-packages; };
   apply-overlays = rpkgs: overlays: if overlays == [] then rpkgs else
     apply-overlays (rpkgs.extend (builtins.head overlays)) (builtins.tail overlays);
@@ -77,8 +77,8 @@ let
         nix = if !buildNix then null else
           buildRacketNix { inherit catalog flat package; } // lib.optionalAttrs (builtins.isString pname) { inherit pname; };
         self = let
-          pname = if buildNix then ((pkgs.callPackage nix {}).overrideAttrs attrOverrides).pname else package;
-          rpkgs = if buildNix then (pkgs.callPackage nix {}).racket-packages else default.racket-packages;
+          pname = if buildNix then ((callPackageFull nix {}).overrideAttrs attrOverrides).pname else package;
+          rpkgs = if buildNix then (callPackageFull nix {}).racket-packages else default.racket-packages;
           racket-packages = apply-overlays rpkgs overlays;
         in
           (racket-packages."${pname}".overrideAttrs (oldAttrs: {
@@ -116,4 +116,4 @@ let
     '';
   };
 in
-attrs
+attrs) {}

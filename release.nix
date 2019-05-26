@@ -1,36 +1,34 @@
 { isTravis ? false
 , pkgs ? import ./pkgs
-, cacert ? (pkgs {}).cacert
+, callPackage ? (pkgs {}).callPackage
 }:
 
-let
-  inherit (pkgs {}) lib buildRacketPackage;
-
-  genJobs = pkgs: rec {
+callPackage ({bash, cacert, coreutils, diffutils, gnused, lib, nix, racket, racket2nix, runCommand}: let
+  genJobs = pkgs: (pkgs.callPackage ({buildRacketPackage, callPackage, racket, racket2nix-stage1}: rec {
     api = {
       # buildRacket is tested by ./integration-tests
       # buildRacketCatalog is tested by ./integration-tests
       # buildRacketPackage is tested by ./test.nix
       override-racket-derivation = (buildRacketPackage ./nix).overrideRacketDerivation (oldAttrs: {});
       one-liner = {
-        string = pkgs.callPackage ./. { package = "gui-lib"; };
-        path = pkgs.callPackage ./. { package = ./nix; };
+        string = callPackage ./. { package = "gui-lib"; };
+        path = callPackage ./. { package = ./nix; };
       };
     };
-    pkgs-all = pkgs.callPackage <racket2nix/catalog.nix> {};
-    racket2nix = pkgs.racket2nix-stage1;
+    pkgs-all = callPackage <racket2nix/catalog.nix> {};
+    racket2nix = racket2nix-stage1;
     tests = {
-      inherit (pkgs.callPackage <racket2nix/test.nix> {}) light-tests;
-    } // lib.optionalAttrs ((builtins.match ".*racket-minimal.*" pkgs.racket.name) != null) {
-      inherit (pkgs.callPackage <racket2nix/test.nix> {}) all-checked-packages heavy-tests;
+      inherit (callPackage <racket2nix/test.nix> {}) light-tests;
+    } // lib.optionalAttrs ((builtins.match ".*racket-minimal.*" racket.name) != null) {
+      inherit (callPackage <racket2nix/test.nix> {}) all-checked-packages heavy-tests;
     };
-  };
+  }) {});
 in
   (genJobs (pkgs {})) //
   {
-    racket-packages-updated = (pkgs {}).runCommand "racket-packages-updated" rec {
+    racket-packages-updated = runCommand "racket-packages-updated" rec {
       src = <racket2nix>;
-      inherit (pkgs {}) racket2nix;
+      inherit racket2nix;
       buildInputs = [ cacert racket2nix ];
     } ''
       set -e; set -u
@@ -41,9 +39,9 @@ in
         diff -u racket-packages.nix $src/racket-packages.nix
       fi
     '';
-    racket2nix-overlay-updated = (pkgs {}).runCommand "racket2nix-overlay-updated" {
+    racket2nix-overlay-updated = runCommand "racket2nix-overlay-updated" {
       src = <racket2nix>;
-      buildInputs = builtins.attrValues { inherit (pkgs {}) bash cacert coreutils diffutils gnused nix racket-minimal; };
+      buildInputs = builtins.attrValues { inherit bash cacert coreutils diffutils gnused nix racket; };
       preferLocalBuild = true;
       allowSubstitutes = false;
     } ''
@@ -58,10 +56,10 @@ in
         exit 1
       fi
     '';
-    latest-nixpkgs = genJobs (pkgs { pkgs = import <nixpkgs>; });
+    latest-nixpkgs = genJobs (pkgs { pkgs = import <nixpkgs> {}; });
   } // lib.optionalAttrs isTravis {
     stage0-nix-prerequisites = (pkgs {}).racket2nix-stage0.buildInputs;
     travisOrder = [ "pkgs-all" "stage0-nix-prerequisites" "racket2nix" "tests.light-tests"
                     "racket-packages-updated" "racket2nix-overlay-updated"
                     "racket-full.racket2nix" "api.override-racket-derivation" ];
-  }
+  }) {}
