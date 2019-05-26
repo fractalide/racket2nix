@@ -20,19 +20,27 @@ let
         path = runCommand pname {
           inherit package; outputHashMode = "recursive"; outputHashAlgo = "sha256";
           outputHash = builtins.readFile sha256;
+          preferLocalBuild = true;
+          allowSubstitutes = false;
         } ''
           cp -a $package $out
         '';
       in runCommand "${pname}.nix" {
         buildInputs = [ cacert racket2nix nix ];
         inherit path;
+        preferLocalBuild = true;
+        allowSubstitutes = false;
       } ''
         racket2nix --thin $path > $out
       '';
     buildThinRacket = { package, racket-packages ? default.racket-packages
                       , overlays ? default.racket-package-overlays
                       , attrOverrides ? (oldAttrs: {})
-                      , pname ? builtins.readFile (runCommand "pname" { inherit package; } ''
+                      , pname ? builtins.readFile (runCommand "pname" {
+                          inherit package;
+                          preferLocalBuild = true;
+                          allowSubstitutes = false;
+                        } ''
                           printf '%s' $(basename $(stripHash "$package")) > $out
                         '')
                       }: let
@@ -56,6 +64,8 @@ let
       inherit package;
       buildInputs = [ cacert racket2nix nix ];
       flatArg = lib.optionalString flat "--flat";
+      preferLocalBuild = true;
+      allowSubstitutes = false;
     } ''
       racket2nix $flatArg --catalog ${catalog} $package > $out
     '';
