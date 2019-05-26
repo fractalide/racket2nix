@@ -36,6 +36,8 @@ z = [ "a" ];
 inherit (builtins) concatStringsSep;
 
 nameDepsToDrv = name: deps: pkgs.runCommand name {
+  preferLocalBuild = true;
+  allowSubstitutes = false;
 } ''
   mkdir $out
   cat > $out/info.rkt <<EOF

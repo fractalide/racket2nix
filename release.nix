@@ -44,6 +44,8 @@ in
     racket2nix-overlay-updated = (pkgs {}).runCommand "racket2nix-overlay-updated" {
       src = <racket2nix>;
       buildInputs = builtins.attrValues { inherit (pkgs {}) bash cacert coreutils diffutils gnused nix racket-minimal; };
+      preferLocalBuild = true;
+      allowSubstitutes = false;
     } ''
       set -euo pipefail
       cp -a $src src

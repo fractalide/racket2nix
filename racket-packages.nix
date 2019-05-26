@@ -55,6 +55,8 @@ lib.fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.
   outputHashAlgo = "sha256";
   outputHash = sha256;
   buildInputs = [ pkgs.coreutils ];
+  preferLocalBuild = true;
+  allowSubstitutes = false;
 } ''
   cp -a $pathname $out && exit
   echo ERROR: Unable to find source for $name: $pathname
