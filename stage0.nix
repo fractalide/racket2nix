@@ -1,10 +1,10 @@
 { pkgs ? import ./pkgs {}
-, cacert ? pkgs.cacert
+, callPackage ? pkgs.callPackage
 , catalog ? ./catalog.rktd
 }:
 
+callPackage ({cacert, callPackageFull, nix, racket, runCommand}:
 let
-inherit (pkgs) nix racket runCommand;
 nix-command = nix;
 bootstrap = name: extraArgs: let
   nix = runCommand "${name}.nix" {
@@ -14,7 +14,7 @@ bootstrap = name: extraArgs: let
   } ''
     racket -N racket2nix $src/racket2nix.rkt $extraArgs --catalog ${catalog} $src > $out
   '';
-  nixAttrs = pkgs.callPackage nix {};
+  nixAttrs = callPackageFull nix {};
   out = if nixAttrs ? overrideAttrs then nixAttrs.overrideAttrs (oldAttrs: {
     name = "${name}";
     postInstall = "$out/bin/racket2nix --test";
@@ -27,5 +27,5 @@ in
 (bootstrap "racket2nix-stage0" "") // {
   flat = bootstrap "racket2nix-stage0.flat" "--flat";
   thin = let inherit (bootstrap "racket2nix-stage0.thin" "--thin") nix; in
-    ((pkgs.callPackage ./racket-packages.nix {}).extend (import nix)).nix // { inherit nix; };
-}
+    ((callPackageFull ./racket-packages.nix {}).extend (import nix)).nix // { inherit nix; };
+}) {}

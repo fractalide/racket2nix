@@ -1,18 +1,17 @@
 { pkgs ? import ./pkgs {}
-, cacert ? pkgs.cacert
+, callPackage ? pkgs.callPackage
 }:
 
-let
-inherit (pkgs) buildRacket nix nix-prefetch-git racket2nix-stage0 runCommand;
+callPackage ({buildRacket, cacert, nix, nix-prefetch-git, racket2nix-stage0, runCommand}: let
 
 # Don't just build a flat package, build it with flat racket2nix.
-buildRacketFlat = { ... }@args: (pkgs.overridePkgs (oldAttrs: {
-  overlays = oldAttrs.overlays ++ [ (self: super: { racket2nix = super.racket2nix-stage0.flat; }) ];
-})).buildRacket (args // { flat = true; });
+buildRacketFlat = { ... }@args: (pkgs.extend
+  (self: super: { racket2nix = super.racket2nix-stage0.flat; })
+).buildRacket (args // { flat = true; });
 
-buildThin = { ... }@args: (pkgs.overridePkgs (oldAttrs: {
-  overlays = oldAttrs.overlays ++ [ (self: super: { racket2nix = super.racket2nix-stage0.thin; }) ];
-})).buildThinRacket args;
+buildThin = { ... }@args: (pkgs.extend
+  (self: super: { racket2nix = super.racket2nix-stage0.thin; })
+).buildThinRacket args;
 
 attrOverrides = oldAttrs: {
   buildInputs = oldAttrs.buildInputs ++ [ verify ];
@@ -35,4 +34,4 @@ verify = runCommand "verify-stage1.sh" {
 '';
 
 in
-stage1
+stage1) {}

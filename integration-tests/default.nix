@@ -1,8 +1,9 @@
 { pkgs ? import ../pkgs {}
+, callPackage ? pkgs.callPackage
 }:
 
-let
-inherit (pkgs) buildRacket buildRacketCatalog racket racket2nix;
+callPackage ({buildRacket, buildRacketCatalog, callPackageFull, lib, racket, racket2nix,
+              runCommand}: let
 
 deps = {
 a = [ "b" "c" "f" "g" "n" "o" "s" "y" ];
@@ -35,7 +36,7 @@ z = [ "a" ];
 
 inherit (builtins) concatStringsSep;
 
-nameDepsToDrv = name: deps: pkgs.runCommand name {
+nameDepsToDrv = name: deps: runCommand name {
   preferLocalBuild = true;
   allowSubstitutes = false;
 } ''
@@ -75,9 +76,7 @@ EOF
 EOF
 '';
 
-inherit (pkgs.lib) mapAttrs;
-
-packages = mapAttrs nameDepsToDrv deps;
+packages = lib.mapAttrs nameDepsToDrv deps;
 
 attrs = rec {
   catalog = buildRacketCatalog [ (builtins.attrValues packages) ];
@@ -86,4 +85,4 @@ attrs = rec {
   circular-subdeps-flat = map (p: p.override { flat = true; }) circular-subdeps;
 }; in
 
-attrs // { inherit attrs; }
+attrs // { inherit attrs; }) {}

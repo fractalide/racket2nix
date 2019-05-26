@@ -1,11 +1,11 @@
 { pkgs ? import ./pkgs {}
-, buildDrvs ? pkgs.buildDrvs
+, callPackage ? pkgs.callPackage
 , integration-tests ? pkgs.callPackage ./integration-tests {}
 }:
 
+callPackage ({buildDrvs, buildRacket, buildRacketPackage, racket2nix}:
 let it-attrs = integration-tests.attrs; in
 let
-  inherit (pkgs) buildRacket buildRacketPackage racket2nix;
   attrs = rec {
   racket-doc = buildRacketPackage "racket-doc";
   typed-map-lib = buildRacket { package = "typed-map-lib"; buildNix = true; };
@@ -23,4 +23,4 @@ let
   integration-tests = it-attrs;
 };
 in
-attrs.light-tests // attrs
+attrs.light-tests // attrs) {}
