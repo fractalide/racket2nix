@@ -77,10 +77,20 @@ EOF
 '';
 
 packages = lib.mapAttrs nameDepsToDrv deps;
+fix-srcs = drvs: drvs.extend (self: super: (builtins.listToAttrs (map (name: {
+  inherit name;
+  value = if super.${name} ? pname && packages ? ${super.${name}.pname}
+          then super.${name}.overrideAttrs (_: rec { src = packages.${super.${name}.pname};
+                                                     srcs = [ src ]; })
+          else super.${name};
+}) (builtins.attrNames super))));
 
 attrs = rec {
   catalog = buildRacketCatalog [ (builtins.attrValues packages) ];
-  circular-subdeps = map (p: buildRacket { package = packages.${p}; inherit catalog; flat = false; })
+  circular-subdeps = map (p: (lib.makeOverridable ({flat}: (fix-srcs (buildRacket {
+                               package = packages.${p}; inherit catalog; inherit flat;
+                               }).racket-packages).${p}))
+                           { flat = false; })
                          [ "a" "k" ];
   circular-subdeps-flat = map (p: p.override { flat = true; }) circular-subdeps;
 }; in
