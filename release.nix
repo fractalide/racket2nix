@@ -40,7 +40,7 @@ in
       fi
     '';
     racket2nix-overlay-updated = runCommand "racket2nix-overlay-updated" {
-      src = <racket2nix>;
+      src = builtins.filterSource (path: type: type != "symlink") <racket2nix>;
       buildInputs = builtins.attrValues { inherit bash cacert coreutils diffutils gnused nix racket; };
       preferLocalBuild = true;
       allowSubstitutes = false;
