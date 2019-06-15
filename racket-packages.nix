@@ -11,20 +11,6 @@
 , findutils ? pkgs.findutils
 , gnused ? pkgs.gnused
 , time ? pkgs.time
-, racketIndexPatch ? builtins.toFile "racket-index.patch" ''
-    diff --git a/pkgs/racket-index/setup/scribble.rkt b/pkgs/racket-index/setup/scribble.rkt
-    index c79af9bf85..e4a1cf93e3 100644
-    --- a/pkgs/racket-index/setup/scribble.rkt
-    +++ b/pkgs/racket-index/setup/scribble.rkt
-    @@ -874,6 +874,7 @@
-             [(not latex-dest) (build-path (doc-dest-dir doc) file)]))
- 
-     (define (find-doc-db-path latex-dest user? main-doc-exists?)
-    +  (set! main-doc-exists? #t)
-       (cond
-        [latex-dest
-         (build-path latex-dest "docindex.sqlite")]
-  ''
 }:
 
 let racket-packages = lib.makeExtensible (self: {
@@ -111,12 +97,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     chmod u+w -R .
     find . -name '*.zo' -delete
     runHook postUnpack
-  '';
-
-  postPatch = ''
-    if [ -d racket-index ]; then
-        ( cd racket-index && patch -p3 < ${racketIndexPatch} )
-    fi
   '';
 
   racket-cmd = "${racket}/bin/racket -G $env/etc/racket -U -X $env/share/racket/collects";
