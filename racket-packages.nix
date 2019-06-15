@@ -195,6 +195,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     PATH=$env/bin:$PATH
     export PLT_COMPILED_FILE_CHECK=exists
 
+    ${raco} setup --no-docs --no-install --no-launcher --no-post-install --no-zo
+
     # install and link us
     install_names=""
     for install_info in ./*/info.rkt; do
