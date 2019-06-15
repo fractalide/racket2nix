@@ -1,2 +1,2 @@
-(import <nixpkgs> {}).fetchgit
-  (builtins.removeAttrs (builtins.fromJSON (builtins.readFile ./default.json)) [ "date" ])
+import <nix/fetchurl.nix>
+(builtins.fromJSON (builtins.readFile ./default.json))

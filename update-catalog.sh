@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -p bash racket-minimal nix-prefetch-git -i bash
+#! nix-shell -p bash nix-prefetch-git -i bash
 
 set -e
 set -u
