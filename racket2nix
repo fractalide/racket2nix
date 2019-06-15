@@ -1,8 +1,10 @@
 #! /usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 SCRIPT_NAME=${BASH_SOURCE[0]##*/}
 SCRIPT_DIR=$(cd "${BASH_SOURCE[0]%${SCRIPT_NAME}}" && pwd)
 
-exec racket -N "$SCRIPT_NAME" -- "$SCRIPT_DIR/nix/racket2nix.rkt" ${1+"$@"}
+racket=$(nix-build --no-out-link "$SCRIPT_DIR" -A racket)
+
+exec $racket/bin/racket -N "$SCRIPT_NAME" -- "$SCRIPT_DIR/nix/racket2nix.rkt" "$@"

@@ -41,7 +41,7 @@ in
     '';
     racket2nix-overlay-updated = runCommand "racket2nix-overlay-updated" {
       src = builtins.filterSource (path: type: type != "symlink") <racket2nix>;
-      buildInputs = builtins.attrValues { inherit bash cacert coreutils diffutils gnused nix racket; };
+      buildInputs = builtins.attrValues { inherit bash cacert coreutils diffutils gnused nix racket2nix; };
       preferLocalBuild = true;
       allowSubstitutes = false;
     } ''
@@ -49,7 +49,7 @@ in
       cp -a $src src
       chmod -R a+w src
       cd src
-      bash ./update-racket2nix-overlay.sh
+      bash ./update-racket2nix-overlay.sh --inside-nix-derivation
       if ! diff -Nur ./ $src | tee $out; then
         echo
         echo ERROR: Your tree is out of date. Please run ./update-racket2nix-overlay.sh before commit.

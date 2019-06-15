@@ -706,6 +706,14 @@ EOM
     new-catalog
     (sanitize-catalog new-catalog)))
 
+(define (resolve-source catalog)
+  (for/hash ([(name package) (in-hash catalog)])
+    (define versions (hash-ref package 'versions #f))
+    (define our-version (and versions (or (hash-ref versions (version) #f) (hash-ref versions 'default #f))))
+    (define checksum (or (and our-version (hash-ref our-version 'checksum #f)) (hash-ref package 'checksum)))
+    (define source (or (and our-version (hash-ref our-version 'source #f)) (hash-ref package 'source)))
+    (values name (hash-set* package 'checksum checksum 'source source))))
+
 (define (names->deps-and-references #:flat? (flat? #f) package-names catalog)
   (define packages-and-deps (match package-names
     [(list)
@@ -1043,13 +1051,16 @@ EOM
   (define catalog-with-package-dependency-names
     (simplify-package-dependency-names pkg-details))
 
+  (define catalog-with-resolved-source
+    (resolve-source catalog-with-package-dependency-names))
+
   (cond
     [thin?
-     (display (names->thin-nix-function package-names catalog-with-package-dependency-names))]
+     (display (names->thin-nix-function package-names catalog-with-resolved-source))]
     [export-catalog?
      (pretty-write-sorted-hash (maybe-name->catalog
        (if (= 1 (length package-names)) (car package-names) #f)
-       catalog-with-package-dependency-names process-catalog?))]
+       catalog-with-resolved-source process-catalog?))]
     [else
      (display (names->nix-function #:flat? flat? package-names
-                                   (calculate-package-relations catalog-with-package-dependency-names package-names)))]))
+                                   (calculate-package-relations catalog-with-resolved-source package-names)))]))
