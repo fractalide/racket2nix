@@ -8,8 +8,8 @@ let it-attrs = integration-tests.attrs; in
 let
   attrs = rec {
   racket-doc = buildRacketPackage "racket-doc";
+  racket-index = buildRacketPackage "racket-index";
   typed-map-lib = buildRacket { package = "typed-map-lib"; buildNix = true; };
-  br-parser-tools-lib = buildRacketPackage "br-parser-tools-lib";
 
   all-checked-packages = let
     buildInputs = let
@@ -17,7 +17,7 @@ let
     in map buildRacketPackage (wordsToList (builtins.readFile ./build-racket-install-check-overrides.txt));
   in buildDrvs "all-checked-packages" buildInputs;
   light-tests = buildDrvs "light-tests"
-    ([ typed-map-lib typed-map-lib.flat br-parser-tools-lib br-parser-tools-lib.flat ] ++
+    ([ racket-index typed-map-lib typed-map-lib.flat ] ++
       builtins.attrValues integration-tests);
   heavy-tests = buildDrvs "heavy-tests" [ racket-doc racket-doc.flat ];
   integration-tests = it-attrs;
