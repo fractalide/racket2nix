@@ -80,8 +80,7 @@ packages = lib.mapAttrs nameDepsToDrv deps;
 fix-srcs = drvs: drvs.extend (self: super: (builtins.listToAttrs (map (name: {
   inherit name;
   value = if super.${name} ? pname && packages ? ${super.${name}.pname}
-          then super.${name}.overrideAttrs (_: rec { src = packages.${super.${name}.pname};
-                                                     srcs = [ src ]; })
+          then super.${name}.overrideRacketDerivation (_: { src = packages.${super.${name}.pname}; })
           else super.${name};
 }) (builtins.attrNames super))));
 
