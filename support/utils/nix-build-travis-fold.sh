@@ -9,12 +9,16 @@ function main() {
   local file=$(nixizeFilename "$maybe_file")
 
   if [[ -n $file ]] && fileHasAttr "$file" travisOrder; then
+    local order=$(getOrder "$file")
+    echo >&2 "Building $(echo $order)"
     while read attr; do
       # attr may be optional
       fileHasAttr "$file" $attr &&
+        echo >&2 "$attr..." &&
         build "$@" -A $attr
-    done < <(getOrder "$file")
+    done <<< "$order"
   else
+    echo >&2 "Building $*"
     build "$@"
   fi
 }
@@ -82,15 +86,16 @@ function fileHasAttr() {
   local filename=$1
   local attr=$2
 
-  (( $(nix-instantiate --eval --argstr attr "$attr" --arg filename "$filename" \
-       -E '{filename, attr}: if builtins.hasAttr attr (import filename) then 1 else 0' 2>/dev/null || true) ))
+  (( $(nix-instantiate --eval --arg filename "$filename" \
+       -E "{filename}: if (import filename { isTravis = true; }) ? $attr then 1 else 0" ||
+       true) ))
 }
 
 function getOrder() {
   # This is not overkill, this is the simplest way to parse a nix array -- let nix parse
   local filename=$1
 
-  out=$(nix-build -E '(import <nixpkgs> {}).runCommand "order" { inherit (import '$filename') travisOrder; }
+  out=$(nix-build -E '(import <nixpkgs> {}).runCommand "order" { inherit (import '$filename' { isTravis = true; }) travisOrder; }
                       "for item in $travisOrder; do echo $item >> $out; done"' 2>/dev/null || true)
 
   [[ -z $out ]] && return
