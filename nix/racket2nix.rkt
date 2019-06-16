@@ -11,12 +11,7 @@
 
 (define never-dependency-names '("racket"))
 (define terminal-package-names '("racket-lib"))
-(define force-reverse-circular-build-inputs #hash(
-  ["make" . ("scribble-lib")]
-  ["memoize" . ("scribble-lib")]
-  ["racket-index" . ("scribble-lib")]
-  ["compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." . ("scribble-lib" "racket-index")]
-))
+(define force-reverse-circular-build-inputs #hash())
 
 (define header-template #<<EOM
 { pkgs ? import <nixpkgs> {}
@@ -31,6 +26,7 @@
 , bash ? pkgs.bash
 , findutils ? pkgs.findutils
 , gnused ? pkgs.gnused
+, makeSetupHook ? pkgs.makeSetupHook
 , time ? pkgs.time
 }:
 
@@ -73,58 +69,8 @@ lib.resolveThinInputs = let resolve = thinInputs: if thinInputs == [] then [] el
   let head = builtins.head thinInputs; tail = builtins.tail thinInputs; in
   [ head ] ++ head.racketBuildInputs or [] ++ resolve head.racketThinBuildInputs or [] ++ resolve tail;
   in resolve;
-lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
-  name = "${racket.name}-${pname}";
-  inherit (attrs) pname;
-  racketBuildInputs = attrs.racketBuildInputs or [] ++ self.lib.resolveThinInputs attrs.racketThinBuildInputs or [];
-  buildInputs = [ cacert unzip racket ] ++ racketBuildInputs;
-  circularBuildInputs = attrs.circularBuildInputs or [];
-  circularBuildInputsStr = lib.concatStringsSep " " circularBuildInputs;
-  racketBuildInputsStr = lib.concatStringsSep " " racketBuildInputs;
-  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input reverseCircularBuildInputs) racketBuildInputs;
-  racketConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) racketConfigBuildInputs);
-  reverseCircularBuildInputs = attrs.reverseCircularBuildInputs or [];
-  src = attrs.src or null;
-  srcs = [ src ] ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
-  doInstallCheck = attrs.doInstallCheck or false;
-  inherit racket;
-  outputs = [ "out" "env" ] ++ lib.optionals doInstallCheck [ "test" "testEnv" ];
 
-  phases = "unpackPhase patchPhase installPhase fixupPhase installCheckPhase";
-  unpackPhase = ''
-    stripSuffix() {
-      stripped=$1
-      for suffix in .gz .tgz .zip .xz .tar; do
-        stripped=''${stripped%$suffix}
-      done
-      echo $stripped
-    }
-
-    runHook preUnpack
-    for unpackSrc in $srcs; do
-      unpackName=$(stripSuffix $(stripHash $unpackSrc))
-      mkdir $unpackName
-      cd $unpackName
-      unpackFile $unpackSrc
-      cd -
-      unpackedFiles=( $unpackName/* )
-      if [ "''${unpackedFiles[*]}" = "$unpackName/$unpackName" ]; then
-        mv $unpackName _
-        chmod u+w _/$unpackName
-        mv _/$unpackName $unpackName
-        rmdir _
-      fi
-    done
-    chmod u+w -R .
-    find . -name '*.zo' -delete
-    runHook postUnpack
-  '';
-
-  racket-cmd = "${racket}/bin/racket -G $env/etc/racket -U -X $env/share/racket/collects";
-  raco = "${racket-cmd} -N raco -l- raco";
-  maxFileDescriptors = 3072;
-
-  make-config-rktd = builtins.toFile "make-config-rktd.rkt" ''
+lib.makeConfigRktd = builtins.toFile "make-config-rktd.rkt" ''
     #lang racket
 
     (define (make-config-rktd out racket deps)
@@ -164,6 +110,120 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
              (make-config-rktd out racket deps))
   '';
 
+lib.makeRacket = makeSetupHook { substitutions = rec { inherit (self.pkgs) bash findutils which; shell = bash + /bin/bash;
+                                                       inherit (self.lib) makeConfigRktd; }; }
+                               (builtins.toFile "makeRacket.sh" ''
+  function makeRacket() {
+    local -
+    set -euo pipefail
+    local out=$1
+    local racket=$2
+    shift; shift
+    local deps=$*
+
+    mkdir -p $out/bin $out/etc/racket $out/lib $out/share/racket/pkgs
+    [ -d $out/share/racket/collects ] || cp -rs $racket/share/racket/collects $out/share/racket/
+    [ -d $out/share/racket/include ] || ln -s $racket/include/racket $out/share/racket/include
+    [ -d $out/lib/racket ] || cp -rs $racket/lib/racket $out/lib/racket
+    @findutils@/bin/find $out/lib/racket -type d -exec chmod 755 {} +
+
+    cat > $out/bin/racket.new <<EOF
+  #!@shell@
+  exec $racket/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects "\$@"
+  EOF
+    mv $out/bin/racket{.new,}
+
+    cat > $out/lib/racket/gracket.new <<EOF
+  #!@shell@
+  exec $racket/lib/racket/gracket -G $out/etc/racket -U -X $out/share/racket/collects "\$@"
+  EOF
+    mv $out/lib/racket/gracket{.new,}
+
+    cat > $out/bin/raco.new <<EOF
+  #!@shell@
+  exec $racket/bin/racket -G $out/etc/racket -U -X $out/share/racket/collects -N raco -l- raco "\$@"
+  EOF
+    mv $out/bin/raco{.new,}
+
+    chmod 555 $out/bin/racket $out/bin/raco $out/lib/racket/gracket
+
+    racket @makeConfigRktd@ $out $racket $deps > $out/etc/racket/config.rktd
+  }
+
+  function setupRacket() {
+    local env=$1
+
+    $env/bin/raco setup --no-docs --no-install --no-launcher --no-post-install --no-zo
+  }
+
+  function racoPkgInstallCopy() {
+    local env=$1
+    shift
+
+    $env/bin/raco pkg install --no-setup --copy --deps fail --fail-fast --scope installation $* \
+      &> >(sed  -Ee '/warning: tool "(setup|pkg|link)" registered twice/d')
+  }
+
+  function racoSetup() {
+    local env=$1
+    shift
+
+    $env/bin/raco setup -j $NIX_BUILD_CORES --no-user --no-pkg-deps --fail-fast --only --pkgs $* \
+      &> >(sed -ne '/updating info-domain/,$p')
+  }
+'');
+
+lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
+  name = "${racket.name}-${pname}";
+  inherit (attrs) pname;
+  racketBuildInputs = attrs.racketBuildInputs or [] ++ self.lib.resolveThinInputs attrs.racketThinBuildInputs or [];
+  buildInputs = [ cacert unzip racket self.lib.makeRacket ] ++ racketBuildInputs;
+  circularBuildInputs = attrs.circularBuildInputs or [];
+  circularBuildInputsStr = lib.concatStringsSep " " circularBuildInputs;
+  racketBuildInputsStr = lib.concatStringsSep " " racketBuildInputs;
+  racketConfigBuildInputs = builtins.filter (input: ! builtins.elem input reverseCircularBuildInputs) racketBuildInputs;
+  racketConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) racketConfigBuildInputs);
+  reverseCircularBuildInputs = attrs.reverseCircularBuildInputs or [];
+  src = attrs.src or null;
+  srcs = [ src ] ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
+  doInstallCheck = attrs.doInstallCheck or false;
+  inherit racket;
+  outputs = [ "out" "env" ] ++ lib.optionals doInstallCheck [ "test" "testEnv" ];
+
+  PLT_COMPILED_FILE_CHECK = "exists";
+
+  phases = "unpackPhase patchPhase installPhase fixupPhase installCheckPhase";
+  unpackPhase = ''
+    stripSuffix() {
+      stripped=$1
+      for suffix in .gz .tgz .zip .xz .tar; do
+        stripped=''${stripped%$suffix}
+      done
+      echo $stripped
+    }
+
+    runHook preUnpack
+    for unpackSrc in $srcs; do
+      unpackName=$(stripSuffix $(stripHash $unpackSrc))
+      mkdir $unpackName
+      cd $unpackName
+      unpackFile $unpackSrc
+      cd -
+      unpackedFiles=( $unpackName/* )
+      if [ "''${unpackedFiles[*]}" = "$unpackName/$unpackName" ]; then
+        mv $unpackName _
+        chmod u+w _/$unpackName
+        mv _/$unpackName $unpackName
+        rmdir _
+      fi
+    done
+    chmod u+w -R .
+    find . -name '*.zo' -delete
+    runHook postUnpack
+  '';
+
+  maxFileDescriptors = 3072;
+
   installPhase = ''
     runHook preInstall
 
@@ -181,9 +241,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       exit 2
     fi
 
-    mkdir -p $env/etc/racket $env/share/racket $out
-    # Don't use racket-cmd as config.rktd doesn't exist yet.
-    racket ${make-config-rktd} $env ${racket} ${racketConfigBuildInputsStr} > $env/etc/racket/config.rktd
+    makeRacket $env $racket $racketConfigBuildInputsStr
+    setupRacket $env
+    mkdir -p $out
 
     if [ -n "${circularBuildInputsStr}" ]; then
       echo >&2 NOTE: This derivation intentionally left blank.
@@ -191,38 +251,12 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       exit 0
     fi
 
-    mkdir -p $env/share/racket/collects $env/lib $env/bin
-    for bootstrap_collection in racket compiler syntax setup openssl ffi file pkg planet; do
-      cp -rs $racket/share/racket/collects/$bootstrap_collection \
-        $env/share/racket/collects/
-    done
-
-    mkdir -p $env/share/racket/pkgs
-    for depEnv in $racketConfigBuildInputsStr; do
-      if ( shopt -s nullglob; pkgs=($depEnv/share/racket/pkgs/*/); (( ''${#pkgs[@]} > 0 )) ); then
-        cp -frs $depEnv/share/racket/pkgs/*/ $env/share/racket/pkgs/
-        find $env/share/racket/pkgs -type d -print0 | xargs -0 chmod 755
-      fi
-    done
-
-    cp -rs $racket/lib/racket $env/lib/racket
-    ln -s $racket/include/racket $env/share/racket/include
-    find $env/share/racket/collects $env/lib/racket -type d -print0 | xargs -0 chmod 755
-
-    printf > $env/bin/racket "#!${bash}/bin/bash\nexec ${racket-cmd} \"\$@\"\n"
-    rm -f $env/lib/racket/gracket
-    printf > $env/lib/racket/gracket "#!${bash}/bin/bash\nexec $racket/lib/racket/gracket -G $env/etc/racket -U -X $env/share/racket/collects \"\$@\"\n"
-    chmod 555 $env/bin/racket $env/lib/racket/gracket
-    PATH=$env/bin:$PATH
-    export PLT_COMPILED_FILE_CHECK=exists
-
-    ${raco} setup --no-docs --no-install --no-launcher --no-post-install --no-zo
-
     # install and link us
     install_names=""
+    setup_names=""
     for install_info in ./*/info.rkt; do
       install_name=''${install_info%/info.rkt}
-      if ${racket-cmd} -e "(require pkg/lib)
+      if $env/bin/racket -e "(require pkg/lib)
                            (define name \"''${install_name#./}\")
                            (for ((scope (get-all-pkg-scopes)))
                              (when (member name (installed-pkg-names #:scope scope))
@@ -230,19 +264,39 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
                                             name scope)
                                    (exit 1)))"; then
         install_names+=" $install_name"
+        setup_names+=" ''${install_name#./}"
       fi
     done
 
     if [ -n "$install_names" ]; then
-      ${raco} pkg install --no-setup --copy --deps fail --fail-fast --scope installation $install_names |&
-        sed -Ee '/warning: tool "(setup|pkg|link)" registered twice/d'
+      racoPkgInstallCopy $env $install_names
 
-      setup_names=""
-      for setup_name in $install_names; do
-        setup_names+=" ''${setup_name#./}"
-      done
-      ${raco} setup -j $NIX_BUILD_CORES --no-user --no-pkg-deps --fail-fast --only --pkgs $setup_names |&
-        sed -ne '/updating info-domain/,$p'
+      if ! racoSetup $env $setup_names; then
+        echo >&2 Quick install failed, falling back to slow install.
+
+        dep_install_names=""
+        for depEnv in $racketConfigBuildInputsStr; do
+          if ( shopt -s nullglob; pkgs=($depEnv/share/racket/pkgs/*/); (( ''${#pkgs[@]} > 0 )) ); then
+            for dep_install_name in $depEnv/share/racket/pkgs/*/; do
+              dep_install_names+=" $dep_install_name"
+            done
+          fi
+        done
+
+        # All our dependencies, writable
+        buildEnv=$(mktemp -d --tmpdir XXXXXX-$pname-env)
+        makeRacket $buildEnv $racket
+        racoPkgInstallCopy $buildEnv $dep_install_names
+
+        chmod -R 755 $env
+        rm -rf $env
+        makeRacket $env $racket $buildEnv
+        setupRacket $env
+        racoPkgInstallCopy $env $install_names
+        racoSetup $env $setup_names
+        # Pretend our workaround never happened, retain setup's output
+        makeRacket $env $racket $racketConfigBuildInputsStr
+      fi
     fi
 
     mkdir -p $out/bin
@@ -255,12 +309,15 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     eval "$restore_pipefail"
     runHook postInstall
 
+    find $env/share/racket/collects $env/share/racket/pkgs $env/lib/racket -type d -exec chmod 755 {} +
     find $env/share/racket/collects $env/lib/racket -lname "$racket/*" -delete
     for depEnv in $racketConfigBuildInputsStr; do
       find $env/share/racket/pkgs -lname "$depEnv/*" -delete
     done
     find $env/share/racket/collects $env/share/racket/pkgs $env/lib/racket $env/bin -type d -empty -delete
     rm $env/share/racket/include
+
+    PATH=$env/bin:$PATH
   '';
 
   installCheckFileFinder = ''find "$env"/share/racket/pkgs/"$pname" -name '*.rkt' -print0'';
@@ -271,7 +328,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   in ''
     runHook preInstallCheck
     mkdir -p $testEnv/etc/racket $testEnv/share
-    racket ${make-config-rktd} $testEnv ${racket} $env ${testConfigBuildInputsStr} > $testEnv/etc/racket/config.rktd
+    racket ${self.lib.makeConfigRktd} $testEnv ${racket} $env ${testConfigBuildInputsStr} > $testEnv/etc/racket/config.rktd
     ln -s ${self.compiler-lib.env}/share/racket $testEnv/share/racket
     ${findutils}/bin/xargs -I {} -0 -n 1 -P ''${NIX_BUILD_CORES:-1} bash -c '
       set -eu
