@@ -14,6 +14,7 @@ function main() {
     while read attr; do
       # attr may be optional
       fileHasAttr "$file" $attr &&
+        echo >&2 "$attr..." &&
         build "$@" -A $attr
     done <<< "$order"
   else
@@ -85,8 +86,8 @@ function fileHasAttr() {
   local filename=$1
   local attr=$2
 
-  (( $(nix-instantiate --eval --argstr attr "$attr" --arg filename "$filename" \
-       -E '{filename, attr}: if builtins.hasAttr attr (import filename { isTravis = true; }) then 1 else 0' ||
+  (( $(nix-instantiate --eval --arg filename "$filename" \
+       -E "{filename}: if (import filename { isTravis = true; }) ? $attr then 1 else 0" ||
        true) ))
 }
 
