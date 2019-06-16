@@ -5,7 +5,7 @@ set -euo pipefail
 
 cd "${BASH_SOURCE[0]%/*}"
 
-nix-instantiate --add-root ./nixpkgs/result.drv --indirect ./nixpkgs | xargs readlink -e
+nix-instantiate --add-root ./nixpkgs/result.drv --indirect ./nixpkgs | xargs readlink
 nix-build --no-out-link ./nixpkgs  # So that nix-build-travis-fold can evaluate release.nix
 ./support/utils/nix-build-travis-fold.sh -I racket2nix="$(pwd | xargs readlink -e)" --no-out-link release.nix "$@" |&
   sed -e 's/travis_.*\r//'
