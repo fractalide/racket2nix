@@ -5,7 +5,7 @@ set -euo pipefail
 
 BASE_URL=https://github.com/NixOS/nixpkgs-channels
 DEFAULT_REV=refs/heads/nixpkgs-unstable
-NAME=nixpkgs
+NAME=source
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
