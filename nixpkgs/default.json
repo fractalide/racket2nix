@@ -1,5 +1,5 @@
 {
-  "name": "nixpkgs",
+  "name": "source",
   "url": "https://github.com/NixOS/nixpkgs-channels/archive/3a3353953f9ba7ddab05a7f60158983758ca0780.tar.gz",
   "sha256": "0nc1h5rllawj3adc2byvlhvck2c5ywdqa868icqqwkym4pdp2vll",
   "unpack": true
