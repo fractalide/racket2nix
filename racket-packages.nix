@@ -172,7 +172,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   srcs = [ src ] ++ attrs.extraSrcs or (map (input: input.src) reverseCircularBuildInputs);
   doInstallCheck = attrs.doInstallCheck or false;
   inherit racket;
-  outputs = [ "out" "env" ] ++ lib.optionals doInstallCheck [ "test" "testEnv" ];
+  outputs = [ "out" "env" ];
 
   PLT_COMPILED_FILE_CHECK = "exists";
 
@@ -311,13 +311,14 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     testConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) testConfigBuildInputs);
   in ''
     runHook preInstallCheck
+    export testEnv=$(mktemp -d --tmpdir XXXXXX-$pname-testEnv)
     makeRacket $testEnv $racket $env ${testConfigBuildInputsStr}
     setupRacket $testEnv
 
     ${findutils}/bin/xargs -I {} -0 -n 1 -P ''${NIX_BUILD_CORES:-1} bash -c '
       set -eu
       testpath=''${1#*/share/racket/pkgs/}
-      logdir="$test/log/''${testpath%/*}"
+      logdir="$testEnv/log/''${testpath%/*}"
       mkdir -p "$logdir"
       timeout 60 ${time}/bin/time -f "%e s $testpath" $testEnv/bin/raco test -q "$1" \
         &> >(grep -v -e "warning: tool .* registered twice" -e "@[(]test-responsible" | tee "$logdir/''${1##*/}")
