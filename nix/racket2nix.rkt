@@ -327,15 +327,15 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     testConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) testConfigBuildInputs);
   in ''
     runHook preInstallCheck
-    mkdir -p $testEnv/etc/racket $testEnv/share
-    racket ${self.lib.makeConfigRktd} $testEnv ${racket} $env ${testConfigBuildInputsStr} > $testEnv/etc/racket/config.rktd
-    ln -s ${self.compiler-lib.env}/share/racket $testEnv/share/racket
+    makeRacket $testEnv $racket $env ${testConfigBuildInputsStr}
+    setupRacket $testEnv
+
     ${findutils}/bin/xargs -I {} -0 -n 1 -P ''${NIX_BUILD_CORES:-1} bash -c '
       set -eu
       testpath=''${1#*/share/racket/pkgs/}
       logdir="$test/log/''${testpath%/*}"
       mkdir -p "$logdir"
-      timeout 60 ${time}/bin/time -f "%e s $testpath" racket -G $testEnv/etc/racket -U -l- raco test -q "$1" \
+      timeout 60 ${time}/bin/time -f "%e s $testpath" $testEnv/bin/raco test -q "$1" \
         &> >(grep -v -e "warning: tool .* registered twice" -e "@[(]test-responsible" | tee "$logdir/''${1##*/}")
     ' {} {} < <(runHook installCheckFileFinder)
     runHook postInstallCheck
