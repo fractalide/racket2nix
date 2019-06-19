@@ -42,7 +42,6 @@ datalog
 db-test
 ddict
 debug
-deferred
 define-with-spec
 delimit-app
 diff-merge
