@@ -337,7 +337,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
       mkdir -p "$logdir"
       timeout 60 ${time}/bin/time -f "%e s $testpath" racket -G $testEnv/etc/racket -U -l- raco test -q "$1" \
         &> >(grep -v -e "warning: tool .* registered twice" -e "@[(]test-responsible" | tee "$logdir/''${1##*/}")
-    ' {} {} < <(runHook installCheckFileFinder)
+    ' 'xargs raco test {}' {} < <(runHook installCheckFileFinder)
     runHook postInstallCheck
   '';
 } // attrs)) suppliedAttrs; in racketDerivation.overrideAttrs (oldAttrs: {
