@@ -322,13 +322,19 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 
   installCheckFileFinder = ''find "$env"/share/racket/pkgs/"$pname" -name '*.rkt' -print0'';
   installCheckPhase = if !doInstallCheck then null else let
-    testConfigBuildInputs = racketConfigBuildInputs ++ (self.lib.resolveThinInputs [ self.compiler-lib ]);
+    testConfigBuildInputs = self.lib.resolveThinInputs [ self.compiler-lib ];
     testConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.env) testConfigBuildInputs);
   in ''
     runHook preInstallCheck
     export testEnv=$(mktemp -d --tmpdir XXXXXX-$pname-testEnv)
-    makeRacket $testEnv $racket $env ${testConfigBuildInputsStr}
+    if [ -v buildEnv ]; then
+      makeRacket $testEnv $racket $env $buildEnv ${testConfigBuildInputsStr}
+    else
+      makeRacket $testEnv $racket $env $racketConfigBuildInputsStr ${testConfigBuildInputsStr}
+    fi
+
     setupRacket $testEnv
+    racoSetup $testEnv $setup_names
 
     ${findutils}/bin/xargs -I {} -0 -n 1 -P ''${NIX_BUILD_CORES:-1} bash -c '
       set -eu
