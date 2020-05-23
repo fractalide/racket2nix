@@ -31,14 +31,6 @@ lib.optionalAttrs (super ? "racket-index") { racket-index = super.racket-index.o
         [latex-dest
          (build-path latex-dest "docindex.sqlite")]
   '') ]; }); } //
-lib.optionalAttrs (super ? "typed-racket-more") { typed-racket-more = super.typed-racket-more.overrideAttrs (_: {
-  patches = [ (builtins.toFile "scheme-lib-dependency.patch" ''
---- a/typed-racket-more/info.rkt	2019-05-13 19:31:56.000000000 +0800
-+++ b/typed-racket-more/info.rkt	2019-06-17 07:54:20.000000000 +0800
-@@ -1 +1 @@
--(module info setup/infotab (#%module-begin (define package-content-state (quote (built "7.3"))) (define collection (quote multi)) (define deps (quote ("srfi-lite-lib" "base" "net-lib" "web-server-lib" ("db-lib" #:version "1.5") "draw-lib" "rackunit-lib" "rackunit-gui" "rackunit-typed" "snip-lib" "typed-racket-lib" "gui-lib" "pict-lib" "images-lib" "racket-index" "sandbox-lib"))) (define implies (quote ("rackunit-typed"))) (define pkg-desc "Types for various libraries") (define pkg-authors (quote (samth stamourv))) (define version "1.9")))
-+(module info setup/infotab (#%module-begin (define package-content-state (quote (built "7.3"))) (define collection (quote multi)) (define deps (quote ("scheme-lib" "srfi-lite-lib" "base" "net-lib" "web-server-lib" ("db-lib" #:version "1.5") "draw-lib" "rackunit-lib" "rackunit-gui" "rackunit-typed" "snip-lib" "typed-racket-lib" "gui-lib" "pict-lib" "images-lib" "racket-index" "sandbox-lib"))) (define implies (quote ("rackunit-typed"))) (define pkg-desc "Types for various libraries") (define pkg-authors (quote (samth stamourv))) (define version "1.9")))
-  '') ]; }); } //
 lib.optionalAttrs (super ? "compatibility+compatibility-doc+data-doc+db-doc+distributed-p...") {
   "compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." = super."compatibility+compatibility-doc+data-doc+db-doc+distributed-p...".overrideAttrs (oldAttrs: {
   buildInputs = oldAttrs.buildInputs or [] ++ builtins.attrValues {
