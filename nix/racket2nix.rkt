@@ -782,21 +782,24 @@ EOM
   (string-append (header) (names->deps-and-references #:flat? flat? package-names package-dictionary)))
 
 (define (maybe-name->catalog maybe-name catalog process-catalog?)
-  (define sanitized-catalog (if (sanitize-catalog?)
+  (define pre-sanitized-catalog (if (sanitize-catalog?)
     (sanitize-catalog catalog)
     catalog))
   (define package-names (if maybe-name
-    (names->transitive-dependency-names-and-cycles (list maybe-name) (calculate-package-relations sanitized-catalog))
-    (hash-keys sanitized-catalog)))
+    (names->transitive-dependency-names-and-cycles (list maybe-name) (calculate-package-relations pre-sanitized-catalog))
+    (hash-keys pre-sanitized-catalog)))
   (define processed-catalog (if process-catalog?
-    (catalog-add-nix-sha256 sanitized-catalog (set-intersect package-names (hash-keys sanitized-catalog)))
-    sanitized-catalog))
+    (catalog-add-nix-sha256 pre-sanitized-catalog (set-intersect package-names (hash-keys pre-sanitized-catalog)))
+    pre-sanitized-catalog))
+  (define sanitized-catalog (if (sanitize-catalog?)
+    (sanitize-catalog processed-catalog)
+    processed-catalog))
   (define filtered-package-names (if maybe-name
     package-names
-    (hash-keys processed-catalog)))
+    (hash-keys sanitized-catalog)))
 
   (for/hash ((name filtered-package-names))
-    (values name (hash-ref processed-catalog name))))
+    (values name (hash-ref sanitized-catalog name))))
 
 (define (names->thin-nix-function names packages-dictionary)
   (define catalog (catalog-add-nix-sha256 packages-dictionary names))
