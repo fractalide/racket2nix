@@ -1,6 +1,6 @@
 {
   "name": "source",
-  "url": "https://github.com/NixOS/nixpkgs-channels/archive/b58ada326aa612ea1e2fb9a53d550999e94f1985.tar.gz",
-  "sha256": "1y7f5ixsxfdmm02pz5kf039gy5j7y0lfdfzrkgl5kjblyzrkglm3",
+  "url": "https://github.com/NixOS/nixpkgs-channels/archive/571212eb839d482992adb05479b86eeb6a9c7b2f.tar.gz",
+  "sha256": "0ncsh5rkjbcdaksngmn7apiq1qhm5z1z6xa1x70svxq91znibp4f",
   "unpack": true
 }
