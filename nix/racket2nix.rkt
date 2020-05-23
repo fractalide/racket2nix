@@ -301,7 +301,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 
     mkdir -p $out/bin
     for launcher in $lib/bin/*; do
-      if ! [ "''${launcher##*/}" = racket ]; then
+      if ! [[ ''${launcher##*/} = racket || ''${launcher##*/} = raco ]]; then
         ln -s "$launcher" "$out/bin/''${launcher##*/}"
       fi
     done
