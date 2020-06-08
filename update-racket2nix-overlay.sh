@@ -8,7 +8,7 @@ cd "${BASH_SOURCE[0]%${SCRIPT_NAME}}"
 
 OUTPUT_FILE=build-racket-racket2nix-overlay.nix
 
-if [[ $1 == --inside-nix-derivation ]]; then
+if (( $# > 0 )) && [[ $1 == --inside-nix-derivation ]]; then
   racket2nix=racket2nix
 else
   racket2nix=./racket2nix
