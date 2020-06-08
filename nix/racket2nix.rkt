@@ -1,7 +1,6 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require graph)
 (require json)
 (require pkg/lib)
 (require racket/hash)
@@ -853,6 +852,8 @@ EOM
 
 ; assumes catalog has had calculate-transitive-dependencies run on it
 (define (calculate-cycles catalog names)
+  (define directed-graph (dynamic-require 'graph 'directed-graph))
+  (define scc (dynamic-require 'graph 'scc))
   (define edges (for/fold
     ([edges '()]) ([name names])
     (for/fold
