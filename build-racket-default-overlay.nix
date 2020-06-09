@@ -35,5 +35,18 @@ lib.optionalAttrs (super ? "compatibility+compatibility-doc+data-doc+db-doc+dist
   "compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." = super."compatibility+compatibility-doc+data-doc+db-doc+distributed-p...".overrideAttrs (oldAttrs: {
   buildInputs = oldAttrs.buildInputs or [] ++ builtins.attrValues {
     inherit (self.pkgs) glib cairo fontconfig gmp gtk3 gsettings-desktop-schemas libedit libjpeg_turbo libpng mpfr openssl pango poppler readline sqlite;
-  }; });
-}
+  }; }); } //
+lib.optionalAttrs (super ? "check-sexp-equal") { check-sexp-equal = super.check-sexp-equal.overrideAttrs (_: {
+  patches = [ (builtins.toFile "check-sexp-equal.patch" ''
+    diff -u check-sexp-equal.orig/info.rkt check-sexp-equal/info.rkt
+    --- a/check-sexp-equal/info.rkt	2020-06-09 21:38:23.913644000 +0800
+    +++ b/check-sexp-equal/info.rkt	2020-06-09 21:39:37.896841000 +0800
+    @@ -6,6 +6,7 @@
+
+     (define deps '(("sexp-diff" #:version "0.1")
+                    "base"
+    +               "racket-index"
+                    "rackunit-lib"))
+
+     (define build-deps '("racket-doc" "scribble-lib" "racket-doc"))
+  '') ]; }); }
