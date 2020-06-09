@@ -889,7 +889,11 @@ EOM
   (define names (if (pair? package-names)  package-names (hash-keys catalog)))
   (define catalog-with-transdeps (calculate-transitive-dependencies catalog names))
 
-  (define cycles (calculate-cycles catalog names))
+  (define cycles (if
+    (for/and ([(name package) (in-hash catalog-with-transdeps)])
+      (hash-has-key? package 'transitive-dependency-names))
+    '()
+    (calculate-cycles catalog names)))
 
   (define catalog-with-transdeps-and-cycles (for/fold ([acc-catalog catalog]) ([name (append* names cycles)])
     (define circdeps (or (for/or ([cycle cycles]) (if (member name cycle) cycle #f)) '()))
