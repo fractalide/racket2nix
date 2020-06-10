@@ -198,7 +198,6 @@ r-linq
 r7rs-lib
 rackcheck
 racket-route-match
-racket-test-extra
 racketcon-2018-web-devel-workshop
 racklog
 rackunit-abbrevs
