@@ -6,3 +6,4 @@ compiled
 result*
 /catalog.rktd.new
 /racket-packages.nix.??????
+*.new.*
