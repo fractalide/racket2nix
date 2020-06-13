@@ -20,7 +20,7 @@ callPackage ({bash, cacert, coreutils, diffutils, gnused, lib, nix, racket, rack
     tests = {
       inherit (callPackage <racket2nix/test.nix> {}) light-tests;
     } // lib.optionalAttrs ((builtins.match ".*racket-minimal.*" racket.name) != null) {
-      inherit (callPackage <racket2nix/test.nix> {}) all-checked-packages heavy-tests;
+      inherit (callPackage <racket2nix/test.nix> {}) top100-checked-packages heavy-tests;
     };
   }) {});
 in
