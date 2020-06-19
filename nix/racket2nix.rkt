@@ -65,11 +65,6 @@ lib.fixedRacketSource = { pathname, sha256 }: pkgs.runCommand (baseNameOf (self.
   echo ERROR: Unable to find source for $name: $pathname
 '';
 
-lib.resolveThinInputs = let resolve = thinInputs: if thinInputs == [] then [] else
-  let head = builtins.head thinInputs; tail = builtins.tail thinInputs; in
-  [ head ] ++ head.racketBuildInputs or [] ++ resolve head.racketThinBuildInputs or [] ++ resolve tail;
-  in resolve;
-
 lib.makeConfigRktd = builtins.toFile "make-config-rktd.rkt" ''
     #lang racket
 
@@ -176,7 +171,9 @@ lib.makeRacket = makeSetupHook { substitutions = rec { inherit (self.pkgs) bash 
 lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridable (attrs: stdenv.mkDerivation (rec {
   name = "${racket.name}-${pname}";
   inherit (attrs) pname;
-  racketBuildInputs = attrs.racketBuildInputs or [] ++ self.lib.resolveThinInputs attrs.racketThinBuildInputs or [];
+  racketBuildInputs = lib.lists.unique (
+    attrs.racketThinBuildInputs or [] ++
+    (builtins.concatLists (builtins.catAttrs "racketBuildInputs" attrs.racketThinBuildInputs)));
   buildInputs = [ cacert unzip racket self.lib.makeRacket ] ++ racketBuildInputs;
   circularBuildInputs = attrs.circularBuildInputs or [];
   circularBuildInputsStr = lib.concatStringsSep " " circularBuildInputs;
@@ -322,7 +319,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
 
   installCheckFileFinder = ''find "$lib"/share/racket/pkgs/"$pname" -name '*.rkt' -print0'';
   installCheckPhase = if !doInstallCheck then null else let
-    testConfigBuildInputs = self.lib.resolveThinInputs [ self.compiler-lib ];
+    testConfigBuildInputs = [ self.compiler-lib ] ++ self.compiler-lib.racketBuildInputs;
     testConfigBuildInputsStr = lib.concatStringsSep " " (map (drv: drv.lib) testConfigBuildInputs);
   in ''
     runHook preInstallCheck
@@ -399,7 +396,7 @@ EOM
 self.lib.mkRacketDerivation rec {
   pname = "~a";
 ~a
-  racketBuildInputs = [ ~a ];
+  racketThinBuildInputs = [ ~a ];
   circularBuildInputs = [ ~a ];
   reverseCircularBuildInputs = [ ~a ];
   }
@@ -669,11 +666,8 @@ EOM
   (define url (hash-ref package 'source #f))
   (define sha1 (hash-ref package 'checksum #f))
   (define nix-sha256 (hash-ref package 'nix-sha256 #f))
-  (define dependency-names (hash-ref package 'dependency-names))
   (define circular-dependency-names (hash-ref package 'circular-dependencies '()))
-  (define trans-dep-names (if thin?
-    dependency-names
-    (hash-ref package 'transitive-dependency-names)))
+  (define dependency-names (remove* circular-dependency-names (hash-ref package 'dependency-names)))
   (define reverse-circular-dependency-names
     (cond
       [flat?
@@ -683,7 +677,7 @@ EOM
           (append (list package-name) rev-circ-dep-names))
         (remove name (remove* terminal-package-names (remove-duplicates (append*
           (hash-ref package 'reverse-circular-build-inputs (lambda () '()))
-          (map expand-reverse-circulars trans-dep-names)))))]
+          (map expand-reverse-circulars (hash-ref package 'transitive-dependency-names))))))]
       [else
         (define calculated-reverse-circular
                 (hash-ref package 'reverse-circular-build-inputs
@@ -693,7 +687,12 @@ EOM
                           (lambda () '())))
         (remove-duplicates (append calculated-reverse-circular forced-reverse-circular))]))
   (derivation #:thin? thin?
-              name url sha1 trans-dep-names (if flat? '() circular-dependency-names)
+              name url sha1
+              (cond
+                [flat? terminal-package-names]
+                [(null? circular-dependency-names) dependency-names]
+                [else (cons (cycle-name circular-dependency-names) dependency-names)])
+              (if flat? '() circular-dependency-names)
               reverse-circular-dependency-names
               nix-sha256))
 
