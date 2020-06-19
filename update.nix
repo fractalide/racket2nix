@@ -3,10 +3,10 @@
 , test ? callPackage ./test.nix {}
 }:
 
-callPackage ({mkShell, coreutils, findutils, gawk, gnugrep, gnused, nix}:
+callPackage ({ mkShell, cacert, coreutils, findutils, gawk, gnugrep, gnused, nix, racket2nix-stage0 }:
 {
   top100-checked-packages = mkShell {
-    name = "top100-checked-packages";
+    name = "update-top100-checked-packages";
     nativeBuildInputs = [ coreutils findutils gawk gnugrep gnused nix ];
     shellHook = ''
       # Rank checked packages by roughly how many of the other checked packages transitively depend
@@ -21,6 +21,18 @@ callPackage ({mkShell, coreutils, findutils, gawk, gnugrep, gnused, nix}:
         sed -ne 's/.*racket-minimal-[0-9.]*-\([^.]*\)[.]drv"/\1/p' \
         > top100-checked-packages.txt.new.$$
       mv top100-checked-packages.txt{.new.$$,}
+      exit 0
+    '';
+  };
+  racket-packages = mkShell {
+    name = "update-racket-packages";
+    nativeBuildInputs = [ cacert coreutils nix racket2nix-stage0 ];
+    shellHook = ''
+      set -euo pipefail
+
+      out=$(mktemp racket-packages.nix.XXXXXX)
+      racket2nix --catalog catalog.rktd > $out
+      mv $out racket-packages.nix
       exit 0
     '';
   };
