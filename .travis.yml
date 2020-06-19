@@ -3,6 +3,7 @@ os:
  - linux
  - osx
 script:
+ - nix upgrade-nix
  - sudo env NIX_PATH=$NIX_PATH $(which nix-shell) ./support/utils/setup-hydra.fractalide.com.sh
  - nix-instantiate --add-root $PWD/nixpkgs/result.drv --indirect ./nixpkgs | xargs readlink
  - nix-build --out-link $PWD/nixpkgs/result ./nixpkgs
