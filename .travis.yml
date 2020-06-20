@@ -3,7 +3,8 @@ os:
  - linux
  - osx
 script:
- - sudo env NIX_PATH=$NIX_PATH $(which nix-shell) ./support/utils/setup-hydra.fractalide.com.sh
+ - nix upgrade-nix
+ - ./support/utils/setup-hydra.fractalide.com.sh || sudo env NIX_PATH=$NIX_PATH $(which nix-shell) ./support/utils/setup-hydra.fractalide.com.sh
  - nix-instantiate --add-root $PWD/nixpkgs/result.drv --indirect ./nixpkgs | xargs readlink
  - nix-build --out-link $PWD/nixpkgs/result ./nixpkgs
  - ./support/utils/nix-build-travis-fold.sh -I racket2nix=$PWD release.nix
