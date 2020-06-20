@@ -19,6 +19,9 @@ lib.optionalAttrs (super ? "racket-index") { racket-index = super.racket-index.o
         [latex-dest
          (build-path latex-dest "docindex.sqlite")]
   '') ]; }); } //
+lib.optionalAttrs (super ? "brag-lib") {
+  brag-lib = super.brag-lib.overrideAttrs (oldAttrs: { installCheckTimeout = 120; });
+} //
 lib.optionalAttrs (super ? "compatibility+compatibility-doc+data-doc+db-doc+distributed-p...") {
   "compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." = super."compatibility+compatibility-doc+data-doc+db-doc+distributed-p...".overrideAttrs (oldAttrs: {
   buildInputs = oldAttrs.buildInputs or [] ++ builtins.attrValues {
