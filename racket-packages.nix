@@ -2370,9 +2370,17 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0vh781q0iw0wv1a741qp7s9havc030p5wahz6vcdhfn9azv00znp";
   };
   };
-  racketThinBuildInputs = [ self."functional-doc+collections-doc" self."base" self."collections-lib" self."racket-doc" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."collections-doc+functional-doc" self."base" self."collections-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [ "functional-doc" "collections-doc" ];
   reverseCircularBuildInputs = [  ];
+  };
+  "collections-doc+functional-doc" = self.lib.mkRacketDerivation rec {
+  pname = "collections-doc+functional-doc";
+
+  extraSrcs = [ self."functional-doc".src self."collections-doc".src ];
+  racketThinBuildInputs = [ self."base" self."collections-lib" self."functional-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [ "functional-doc" "collections-doc" ];
   };
   "collections-lens" = self.lib.mkRacketDerivation rec {
   pname = "collections-lens";
@@ -2606,9 +2614,17 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/compatibility.zip";
     sha1 = "2c5ff0e46b7525503a9c038f33dcb30198549264";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."compatibility-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
+  };
+  "compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." = self.lib.mkRacketDerivation rec {
+  pname = "compatibility+compatibility-doc+data-doc+db-doc+distributed-p...";
+
+  extraSrcs = [ self."racket-doc".src self."readline".src self."draw".src self."syntax-color".src self."parser-tools-doc".src self."compatibility".src self."pict".src self."future-visualizer".src self."distributed-places-doc".src self."distributed-places".src self."trace".src self."planet-doc".src self."quickscript".src self."drracket-tool-doc".src self."drracket".src self."gui".src self."xrepl".src self."typed-racket-doc".src self."slideshow-doc".src self."pict-doc".src self."draw-doc".src self."syntax-color-doc".src self."string-constants-doc".src self."readline-doc".src self."macro-debugger".src self."errortrace-doc".src self."profile-doc".src self."xrepl-doc".src self."gui-doc".src self."scribble-doc".src self."net-cookies-doc".src self."net-doc".src self."compatibility-doc".src self."rackunit-doc".src self."web-server-doc".src self."db-doc".src self."mzscheme-doc".src self."r5rs-doc".src self."r6rs-doc".src self."srfi-doc".src self."plot-doc".src self."math-doc".src self."data-doc".src ];
+  racketThinBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."distributed-places-lib" self."draw-lib" self."drracket-plugin-lib" self."drracket-tool-lib" self."errortrace-lib" self."gui-lib" self."gui-pkg-manager-lib" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-index" self."rackunit-gui" self."rackunit-lib" self."readline-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" self."xrepl-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   };
   "compatibility-doc" = self.lib.mkRacketDerivation rec {
   pname = "compatibility-doc";
@@ -2616,7 +2632,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/compatibility-doc.zip";
     sha1 = "269792ae5b6c306130a87a059c306d523ceb86ae";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scribble-lib" self."compatibility-lib" self."pconvert-lib" self."sandbox-lib" self."compiler-lib" self."gui-lib" self."scheme-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."compatibility-lib" self."pconvert-lib" self."sandbox-lib" self."compiler-lib" self."gui-lib" self."scheme-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3437,7 +3453,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/data-doc.zip";
     sha1 = "df65bfb4fe3134f5159a9e9204110a5b5520ffab";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."data-lib" self."data-enumerate-lib" self."scribble-lib" self."plot-lib" self."math-lib" self."pict-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."data-lib" self."data-enumerate-lib" self."scribble-lib" self."plot-lib" self."math-lib" self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3581,7 +3597,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/db-doc.zip";
     sha1 = "3921716458a2d4802602e54a7e168da01024cbc8";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."srfi-lite-lib" self."base" self."scribble-lib" self."sandbox-lib" self."web-server-lib" self."db-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."srfi-lite-lib" self."base" self."scribble-lib" self."sandbox-lib" self."web-server-lib" self."db-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3793,9 +3809,17 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/deinprogramm-signature.zip";
     sha1 = "122ec1b39094cddb7a4c2bec3224bfd91590dfc7";
   };
-  racketThinBuildInputs = [ self."htdp-lib+deinprogramm-signature" self."base" self."compatibility-lib" self."drracket-plugin-lib" self."gui-lib" self."scheme-lib" self."srfi-lib" self."string-constants-lib" ];
+  racketThinBuildInputs = [ self."deinprogramm-signature+htdp-lib" self."base" self."compatibility-lib" self."drracket-plugin-lib" self."gui-lib" self."scheme-lib" self."srfi-lib" self."string-constants-lib" ];
   circularBuildInputs = [ "htdp-lib" "deinprogramm-signature" ];
   reverseCircularBuildInputs = [  ];
+  };
+  "deinprogramm-signature+htdp-lib" = self.lib.mkRacketDerivation rec {
+  pname = "deinprogramm-signature+htdp-lib";
+
+  extraSrcs = [ self."htdp-lib".src self."deinprogramm-signature".src ];
+  racketThinBuildInputs = [ self."at-exp-lib" self."base" self."compatibility-lib" self."draw-lib" self."drracket-plugin-lib" self."errortrace-lib" self."gui-lib" self."html-lib" self."images-gui-lib" self."images-lib" self."net-lib" self."pconvert-lib" self."pict-lib" self."plai-lib" self."r5rs-lib" self."racket-index" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."slideshow-lib" self."snip-lib" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [ "htdp-lib" "deinprogramm-signature" ];
   };
   "delay-pure" = self.lib.mkRacketDerivation rec {
   pname = "delay-pure";
@@ -4097,7 +4121,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/distributed-places.zip";
     sha1 = "fc16d0a608c0903bc66756e43ccefb1bb81a032a";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."distributed-places-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."distributed-places-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4107,7 +4131,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/distributed-places-doc.zip";
     sha1 = "c85adf5d4e99f7b703d6935be680f9c7cea063e7";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."distributed-places-lib" self."sandbox-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."distributed-places-lib" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4328,7 +4352,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/draw.zip";
     sha1 = "13ac8b897da54e6d556894d0d0c7d24b17072eb5";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."draw-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."draw-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4338,7 +4362,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-doc.zip";
     sha1 = "d712310a23abc9199567232255d6dd7d55b80a40";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."at-exp-lib" self."base" self."gui-lib" self."pict-lib" self."scribble-lib" self."draw-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."at-exp-lib" self."base" self."gui-lib" self."pict-lib" self."scribble-lib" self."draw-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4711,7 +4735,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket.zip";
     sha1 = "4ad62420ae8812ddb66f07620b427b53a2544434";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."scheme-lib" self."data-lib" self."compiler-lib" self."base" self."planet-lib" self."compatibility-lib" self."draw-lib" self."errortrace-lib" self."macro-debugger-text-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."profile-lib" self."sandbox-lib" self."scribble-lib" self."snip-lib" self."string-constants-lib" self."typed-racket-lib" self."wxme-lib" self."gui-lib" self."racket-index" self."html-lib" self."images-lib" self."icons" self."typed-racket-more" self."net-lib" self."tex-table" self."htdp-lib" self."drracket-plugin-lib" self."gui-pkg-manager-lib" self."drracket-tool-lib" self."pict-snip-lib" self."option-contract-lib" self."syntax-color-lib" self."at-exp-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."data-lib" self."compiler-lib" self."base" self."planet-lib" self."compatibility-lib" self."draw-lib" self."errortrace-lib" self."macro-debugger-text-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."profile-lib" self."sandbox-lib" self."scribble-lib" self."snip-lib" self."string-constants-lib" self."typed-racket-lib" self."wxme-lib" self."gui-lib" self."racket-index" self."html-lib" self."images-lib" self."icons" self."typed-racket-more" self."net-lib" self."tex-table" self."htdp-lib" self."drracket-plugin-lib" self."gui-pkg-manager-lib" self."drracket-tool-lib" self."pict-snip-lib" self."option-contract-lib" self."syntax-color-lib" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4823,7 +4847,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket-tool-doc.zip";
     sha1 = "16f359c5a764cf09758cc1c21fe41264659bc250";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scribble-lib" self."drracket-tool-lib" self."gui-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."drracket-tool-lib" self."gui-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5272,7 +5296,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/errortrace-doc.zip";
     sha1 = "a6aedd3dc8f8d4782bec2fb02e2881f6616b97c4";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."errortrace-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."errortrace-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5968,17 +5992,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "09020dhrwlqa4xdf8jbp7vmzfgnahn3q3dif1z48cff59fwdvyrb";
   };
   };
-  racketThinBuildInputs = [ self."functional-doc+collections-doc" self."base" self."collections-lib" self."functional-lib" self."racket-doc" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."collections-doc+functional-doc" self."base" self."collections-lib" self."functional-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [ "functional-doc" "collections-doc" ];
   reverseCircularBuildInputs = [  ];
-  };
-  "functional-doc+collections-doc" = self.lib.mkRacketDerivation rec {
-  pname = "functional-doc+collections-doc";
-
-  extraSrcs = [ self."functional-doc".src self."collections-doc".src ];
-  racketThinBuildInputs = [ self."base" self."collections-lib" self."functional-lib" self."racket-doc" self."scribble-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [ "functional-doc" "collections-doc" ];
   };
   "functional-lib" = self.lib.mkRacketDerivation rec {
   pname = "functional-lib";
@@ -6013,7 +6029,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/future-visualizer.zip";
     sha1 = "b07c479e5ba1309617590be16c3a0580b06ef138";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."data-lib" self."draw-lib" self."pict-lib" self."gui-lib" self."scheme-lib" self."scribble-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."data-lib" self."draw-lib" self."pict-lib" self."gui-lib" self."scheme-lib" self."scribble-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6761,7 +6777,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/gui.zip";
     sha1 = "dcaa07b52534b78b68f1e59ee86d5497ea8ce7ac";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."gui-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."gui-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6771,7 +6787,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-doc.zip";
     sha1 = "746d318ce82c613f2f7cb7eb899303b510ea18ca";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scheme-lib" self."at-exp-lib" self."draw-lib" self."scribble-lib" self."snip-lib" self."string-constants-lib" self."syntax-color-lib" self."wxme-lib" self."gui-lib" self."pict-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."at-exp-lib" self."draw-lib" self."scribble-lib" self."snip-lib" self."string-constants-lib" self."syntax-color-lib" self."wxme-lib" self."gui-lib" self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -7213,17 +7229,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/htdp-lib.zip";
     sha1 = "a9d2c14549f3ede318ad45c1846598f0e2d39f55";
   };
-  racketThinBuildInputs = [ self."htdp-lib+deinprogramm-signature" self."base" self."compatibility-lib" self."draw-lib" self."drracket-plugin-lib" self."errortrace-lib" self."html-lib" self."images-gui-lib" self."images-lib" self."net-lib" self."pconvert-lib" self."plai-lib" self."r5rs-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."slideshow-lib" self."snip-lib" self."srfi-lite-lib" self."string-constants-lib" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" self."gui-lib" self."pict-lib" self."racket-index" self."at-exp-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."deinprogramm-signature+htdp-lib" self."base" self."compatibility-lib" self."draw-lib" self."drracket-plugin-lib" self."errortrace-lib" self."html-lib" self."images-gui-lib" self."images-lib" self."net-lib" self."pconvert-lib" self."plai-lib" self."r5rs-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."slideshow-lib" self."snip-lib" self."srfi-lite-lib" self."string-constants-lib" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" self."gui-lib" self."pict-lib" self."racket-index" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "htdp-lib" "deinprogramm-signature" ];
   reverseCircularBuildInputs = [  ];
-  };
-  "htdp-lib+deinprogramm-signature" = self.lib.mkRacketDerivation rec {
-  pname = "htdp-lib+deinprogramm-signature";
-
-  extraSrcs = [ self."htdp-lib".src self."deinprogramm-signature".src ];
-  racketThinBuildInputs = [ self."at-exp-lib" self."base" self."compatibility-lib" self."draw-lib" self."drracket-plugin-lib" self."errortrace-lib" self."gui-lib" self."html-lib" self."images-gui-lib" self."images-lib" self."net-lib" self."pconvert-lib" self."pict-lib" self."plai-lib" self."r5rs-lib" self."racket-index" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."slideshow-lib" self."snip-lib" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [ "htdp-lib" "deinprogramm-signature" ];
   };
   "htdp-test" = self.lib.mkRacketDerivation rec {
   pname = "htdp-test";
@@ -9442,7 +9450,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/macro-debugger.zip";
     sha1 = "38f9d9c20f052a8245c523c91e0d51c22845eb83";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."class-iop-lib" self."compatibility-lib" self."data-lib" self."gui-lib" self."images-lib" self."images-gui-lib" self."parser-tools-lib" self."macro-debugger-text-lib" self."snip-lib" self."draw-lib" self."racket-index" self."rackunit-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."class-iop-lib" self."compatibility-lib" self."data-lib" self."gui-lib" self."images-lib" self."images-gui-lib" self."parser-tools-lib" self."macro-debugger-text-lib" self."snip-lib" self."draw-lib" self."racket-index" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -9826,7 +9834,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/math-doc.zip";
     sha1 = "13b244aba872155767af054732e9dc6aa4ca6f4c";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."at-exp-lib" self."math-lib" self."plot-gui-lib" self."sandbox-lib" self."scribble-lib" self."typed-racket-lib" self."2d-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."at-exp-lib" self."math-lib" self."plot-gui-lib" self."sandbox-lib" self."scribble-lib" self."typed-racket-lib" self."2d-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -10707,7 +10715,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/mzscheme-doc.zip";
     sha1 = "5b9dd5e0f43754dfeae569524b3df737e14c095c";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."compatibility-lib" self."r5rs-lib" self."scheme-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."compatibility-lib" self."r5rs-lib" self."scheme-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -10852,7 +10860,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/net-cookies-doc.zip";
     sha1 = "ec2c3fa81c1efa7685fe2ce29ec06da6aaf4b538";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."net-cookies-lib" self."web-server-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."net-cookies-lib" self."web-server-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -10882,7 +10890,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/net-doc.zip";
     sha1 = "c3b35da19f0fbff288eeac9604478c849b3f47a3";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."compatibility-lib" self."net-lib" self."scribble-lib" self."web-server-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."compatibility-lib" self."net-lib" self."scribble-lib" self."web-server-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -10974,9 +10982,17 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/net-test.zip";
     sha1 = "e61cc1749447ab3b81c3e7296aaf49b99b1a61d9";
   };
-  racketThinBuildInputs = [ self."racket-test+net-test" self."base" self."at-exp-lib" self."compatibility-lib" self."eli-tester" self."net-lib" self."rackunit-lib" self."sandbox-lib" self."web-server-lib" ];
+  racketThinBuildInputs = [ self."net-test+racket-test" self."base" self."at-exp-lib" self."compatibility-lib" self."eli-tester" self."net-lib" self."rackunit-lib" self."sandbox-lib" self."web-server-lib" ];
   circularBuildInputs = [ "racket-test" "net-test" ];
   reverseCircularBuildInputs = [  ];
+  };
+  "net-test+racket-test" = self.lib.mkRacketDerivation rec {
+  pname = "net-test+racket-test";
+
+  extraSrcs = [ self."racket-test".src self."net-test".src ];
+  racketThinBuildInputs = [ self."at-exp-lib" self."base" self."cext-lib" self."compatibility-lib" self."compiler-lib" self."data-lib" self."eli-tester" self."net-lib" self."option-contract-lib" self."pconvert-lib" self."planet-lib" self."racket-index" self."racket-test-core" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."serialize-cstruct-lib" self."srfi-lib" self."web-server-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [ "racket-test" "net-test" ];
   };
   "net2" = self.lib.mkRacketDerivation rec {
   pname = "net2";
@@ -11713,7 +11729,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/parser-tools-doc.zip";
     sha1 = "4de3c01da66ae74458780e386ad6adcdbc190dc4";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scheme-lib" self."parser-tools-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."parser-tools-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -11955,7 +11971,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/pict.zip";
     sha1 = "f71ecabbc29f5654fe3262ba901def1f73fd5d54";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."pict-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -11977,7 +11993,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-doc.zip";
     sha1 = "e5c1cfc964b6f2160ee943c0f75b2695e04b738a";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."draw-lib" self."gui-lib" self."scribble-lib" self."slideshow-lib" self."pict-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."draw-lib" self."gui-lib" self."scribble-lib" self."slideshow-lib" self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -12367,7 +12383,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/planet-doc.zip";
     sha1 = "542193f566ec23ec56cbe2d23cb3544943050b44";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."planet-lib" self."scribble-lib" self."base" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."planet-lib" self."scribble-lib" self."base" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -12489,7 +12505,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/plot-doc.zip";
     sha1 = "5f9850b78ac7277b3aee5e6bdfef8bfb2dfdee0a";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."plot-lib" self."plot-gui-lib" self."db-lib" self."draw-lib" self."gui-lib" self."pict-lib" self."plot-compat" self."scribble-lib" self."slideshow-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."plot-lib" self."plot-gui-lib" self."db-lib" self."draw-lib" self."gui-lib" self."pict-lib" self."plot-compat" self."scribble-lib" self."slideshow-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13061,7 +13077,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/profile-doc.zip";
     sha1 = "9ce1399f7ea228e6d07ca7a04411dfb8d433c5f2";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scribble-lib" self."profile-lib" self."errortrace-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."profile-lib" self."errortrace-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13373,7 +13389,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/quickscript.zip";
     sha1 = "5dfed92f972f61eb7b780f06c205cb74bba14678";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."drracket-plugin-lib" self."gui-lib" self."net-lib" self."scribble-lib" self."at-exp-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."drracket-plugin-lib" self."gui-lib" self."net-lib" self."scribble-lib" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13465,7 +13481,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/r5rs-doc.zip";
     sha1 = "94144728630441dc6ea77e59adad12ed48fd36c6";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scheme-lib" self."scribble-lib" self."r5rs-lib" self."compatibility-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."scribble-lib" self."r5rs-lib" self."compatibility-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13495,7 +13511,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/r6rs-doc.zip";
     sha1 = "38a969d8cd6bc9c152ca45e40ed9a80844f5b95d";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."racket-index" self."base" self."scribble-lib" self."r6rs-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."racket-index" self."base" self."scribble-lib" self."r6rs-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13650,17 +13666,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-doc.zip";
     sha1 = "c9aa49f9f28e5a1b409b4b1162dbf6e9563da5d8";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."scheme-lib" self."base" self."net-lib" self."sandbox-lib" self."scribble-lib" self."racket-index" self."at-exp-lib" self."rackunit-lib" self."serialize-cstruct-lib" self."cext-lib" self."compiler-lib" self."math-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."net-lib" self."sandbox-lib" self."scribble-lib" self."racket-index" self."at-exp-lib" self."rackunit-lib" self."serialize-cstruct-lib" self."cext-lib" self."compiler-lib" self."math-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
-  };
-  "racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." = self.lib.mkRacketDerivation rec {
-  pname = "racket-doc+readline+draw+syntax-color+parser-tools-doc+compat...";
-
-  extraSrcs = [ self."racket-doc".src self."readline".src self."draw".src self."syntax-color".src self."parser-tools-doc".src self."compatibility".src self."pict".src self."future-visualizer".src self."distributed-places-doc".src self."distributed-places".src self."trace".src self."planet-doc".src self."quickscript".src self."drracket-tool-doc".src self."drracket".src self."gui".src self."xrepl".src self."typed-racket-doc".src self."slideshow-doc".src self."pict-doc".src self."draw-doc".src self."syntax-color-doc".src self."string-constants-doc".src self."readline-doc".src self."macro-debugger".src self."errortrace-doc".src self."profile-doc".src self."xrepl-doc".src self."gui-doc".src self."scribble-doc".src self."net-cookies-doc".src self."net-doc".src self."compatibility-doc".src self."rackunit-doc".src self."web-server-doc".src self."db-doc".src self."mzscheme-doc".src self."r5rs-doc".src self."r6rs-doc".src self."srfi-doc".src self."plot-doc".src self."math-doc".src self."data-doc".src ];
-  racketThinBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."distributed-places-lib" self."draw-lib" self."drracket-plugin-lib" self."drracket-tool-lib" self."errortrace-lib" self."gui-lib" self."gui-pkg-manager-lib" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-index" self."rackunit-gui" self."rackunit-lib" self."readline-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" self."xrepl-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   };
   "racket-dogstatsd" = self.lib.mkRacketDerivation rec {
   pname = "racket-dogstatsd";
@@ -13922,17 +13930,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-test.zip";
     sha1 = "86da3058feb2167327b63520c45bbf13d6fd4f05";
   };
-  racketThinBuildInputs = [ self."racket-test+net-test" self."compiler-lib" self."sandbox-lib" self."compatibility-lib" self."eli-tester" self."planet-lib" self."net-lib" self."serialize-cstruct-lib" self."cext-lib" self."pconvert-lib" self."racket-test-core" self."web-server-lib" self."rackunit-lib" self."at-exp-lib" self."option-contract-lib" self."srfi-lib" self."scribble-lib" self."racket-index" self."scheme-lib" self."base" self."data-lib" ];
+  racketThinBuildInputs = [ self."net-test+racket-test" self."compiler-lib" self."sandbox-lib" self."compatibility-lib" self."eli-tester" self."planet-lib" self."net-lib" self."serialize-cstruct-lib" self."cext-lib" self."pconvert-lib" self."racket-test-core" self."web-server-lib" self."rackunit-lib" self."at-exp-lib" self."option-contract-lib" self."srfi-lib" self."scribble-lib" self."racket-index" self."scheme-lib" self."base" self."data-lib" ];
   circularBuildInputs = [ "racket-test" "net-test" ];
   reverseCircularBuildInputs = [  ];
-  };
-  "racket-test+net-test" = self.lib.mkRacketDerivation rec {
-  pname = "racket-test+net-test";
-
-  extraSrcs = [ self."racket-test".src self."net-test".src ];
-  racketThinBuildInputs = [ self."at-exp-lib" self."base" self."cext-lib" self."compatibility-lib" self."compiler-lib" self."data-lib" self."eli-tester" self."net-lib" self."option-contract-lib" self."pconvert-lib" self."planet-lib" self."racket-index" self."racket-test-core" self."rackunit-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."serialize-cstruct-lib" self."srfi-lib" self."web-server-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [ "racket-test" "net-test" ];
   };
   "racket-test-core" = self.lib.mkRacketDerivation rec {
   pname = "racket-test-core";
@@ -14270,7 +14270,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit-doc.zip";
     sha1 = "affcc5e081c9fe571731995cb1cf4c203607afc1";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."racket-index" self."rackunit-gui" self."rackunit-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."racket-index" self."rackunit-gui" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -14606,7 +14606,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/readline.zip";
     sha1 = "d706446c50795b093ec3c431ea488f5e87d86581";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."readline-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."readline-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -14616,7 +14616,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/readline-doc.zip";
     sha1 = "8f12d8776d14edf6c62c172fbe578103ab24d7ad";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scribble-lib" self."readline-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."readline-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15886,7 +15886,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/scribble-doc.zip";
     sha1 = "a1648265ebd9c09428b6f8dd5a93c00add34bbf0";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."racket-index" self."scheme-lib" self."at-exp-lib" self."base" self."compatibility-lib" self."draw-lib" self."pict-lib" self."sandbox-lib" self."slideshow-lib" self."scribble-lib" self."scribble-text-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."racket-index" self."scheme-lib" self."at-exp-lib" self."base" self."compatibility-lib" self."draw-lib" self."pict-lib" self."sandbox-lib" self."slideshow-lib" self."scribble-lib" self."scribble-text-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16569,7 +16569,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/slideshow-doc.zip";
     sha1 = "a5b94aca72904e18413795aa802253745d186c0a";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."scheme-lib" self."base" self."gui-lib" self."pict-lib" self."scribble-lib" self."slideshow-lib" self."at-exp-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."gui-lib" self."pict-lib" self."scribble-lib" self."slideshow-lib" self."at-exp-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16946,7 +16946,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/srfi-doc.zip";
     sha1 = "3b7c81202cefe56599af810de8615a2cf1421aa8";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."scheme-lib" self."base" self."scribble-lib" self."compatibility-lib" self."scheme-lib" self."base" self."scribble-lib" self."srfi-lib" self."compatibility-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."scribble-lib" self."compatibility-lib" self."scheme-lib" self."base" self."scribble-lib" self."srfi-lib" self."compatibility-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -17189,7 +17189,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/string-constants-doc.zip";
     sha1 = "a8c568616380ce22a8cbb9078609e5bc5028a265";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."string-constants-lib" self."base" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."string-constants-lib" self."base" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -17619,7 +17619,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/syntax-color.zip";
     sha1 = "470aa2e55eb4b645a37513f7a4ceb1eaf6283082";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."syntax-color-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."syntax-color-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -17629,7 +17629,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/syntax-color-doc.zip";
     sha1 = "2b6f59ee433b8fe2e0e07433a67a932557139281";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."gui-lib" self."scribble-lib" self."syntax-color-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."gui-lib" self."scribble-lib" self."syntax-color-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18349,7 +18349,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/trace.zip";
     sha1 = "b9247f6461d50745f75de2e68063dd6b420a1a52";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."scheme-lib" self."base" self."compatibility-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."compatibility-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18778,7 +18778,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/typed-racket-doc.zip";
     sha1 = "54f6118e9c07c174c4c53b00891e348723cf627b";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."scheme-lib" self."srfi-lite-lib" self."r6rs-lib" self."sandbox-lib" self."at-exp-lib" self."scribble-lib" self."pict-lib" self."typed-racket-lib" self."typed-racket-compatibility" self."typed-racket-more" self."draw-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."srfi-lite-lib" self."r6rs-lib" self."sandbox-lib" self."at-exp-lib" self."scribble-lib" self."pict-lib" self."typed-racket-lib" self."typed-racket-compatibility" self."typed-racket-more" self."draw-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -19701,7 +19701,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/web-server-doc.zip";
     sha1 = "5d8ed7852cf18f0990e57871f8c9f5ab0df89624";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."compatibility-lib" self."db-lib" self."net-lib" self."net-cookies-lib" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" self."web-server-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."compatibility-lib" self."db-lib" self."net-lib" self."net-cookies-lib" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" self."web-server-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -20134,7 +20134,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/xrepl.zip";
     sha1 = "d8d78dbd1b77b573ecc4f9a2cace4fcc82b171f7";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."xrepl-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."xrepl-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
@@ -20144,7 +20144,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     url = "https://download.racket-lang.org/releases/7.7/pkgs/xrepl-doc.zip";
     sha1 = "c82598cec8ce7dcd24d5764da79f3fc39ca915cf";
   };
-  racketThinBuildInputs = [ self."racket-doc+readline+draw+syntax-color+parser-tools-doc+compat..." self."base" self."sandbox-lib" self."scribble-lib" self."macro-debugger-text-lib" self."profile-lib" self."readline-lib" self."xrepl-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."sandbox-lib" self."scribble-lib" self."macro-debugger-text-lib" self."profile-lib" self."readline-lib" self."xrepl-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
