@@ -346,18 +346,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "2019-nCov-report" = self.lib.mkRacketDerivation rec {
-  pname = "2019-nCov-report";
-  src = fetchgit {
-    name = "2019-nCov-report";
-    url = "git://github.com/yanyingwang/2019-nCov-report.git";
-    rev = "50bafe7b809383ecbe8dd8d0256768e76c10f2bc";
-    sha256 = "1931qxq5q2ca89j8zs9mvr34nmhb4vj709inrlqvxshldi46172g";
-  };
-  racketThinBuildInputs = [ self."base" self."at-exp-lib" self."r6rs-lib" self."gregor-lib" self."smtp" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
   "2048" = self.lib.mkRacketDerivation rec {
   pname = "2048";
   src = fetchgit {
@@ -373,8 +361,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "2d" = self.lib.mkRacketDerivation rec {
   pname = "2d";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/2d.zip";
-    sha1 = "74ea5fc2d99e095b3b5609197f14607a51b3982c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/2d.zip";
+    sha1 = "343275dc6185d080999fb15da83a60063666617d";
   };
   racketThinBuildInputs = [ self."2d-lib" self."2d-doc" ];
   circularBuildInputs = [  ];
@@ -383,8 +371,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "2d-doc" = self.lib.mkRacketDerivation rec {
   pname = "2d-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/2d-doc.zip";
-    sha1 = "32d3f9d1b8d19893f99ee4d1df46ac999f711a41";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/2d-doc.zip";
+    sha1 = "1e724e93c5b9ecc6089719ec847ec6e6df90d911";
   };
   racketThinBuildInputs = [ self."base" self."2d-lib" self."scribble-lib" self."racket-doc" self."syntax-color-doc" self."syntax-color-lib" ];
   circularBuildInputs = [  ];
@@ -393,8 +381,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "2d-lib" = self.lib.mkRacketDerivation rec {
   pname = "2d-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/2d-lib.zip";
-    sha1 = "95358557e07352fc2600795d5e21ed3928950dd9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/2d-lib.zip";
+    sha1 = "2d70b1241a4aef903a9feb3c64ca73e0b006bd2e";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."syntax-color-lib" ];
   circularBuildInputs = [  ];
@@ -403,8 +391,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "2d-test" = self.lib.mkRacketDerivation rec {
   pname = "2d-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/2d-test.zip";
-    sha1 = "aa9ea714426df96a552851933a13fe185ca5b852";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/2d-test.zip";
+    sha1 = "2fb724a290b2b830e8ce2ce20c57b893b50acd3e";
   };
   racketThinBuildInputs = [ self."base" self."2d-lib" self."racket-index" self."rackunit-lib" self."option-contract-lib" self."at-exp-lib" self."gui-lib" self."syntax-color-lib" ];
   circularBuildInputs = [  ];
@@ -576,18 +564,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "Relation" = self.lib.mkRacketDerivation rec {
-  pname = "Relation";
-  src = fetchgit {
-    name = "Relation";
-    url = "git://github.com/countvajhula/relation.git";
-    rev = "77c7536de0da67c42af39f2da5abb17ff716f1f2";
-    sha256 = "0f62rx4k54srq2f1bhfsnypsijcc6mhnawnsm5lkl1q4lrg8xak4";
-  };
-  racketThinBuildInputs = [ self."base" self."collections-lib" self."algebraic" self."describe" self."point-free" self."threading-lib" self."version-case" self."scribble-lib" self."scribble-abbrevs" self."racket-doc" self."sugar" self."collections-doc" self."functional-doc" self."rackjure" self."sandbox-lib" self."at-exp-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
   "SAT" = self.lib.mkRacketDerivation rec {
   pname = "SAT";
   src = fetchgit {
@@ -604,11 +580,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   pname = "SSE";
   src = fetchgit {
     name = "SSE";
-    url = "git://github.com/quxo/SSE.git";
-    rev = "b03b5cbfea7836a18b31267459a409a23cf5de6e";
-    sha256 = "0gkw4iy1a1l1x23fzsfr7jgzna62n1kghl7klgclsb750v4d54bj";
+    url = "https://gitlab.com/oquijano/sse.git";
+    rev = "a6858b7ca41a6ab482c170e6223dc8ac4c7f4eb2";
+    sha256 = "1pplk090pa563f0wzd26pgm5nakgx654mnw60awdwdh23lqnbb29";
   };
-  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."base" self."web-server-lib" self."web-server-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -667,8 +643,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "acmart";
     url = "git://github.com/racket/scribble.git";
-    rev = "13798906ceedfc1473643d06f4f98d4f372e889e";
-    sha256 = "1sv5wk7ajh4caxmk2wr3nx8r0hnc6raj52slam3s9vdbin8q80nq";
+    rev = "1cfa52f65ec00a9c0fbf3c8575634961d793387b";
+    sha256 = "0b355dgs3swhdmzd3bc2d1y12dnn1fh3qjfh6d283j67zndki50p";
   };
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."scribble-text-lib" self."scribble-html-lib" self."planet-lib" self."net-lib" self."at-exp-lib" self."draw-lib" self."syntax-color-lib" self."sandbox-lib" self."typed-racket-lib" self."rackunit-lib" ];
@@ -692,8 +668,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "adjutor";
     url = "git://github.com/LiberalArtist/adjutor.git";
-    rev = "c6915fe38222574400b74172d4753aab60f0d3ec";
-    sha256 = "0r2rq819ap7s5ypsbpxrriib885hff9ay5isdqd6qr8za8c70mbr";
+    rev = "4070f50877ff182b93f1586e0482d6f0ba851dc7";
+    sha256 = "1dncgf3r9qzb6drfk4dix4bk3yxghb0qq2266z7fx9sjj5ay1k0v";
   };
   racketThinBuildInputs = [ self."base" self."static-rename-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."rackunit-spec" self."scribble-doc" ];
   circularBuildInputs = [  ];
@@ -740,8 +716,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "aful";
     url = "git://github.com/jsmaniac/aful.git";
-    rev = "bbdf6dcc6ed8787eb85c3a7938604879a361b9f8";
-    sha256 = "1ipfn1bpz5pp3mfbxp9r8fkvpb7qydsmr7p6vnadva6kiggk70iq";
+    rev = "e7f7270bdb70708f58bbda27ffad07509085e5fe";
+    sha256 = "17vqhcg9886s9a7xifsyhlkk6vyg86n7ky6zr0dncnlgnq22ala8";
   };
   racketThinBuildInputs = [ self."base" self."hygienic-reader-extension" self."at-exp-lib" self."rackjure" self."rackunit-lib" self."phc-toolkit" self."scribble-enhanced" self."scribble-lib" self."scribble-lib" self."racket-doc" self."scribble-doc" self."scribble-code-examples" self."scribble-doc" ];
   circularBuildInputs = [  ];
@@ -756,6 +732,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "19mzyvhpbapdql313lw5zyg9canp4j1988zk1x7phrpj7jz1lf00";
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "al2-test-runner" = self.lib.mkRacketDerivation rec {
+  pname = "al2-test-runner";
+  src = fetchgit {
+    name = "al2-test-runner";
+    url = "git://github.com/alex-hhh/al2-test-runner.git";
+    rev = "b6757271932151dff6507ee6f1b690d0268da808";
+    sha256 = "1sys1f2h79xcsl1n93d8mq0w1pm0gkijbv50dnx6hxp8kqd2digy";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."sandbox-lib" self."racket-doc" self."rackunit-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -876,8 +864,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "algol60" = self.lib.mkRacketDerivation rec {
   pname = "algol60";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/algol60.zip";
-    sha1 = "cbf59ecaa2bd1f0a7ca82b5fa22772ceffe36e3f";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/algol60.zip";
+    sha1 = "c614990f71f1f3c7150857b88ab60f3e4c9b801a";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."drracket-plugin-lib" self."errortrace-lib" self."gui-lib" self."parser-tools-lib" self."string-constants-lib" self."at-exp-lib" self."rackunit-lib" self."racket-doc" self."scribble-doc" self."scribble-lib" self."drracket-tool-lib" self."drracket-plugin-lib" ];
   circularBuildInputs = [  ];
@@ -888,10 +876,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "algorithms";
     url = "git://github.com/codereport/racket-algorithms.git";
-    rev = "f73428847d6fa3faf9260b3821224e2afcf820b2";
-    sha256 = "1a1xzw34hy0g1dmsk4zp68p7hmr7ysl370p8482qhwa00cwnqb8s";
+    rev = "b114ca74b632cd112d51509e79d2cf4f7aa55d2f";
+    sha256 = "1vgsw7r33c5r9fdwlijxwaybgrjwc9qrb7238qcbb2zg2mfvlq1k";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "amap" = self.lib.mkRacketDerivation rec {
+  pname = "amap";
+  src = fetchgit {
+    name = "amap";
+    url = "git://github.com/yanyingwang/amap.git";
+    rev = "dd963660bb1b8e5b6bfd447e56ba8e780424a865";
+    sha256 = "0g36xaqh975z80bscdl5igyf43gyhrffpbffkhb4rx1rpg9ir7l7";
+  };
+  racketThinBuildInputs = [ self."base" self."request" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -900,8 +900,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "anaphoric";
     url = "git://github.com/jsmaniac/anaphoric.git";
-    rev = "2c21a489cb522549869e2c482299123544e47c78";
-    sha256 = "118pw3fjjh0b0blw8h2jnn9zzmy844dsjz2mmbk4vyy2ihnwldxz";
+    rev = "c9baafe8a6a0ab924ca6474b6963b701db062222";
+    sha256 = "1ias1m5kn3l4x325b11f10j4mdpmscid779sq7zhmhg1lc9j13bk";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -912,10 +912,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "anarki";
     url = "git://github.com/arclanguage/anarki.git";
-    rev = "0913288ec1477f2598e8095a2b5e9b14eb97dc4e";
-    sha256 = "0xa4np2pb7xm63g5bpg4qdicixazbyr6wnqz6d3pssy5j2xc682n";
+    rev = "617669c7e3fd7df4fed24b0c7dd19c80687b0595";
+    sha256 = "1853ccqp0xx4nbx2g2mnd95i9q7ywysnb4fln4k9cpm4z7mdmw3s";
   };
   racketThinBuildInputs = [ self."base" self."sha" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "andlet" = self.lib.mkRacketDerivation rec {
+  pname = "andlet";
+  src = fetchgit {
+    name = "andlet";
+    url = "https://bitbucket.org/derend/andlet.git";
+    rev = "2da90e6a47c2f87c57d05d9bd7bc221677d4b9d5";
+    sha256 = "044jzxpy3nh3x56ff8230cf0pwp7iylhjqkmgj4fhixg40qj77y3";
+  };
+  racketThinBuildInputs = [ self."base" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -936,10 +948,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "ansi";
     url = "git://github.com/tonyg/racket-ansi.git";
-    rev = "1e64b8efc0d731f06a672620b0fccfda01c03735";
-    sha256 = "0d4904kpasw2sd2gq989y3hadjkrhgbmlfdrd48pl2fnz1315b7x";
+    rev = "c14081de59bc7273f1f9088a51d6d9c202b2b9d0";
+    sha256 = "0l8km828y9nxcxszinkpkazyjq73h5fk8d8rhhqlfg7nqg3ad9f3";
   };
-  racketThinBuildInputs = [ self."base" self."dynext-lib" self."make" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."base" self."dynext-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -960,8 +972,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "aoc-racket";
     url = "git://github.com/mbutterick/aoc-racket.git";
-    rev = "3dbf1361033d69f896650e8d53e2badb33a05a10";
-    sha256 = "05fzzprvh8263vj1yr70kmr755zrry8x7q9hz4ghzh8khs8py315";
+    rev = "2c6cb2f3ad876a91a82f33ce12844f7758b969d6";
+    sha256 = "0ba9jf291gbdl5bjll1c7ix2lmvnj27gk7k5grkvprk2w6y3nv1r";
   };
   racketThinBuildInputs = [ self."graph" self."base" self."scribble-lib" self."sugar" self."rackunit-lib" self."math-lib" self."beautiful-racket-lib" self."gregor" self."debug" self."draw-lib" self."gui-lib" self."rackunit-lib" self."racket-doc" self."scribble-doc" self."rackunit-doc" self."at-exp-lib" self."math-doc" ];
   circularBuildInputs = [  ];
@@ -1037,8 +1049,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "arguments";
     url = "git://github.com/jackfirth/racket-mock.git";
-    rev = "1a27bb7a1444effc034bf8b2df4ba1845f51478f";
-    sha256 = "1d7y7f08ys0lg3m89zy66whkzpd7vdn4xhkp5nv99vg0pdl2zilm";
+    rev = "5e8e2a1dd125e5e437510c87dabf903d0ec25749";
+    sha256 = "0mwn2mf15sbhcng65n5334dasgl95x9i2wnrzw79h0pnip1yjz1i";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
@@ -1074,10 +1086,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "asm";
     url = "git://github.com/lwhjp/racket-asm.git";
-    rev = "d5194143d9ba47d00ca8e366a71bc39b897eb318";
-    sha256 = "0aj95a31c4cmns38ryp0g1mm186sp2vm8lyc04j2l3cy8mxxs0qp";
+    rev = "57abd235fcb8c7505990f8e9731c01c716324ee5";
+    sha256 = "1lq35y5xjz3vjqja2pmi1gfms285fqsqmph4fajmi94d1mrbzv36";
   };
-  racketThinBuildInputs = [ self."base" self."binutils" self."data-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."base" self."binutils" self."data-lib" self."racklog" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -1088,8 +1100,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "asn1";
     url = "git://github.com/rmculpepper/asn1.git";
-    rev = "2921d5953deeea33413cfd358bb4768cc775277b";
-    sha256 = "0z4dy45qdygnyjlfhhs21s52jcjihg7hjx72lga20m9i59jl4a69";
+    rev = "3afe9706302fcc6763f8d61622dee83ab6fa0c26";
+    sha256 = "1z9vafb4rilm9mgym8iza34mjal1bmljgxvp1qbv8yir35420bjr";
   };
   };
   racketThinBuildInputs = [ self."base" self."asn1-lib" self."asn1-doc" ];
@@ -1103,8 +1115,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "asn1-doc";
     url = "git://github.com/rmculpepper/asn1.git";
-    rev = "2921d5953deeea33413cfd358bb4768cc775277b";
-    sha256 = "0z4dy45qdygnyjlfhhs21s52jcjihg7hjx72lga20m9i59jl4a69";
+    rev = "3afe9706302fcc6763f8d61622dee83ab6fa0c26";
+    sha256 = "1z9vafb4rilm9mgym8iza34mjal1bmljgxvp1qbv8yir35420bjr";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" self."asn1-lib" ];
@@ -1118,8 +1130,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "asn1-lib";
     url = "git://github.com/rmculpepper/asn1.git";
-    rev = "2921d5953deeea33413cfd358bb4768cc775277b";
-    sha256 = "0z4dy45qdygnyjlfhhs21s52jcjihg7hjx72lga20m9i59jl4a69";
+    rev = "3afe9706302fcc6763f8d61622dee83ab6fa0c26";
+    sha256 = "1z9vafb4rilm9mgym8iza34mjal1bmljgxvp1qbv8yir35420bjr";
   };
   };
   racketThinBuildInputs = [ self."base" self."binaryio-lib" ];
@@ -1133,8 +1145,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "asn1-test";
     url = "git://github.com/rmculpepper/asn1.git";
-    rev = "2921d5953deeea33413cfd358bb4768cc775277b";
-    sha256 = "0z4dy45qdygnyjlfhhs21s52jcjihg7hjx72lga20m9i59jl4a69";
+    rev = "3afe9706302fcc6763f8d61622dee83ab6fa0c26";
+    sha256 = "1z9vafb4rilm9mgym8iza34mjal1bmljgxvp1qbv8yir35420bjr";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."asn1-lib" ];
@@ -1156,8 +1168,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "at-exp-lib" = self.lib.mkRacketDerivation rec {
   pname = "at-exp-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/at-exp-lib.zip";
-    sha1 = "c747d0ed8ab45e4979098a81bef9ba990462e7d6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/at-exp-lib.zip";
+    sha1 = "5a9b01c45b06d3b5987d08c0d4bbea87776a7b02";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -1168,8 +1180,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "atomichron";
     url = "git://github.com/jackfirth/atomichron.git";
-    rev = "397838da6336a006efd1e17a6985461d79d1fe91";
-    sha256 = "129kdn6a7k1q5y0mm5hkkg8rsw86qg9fac4bmc1bvwmnszjgyq8j";
+    rev = "77dddb12241a8d7ca8f1520a1862a79cad91a6c6";
+    sha256 = "0klpmlqk9zxvl4y87fafs98fp4lc2hpdwx3036wf6r2qcfycawc0";
   };
   racketThinBuildInputs = [ self."base" self."rebellion" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -1180,8 +1192,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "auto-syntax-e";
     url = "git://github.com/jsmaniac/auto-syntax-e.git";
-    rev = "2b64df7050b6b0c4f6568e765434bb2786453a5b";
-    sha256 = "0jdl4npp95y39nxvaqkr840lisyc6sl6sn5xi82zqp83099h0fnq";
+    rev = "89ddc98f2ca2e1a667be655dade7314280b067e7";
+    sha256 = "011x990ckpdaihfqkr0kwyvmsngdx7v5wshr6fdhqb5npx9k1yci";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -1194,8 +1206,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "automata";
     url = "git://github.com/jeapostrophe/automata.git";
-    rev = "a82d4d3c94f55c6560ec14f76300811658ed05a6";
-    sha256 = "06gwyy6zyz3p3rcq6vl893pg0ksz2pyn6a1la67d5an3hmkikj04";
+    rev = "6abe851b83b18fcdcb8f2b19ab87cdabc90c71ce";
+    sha256 = "05bbjrjjdsirlyaqyr6l1rqf26nbqs4cw8vprwris7ia08jhynqy";
   };
   };
   racketThinBuildInputs = [ self."automata-lib" self."automata-doc" ];
@@ -1209,8 +1221,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "automata-doc";
     url = "git://github.com/jeapostrophe/automata.git";
-    rev = "a82d4d3c94f55c6560ec14f76300811658ed05a6";
-    sha256 = "06gwyy6zyz3p3rcq6vl893pg0ksz2pyn6a1la67d5an3hmkikj04";
+    rev = "6abe851b83b18fcdcb8f2b19ab87cdabc90c71ce";
+    sha256 = "05bbjrjjdsirlyaqyr6l1rqf26nbqs4cw8vprwris7ia08jhynqy";
   };
   };
   racketThinBuildInputs = [ self."base" self."automata-lib" self."scribble-lib" self."racket-doc" ];
@@ -1224,8 +1236,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "automata-lib";
     url = "git://github.com/jeapostrophe/automata.git";
-    rev = "a82d4d3c94f55c6560ec14f76300811658ed05a6";
-    sha256 = "06gwyy6zyz3p3rcq6vl893pg0ksz2pyn6a1la67d5an3hmkikj04";
+    rev = "6abe851b83b18fcdcb8f2b19ab87cdabc90c71ce";
+    sha256 = "05bbjrjjdsirlyaqyr6l1rqf26nbqs4cw8vprwris7ia08jhynqy";
   };
   };
   racketThinBuildInputs = [ self."base" ];
@@ -1239,8 +1251,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "automata-test";
     url = "git://github.com/jeapostrophe/automata.git";
-    rev = "a82d4d3c94f55c6560ec14f76300811658ed05a6";
-    sha256 = "06gwyy6zyz3p3rcq6vl893pg0ksz2pyn6a1la67d5an3hmkikj04";
+    rev = "6abe851b83b18fcdcb8f2b19ab87cdabc90c71ce";
+    sha256 = "05bbjrjjdsirlyaqyr6l1rqf26nbqs4cw8vprwris7ia08jhynqy";
   };
   };
   racketThinBuildInputs = [ self."base" self."automata-lib" self."eli-tester" ];
@@ -1276,10 +1288,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "aws";
     url = "git://github.com/greghendershott/aws.git";
-    rev = "b1dcb619b6768c96d1276778439f379660ee5404";
-    sha256 = "0sd64257gzdvc7nyy1ki775shswwnb8qyjda72qg22527scc5ijq";
+    rev = "94a16a6875ac585a10fc488b1bf48052172d5668";
+    sha256 = "0vk5y6a9h9nq19ssf7mp1fkpkz2nl666bzngvjdjn26xvg4yvf22";
   };
-  racketThinBuildInputs = [ self."base" self."http" self."sha" self."rackunit-lib" self."at-exp-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."base" self."http" self."sha" self."at-exp-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -1352,13 +1364,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "azelf" = self.lib.mkRacketDerivation rec {
+  pname = "azelf";
+  src = fetchgit {
+    name = "azelf";
+    url = "git://github.com/kalxd/azelf.git";
+    rev = "bada24159034c867dbb8d4d2d33c62be59025ac6";
+    sha256 = "1r8p3mzz2cvbs7f5zw015jgjnrrl9zg30yi10dcbidndms304v2x";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "backport-template-pr1514" = self.lib.mkRacketDerivation rec {
   pname = "backport-template-pr1514";
   src = fetchgit {
     name = "backport-template-pr1514";
     url = "git://github.com/jsmaniac/backport-template-pr1514.git";
-    rev = "d7d74f5af236a26b38b94f59623b8b6e02b9e5ba";
-    sha256 = "0k9qrwx5ny398bszwvf1d7xgp1nxilwszmzaz0akawkv3852caxm";
+    rev = "a6c3611fcddb8d8a67531694c9b8c2c4f89bbb0f";
+    sha256 = "1rihnrlzxmczjvf8pd5yrxpslj75snm2q8cj58kaqafx96vnappy";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."version-case" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -1367,8 +1391,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "base" = self.lib.mkRacketDerivation rec {
   pname = "base";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/base.zip";
-    sha1 = "0cfbc7c7b3530f5e83a6e882386e6a53062dd5c4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/base.zip";
+    sha1 = "619dcdb8f76e302f7852f90592fe822c8b959f7f";
   };
   racketThinBuildInputs = [ self."racket-lib" ];
   circularBuildInputs = [  ];
@@ -1386,13 +1410,55 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "base58" = self.lib.mkRacketDerivation rec {
+  pname = "base58";
+  src = fetchgit {
+    name = "base58";
+    url = "git://github.com/marckn0x/base58.git";
+    rev = "125186f659f29a9f7275540c6211885784a68edd";
+    sha256 = "0prfkf51y65afbpa40n15flkh9rsmx8q4z1slhffr06vk7ycidf7";
+  };
+  racketThinBuildInputs = [ self."base" self."binaryio" self."sha" self."typed-racket-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" self."rackunit-typed" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "base64" = self.lib.mkRacketDerivation rec {
+  pname = "base64";
+  src = self.lib.extractPath {
+    path = "base64";
+    src = fetchgit {
+    name = "base64";
+    url = "git://github.com/rmculpepper/racket-base64.git";
+    rev = "f3ff606785a553651d79c2e846b35fe84be9b2b0";
+    sha256 = "1gghbvdhxvwclhbas816ac3v2jdhs6v7jb1n9ymg378zignq44gc";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."net-lib" self."rackunit-lib" self."base64-lib" self."racket-doc" self."scribble-lib" self."net-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "base64-lib" = self.lib.mkRacketDerivation rec {
+  pname = "base64-lib";
+  src = self.lib.extractPath {
+    path = "base64-lib";
+    src = fetchgit {
+    name = "base64-lib";
+    url = "git://github.com/rmculpepper/racket-base64.git";
+    rev = "f3ff606785a553651d79c2e846b35fe84be9b2b0";
+    sha256 = "1gghbvdhxvwclhbas816ac3v2jdhs6v7jb1n9ymg378zignq44gc";
+  };
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "basedir" = self.lib.mkRacketDerivation rec {
   pname = "basedir";
   src = fetchgit {
     name = "basedir";
     url = "git://github.com/willghatch/racket-basedir.git";
-    rev = "722c06fb943f0a6e263cad057cedd80ea50e888d";
-    sha256 = "0dkpdyvi9p2vxpna6jf88942875hm2di3z0h707hninbx7aymy97";
+    rev = "ef95b1eeb9b4e0df491680e5caa98eeadf64dfa1";
+    sha256 = "0xdy48mp86mi0ymz3a28vkr4yc6gid32nkjvdkhz81m5v51yxa9s";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -1403,8 +1469,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "bazaar";
     url = "git://github.com/Metaxal/bazaar.git";
-    rev = "2f53cceb44f78543360a643df064a1720bff9e29";
-    sha256 = "1vhcv3kacvq4iy6mx0n7cs2q8mm23rmqdjx98qd842vycm188bv7";
+    rev = "8432d3c5398225a4bfb5ed5c25a1beffa06409ec";
+    sha256 = "11w5w8z6w19img7q9xhsdbxhbx3v201nmsc4fgka7a2pbm019pbf";
   };
   racketThinBuildInputs = [ self."base" self."data-lib" self."draw-lib" self."gui-lib" self."images" self."math-lib" self."net-lib" self."plot-gui-lib" self."plot-lib" self."racket-index" self."rackunit-lib" self."scribble-lib" self."slideshow-lib" self."srfi-lite-lib" ];
   circularBuildInputs = [  ];
@@ -1415,8 +1481,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "bcrypt";
     url = "git://github.com/samth/bcrypt.rkt.git";
-    rev = "9bd08aad72920735df5ba3f9571b08301acd3401";
-    sha256 = "1vly1f3anp8x0n3c3ybmiw0fj24998rnnbil2b11d4vs88lpb5s7";
+    rev = "ea48022513c673a735e5e4dd8e16d1ded4ce4ca7";
+    sha256 = "0p0lx4wa9ypiyqlxc6fzkny8c610m3996878rz62l225d66f77gv";
   };
   racketThinBuildInputs = [ self."base" self."dynext-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -1429,8 +1495,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "beautiful-racket";
     url = "git://github.com/mbutterick/beautiful-racket.git";
-    rev = "db99679d5e79a15ddf355d90664ba45499790a9a";
-    sha256 = "07xmj0hir8a7ip71340797lfc25lm2wliiyz132cpdvyv6cwn64j";
+    rev = "d75a344bee405cdb6a337decacca042a500b5c79";
+    sha256 = "0b647603w7vbf33pama8fdl9rglrkwzj75jznlw2fd260v7r54n4";
   };
   };
   racketThinBuildInputs = [ self."base" self."beautiful-racket-lib" self."beautiful-racket-demo" self."gui-doc" self."gui-lib" self."at-exp-lib" self."br-parser-tools-doc" self."racket-doc" self."scribble-lib" ];
@@ -1444,8 +1510,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "beautiful-racket-demo";
     url = "git://github.com/mbutterick/beautiful-racket.git";
-    rev = "db99679d5e79a15ddf355d90664ba45499790a9a";
-    sha256 = "07xmj0hir8a7ip71340797lfc25lm2wliiyz132cpdvyv6cwn64j";
+    rev = "d75a344bee405cdb6a337decacca042a500b5c79";
+    sha256 = "0b647603w7vbf33pama8fdl9rglrkwzj75jznlw2fd260v7r54n4";
   };
   };
   racketThinBuildInputs = [ self."base" self."sugar" self."beautiful-racket-lib" self."rackunit-lib" self."brag" self."srfi-lib" self."draw-lib" self."syntax-color-lib" self."gui-lib" self."math-lib" self."at-exp-lib" ];
@@ -1459,8 +1525,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "beautiful-racket-lib";
     url = "git://github.com/mbutterick/beautiful-racket.git";
-    rev = "db99679d5e79a15ddf355d90664ba45499790a9a";
-    sha256 = "07xmj0hir8a7ip71340797lfc25lm2wliiyz132cpdvyv6cwn64j";
+    rev = "d75a344bee405cdb6a337decacca042a500b5c79";
+    sha256 = "0b647603w7vbf33pama8fdl9rglrkwzj75jznlw2fd260v7r54n4";
   };
   };
   racketThinBuildInputs = [ self."base" self."beautiful-racket-macro" self."at-exp-lib" self."sugar" self."debug" self."rackunit-lib" self."gui-lib" self."draw-lib" ];
@@ -1474,8 +1540,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "beautiful-racket-macro";
     url = "git://github.com/mbutterick/beautiful-racket.git";
-    rev = "db99679d5e79a15ddf355d90664ba45499790a9a";
-    sha256 = "07xmj0hir8a7ip71340797lfc25lm2wliiyz132cpdvyv6cwn64j";
+    rev = "d75a344bee405cdb6a337decacca042a500b5c79";
+    sha256 = "0b647603w7vbf33pama8fdl9rglrkwzj75jznlw2fd260v7r54n4";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
@@ -1550,6 +1616,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "biginterval" = self.lib.mkRacketDerivation rec {
+  pname = "biginterval";
+  src = fetchgit {
+    name = "biginterval";
+    url = "git://github.com/oflatt/biginterval.git";
+    rev = "81b0fdb5de11aeaeaf651f9e32c613c4584756ee";
+    sha256 = "0jylbwjgvjxpf97m1xa6zv168m3k0qab1v5ws1z05921x7r1ls0p";
+  };
+  racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "binary-class" = self.lib.mkRacketDerivation rec {
   pname = "binary-class";
   src = fetchgit {
@@ -1603,8 +1681,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "binary-class-riff";
     url = "git://github.com/lwhjp/binary-class-riff.git";
-    rev = "2062f82382eed570b502a935f740621d3971d527";
-    sha256 = "1h7rcijd5vx1h3l4f9wcjszgh3c147nh3mr77cx5va9bkpxqg6dm";
+    rev = "ddad0c7fa1e1f7a3b990809bcccbd521204e2fd0";
+    sha256 = "1xv84hr78g7jwcxvz37anlxvnbyd529lbcik62957za58rhfvi3s";
   };
   racketThinBuildInputs = [ self."base" self."binary-class" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -1617,8 +1695,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "binaryio";
     url = "git://github.com/rmculpepper/binaryio.git";
-    rev = "85e2ae6ce58f85c2adabb7220495441f807fc847";
-    sha256 = "1s74qixjq995hhwdlcnkc5zzw605q5jfyby4gb0j483y47ami6n7";
+    rev = "6157d5bc79028bdb9445fa9ad216b22f80c54ffd";
+    sha256 = "1v3nlzhc54vhrypksggx99j1d5khgj40pa1b6q3bgq8z19rlmgvp";
   };
   };
   racketThinBuildInputs = [ self."base" self."binaryio-lib" self."rackunit-lib" self."math-lib" self."racket-doc" self."scribble-lib" ];
@@ -1632,8 +1710,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "binaryio-lib";
     url = "git://github.com/rmculpepper/binaryio.git";
-    rev = "85e2ae6ce58f85c2adabb7220495441f807fc847";
-    sha256 = "1s74qixjq995hhwdlcnkc5zzw605q5jfyby4gb0j483y47ami6n7";
+    rev = "6157d5bc79028bdb9445fa9ad216b22f80c54ffd";
+    sha256 = "1v3nlzhc54vhrypksggx99j1d5khgj40pa1b6q3bgq8z19rlmgvp";
   };
   };
   racketThinBuildInputs = [ self."base" ];
@@ -1645,10 +1723,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "binutils";
     url = "git://github.com/lwhjp/racket-binutils.git";
-    rev = "0023f772c58fb89d8a29f7880f8d2e855faa58a0";
-    sha256 = "0wsi5lsysmyryavj6a3wbklk1vh03x2lpsx7rfadvbkm858yxm2v";
+    rev = "a72ef077e2d00ec776f12c0e497c6517f66dfe16";
+    sha256 = "14izpr76hfcd86s820rh36mxzbnfglgmcb4c2h9hl2r18d51xk7n";
   };
   racketThinBuildInputs = [ self."base" self."binary-class" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "bip32" = self.lib.mkRacketDerivation rec {
+  pname = "bip32";
+  src = fetchgit {
+    name = "bip32";
+    url = "git://github.com/marckn0x/bip32.git";
+    rev = "19f4460abd1f5fdacaa651064c4d8353401294f0";
+    sha256 = "1g3f14a0gnrk86ydkxn29rnmrvf6yadjwh1ygi2873hv6ij0mzmf";
+  };
+  racketThinBuildInputs = [ self."base" self."binaryio" self."sha" self."crypto" self."base58" self."ec" self."typed-racket-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" self."rackunit-typed" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -1722,8 +1812,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "br-parser-tools";
     url = "git://github.com/mbutterick/br-parser-tools.git";
-    rev = "87cc90839d383d523a405eb0ae2b449a2e2a0ff4";
-    sha256 = "17scpxwzj8h6am1aqa144897cqhdzmwai1lvgn0vph0j28vc7y1n";
+    rev = "32fc3b68d14a027ec70fb5cca38471ebdfed9ee7";
+    sha256 = "0pbwn980qlkn4hr37bajxk811bwjrldf1dx8m5kc2lxgqdyxshzx";
   };
   };
   racketThinBuildInputs = [ self."br-parser-tools-lib" self."br-parser-tools-doc" ];
@@ -1737,8 +1827,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "br-parser-tools-doc";
     url = "git://github.com/mbutterick/br-parser-tools.git";
-    rev = "87cc90839d383d523a405eb0ae2b449a2e2a0ff4";
-    sha256 = "17scpxwzj8h6am1aqa144897cqhdzmwai1lvgn0vph0j28vc7y1n";
+    rev = "32fc3b68d14a027ec70fb5cca38471ebdfed9ee7";
+    sha256 = "0pbwn980qlkn4hr37bajxk811bwjrldf1dx8m5kc2lxgqdyxshzx";
   };
   };
   racketThinBuildInputs = [ self."base" self."scheme-lib" self."racket-doc" self."syntax-color-doc" self."br-parser-tools-lib" self."scribble-lib" ];
@@ -1752,8 +1842,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "br-parser-tools-lib";
     url = "git://github.com/mbutterick/br-parser-tools.git";
-    rev = "87cc90839d383d523a405eb0ae2b449a2e2a0ff4";
-    sha256 = "17scpxwzj8h6am1aqa144897cqhdzmwai1lvgn0vph0j28vc7y1n";
+    rev = "32fc3b68d14a027ec70fb5cca38471ebdfed9ee7";
+    sha256 = "0pbwn980qlkn4hr37bajxk811bwjrldf1dx8m5kc2lxgqdyxshzx";
   };
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."rackunit-lib" ];
@@ -1767,8 +1857,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "brag";
     url = "git://github.com/mbutterick/brag.git";
-    rev = "8814be702bb219a9a90eba5688b8b989033b66c7";
-    sha256 = "02fwjyry7s2bwcv981x58hs5dp8g15j9hparv6hcxbx7li7yp83l";
+    rev = "6c161ae31df9b4ae7f55a14f754c0b216b60c9a6";
+    sha256 = "0fydyqghxv8arpz5py5c8rvpfldl68208pkhqhhfwyanbk5wkgdk";
   };
   };
   racketThinBuildInputs = [ self."base" self."brag-lib" self."at-exp-lib" self."br-parser-tools-doc" self."racket-doc" self."scribble-lib" ];
@@ -1782,8 +1872,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "brag-lib";
     url = "git://github.com/mbutterick/brag.git";
-    rev = "8814be702bb219a9a90eba5688b8b989033b66c7";
-    sha256 = "02fwjyry7s2bwcv981x58hs5dp8g15j9hparv6hcxbx7li7yp83l";
+    rev = "6c161ae31df9b4ae7f55a14f754c0b216b60c9a6";
+    sha256 = "0fydyqghxv8arpz5py5c8rvpfldl68208pkhqhhfwyanbk5wkgdk";
   };
   };
   racketThinBuildInputs = [ self."base" self."br-parser-tools-lib" self."rackunit-lib" ];
@@ -1826,6 +1916,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "bsd-sysv-checksum" = self.lib.mkRacketDerivation rec {
+  pname = "bsd-sysv-checksum";
+  src = fetchgit {
+    name = "bsd-sysv-checksum";
+    url = "git://github.com/jeroanan/bsd-sysv-checksum.git";
+    rev = "b4c5dcf2c24d56bcd5eef2e3885458eaf6f164d4";
+    sha256 = "1sl73cgz03q7723i791kznzl0ryv5bk8mlaa9sxj2zp8q3maazca";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "buid" = self.lib.mkRacketDerivation rec {
   pname = "buid";
   src = fetchgit {
@@ -1843,8 +1945,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "bv";
     url = "git://github.com/pmatos/racket-bv.git";
-    rev = "dedd9a5aa1922ec546c6a8270fa00e0cbb229f1c";
-    sha256 = "0ixd10vhfwy0bjclf9vfiisak6n64l3nnmvskm39fwq7zhha87r3";
+    rev = "3d1fdc02432dc7bb839802f499834bd3345e54bf";
+    sha256 = "104h5vgjd1rhby502jvhxgf570i17fijs8wj1whbnqslf5c3yifx";
   };
   racketThinBuildInputs = [ self."base" self."mischief" self."math-lib" self."sandbox-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."quickcheck" self."rosette" ];
   circularBuildInputs = [  ];
@@ -1857,8 +1959,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "bystroTeX";
     url = "git://github.com/amkhlv/amkhlv.git";
-    rev = "1ef0ff936e49a36467422755788ecd682708cfa0";
-    sha256 = "0ywvkkv48mm84wkszij286g8yhs0l01pi0rmcf8b3jjvjmc3cqja";
+    rev = "30bd054e9f9e02e7415b4247e4ca3360483771bd";
+    sha256 = "0rf5s9cdzlc6amvmwyxpmvjqdfsqnbwqqm2ff6m1mmlwwizclad0";
   };
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."db-lib" self."scheme-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."scribble-doc" self."at-exp-lib" ];
@@ -1952,10 +2054,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "carl-lib";
     url = "git://github.com/mkyl/carl-lib.git";
-    rev = "c2d02a2a370ed70b9b2ae029f586eb9cc390718a";
-    sha256 = "1kqmp4k3zafn0s8z99d31k9hsj73gs3wqslck5a8lr0vifpbzi4z";
+    rev = "195c155ccf9306acd29adaf2ab7d536d7686f849";
+    sha256 = "15rc5qhbb5vff2aga0c58ismr58c7in8pcvl68g13qprkapa1qxl";
   };
-  racketThinBuildInputs = [ self."base" self."brag-lib" self."db" self."graph" self."math-lib" self."rackunit-lib" self."scribble-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."math-doc" ];
+  racketThinBuildInputs = [ self."base" self."brag-lib" self."db" self."graph" self."math-lib" self."rackunit-lib" self."scribble-lib" self."csv-writing" self."racket-graphviz" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."math-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -1996,8 +2098,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "cext-lib" = self.lib.mkRacketDerivation rec {
   pname = "cext-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/cext-lib.zip";
-    sha1 = "2fe6c2581d49ea9b16b6f3ab07d1b657510bb665";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/cext-lib.zip";
+    sha1 = "f131944932cec9cd44ffe38c7aa88223de2871e3";
   };
   racketThinBuildInputs = [ self."base" self."compiler-lib" self."dynext-lib" self."scheme-lib" ];
   circularBuildInputs = [  ];
@@ -2008,8 +2110,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "chain-module-begin";
     url = "git://github.com/jsmaniac/chain-module-begin.git";
-    rev = "b297d9453a600da9a8ebac4425fdf137aca45d04";
-    sha256 = "14x2n6zcj3phfmnq0k3a1ghaa7jcz7fxarsxm78ppjy45bwchwz6";
+    rev = "77fca59322b93cb83a2d57c25546dd7a7313bc56";
+    sha256 = "1wpgrs7n0fpba1880mxx17yyj10zaz2w8lir3p6mqyqv7df1n1y9";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."debug-scopes" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -2042,8 +2144,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "chess";
     url = "git://github.com/jackfirth/chess.git";
-    rev = "accceb86b391769ebf1f83fe7f2deda09b34ab82";
-    sha256 = "1zpq2sqxsqwwyvzngyhx7jfwigvhw12mcn6ihs58y48df69y3ljx";
+    rev = "cd7aaa015ddaa87026b11dfe8dbe6778409b5286";
+    sha256 = "1nax82hr3dkz10gpawyw7d6zjbb67gxnn68b2ds8x9izabywk8rc";
   };
   racketThinBuildInputs = [ self."base" self."pict-lib" self."rebellion" self."reprovide-lang" self."pict-doc" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -2066,8 +2168,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "chido-parse";
     url = "git://github.com/willghatch/racket-chido-parse.git";
-    rev = "d04934b0589a8255b6d5b9faea04346244d98303";
-    sha256 = "1i4jrmid08wg3sl65am57pysc269kda9g31wxv11wbb804i20dm1";
+    rev = "413c49e9760c0313809ecbf9ccee9772413cb336";
+    sha256 = "0ylwgiy18xhixiagfpdwsdwchxmc1k62kk475369qq36ldii8v5x";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."data-lib" self."kw-make-struct" self."quickcheck" self."web-server-lib" self."at-exp-lib" self."linea" self."profile-lib" ];
   circularBuildInputs = [  ];
@@ -2184,15 +2286,27 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "cksum" = self.lib.mkRacketDerivation rec {
+  pname = "cksum";
+  src = fetchgit {
+    name = "cksum";
+    url = "git://github.com/jeroanan/cksum.git";
+    rev = "ea390924866cb53df44f4d812c1f187e2e88b8a7";
+    sha256 = "0c3k89s6y7dwrdfqsdi09nzgn1pfx46j4jmb7jxd9dmj09hlhgzw";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "clang" = self.lib.mkRacketDerivation rec {
   pname = "clang";
   src = fetchgit {
     name = "clang";
     url = "git://github.com/wargrey/clang.git";
-    rev = "9c8b0c9e4583b181bfc68d7dcf9e31cddaa4ad37";
-    sha256 = "0m8lgckkis4pb1p7hg1yz5ncygjmzyc8r3si47iq6fs244h5nmbs";
+    rev = "b9d008a4bf914474fa3368095e93a5c4925dc9f5";
+    sha256 = "1gi8lr50a0v3kcb2qy1d4va043s8011y19z34ig6pbmwbvkl06z3";
   };
-  racketThinBuildInputs = [ self."base" self."graphics" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -2229,8 +2343,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "class-iop-lib" = self.lib.mkRacketDerivation rec {
   pname = "class-iop-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/class-iop-lib.zip";
-    sha1 = "f5738336340c77b5799359ce9c005ab49d37716d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/class-iop-lib.zip";
+    sha1 = "cbc77379a1a254bf1bc78eb1e3881ec0ca8f8cc1";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -2332,15 +2446,42 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "cmx" = self.lib.mkRacketDerivation rec {
-  pname = "cmx";
-  src = fetchgit {
-    name = "cmx";
-    url = "git://github.com/dedbox/racket-cmx.git";
-    rev = "3591f092f7aac01e5c529d5b82421e321cdda8cb";
-    sha256 = "0x8jplsw9vav3xav2xn8bsfgxqjnppqpla47xcg43rbcy365w77b";
+  "clotho" = self.lib.mkRacketDerivation rec {
+  pname = "clotho";
+  src = self.lib.extractPath {
+    path = "clotho";
+    src = fetchgit {
+    name = "clotho";
+    url = "https://gitlab.flux.utah.edu/xsmith/clotho.git";
+    rev = "7cc309787f07286e3b1411346f4e85e4bec09098";
+    sha256 = "02qfkvdbar8sbbm04prh6jd8az1wj6zvq8ssad0993g2p5qvhkzj";
   };
-  racketThinBuildInputs = [ self."base" self."event-lang" self."draw-lib" self."pict-lib" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" ];
+  };
+  racketThinBuildInputs = [ self."base" self."version-string-with-git-hash" self."rackunit-lib" self."math-lib" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "code-sync" = self.lib.mkRacketDerivation rec {
+  pname = "code-sync";
+  src = fetchgit {
+    name = "code-sync";
+    url = "git://github.com/rymaju/code-sync.git";
+    rev = "feea02e2cc19088ba7ce5336b89b22044d5dafcf";
+    sha256 = "1jrgaijairy9v9rjx88j5wdd8day9ifrqmdzrm4hb96fqvyp702i";
+  };
+  racketThinBuildInputs = [ self."base" self."gui-lib" self."data-lib" self."drracket-plugin-lib" self."rfc6455" self."net" self."web-server-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "codespells-live" = self.lib.mkRacketDerivation rec {
+  pname = "codespells-live";
+  src = fetchgit {
+    name = "codespells-live";
+    url = "git://github.com/ldhandley/codespells-live.git";
+    rev = "a328d5dc5ab8846e39ab59831938b566d63aab86";
+    sha256 = "1gxfmlqqd7fak6417pwajyphm54lmydx35l5f375hff2lmngyq5v";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -2351,8 +2492,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "collections";
     url = "git://github.com/lexi-lambda/racket-collections.git";
-    rev = "5b3ec9b3ea3ca493f3fcda4994b81bc804f29870";
-    sha256 = "0vh781q0iw0wv1a741qp7s9havc030p5wahz6vcdhfn9azv00znp";
+    rev = "c4822fc200b0488922cd6e86b4f2ea7cf8c565da";
+    sha256 = "0zaylzl54ij7kd8k5zgzjh1wk0m5vj954dj95f2iplg8w1s3w147";
   };
   };
   racketThinBuildInputs = [ self."collections-lib" self."collections-doc" ];
@@ -2366,8 +2507,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "collections-doc";
     url = "git://github.com/lexi-lambda/racket-collections.git";
-    rev = "5b3ec9b3ea3ca493f3fcda4994b81bc804f29870";
-    sha256 = "0vh781q0iw0wv1a741qp7s9havc030p5wahz6vcdhfn9azv00znp";
+    rev = "c4822fc200b0488922cd6e86b4f2ea7cf8c565da";
+    sha256 = "0zaylzl54ij7kd8k5zgzjh1wk0m5vj954dj95f2iplg8w1s3w147";
   };
   };
   racketThinBuildInputs = [ self."collections-doc+functional-doc" self."base" self."collections-lib" self."racket-doc" self."scribble-lib" ];
@@ -2401,8 +2542,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "collections-lib";
     url = "git://github.com/lexi-lambda/racket-collections.git";
-    rev = "5b3ec9b3ea3ca493f3fcda4994b81bc804f29870";
-    sha256 = "0vh781q0iw0wv1a741qp7s9havc030p5wahz6vcdhfn9azv00znp";
+    rev = "c4822fc200b0488922cd6e86b4f2ea7cf8c565da";
+    sha256 = "0zaylzl54ij7kd8k5zgzjh1wk0m5vj954dj95f2iplg8w1s3w147";
   };
   };
   racketThinBuildInputs = [ self."collections-lib+functional-lib" self."base" self."curly-fn-lib" self."match-plus" self."static-rename" self."unstable-list-lib" ];
@@ -2424,8 +2565,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "collections-test";
     url = "git://github.com/lexi-lambda/racket-collections.git";
-    rev = "5b3ec9b3ea3ca493f3fcda4994b81bc804f29870";
-    sha256 = "0vh781q0iw0wv1a741qp7s9havc030p5wahz6vcdhfn9azv00znp";
+    rev = "c4822fc200b0488922cd6e86b4f2ea7cf8c565da";
+    sha256 = "0zaylzl54ij7kd8k5zgzjh1wk0m5vj954dj95f2iplg8w1s3w147";
   };
   };
   racketThinBuildInputs = [ self."base" self."collections-lib" self."match-plus" self."rackunit-lib" ];
@@ -2453,6 +2594,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "1y4axbcwf7lal2b2s6zdp6qal9nlqnm463rzyzjfasiywxkim6zh";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."sandbox-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "colophon" = self.lib.mkRacketDerivation rec {
+  pname = "colophon";
+  src = fetchgit {
+    name = "colophon";
+    url = "git://github.com/basus/colophon.git";
+    rev = "04989fbffb385a09d4f6b83ab9a132fa85ec8454";
+    sha256 = "06d02ch2qy6hxp5vdvw60xx2clpai2phv71n5x1hx7m59g8dhkmf";
+  };
+  racketThinBuildInputs = [ self."base" self."pollen" self."scribble-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -2497,8 +2650,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "colormaps";
     url = "git://github.com/alex-hhh/colormaps.git";
-    rev = "833d2d9e27ddeab664bf9936c0cd271f39dca0c0";
-    sha256 = "06qgs1sxxz5hqb8vkm8r7g00wjpvmw8hf041w4hihcy3splw1vsq";
+    rev = "f0dc88be58bae0d0331bfa778987460d7d71a08a";
+    sha256 = "0dk1cavkhiy24rn0p3xq7wxbhhd95742836xwyambcvpcq5226i5";
   };
   racketThinBuildInputs = [ self."base" self."plot-lib" self."pict-lib" self."draw-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."pict-doc" self."plot-doc" self."plot-gui-lib" ];
   circularBuildInputs = [  ];
@@ -2531,8 +2684,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "com-win32-i386" = self.lib.mkRacketDerivation rec {
   pname = "com-win32-i386";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/com-win32-i386.zip";
-    sha1 = "901d03171bc5939b0b4784522175310082ecfaea";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/com-win32-i386.zip";
+    sha1 = "43555aa8af94e8aa35a06e4331b1cb58aba6200a";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -2541,8 +2694,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "com-win32-x86_64" = self.lib.mkRacketDerivation rec {
   pname = "com-win32-x86_64";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/com-win32-x86_64.zip";
-    sha1 = "dd80d27dd2ad90ca46c35763eee0d3c935ad2a11";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/com-win32-x86_64.zip";
+    sha1 = "e126d66512910de3b00c2624a6afb01f42f6b3ff";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -2577,8 +2730,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "command-line-ext";
     url = "git://github.com/jackfirth/command-line-ext.git";
-    rev = "02525e983bd1b233eab641b942338991f406ae6f";
-    sha256 = "0cd784alf8k58mfsixyy6p7mjxlx3di75m9asnhxr7zckisd67jv";
+    rev = "e980b3b31d7a0cb6e0339335bde860f35a0fe471";
+    sha256 = "0qy4p66dbwqsvf1cdwaq3dlrllkgywrgh5izc3fcjjiy65s44719";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."fancy-app" self."generic-syntax-expanders" self."reprovide-lang" self."lens" self."scribble-lib" self."rackunit-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -2611,8 +2764,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "compatibility" = self.lib.mkRacketDerivation rec {
   pname = "compatibility";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/compatibility.zip";
-    sha1 = "2c5ff0e46b7525503a9c038f33dcb30198549264";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/compatibility.zip";
+    sha1 = "36cb8640b41033ee50a57ebdfb9bfd5aabfba7f2";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."compatibility-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -2622,15 +2775,15 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   pname = "compatibility+compatibility-doc+data-doc+db-doc+distributed-p...";
 
   extraSrcs = [ self."racket-doc".src self."readline".src self."draw".src self."syntax-color".src self."parser-tools-doc".src self."compatibility".src self."pict".src self."future-visualizer".src self."distributed-places-doc".src self."distributed-places".src self."trace".src self."planet-doc".src self."quickscript".src self."drracket-tool-doc".src self."drracket".src self."gui".src self."xrepl".src self."typed-racket-doc".src self."slideshow-doc".src self."pict-doc".src self."draw-doc".src self."syntax-color-doc".src self."string-constants-doc".src self."readline-doc".src self."macro-debugger".src self."errortrace-doc".src self."profile-doc".src self."xrepl-doc".src self."gui-doc".src self."scribble-doc".src self."net-cookies-doc".src self."net-doc".src self."compatibility-doc".src self."rackunit-doc".src self."web-server-doc".src self."db-doc".src self."mzscheme-doc".src self."r5rs-doc".src self."r6rs-doc".src self."srfi-doc".src self."plot-doc".src self."math-doc".src self."data-doc".src ];
-  racketThinBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."distributed-places-lib" self."draw-lib" self."drracket-plugin-lib" self."drracket-tool-lib" self."errortrace-lib" self."gui-lib" self."gui-pkg-manager-lib" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-index" self."rackunit-gui" self."rackunit-lib" self."readline-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" self."xrepl-lib" ];
+  racketThinBuildInputs = [ self."2d-lib" self."at-exp-lib" self."base" self."cext-lib" self."class-iop-lib" self."compatibility-lib" self."compiler-lib" self."data-enumerate-lib" self."data-lib" self."db-lib" self."distributed-places-lib" self."draw-lib" self."drracket-plugin-lib" self."drracket-tool-lib" self."errortrace-lib" self."future-visualizer-pict" self."gui-lib" self."gui-pkg-manager-lib" self."htdp-lib" self."html-lib" self."icons" self."images-gui-lib" self."images-lib" self."macro-debugger-text-lib" self."math-lib" self."net-cookies-lib" self."net-lib" self."option-contract-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."pict-snip-lib" self."planet-lib" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."profile-lib" self."r5rs-lib" self."r6rs-lib" self."racket-index" self."rackunit-gui" self."rackunit-lib" self."readline-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."scribble-text-lib" self."serialize-cstruct-lib" self."slideshow-lib" self."snip-lib" self."srfi-lib" self."srfi-lite-lib" self."string-constants-lib" self."syntax-color-lib" self."tex-table" self."typed-racket-compatibility" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" self."xrepl-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   };
   "compatibility-doc" = self.lib.mkRacketDerivation rec {
   pname = "compatibility-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/compatibility-doc.zip";
-    sha1 = "269792ae5b6c306130a87a059c306d523ceb86ae";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/compatibility-doc.zip";
+    sha1 = "8e9951761a82fbcf19ba4d6a6944ee1f9b0eeb5e";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."compatibility-lib" self."pconvert-lib" self."sandbox-lib" self."compiler-lib" self."gui-lib" self."scheme-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -2639,8 +2792,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "compatibility-lib" = self.lib.mkRacketDerivation rec {
   pname = "compatibility-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/compatibility-lib.zip";
-    sha1 = "33b6e0f086e59efc39fbc99c0c1f9ea1190ee58e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/compatibility-lib.zip";
+    sha1 = "7166abf2fb5b2a56c8343029a6d44e43c9f1e151";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."net-lib" self."sandbox-lib" ];
   circularBuildInputs = [  ];
@@ -2649,8 +2802,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "compatibility-test" = self.lib.mkRacketDerivation rec {
   pname = "compatibility-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/compatibility-test.zip";
-    sha1 = "d15af027ac251dd17c7731e0c8f5a18392c65aea";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/compatibility-test.zip";
+    sha1 = "db6597e099a4d342252ed98275dccf026f77ee1e";
   };
   racketThinBuildInputs = [ self."base" self."racket-test" self."compatibility-lib" self."drracket-tool-lib" self."rackunit-lib" self."pconvert-lib" ];
   circularBuildInputs = [  ];
@@ -2659,8 +2812,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "compiler" = self.lib.mkRacketDerivation rec {
   pname = "compiler";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/compiler.zip";
-    sha1 = "17549a4f7a3fafb7a9d0ba1a5aa982ec102896b5";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/compiler.zip";
+    sha1 = "a40d420cd2a67d5632be9075c66438044b432c00";
   };
   racketThinBuildInputs = [ self."compiler-lib" ];
   circularBuildInputs = [  ];
@@ -2681,8 +2834,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "compiler-lib" = self.lib.mkRacketDerivation rec {
   pname = "compiler-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/compiler-lib.zip";
-    sha1 = "c75b6c3f6c9ddf160321663dc8c2780c9f40e365";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/compiler-lib.zip";
+    sha1 = "b41bd31a445bec03d82f6412fd6f03d7eda07d27";
   };
   racketThinBuildInputs = [ self."base" self."scheme-lib" self."rackunit-lib" self."zo-lib" ];
   circularBuildInputs = [  ];
@@ -2691,8 +2844,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "compiler-test" = self.lib.mkRacketDerivation rec {
   pname = "compiler-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/compiler-test.zip";
-    sha1 = "2e2d350b4a6bc9c4d36c9cb236088d9008231a4e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/compiler-test.zip";
+    sha1 = "5c873360e608cbc39f71c62f8d3b6c66fba43485";
   };
   racketThinBuildInputs = [ self."base" self."icons" self."compiler-lib" self."eli-tester" self."rackunit-lib" self."net-lib" self."scheme-lib" self."compatibility-lib" self."gui-lib" self."htdp-lib" self."plai-lib" self."rackunit-lib" self."dynext-lib" self."mzscheme-lib" ];
   circularBuildInputs = [  ];
@@ -2705,8 +2858,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "component";
     url = "git://github.com/Bogdanp/racket-component.git";
-    rev = "1069c8dad15ceef6bfb4457996095c9702ac7c38";
-    sha256 = "14ddbcbnnqcdn3v57pzh4zfhk0jr62y39y1rkyj25mms2qr09h1d";
+    rev = "6dd5378caf4eea1a6ef0171909505d4bd5e86b8c";
+    sha256 = "19h3iv1ra3dvfivdpkhf9h1mwivvsfrz1jvqjnx8ygmaylv05jab";
   };
   };
   racketThinBuildInputs = [ self."component-doc" self."component-lib" ];
@@ -2720,8 +2873,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "component-doc";
     url = "git://github.com/Bogdanp/racket-component.git";
-    rev = "1069c8dad15ceef6bfb4457996095c9702ac7c38";
-    sha256 = "14ddbcbnnqcdn3v57pzh4zfhk0jr62y39y1rkyj25mms2qr09h1d";
+    rev = "6dd5378caf4eea1a6ef0171909505d4bd5e86b8c";
+    sha256 = "19h3iv1ra3dvfivdpkhf9h1mwivvsfrz1jvqjnx8ygmaylv05jab";
   };
   };
   racketThinBuildInputs = [ self."base" self."component-lib" self."db-doc" self."db-lib" self."scribble-lib" self."racket-doc" self."rackunit-doc" self."rackunit-lib" ];
@@ -2735,8 +2888,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "component-lib";
     url = "git://github.com/Bogdanp/racket-component.git";
-    rev = "1069c8dad15ceef6bfb4457996095c9702ac7c38";
-    sha256 = "14ddbcbnnqcdn3v57pzh4zfhk0jr62y39y1rkyj25mms2qr09h1d";
+    rev = "6dd5378caf4eea1a6ef0171909505d4bd5e86b8c";
+    sha256 = "19h3iv1ra3dvfivdpkhf9h1mwivvsfrz1jvqjnx8ygmaylv05jab";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
@@ -2750,8 +2903,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "component-test";
     url = "git://github.com/Bogdanp/racket-component.git";
-    rev = "1069c8dad15ceef6bfb4457996095c9702ac7c38";
-    sha256 = "14ddbcbnnqcdn3v57pzh4zfhk0jr62y39y1rkyj25mms2qr09h1d";
+    rev = "6dd5378caf4eea1a6ef0171909505d4bd5e86b8c";
+    sha256 = "19h3iv1ra3dvfivdpkhf9h1mwivvsfrz1jvqjnx8ygmaylv05jab";
   };
   };
   racketThinBuildInputs = [ self."base" self."component-lib" self."rackunit-lib" ];
@@ -2806,11 +2959,35 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "contract-etc" = self.lib.mkRacketDerivation rec {
+  pname = "contract-etc";
+  src = fetchgit {
+    name = "contract-etc";
+    url = "git://github.com/camoy/contract-etc.git";
+    rev = "6629c4f5011417022e0b8b7e20265a5ae4f0b222";
+    sha256 = "06gps96xica72235sbzglz20622h9i37f84q7nnm81jl65f3210f";
+  };
+  racketThinBuildInputs = [ self."base" self."sandbox-lib" self."chk-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "contract-parameter" = self.lib.mkRacketDerivation rec {
+  pname = "contract-parameter";
+  src = fetchgit {
+    name = "contract-parameter";
+    url = "git://github.com/camoy/contract-parameter.git";
+    rev = "762d1ebfbce61320c84ce655158acaa254147332";
+    sha256 = "06kiw7pls16f1a3fpy0fgdjbq3qcgn36nxzj38409xxka313zczf";
+  };
+  racketThinBuildInputs = [ self."contract-etc" self."base" self."chk-lib" self."sandbox-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "contract-profile" = self.lib.mkRacketDerivation rec {
   pname = "contract-profile";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/contract-profile.zip";
-    sha1 = "14a220d541a3d2e62e103068b72157f3c25ebbf6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/contract-profile.zip";
+    sha1 = "63cdff9051104ac66799e92d9e5a3fdc840045c7";
   };
   racketThinBuildInputs = [ self."base" self."math-lib" self."profile-lib" self."racket-doc" self."scribble-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -3019,8 +3196,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "crypto";
     url = "git://github.com/rmculpepper/crypto.git";
-    rev = "981faedbbac33eb0120a30e36d7917cc4e9479fc";
-    sha256 = "0wzimcndkcvr7nakq16ig4xsmiqmvnjmm407245sqmbwzv84090l";
+    rev = "fec745e8af7e3f4d5eaf83407dde2817de4c2eb0";
+    sha256 = "17qylrsxzl0gc8j7niqqxnjf5fl1nfqyr0wx323masw3a89f2bnx";
   };
   };
   racketThinBuildInputs = [ self."base" self."crypto-lib" self."crypto-doc" ];
@@ -3034,8 +3211,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "crypto-doc";
     url = "git://github.com/rmculpepper/crypto.git";
-    rev = "981faedbbac33eb0120a30e36d7917cc4e9479fc";
-    sha256 = "0wzimcndkcvr7nakq16ig4xsmiqmvnjmm407245sqmbwzv84090l";
+    rev = "fec745e8af7e3f4d5eaf83407dde2817de4c2eb0";
+    sha256 = "17qylrsxzl0gc8j7niqqxnjf5fl1nfqyr0wx323masw3a89f2bnx";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" self."crypto-lib" ];
@@ -3049,11 +3226,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "crypto-lib";
     url = "git://github.com/rmculpepper/crypto.git";
-    rev = "981faedbbac33eb0120a30e36d7917cc4e9479fc";
-    sha256 = "0wzimcndkcvr7nakq16ig4xsmiqmvnjmm407245sqmbwzv84090l";
+    rev = "fec745e8af7e3f4d5eaf83407dde2817de4c2eb0";
+    sha256 = "17qylrsxzl0gc8j7niqqxnjf5fl1nfqyr0wx323masw3a89f2bnx";
   };
   };
-  racketThinBuildInputs = [ self."base" self."asn1-lib" self."binaryio-lib" self."gmp-lib" ];
+  racketThinBuildInputs = [ self."base" self."asn1-lib" self."base64-lib" self."binaryio-lib" self."gmp-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3064,8 +3241,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "crypto-test";
     url = "git://github.com/rmculpepper/crypto.git";
-    rev = "981faedbbac33eb0120a30e36d7917cc4e9479fc";
-    sha256 = "0wzimcndkcvr7nakq16ig4xsmiqmvnjmm407245sqmbwzv84090l";
+    rev = "fec745e8af7e3f4d5eaf83407dde2817de4c2eb0";
+    sha256 = "17qylrsxzl0gc8j7niqqxnjf5fl1nfqyr0wx323masw3a89f2bnx";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."asn1-lib" self."crypto-lib" ];
@@ -3090,15 +3267,27 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "cs-bootstrap" = self.lib.mkRacketDerivation rec {
   pname = "cs-bootstrap";
   src = self.lib.extractPath {
-    path = "racket/src/cs/bootstrap";
+    path = "rktboot";
     src = fetchgit {
     name = "cs-bootstrap";
-    url = "git://github.com/racket/racket.git";
-    rev = "d590eee0c773af8a1c530db244f0f1ddb29e7871";
-    sha256 = "0pnkvhc6kb4493fhw4ajw1mqln8c5467k5kmcplbw4dm4nwchd60";
+    url = "git://github.com/racket/ChezScheme.git";
+    rev = "341024292bc582ad158a283977643ae86579bf76";
+    sha256 = "0z3pw87lg84a9lq558a7j04ikzzvccvd5h343d84piwm7v6bkaiv";
   };
   };
   racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "cs135-drtools" = self.lib.mkRacketDerivation rec {
+  pname = "cs135-drtools";
+  src = fetchgit {
+    name = "cs135-drtools";
+    url = "git://github.com/Raymo111/cs135-drtools.git";
+    rev = "75c7041944ac489cacfe9327a7a936aafb576983";
+    sha256 = "0r0hmyb12cm9796q3l0asgm84v8xzzs0iz2cwgkh79j20s6322ra";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3156,8 +3345,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "csfml";
     url = "git://github.com/massung/racket-csfml.git";
-    rev = "6bc3f07c335328f7b6d5d11d3f0f58cd52bcbd3f";
-    sha256 = "1922a6x066pp4mnp5rb9i1b2f3yr6cqgsyv71lfaw9szabx5k6k9";
+    rev = "7bcd88b848d054b5d847a51f65eb90988c260b81";
+    sha256 = "1mi48yjv3ns5l7014hkgm5zm7w1bb1aiwblvzndb1hmx5h722nzq";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -3168,8 +3357,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "csp";
     url = "git://github.com/mbutterick/csp.git";
-    rev = "4173bd69214a4f090bec0417454a5ecc3ad3e0af";
-    sha256 = "0bnz7xisp0ymi6ilqw8s2qjc7qgq5b2zr3jqj136vzwsv16i4knh";
+    rev = "064e675cb06e3ec63714baaa39497f6c3b7f2c20";
+    sha256 = "0gqaykc4bjr47ccagy379cksl4srmjy637xkmwz19jq2akwrcz14";
   };
   racketThinBuildInputs = [ self."beautiful-racket-lib" self."htdp-lib" self."math-lib" self."base" self."sugar" self."rackunit-lib" self."debug" self."graph" self."at-exp-lib" self."math-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -3204,8 +3393,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "css-tools";
     url = "git://github.com/mbutterick/css-tools.git";
-    rev = "a485024a1bab79afe2124db2d76b0bc5bd272f31";
-    sha256 = "1hkxcff1f3mi51pbgh6gbyj5294y67g7x04gyk78jana11q0ib7i";
+    rev = "f065107c46cc3a1fbd2052654347f8912c34985a";
+    sha256 = "11p16vsydc3kfx1nyhvsy4pxlqh9cnz6a9iz6pncx833c89qgrpj";
   };
   racketThinBuildInputs = [ self."base" self."sugar" self."scribble-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -3226,7 +3415,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "csv-reading" = self.lib.mkRacketDerivation rec {
   pname = "csv-reading";
   src = fetchurl {
-    url = "http://www.neilvandyke.org/racket/csv-reading.zip";
+    url = "https://www.neilvandyke.org/racket/csv-reading.zip";
     sha1 = "217c1ee293ee246cba52fc91f2e897492d0b5101";
   };
   racketThinBuildInputs = [ self."base" self."mcfly" self."racket-doc" self."scribble-lib" self."overeasy" ];
@@ -3264,8 +3453,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "cur";
     url = "git://github.com/wilbowma/cur.git";
-    rev = "df31613b683244f4f56f9e1d562a22dcd982307d";
-    sha256 = "0gkc1xill00gnxb21n6n75af157w984bhh6gh8x43wi0f2f1wkpb";
+    rev = "e039c98941b3d272c6e462387df22846e10b0128";
+    sha256 = "006bhdjkhn8bbi0p79ry5s0hvqi0mk2j5yzdllqrqpmclrw9bk5s";
   };
   };
   racketThinBuildInputs = [ self."cur-lib" self."cur-doc" self."cur-test" ];
@@ -3279,11 +3468,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "cur-doc";
     url = "git://github.com/wilbowma/cur.git";
-    rev = "df31613b683244f4f56f9e1d562a22dcd982307d";
-    sha256 = "0gkc1xill00gnxb21n6n75af157w984bhh6gh8x43wi0f2f1wkpb";
+    rev = "e039c98941b3d272c6e462387df22846e10b0128";
+    sha256 = "006bhdjkhn8bbi0p79ry5s0hvqi0mk2j5yzdllqrqpmclrw9bk5s";
   };
   };
-  racketThinBuildInputs = [ self."base" self."base" self."scribble-lib" self."racket-doc" self."sandbox-lib" self."cur-lib" ];
+  racketThinBuildInputs = [ self."base" self."base" self."scribble-lib" self."racket-doc" self."sandbox-lib" self."cur-lib" self."data-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3294,11 +3483,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "cur-lib";
     url = "git://github.com/wilbowma/cur.git";
-    rev = "df31613b683244f4f56f9e1d562a22dcd982307d";
-    sha256 = "0gkc1xill00gnxb21n6n75af157w984bhh6gh8x43wi0f2f1wkpb";
+    rev = "e039c98941b3d272c6e462387df22846e10b0128";
+    sha256 = "006bhdjkhn8bbi0p79ry5s0hvqi0mk2j5yzdllqrqpmclrw9bk5s";
   };
   };
-  racketThinBuildInputs = [ self."base" ];
+  racketThinBuildInputs = [ self."base" self."turnstile-lib" self."macrotypes-lib" self."reprovide-lang-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3309,11 +3498,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "cur-test";
     url = "git://github.com/wilbowma/cur.git";
-    rev = "df31613b683244f4f56f9e1d562a22dcd982307d";
-    sha256 = "0gkc1xill00gnxb21n6n75af157w984bhh6gh8x43wi0f2f1wkpb";
+    rev = "e039c98941b3d272c6e462387df22846e10b0128";
+    sha256 = "006bhdjkhn8bbi0p79ry5s0hvqi0mk2j5yzdllqrqpmclrw9bk5s";
   };
   };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."cur-lib" self."sweet-exp-lib" self."chk-lib" ];
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."cur-lib" self."sweet-exp-lib" self."chk-lib" self."rackunit-macrotypes-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3418,8 +3607,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "dan-scheme";
     url = "git://github.com/david-christiansen/dan-scheme.git";
-    rev = "f24fdf3569b718449b7dd64a14f5c53311dea057";
-    sha256 = "0c7rm16srx98qzdnyv4p6w0w5wi2v35wsg29cdcggjhiicy6by5r";
+    rev = "289e8cb903a24b2e1939a8556c164589a0e293e5";
+    sha256 = "0v4ixk6wlmg3w90vxa5jphpgrnia25cs9www4vqmy9pg7n2mi2al";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -3430,18 +3619,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "darwin";
     url = "git://github.com/pmatos/darwin.git";
-    rev = "001f75ac4c42274451b2f1010e7e1d87619e0caa";
-    sha256 = "1x3yz9dz1dwfwxmv7gqv612qfyiymkk4c44jcidf7wz1qh8y5qrn";
+    rev = "311df33cc83f67859ed9db8b236d227dec83d895";
+    sha256 = "1w9j9kxf12jwb682d57adwpsnkmif101pgnz7a370fs93l8d4rv6";
   };
-  racketThinBuildInputs = [ self."base" self."find-parent-dir" self."html-lib" self."markdown-ng" self."racket-index" self."rackjure" self."reprovide-lang" self."scribble-lib" self."scribble-text-lib" self."srfi-lite-lib" self."web-server-lib" self."at-exp-lib" self."net-doc" self."racket-doc" self."rackunit-lib" self."scribble-doc" self."scribble-text-lib" self."web-server-doc" ];
+  racketThinBuildInputs = [ self."base" self."find-parent-dir" self."html-lib" self."markdown-ng" self."txexpr" self."racket-index" self."rackjure" self."reprovide-lang" self."scribble-lib" self."scribble-text-lib" self."srfi-lite-lib" self."web-server-lib" self."at-exp-lib" self."net-doc" self."racket-doc" self."rackunit-lib" self."scribble-doc" self."scribble-text-lib" self."web-server-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "data" = self.lib.mkRacketDerivation rec {
   pname = "data";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/data.zip";
-    sha1 = "efa141d8beebd574abc6c093380f561d2c3522d6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/data.zip";
+    sha1 = "293132f96206345435012f90598be62a46e9e258";
   };
   racketThinBuildInputs = [ self."data-lib" self."data-enumerate-lib" self."data-doc" ];
   circularBuildInputs = [  ];
@@ -3450,8 +3639,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "data-doc" = self.lib.mkRacketDerivation rec {
   pname = "data-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/data-doc.zip";
-    sha1 = "df65bfb4fe3134f5159a9e9204110a5b5520ffab";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/data-doc.zip";
+    sha1 = "fee7eb148057172461448355dbdab2e73d8ca76f";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."data-lib" self."data-enumerate-lib" self."scribble-lib" self."plot-lib" self."math-lib" self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -3460,8 +3649,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "data-enumerate-lib" = self.lib.mkRacketDerivation rec {
   pname = "data-enumerate-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/data-enumerate-lib.zip";
-    sha1 = "e1e1deb4b85adae05f2b916d1447aa8704b3ef13";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/data-enumerate-lib.zip";
+    sha1 = "cbf55cf408239ae37354b45d871ced15c65991d0";
   };
   racketThinBuildInputs = [ self."base" self."data-lib" self."math-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -3472,18 +3661,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "data-frame";
     url = "git://github.com/alex-hhh/data-frame.git";
-    rev = "120e80ea2b9051eb69473c21b1536e75fb3fb28c";
-    sha256 = "1xfi8fxg7z90p7mqfpjif9f9pxd0bd706jk5zba243kb9wmipmk1";
+    rev = "dcbc48bc8ab7f1b9edb149f349e2c36ccd5ad722";
+    sha256 = "0ns928hbxhmf4jldn0mqk7lk1rikmh3mvyjvp6salmhqgnb6xy7y";
   };
-  racketThinBuildInputs = [ self."db-lib" self."draw-lib" self."math-lib" self."plot-gui-lib" self."plot-lib" self."srfi-lite-lib" self."typed-racket-lib" self."rackunit-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."db-doc" self."math-doc" self."plot-doc" ];
+  racketThinBuildInputs = [ self."db-lib" self."draw-lib" self."math-lib" self."plot-gui-lib" self."plot-lib" self."srfi-lite-lib" self."typed-racket-lib" self."rackunit-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."db-doc" self."math-doc" self."plot-doc" self."al2-test-runner" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "data-lib" = self.lib.mkRacketDerivation rec {
   pname = "data-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/data-lib.zip";
-    sha1 = "7f614dc5c000e3ac770b448bcabe7c4824084c2a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/data-lib.zip";
+    sha1 = "3788b6a3f6ffe527501ac0a20e6fdcfbfe18d834";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -3516,8 +3705,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "data-test" = self.lib.mkRacketDerivation rec {
   pname = "data-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/data-test.zip";
-    sha1 = "530a2a6924c6dd0e33e67e4c9db586ca876ab2eb";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/data-test.zip";
+    sha1 = "f8735e25fd4f6ff17f1962372e6d846d1e138c86";
   };
   racketThinBuildInputs = [ self."base" self."data-enumerate-lib" self."racket-index" self."data-lib" self."rackunit-lib" self."math-lib" ];
   circularBuildInputs = [  ];
@@ -3528,8 +3717,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "database-url";
     url = "git://github.com/lassik/racket-database-url.git";
-    rev = "89110683d2014b9e16f30210636a5f8eabd3cdbd";
-    sha256 = "0blv84xpgx168fbmbfh8yi7bav0qirhwigq5yrnb1l0gx62743bb";
+    rev = "1bc45817ab41171da41d39c0027367eda698c463";
+    sha256 = "0qcnn2xa2rgldgbp34yfkhjj839fx3jljh0qpd8wwn4famywqjgr";
   };
   racketThinBuildInputs = [ self."db-lib" self."rackunit-lib" self."base" self."db-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -3550,8 +3739,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "datalog" = self.lib.mkRacketDerivation rec {
   pname = "datalog";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/datalog.zip";
-    sha1 = "9402c38facced8f50be809ddb4eaf30c008787b5";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/datalog.zip";
+    sha1 = "78057119a3083eeecd5f4f57e27a11c4ce14dc24";
   };
   racketThinBuildInputs = [ self."base" self."parser-tools-lib" self."syntax-color-lib" self."racket-doc" self."scribble-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -3562,8 +3751,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "datatype";
     url = "git://github.com/pnwamk/datatype";
-    rev = "fda1df0f803fb7e4c33ea25697e1291edc9b6d3d";
-    sha256 = "010sw6ljqk87z06rzic8p7wcjbii8rg2y7jvgxqsk5y3ash707da";
+    rev = "5d865929dfcab856ebb85924ef16a74b13362662";
+    sha256 = "185xnla5kqis9i2blxn6pvpkhm2aawlnkdlfinqyrp5hksrjz7zc";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" ];
   circularBuildInputs = [  ];
@@ -3584,8 +3773,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db" = self.lib.mkRacketDerivation rec {
   pname = "db";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db.zip";
-    sha1 = "1514366b5ed8eade9c809712fa9deb31b5b6be1f";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db.zip";
+    sha1 = "35dab81bb8153a8e02db29c93ec4db5ac07a6757";
   };
   racketThinBuildInputs = [ self."db-lib" self."db-doc" self."base" ];
   circularBuildInputs = [  ];
@@ -3594,8 +3783,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db-doc" = self.lib.mkRacketDerivation rec {
   pname = "db-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db-doc.zip";
-    sha1 = "3921716458a2d4802602e54a7e168da01024cbc8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db-doc.zip";
+    sha1 = "fbc840250fb5c424812082f94c0ca106c46e7397";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."srfi-lite-lib" self."base" self."scribble-lib" self."sandbox-lib" self."web-server-lib" self."db-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -3604,8 +3793,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db-lib" = self.lib.mkRacketDerivation rec {
   pname = "db-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db-lib.zip";
-    sha1 = "07ccccda49c25c28b269b1d5b2a4bfce53916d20";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db-lib.zip";
+    sha1 = "d66b5af0d125a41e16d0ae8a48c4a208d441fd24";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" self."unix-socket-lib" self."sasl-lib" ];
   circularBuildInputs = [  ];
@@ -3614,8 +3803,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db-ppc-macosx" = self.lib.mkRacketDerivation rec {
   pname = "db-ppc-macosx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db-ppc-macosx.zip";
-    sha1 = "a8e944afb21b3e7b1d14ff16553ffd5a71645dba";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db-ppc-macosx.zip";
+    sha1 = "6a33424c58812af873c8756fc78c3eabe8b16914";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -3624,8 +3813,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db-test" = self.lib.mkRacketDerivation rec {
   pname = "db-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db-test.zip";
-    sha1 = "0b55665a04e5b6f87b160229a37a79a4170c04f6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db-test.zip";
+    sha1 = "3399fe4fba17a522638e08d6e656766a8821de0a";
   };
   racketThinBuildInputs = [ self."base" self."db-lib" self."rackunit-lib" self."web-server-lib" self."srfi-lite-lib" ];
   circularBuildInputs = [  ];
@@ -3634,8 +3823,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db-win32-i386" = self.lib.mkRacketDerivation rec {
   pname = "db-win32-i386";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db-win32-i386.zip";
-    sha1 = "6c93871dd5b380ff5a9c01d7ebb380573d300af4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db-win32-i386.zip";
+    sha1 = "7e703b3f271f299140c5d9d040af8b8ed6304d19";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -3644,8 +3833,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db-win32-x86_64" = self.lib.mkRacketDerivation rec {
   pname = "db-win32-x86_64";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db-win32-x86_64.zip";
-    sha1 = "4cfadee0b6fb3223e657b603987094f7a58cded8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db-win32-x86_64.zip";
+    sha1 = "d61946a43eea17f7ba7ea0ce455b3ca329d2138a";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -3654,8 +3843,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "db-x86_64-linux-natipkg" = self.lib.mkRacketDerivation rec {
   pname = "db-x86_64-linux-natipkg";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/db-x86_64-linux-natipkg.zip";
-    sha1 = "99877935eb599bd116642bcddf1253f885c43e86";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/db-x86_64-linux-natipkg.zip";
+    sha1 = "1b7371c45f8f68bb8c0f4b5c89c78dac9884a582";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -3714,8 +3903,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "debug-scopes";
     url = "git://github.com/jsmaniac/debug-scopes.git";
-    rev = "ad12bbfc218c0153cc3fa9410e0c025dc21e3ca9";
-    sha256 = "0h20sirwkkccadfp5h9mrs662ys34lyimb03j7qrfxsnb7ip2nnv";
+    rev = "50d2b35873e9d23b71387848ee35d214617650d2";
+    sha256 = "125m6d99d3p2nsm12qd10f769zhmyzy8z9xd4fdwvvhkn5f45ckr";
   };
   racketThinBuildInputs = [ self."base" self."pretty-format" self."rackunit-lib" self."reprovide-lang" self."scribble-lib" self."racket-doc" self."scribble-enhanced" ];
   circularBuildInputs = [  ];
@@ -3726,10 +3915,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "decentralized-internet";
     url = "git://github.com/Lonero-Team/Racket-Package.git";
-    rev = "74f1c6d7f51102e5b2e7ed6a609cc39b930dfb7c";
-    sha256 = "1jxvqfb7j39d0a90dzp0vhl3bxbkqw2vlqq0iqrcwdkq7yc0m21z";
+    rev = "65ba96bcd64239358b2e1a95567c281a010c7e52";
+    sha256 = "1lkgai63xinjv3ngdgznn64g7hmfixmcv1li7fgdsx32fbiy26i0";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "defensive-to-contracts" = self.lib.mkRacketDerivation rec {
+  pname = "defensive-to-contracts";
+  src = fetchgit {
+    name = "defensive-to-contracts";
+    url = "git://github.com/jiujiu1123/defensive-to-contracts.git";
+    rev = "f64d8cb80a17fb981eb8269ef15f1fdb2f4d190b";
+    sha256 = "0mvd6bvr183a2c25sflwnnh2k9qhgxd0q8x5vk4sl6y282afm9la";
+  };
+  racketThinBuildInputs = [ self."base" self."plai" self."gui-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3769,6 +3970,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "define-who" = self.lib.mkRacketDerivation rec {
+  pname = "define-who";
+  src = fetchgit {
+    name = "define-who";
+    url = "git://github.com/sorawee/define-who.git";
+    rev = "c77167fe7d5c2f3057cc80d9c201f9e888f02545";
+    sha256 = "1cym8xc6qa3zf2sa3xkfmqm0rd1w6p6x9gjyib240wrfx2r826sk";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "define-with-spec" = self.lib.mkRacketDerivation rec {
   pname = "define-with-spec";
   src = fetchgit {
@@ -3778,6 +3991,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "01xdc3j5qp6q316f6f0as1rggk40146l64gqy1adnl88cgbw3pa6";
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "define2" = self.lib.mkRacketDerivation rec {
+  pname = "define2";
+  src = fetchgit {
+    name = "define2";
+    url = "git://github.com/Metaxal/define2.git";
+    rev = "c9760f29b27e45c6fa9edee37d6275214745e8f8";
+    sha256 = "1szgf882wa77pqv54n9vqkfp5c4jyq7mb6p7wc68khvqy81a43zl";
+  };
+  racketThinBuildInputs = [ self."base" self."sandbox-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -3796,8 +4021,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "deinprogramm" = self.lib.mkRacketDerivation rec {
   pname = "deinprogramm";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/deinprogramm.zip";
-    sha1 = "2c1a999fa2d57512d20d1790f39805cc795fd72b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/deinprogramm.zip";
+    sha1 = "63de7b717e785dd799b451f61972b872391fbb81";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."deinprogramm-signature" self."drracket" self."drracket-plugin-lib" self."errortrace-lib" self."gui-lib" self."htdp-lib" self."pconvert-lib" self."scheme-lib" self."string-constants-lib" self."trace" self."wxme-lib" self."at-exp-lib" self."htdp-doc" self."racket-doc" self."racket-index" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -3806,8 +4031,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "deinprogramm-signature" = self.lib.mkRacketDerivation rec {
   pname = "deinprogramm-signature";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/deinprogramm-signature.zip";
-    sha1 = "122ec1b39094cddb7a4c2bec3224bfd91590dfc7";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/deinprogramm-signature.zip";
+    sha1 = "cf4f59ce92ad9731526b2f5ce7090dcca4ea5458";
   };
   racketThinBuildInputs = [ self."deinprogramm-signature+htdp-lib" self."base" self."compatibility-lib" self."drracket-plugin-lib" self."gui-lib" self."scheme-lib" self."srfi-lib" self."string-constants-lib" ];
   circularBuildInputs = [ "htdp-lib" "deinprogramm-signature" ];
@@ -3826,8 +4051,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "delay-pure";
     url = "git://github.com/jsmaniac/delay-pure.git";
-    rev = "98766ec6271012e2635aeabbf2bd3e1bd9ab68e1";
-    sha256 = "01dss58q1r69zb6x07i8hdq7c1wqkfwrdjkxfagxabq1pm0qp2dy";
+    rev = "19541b8094b1aac23268f13d308202627275a360";
+    sha256 = "1y3dg6p5657nw6mxwb34yd16y41mb4z71cjhjxs7djw302j6f2ym";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-racket-lib" self."typed-racket-more" self."type-expander" self."phc-toolkit" self."version-case" self."scribble-lib" self."racket-doc" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -3874,8 +4099,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "describe";
     url = "git://github.com/mbutterick/describe.git";
-    rev = "be266809f5b331e12bf18bdeee2495119060b0d4";
-    sha256 = "0dqs9cdk5ifzazjayndb79ppwdcwcvzcf555wybd341k1f591ksg";
+    rev = "e694813d9540623a04cbff78034502c2a693e90a";
+    sha256 = "1hp105f0vjg5z3h59qs5s2iv22nr6iswak5y8410l4al80cjvj79";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -3903,8 +4128,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "deta";
     url = "git://github.com/Bogdanp/deta.git";
-    rev = "dd356a116ac7ba23edb10e4976ffcff26966ada2";
-    sha256 = "14jg54gg3lxx2717v1ly9g7v3r4zvvf72gr68fnzmvm0ksi2s9cy";
+    rev = "876afa49eebf64b22cdaafd9ec284a4d4a8af6de";
+    sha256 = "1zln1f6ha4ii27pgh4y0d538gf0x6f72057fpcnkfpaxhbvkcmq8";
   };
   };
   racketThinBuildInputs = [ self."deta-doc" self."deta-lib" ];
@@ -3918,8 +4143,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "deta-doc";
     url = "git://github.com/Bogdanp/deta.git";
-    rev = "dd356a116ac7ba23edb10e4976ffcff26966ada2";
-    sha256 = "14jg54gg3lxx2717v1ly9g7v3r4zvvf72gr68fnzmvm0ksi2s9cy";
+    rev = "876afa49eebf64b22cdaafd9ec284a4d4a8af6de";
+    sha256 = "1zln1f6ha4ii27pgh4y0d538gf0x6f72057fpcnkfpaxhbvkcmq8";
   };
   };
   racketThinBuildInputs = [ self."base" self."db-doc" self."db-lib" self."deta-lib" self."gregor-doc" self."gregor-lib" self."racket-doc" self."sandbox-lib" self."scribble-lib" self."threading-doc" self."threading-lib" ];
@@ -3933,8 +4158,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "deta-lib";
     url = "git://github.com/Bogdanp/deta.git";
-    rev = "dd356a116ac7ba23edb10e4976ffcff26966ada2";
-    sha256 = "14jg54gg3lxx2717v1ly9g7v3r4zvvf72gr68fnzmvm0ksi2s9cy";
+    rev = "876afa49eebf64b22cdaafd9ec284a4d4a8af6de";
+    sha256 = "1zln1f6ha4ii27pgh4y0d538gf0x6f72057fpcnkfpaxhbvkcmq8";
   };
   };
   racketThinBuildInputs = [ self."base" self."db-lib" self."gregor-lib" self."at-exp-lib" ];
@@ -3948,8 +4173,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "deta-test";
     url = "git://github.com/Bogdanp/deta.git";
-    rev = "dd356a116ac7ba23edb10e4976ffcff26966ada2";
-    sha256 = "14jg54gg3lxx2717v1ly9g7v3r4zvvf72gr68fnzmvm0ksi2s9cy";
+    rev = "876afa49eebf64b22cdaafd9ec284a4d4a8af6de";
+    sha256 = "1zln1f6ha4ii27pgh4y0d538gf0x6f72057fpcnkfpaxhbvkcmq8";
   };
   };
   racketThinBuildInputs = [ self."libsqlite3-x86_64-linux" self."base" self."at-exp-lib" self."db-lib" self."deta-lib" self."gregor-lib" self."rackunit-lib" self."threading-lib" ];
@@ -3961,8 +4186,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "detail";
     url = "git://github.com/simmone/racket-detail.git";
-    rev = "8c2355c313e98f04432c47bb25403c844a77f2eb";
-    sha256 = "00lsfrd6c7g5fwsy6nd5glb5bb8b1gx4h8hxxqli36j68j19a7f3";
+    rev = "5d4d2b765bfdfb0335c1a13a897a8bb3e65d85f9";
+    sha256 = "1d395k30gjvljccwy084z2j04x0vybxd4lxfg2ah55wvxi8cvhqi";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."scribble-lib" self."draw-lib" ];
   circularBuildInputs = [  ];
@@ -4042,8 +4267,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "dice-parser";
     url = "https://gitlab.com/car.margiotta/dice-parser.git";
-    rev = "46a1b1fa1f2a74a3f2053adfc03171d19712c145";
-    sha256 = "0w3p64f8nzlvy147jhhlil51nbxsvljs6bbp8iqvimmzmhmx817h";
+    rev = "99f06659f3f7659dc577df4fef1d2b6f6eb12baa";
+    sha256 = "0crzmj2i4bqpcr821di5k6zarcm7ppqn8p86xzyiiv2aqhsf9zzn";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -4066,10 +4291,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "digimon";
     url = "git://github.com/wargrey/digimon.git";
-    rev = "f7c31b2a3b9dc97b3c3115f2c7dabdb927dd84e4";
-    sha256 = "1z12m33jc1cmjm4gwvss8km3gnlr0n7763pjr220l1rl0i5dri3n";
+    rev = "aec2dfeada8cb719bd9439096ecf711d5a068e60";
+    sha256 = "1nrzgqlf0932i8ijisjv8ancvmd1cmfsdz8w8vlh4nf4vknylmjc";
   };
-  racketThinBuildInputs = [ self."base" self."make" self."typed-racket-lib" self."typed-racket-more" self."racket-index" self."sandbox-lib" self."scribble-lib" self."math-lib" self."scribble-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."gui-lib" self."typed-racket-lib" self."typed-racket-more" self."racket-index" self."sandbox-lib" self."scribble-lib" self."math-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4078,8 +4303,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "disassemble";
     url = "git://github.com/samth/disassemble.git";
-    rev = "2bf2d8c5dc07ec535ba008c7585c6d5cb12d10e6";
-    sha256 = "0b3k1h3sn7fjbhblfx8li3mh29j0kq69hx3val3jnb0bvghbqllj";
+    rev = "c4f80cd7994d2d4f9ad4aae0734c454d33390017";
+    sha256 = "049r1hzgaiil6dwj667klpgfbd3c7agsns44qs7rbndy48qbxf2s";
   };
   racketThinBuildInputs = [ self."base" self."r6rs-lib" self."srfi-lib" self."srfi-lite-lib" ];
   circularBuildInputs = [  ];
@@ -4118,8 +4343,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "distributed-places" = self.lib.mkRacketDerivation rec {
   pname = "distributed-places";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/distributed-places.zip";
-    sha1 = "fc16d0a608c0903bc66756e43ccefb1bb81a032a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/distributed-places.zip";
+    sha1 = "1f41084ea43dedfaca060331b13380aa5e5c8164";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."distributed-places-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -4128,8 +4353,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "distributed-places-doc" = self.lib.mkRacketDerivation rec {
   pname = "distributed-places-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/distributed-places-doc.zip";
-    sha1 = "c85adf5d4e99f7b703d6935be680f9c7cea063e7";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/distributed-places-doc.zip";
+    sha1 = "f50f9db15d44c538801c625471146037c824e770";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."distributed-places-lib" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -4138,8 +4363,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "distributed-places-lib" = self.lib.mkRacketDerivation rec {
   pname = "distributed-places-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/distributed-places-lib.zip";
-    sha1 = "5a04b94d56ea6883aee958b58d4fabd73089d8e8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/distributed-places-lib.zip";
+    sha1 = "5bca828d25f9bdfedb67f349547b208141adb791";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4167,8 +4392,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "distro-build";
     url = "git://github.com/racket/distro-build.git";
-    rev = "f3e29f1b9dd8aa8f8c7291b63f75f3f00796a85a";
-    sha256 = "1k3lcdbk433hrgbzz06zjayzfcxj4ckjz86krn8bs4whka2mmqsd";
+    rev = "080f8ccb9b1007a07ac2da25e12d75f18e799eb5";
+    sha256 = "0gbn926lyp0x9cq651nh16vigb027dyvqnpcz09xx5iyf3i2vdhr";
   };
   };
   racketThinBuildInputs = [ self."distro-build-lib" self."distro-build-doc" ];
@@ -4178,8 +4403,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "distro-build-client" = self.lib.mkRacketDerivation rec {
   pname = "distro-build-client";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/distro-build-client.zip";
-    sha1 = "c47b9c088b527dbd35ad565e3194d2ae2e2f2600";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/distro-build-client.zip";
+    sha1 = "911b2569651b03c0027ec6e5f2160c7cff024a07";
   };
   racketThinBuildInputs = [ self."base" self."ds-store-lib" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -4192,8 +4417,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "distro-build-doc";
     url = "git://github.com/racket/distro-build.git";
-    rev = "f3e29f1b9dd8aa8f8c7291b63f75f3f00796a85a";
-    sha256 = "1k3lcdbk433hrgbzz06zjayzfcxj4ckjz86krn8bs4whka2mmqsd";
+    rev = "080f8ccb9b1007a07ac2da25e12d75f18e799eb5";
+    sha256 = "0gbn926lyp0x9cq651nh16vigb027dyvqnpcz09xx5iyf3i2vdhr";
   };
   };
   racketThinBuildInputs = [ self."base" self."distro-build-server" self."distro-build-client" self."web-server-lib" self."at-exp-lib" self."racket-doc" self."scribble-lib" ];
@@ -4203,8 +4428,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "distro-build-lib" = self.lib.mkRacketDerivation rec {
   pname = "distro-build-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/distro-build-lib.zip";
-    sha1 = "3d84148fb9506c2d981fb2c71c94f374d5f51936";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/distro-build-lib.zip";
+    sha1 = "e947b8c0736b05ae2be7cf2c86837a4bccb0aec3";
   };
   racketThinBuildInputs = [ self."distro-build-client" self."distro-build-server" ];
   circularBuildInputs = [  ];
@@ -4213,8 +4438,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "distro-build-server" = self.lib.mkRacketDerivation rec {
   pname = "distro-build-server";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/distro-build-server.zip";
-    sha1 = "e8ac7ce4a7eb1a459108ef2612854c038bdb76ce";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/distro-build-server.zip";
+    sha1 = "101ac845cfdfa38f2612bcb318d8acc648f4b247";
   };
   racketThinBuildInputs = [ self."base" self."distro-build-client" self."web-server-lib" self."ds-store-lib" self."net-lib" self."scribble-html-lib" self."plt-web-lib" self."remote-shell-lib" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -4227,8 +4452,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "distro-build-test";
     url = "git://github.com/racket/distro-build.git";
-    rev = "f3e29f1b9dd8aa8f8c7291b63f75f3f00796a85a";
-    sha256 = "1k3lcdbk433hrgbzz06zjayzfcxj4ckjz86krn8bs4whka2mmqsd";
+    rev = "080f8ccb9b1007a07ac2da25e12d75f18e799eb5";
+    sha256 = "0gbn926lyp0x9cq651nh16vigb027dyvqnpcz09xx5iyf3i2vdhr";
   };
   };
   racketThinBuildInputs = [ self."base" self."remote-shell-lib" self."web-server-lib" ];
@@ -4266,11 +4491,23 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "doc-coverage";
     url = "git://github.com/jackfirth/doc-coverage.git";
-    rev = "b9b9f5df4e6aa640dbd14006c631f5194f5ad929";
-    sha256 = "1jjf5p9vc5w39n9vg9lnqa0x1c9pmk76npa5xrpgjfrq70saaw9j";
+    rev = "b1c0e9f3fd3a25e260f8905e6c8211dacf532b25";
+    sha256 = "07zxvfwgr0a6nx2l5jrda2785lfr6ncamalhaz041hlvh5s2q909";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-index" self."rackunit-lib" self."reprovide-lang-lib" self."scribble-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "dollar" = self.lib.mkRacketDerivation rec {
+  pname = "dollar";
+  src = fetchgit {
+    name = "dollar";
+    url = "git://github.com/rogerkeays/racket-dollar.git";
+    rev = "16fa7aec4e1cef43a7b678dc798b1a9c20a87bb6";
+    sha256 = "0s3bfz2w3dsq9qjnppzf9lk6nn7nxdiv4grk7xrmnpvlmfsczxc2";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4315,8 +4552,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "dotlambda";
     url = "git://github.com/jsmaniac/dotlambda.git";
-    rev = "fed2278132fa30ac69b73c3f1400b15860a5a4a6";
-    sha256 = "1bp85x9f7j8qr3dkk2cl83j1lbjk15y5dvzvxfxly22qsbf4wn9w";
+    rev = "96cfe93ab611db377a4a68f4b0a7e483ebf506a6";
+    sha256 = "1hijk9gvrpnpb9cdbwvnjdibxpj14ih59k40c9wpddnpqszp7xfw";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-map-lib" self."typed-racket-lib" self."typed-racket-more" self."chain-module-begin" self."debug-scopes" self."scribble-lib" self."racket-doc" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -4338,7 +4575,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   pname = "dracula-theme";
   src = fetchgit {
     name = "dracula-theme";
-    url = "git://github.com/massung/racket-dracula.git";
+    url = "git://github.com/dracula/racket.git";
     rev = "93ee37d4d35d4ec117305c99c264bf9a0e58e622";
     sha256 = "09f76w6d7b2j45lckz48nc5hjj8034ibj8jxq0s1zlxqw16fihsj";
   };
@@ -4349,18 +4586,28 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw" = self.lib.mkRacketDerivation rec {
   pname = "draw";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw.zip";
-    sha1 = "13ac8b897da54e6d556894d0d0c7d24b17072eb5";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw.zip";
+    sha1 = "3db3d94d453f89e9c697f3e2a03ac76b439d994d";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."draw-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
+  "draw-aarch64-macosx-3" = self.lib.mkRacketDerivation rec {
+  pname = "draw-aarch64-macosx-3";
+  src = fetchurl {
+    url = "https://pkg-sources.racket-lang.org/pkgs/84ff2482fae3acffb0992f4b9a9000b97ef09c10/draw-aarch64-macosx-3.zip";
+    sha1 = "84ff2482fae3acffb0992f4b9a9000b97ef09c10";
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "draw-doc" = self.lib.mkRacketDerivation rec {
   pname = "draw-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-doc.zip";
-    sha1 = "d712310a23abc9199567232255d6dd7d55b80a40";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-doc.zip";
+    sha1 = "1165f7a74819122542bab364e7e4a52b27963821";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."at-exp-lib" self."base" self."gui-lib" self."pict-lib" self."scribble-lib" self."draw-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -4389,8 +4636,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-i386-macosx-3" = self.lib.mkRacketDerivation rec {
   pname = "draw-i386-macosx-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-i386-macosx-3.zip";
-    sha1 = "a27434a26812d0a4cbafa694b83e47ea52e328a3";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-i386-macosx-3.zip";
+    sha1 = "f230aa020702ee37b24be7d84f76ec830b330c1a";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4399,8 +4646,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-lib" = self.lib.mkRacketDerivation rec {
   pname = "draw-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-lib.zip";
-    sha1 = "760bba36086962e13826dee84bf82d289578009b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-lib.zip";
+    sha1 = "d31da9fb950bc0404e5466549d46d6a25c378b3d";
   };
   racketThinBuildInputs = [ self."base" self."draw-i386-macosx-3" self."draw-x86_64-macosx-3" self."draw-ppc-macosx-3" self."draw-win32-i386-3" self."draw-win32-x86_64-3" self."draw-x86_64-linux-natipkg-3" self."draw-x11-x86_64-linux-natipkg" self."draw-ttf-x86_64-linux-natipkg" ];
   circularBuildInputs = [  ];
@@ -4429,8 +4676,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-ppc-macosx-3" = self.lib.mkRacketDerivation rec {
   pname = "draw-ppc-macosx-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-ppc-macosx-3.zip";
-    sha1 = "4b0b9d0596c2435d16f8c330676a3fe62cef84a6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-ppc-macosx-3.zip";
+    sha1 = "cdc595aa13507b198ae5a5205a12ae69ed4632ef";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4439,8 +4686,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-test" = self.lib.mkRacketDerivation rec {
   pname = "draw-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-test.zip";
-    sha1 = "8dfdf2ec79bbd4941e970fba5f87de44180bfea6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-test.zip";
+    sha1 = "ddbe2f24e14eb1b2dc0a4a1f179cde574c1613a4";
   };
   racketThinBuildInputs = [ self."base" self."racket-index" self."scheme-lib" self."draw-lib" self."racket-test" self."sgl" self."gui-lib" self."rackunit-lib" self."pconvert-lib" self."compatibility-lib" self."sandbox-lib" ];
   circularBuildInputs = [  ];
@@ -4449,8 +4696,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-ttf-x86_64-linux-natipkg" = self.lib.mkRacketDerivation rec {
   pname = "draw-ttf-x86_64-linux-natipkg";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-ttf-x86_64-linux-natipkg.zip";
-    sha1 = "b799cd4955cfc63a63e5f2e2d5343bd90695e9eb";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-ttf-x86_64-linux-natipkg.zip";
+    sha1 = "16679ea395da18bf30699f4ecd1c12b219f651c2";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4479,8 +4726,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-win32-i386-3" = self.lib.mkRacketDerivation rec {
   pname = "draw-win32-i386-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-win32-i386-3.zip";
-    sha1 = "b9968794a7c778d60712041ae075eab91e9c1cd0";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-win32-i386-3.zip";
+    sha1 = "2cf4e8f7458bbb143e66a3461b43aef4cea7ff3c";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4509,8 +4756,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-win32-x86_64-3" = self.lib.mkRacketDerivation rec {
   pname = "draw-win32-x86_64-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-win32-x86_64-3.zip";
-    sha1 = "043b3e23308d9650807d33aa8555710cbd50917b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-win32-x86_64-3.zip";
+    sha1 = "c5cfa9c5c100bd5bff8b47a3f99aecc07c854116";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4519,8 +4766,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-x11-x86_64-linux-natipkg" = self.lib.mkRacketDerivation rec {
   pname = "draw-x11-x86_64-linux-natipkg";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-x11-x86_64-linux-natipkg.zip";
-    sha1 = "5b56c84e4e2f50c2dac6aec4f291553a47331774";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-x11-x86_64-linux-natipkg.zip";
+    sha1 = "54f8702a83966999bf0b061014543a4ce92c6f2c";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4539,8 +4786,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-x86_64-linux-natipkg-3" = self.lib.mkRacketDerivation rec {
   pname = "draw-x86_64-linux-natipkg-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-x86_64-linux-natipkg-3.zip";
-    sha1 = "f00234bff19d0d1703d5ae1c173d17897383785d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-x86_64-linux-natipkg-3.zip";
+    sha1 = "4d918fb36d0da983fca3adaf8463c5c326828412";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4569,8 +4816,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "draw-x86_64-macosx-3" = self.lib.mkRacketDerivation rec {
   pname = "draw-x86_64-macosx-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/draw-x86_64-macosx-3.zip";
-    sha1 = "8e8186eb802bc415e4776a7b41ae6e4326f5435b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/draw-x86_64-macosx-3.zip";
+    sha1 = "8120671d18d663a96140b074a67d76f06f2a6e25";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4595,8 +4842,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "drcomplete";
     url = "git://github.com/yjqww6/drcomplete.git";
-    rev = "b0ec0b1958c3f7fdf51a932117a684af7adaf56e";
-    sha256 = "098yny8ch75fr6k3krcma2xszkbmpjgj4b712py7cd2ffy0py7b9";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
   };
   };
   racketThinBuildInputs = [ self."drcomplete-filename" self."drcomplete-required" self."drcomplete-user-defined" self."drcomplete-module" self."drcomplete-auto" ];
@@ -4610,8 +4857,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "drcomplete-auto";
     url = "git://github.com/yjqww6/drcomplete.git";
-    rev = "b0ec0b1958c3f7fdf51a932117a684af7adaf56e";
-    sha256 = "098yny8ch75fr6k3krcma2xszkbmpjgj4b712py7cd2ffy0py7b9";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
   };
   };
   racketThinBuildInputs = [ self."base" self."gui-lib" self."drracket-plugin-lib" self."drracket" ];
@@ -4625,8 +4872,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "drcomplete-base";
     url = "git://github.com/yjqww6/drcomplete.git";
-    rev = "b0ec0b1958c3f7fdf51a932117a684af7adaf56e";
-    sha256 = "098yny8ch75fr6k3krcma2xszkbmpjgj4b712py7cd2ffy0py7b9";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
   };
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."rackunit-lib" ];
@@ -4640,11 +4887,26 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "drcomplete-filename";
     url = "git://github.com/yjqww6/drcomplete.git";
-    rev = "b0ec0b1958c3f7fdf51a932117a684af7adaf56e";
-    sha256 = "098yny8ch75fr6k3krcma2xszkbmpjgj4b712py7cd2ffy0py7b9";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
   };
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."srfi-lib" self."drcomplete-base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "drcomplete-method-names" = self.lib.mkRacketDerivation rec {
+  pname = "drcomplete-method-names";
+  src = self.lib.extractPath {
+    path = "drcomplete-method-names";
+    src = fetchgit {
+    name = "drcomplete-method-names";
+    url = "git://github.com/yjqww6/drcomplete.git";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."drracket-plugin-lib" self."gui-lib" self."drcomplete-base" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4655,8 +4917,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "drcomplete-module";
     url = "git://github.com/yjqww6/drcomplete.git";
-    rev = "b0ec0b1958c3f7fdf51a932117a684af7adaf56e";
-    sha256 = "098yny8ch75fr6k3krcma2xszkbmpjgj4b712py7cd2ffy0py7b9";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
   };
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."drcomplete-base" ];
@@ -4670,8 +4932,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "drcomplete-required";
     url = "git://github.com/yjqww6/drcomplete.git";
-    rev = "b0ec0b1958c3f7fdf51a932117a684af7adaf56e";
-    sha256 = "098yny8ch75fr6k3krcma2xszkbmpjgj4b712py7cd2ffy0py7b9";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
   };
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."srfi-lib" self."drcomplete-base" self."rackunit-lib" ];
@@ -4685,8 +4947,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "drcomplete-user-defined";
     url = "git://github.com/yjqww6/drcomplete.git";
-    rev = "b0ec0b1958c3f7fdf51a932117a684af7adaf56e";
-    sha256 = "098yny8ch75fr6k3krcma2xszkbmpjgj4b712py7cd2ffy0py7b9";
+    rev = "fead5ffb7e8eadae5cbddb6ca44f173ec155ade8";
+    sha256 = "01f3gw881sgaiw87w9jbalayaz4gk1knfgg3jb7mjc1r60pcpb7y";
   };
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."syntax-color-lib" self."drcomplete-base" self."rackunit-lib" ];
@@ -4698,8 +4960,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "drdr";
     url = "git://github.com/racket/drdr.git";
-    rev = "e5aa926a552151a814bdb45c69d8fd1b6b51b3cc";
-    sha256 = "0wi1gk912c732kclzc5q0wznlsd40hw2gaza7qa61klf50gcadag";
+    rev = "a3e5e778a1c19e7312b98bab25ed95075783f896";
+    sha256 = "0wskjnn13axr735hzb99m9y1y272nwq20bgvsx2rdjdgq1yhfsaz";
   };
   racketThinBuildInputs = [ self."base" self."eli-tester" self."net-lib" self."web-server-lib" self."web-server-test" self."job-queue-lib" self."at-exp-lib" self."scheme-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -4732,8 +4994,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "drracket" = self.lib.mkRacketDerivation rec {
   pname = "drracket";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket.zip";
-    sha1 = "4ad62420ae8812ddb66f07620b427b53a2544434";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/drracket.zip";
+    sha1 = "9ad972b8c8527889dba7effc8e7f09065852c0c0";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."data-lib" self."compiler-lib" self."base" self."planet-lib" self."compatibility-lib" self."draw-lib" self."errortrace-lib" self."macro-debugger-text-lib" self."parser-tools-lib" self."pconvert-lib" self."pict-lib" self."profile-lib" self."sandbox-lib" self."scribble-lib" self."snip-lib" self."string-constants-lib" self."typed-racket-lib" self."wxme-lib" self."gui-lib" self."racket-index" self."html-lib" self."images-lib" self."icons" self."typed-racket-more" self."net-lib" self."tex-table" self."htdp-lib" self."drracket-plugin-lib" self."gui-pkg-manager-lib" self."drracket-tool-lib" self."pict-snip-lib" self."option-contract-lib" self."syntax-color-lib" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -4748,6 +5010,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0jb8lv4dcby3mq8xv2vsigjs0q4jnb7gv35ihi8l0760nqzvfn60";
   };
   racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "drracket-cmdline-args" = self.lib.mkRacketDerivation rec {
+  pname = "drracket-cmdline-args";
+  src = fetchgit {
+    name = "drracket-cmdline-args";
+    url = "git://github.com/sorawee/drracket-cmdline-args.git";
+    rev = "d0b3806a1ebd38dad22cac27b479ab7254a5bf33";
+    sha256 = "0q1w3la91lgkjf9s34ihp3kvaggsnaly5dmm67875qh3ccks9amr";
+  };
+  racketThinBuildInputs = [ self."drracket-plugin-lib" self."gui-lib" self."shlex" self."base" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4775,13 +5049,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "drracket-one-dark" = self.lib.mkRacketDerivation rec {
+  pname = "drracket-one-dark";
+  src = fetchgit {
+    name = "drracket-one-dark";
+    url = "git://github.com/JoaoBrlt/drracket-one-dark.git";
+    rev = "7b9dbd998e8976f37f98cf1f8fa25c4f4631dcef";
+    sha256 = "0clspvq4isg1xhca5cq9i4a3kjhpndydalck66yj30xivlp19p19";
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "drracket-paredit" = self.lib.mkRacketDerivation rec {
   pname = "drracket-paredit";
   src = fetchgit {
     name = "drracket-paredit";
     url = "git://github.com/yjqww6/drracket-paredit.git";
-    rev = "fd33f286788a22425b3cc1ba3a22d93227697aef";
-    sha256 = "0h5kcxkm17dh04ixzzxrwg61kpdm7c03f56fzvdcxa6i15zy8fjg";
+    rev = "b2272896fcdba7e1f2fae7f0f3ecf0043252a10f";
+    sha256 = "1izlli2qh41vfjim8938fwlwd0f8by9fxaxlli53j7x45fg5gnf3";
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."srfi-lib" ];
   circularBuildInputs = [  ];
@@ -4790,10 +5076,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "drracket-plugin-lib" = self.lib.mkRacketDerivation rec {
   pname = "drracket-plugin-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket-plugin-lib.zip";
-    sha1 = "4b2f97969fff66f021beff3f7130fbba95fda759";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/drracket-plugin-lib.zip";
+    sha1 = "f52930320066b5f89db079428e119e6bc693f987";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "drracket-restore-workspace" = self.lib.mkRacketDerivation rec {
+  pname = "drracket-restore-workspace";
+  src = fetchgit {
+    name = "drracket-restore-workspace";
+    url = "git://github.com/sorawee/drracket-restore-workspace.git";
+    rev = "76a7f64331fc2a85f0c26f1465cf0ce07a8a3fad";
+    sha256 = "1alzyiyg5q3660pdkhig5gdjd5ws26msk7512lw88jagar0g2dhd";
+  };
+  racketThinBuildInputs = [ self."drracket-plugin-lib" self."gui-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4802,8 +5100,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "drracket-scheme-dark-green";
     url = "git://github.com/shhyou/drracket-scheme-dark-green.git";
-    rev = "035a9089cdfd1472a506476b70a0c3f6e3fd5664";
-    sha256 = "1aqlcjdxff2237z2pg3hnwk5681qyxkmg21x84mn0azjq9nxrbia";
+    rev = "bda60667005f146ffa78b6435e10cd5731d7f211";
+    sha256 = "1g2wxngs0rf28gkrhw4lx9ij1wi6l2gr8nirfcsizjc72fmw7ysv";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4824,8 +5122,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "drracket-test" = self.lib.mkRacketDerivation rec {
   pname = "drracket-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket-test.zip";
-    sha1 = "a6a2bf231357d8db8ec53330c3a62d565af27bf8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/drracket-test.zip";
+    sha1 = "4e331a89b40eaa3580610ecf91df91bc45bbac97";
   };
   racketThinBuildInputs = [ self."base" self."htdp" self."drracket" self."racket-index" self."scheme-lib" self."at-exp-lib" self."rackunit-lib" self."compatibility-lib" self."gui-lib" self."htdp" self."compiler-lib" self."cext-lib" self."string-constants-lib" ];
   circularBuildInputs = [  ];
@@ -4834,8 +5132,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "drracket-tool" = self.lib.mkRacketDerivation rec {
   pname = "drracket-tool";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket-tool.zip";
-    sha1 = "4b5c89a249efb42b56e2b6aff10257a97976c666";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/drracket-tool.zip";
+    sha1 = "9264cabd59d0cdd7f0adf2e88b757acb4ac43c08";
   };
   racketThinBuildInputs = [ self."drracket-tool-lib" self."drracket-tool-doc" ];
   circularBuildInputs = [  ];
@@ -4844,8 +5142,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "drracket-tool-doc" = self.lib.mkRacketDerivation rec {
   pname = "drracket-tool-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket-tool-doc.zip";
-    sha1 = "16f359c5a764cf09758cc1c21fe41264659bc250";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/drracket-tool-doc.zip";
+    sha1 = "4110be53d8db7658988679f3f4926091bd34531a";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."drracket-tool-lib" self."gui-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -4854,8 +5152,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "drracket-tool-lib" = self.lib.mkRacketDerivation rec {
   pname = "drracket-tool-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket-tool-lib.zip";
-    sha1 = "819b4003f6d5979dd3d572f16144cc3ef31dda30";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/drracket-tool-lib.zip";
+    sha1 = "0f314f55645ce66387344118637e1a813e206957";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."string-constants-lib" self."scribble-lib" self."racket-index" self."gui-lib" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -4864,8 +5162,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "drracket-tool-test" = self.lib.mkRacketDerivation rec {
   pname = "drracket-tool-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/drracket-tool-test.zip";
-    sha1 = "c94a717a6e33a7e831caf3b79ac64b8ab94b0cf4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/drracket-tool-test.zip";
+    sha1 = "381d0282995d2242525f9a387d95ba57bb8076d6";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."drracket-tool-lib" ];
   circularBuildInputs = [  ];
@@ -4898,8 +5196,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "ds-store" = self.lib.mkRacketDerivation rec {
   pname = "ds-store";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/ds-store.zip";
-    sha1 = "b3bd45fa30da36c8bc4ac3256da342447a2b4a9c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/ds-store.zip";
+    sha1 = "60caa0d2174c63e666cc85a654bae30d0445535b";
   };
   racketThinBuildInputs = [ self."ds-store-lib" self."ds-store-doc" self."base" ];
   circularBuildInputs = [  ];
@@ -4908,8 +5206,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "ds-store-doc" = self.lib.mkRacketDerivation rec {
   pname = "ds-store-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/ds-store-doc.zip";
-    sha1 = "60e8de58bbfadbf94aba0abffb5b1eed849de687";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/ds-store-doc.zip";
+    sha1 = "2ce0aefe599be51a3849468d75efdc7bd5342a1a";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."ds-store-lib" ];
   circularBuildInputs = [  ];
@@ -4918,8 +5216,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "ds-store-lib" = self.lib.mkRacketDerivation rec {
   pname = "ds-store-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/ds-store-lib.zip";
-    sha1 = "41ccf308d3e673cb003bb38b93287d8864da9f8d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/ds-store-lib.zip";
+    sha1 = "e49d6eaa4ce064be81d10f4b569e2cb175359a36";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -4954,10 +5252,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "dssl2";
     url = "git://github.com/tov/dssl2.git";
-    rev = "3517a3a00d187e023cb5553aa1180571bd02b64f";
-    sha256 = "0cwb6v4rnhfachdywlzvcb5q4n44fs35azdx4nahsp5jl0zns1k4";
+    rev = "105d18069465781bd9b87466f8336d5ce9e9a0f3";
+    sha256 = "15mj2dpbm5ggz62k3b8jr17by2svl86fcn7kjfy8zjz0jai468nw";
   };
-  racketThinBuildInputs = [ self."base" self."gui-lib" self."rackunit-lib" self."parser-tools-lib" self."sandbox-lib" self."scribble-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."gui-lib" self."rackunit-lib" self."parser-tools-lib" self."plot-gui-lib" self."plot-lib" self."sandbox-lib" self."snip-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -4988,8 +5286,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "dynext-lib" = self.lib.mkRacketDerivation rec {
   pname = "dynext-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/dynext-lib.zip";
-    sha1 = "89cd5cd941d07f30dee9d76e987984b163e3ad58";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/dynext-lib.zip";
+    sha1 = "7d7254a2a28182c5877d9e1ca49eaebdc3debd5c";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -5004,6 +5302,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0928gyblpg34gwvlr0115j0g8rxs7qz5hy8ga59p2rmxyyp41gjs";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "ec" = self.lib.mkRacketDerivation rec {
+  pname = "ec";
+  src = fetchgit {
+    name = "ec";
+    url = "git://github.com/marckn0x/ec.git";
+    rev = "81d6fbe1852d3b20cffa651e6062dd1aca146018";
+    sha256 = "086qvya172xkikp4ac00jqqbf43capj45vf7z9b5imy5099d0vv5";
+  };
+  racketThinBuildInputs = [ self."base" self."math-lib" self."binaryio" self."typed-racket-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" self."crypto-lib" self."rackunit-typed" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5036,10 +5346,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "ee-lib";
     url = "git://github.com/michaelballantyne/ee-lib.git";
-    rev = "15175289009f568369cf84a7953c3be30fa1ba2a";
-    sha256 = "0hnw4hay33in8zf4k7phybnpm504qf1d6l22rjfighlgdcxgh1b3";
+    rev = "10f3dfe3b0a0ecd646de11cbbf706e8028a989b2";
+    sha256 = "13pw2b5i5zvxiizb96w53y92i104jffz8v0f11qpffv6ybr98p7a";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "eff" = self.lib.mkRacketDerivation rec {
+  pname = "eff";
+  src = fetchgit {
+    name = "eff";
+    url = "git://github.com/syntacticlosure/eff.git";
+    rev = "1c467f8f4f79706c3fcd5b4e429f74bcb2c7eaa7";
+    sha256 = "06y0w8bxicp921iyivpcp94zbgjifpyd08yz6nbfq6kgzy16c1xr";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5050,8 +5372,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "effection";
     url = "git://github.com/rocketnia/effection.git";
-    rev = "b47d6981456b2293dff5b32db388b47007d15a8e";
-    sha256 = "1dn65lynfyh45lc2pp1vp6lv5cn54wdfw6s9m38ghl071mqayfhm";
+    rev = "f63023df2e26612f860f07693ae80a0ffd057c1e";
+    sha256 = "1zrqb33h533n0fjpjwhhsgybas8n5bg5vlam8yqc0b2b84ki5m1w";
   };
   };
   racketThinBuildInputs = [ self."effection-doc" self."effection-lib" ];
@@ -5065,8 +5387,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "effection-doc";
     url = "git://github.com/rocketnia/effection.git";
-    rev = "b47d6981456b2293dff5b32db388b47007d15a8e";
-    sha256 = "1dn65lynfyh45lc2pp1vp6lv5cn54wdfw6s9m38ghl071mqayfhm";
+    rev = "f63023df2e26612f860f07693ae80a0ffd057c1e";
+    sha256 = "1zrqb33h533n0fjpjwhhsgybas8n5bg5vlam8yqc0b2b84ki5m1w";
   };
   };
   racketThinBuildInputs = [ self."base" self."parendown-lib" self."scribble-lib" ];
@@ -5080,8 +5402,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "effection-lib";
     url = "git://github.com/rocketnia/effection.git";
-    rev = "b47d6981456b2293dff5b32db388b47007d15a8e";
-    sha256 = "1dn65lynfyh45lc2pp1vp6lv5cn54wdfw6s9m38ghl071mqayfhm";
+    rev = "f63023df2e26612f860f07693ae80a0ffd057c1e";
+    sha256 = "1zrqb33h533n0fjpjwhhsgybas8n5bg5vlam8yqc0b2b84ki5m1w";
   };
   };
   racketThinBuildInputs = [ self."base" self."interconfection-lib" self."lathe-comforts-lib" self."parendown-lib" ];
@@ -5095,8 +5417,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "effection-test";
     url = "git://github.com/rocketnia/effection.git";
-    rev = "b47d6981456b2293dff5b32db388b47007d15a8e";
-    sha256 = "1dn65lynfyh45lc2pp1vp6lv5cn54wdfw6s9m38ghl071mqayfhm";
+    rev = "f63023df2e26612f860f07693ae80a0ffd057c1e";
+    sha256 = "1zrqb33h533n0fjpjwhhsgybas8n5bg5vlam8yqc0b2b84ki5m1w";
   };
   };
   racketThinBuildInputs = [ self."base" ];
@@ -5127,13 +5449,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "egg-herbie" = self.lib.mkRacketDerivation rec {
+  pname = "egg-herbie";
+  src = fetchgit {
+    name = "egg-herbie";
+    url = "git://github.com/herbie-fp/egg-herbie.git";
+    rev = "edeee228439c6ffa5f24cc5b4cd23ddf1e2a0039";
+    sha256 = "0mm616fraihla2spkw1x32axl95wgs7n9ghwzc77zq82n8r0z66h";
+  };
+  racketThinBuildInputs = [ self."egg-herbie-windows" self."egg-herbie-osx" self."egg-herbie-linux" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "egg-herbie-linux" = self.lib.mkRacketDerivation rec {
   pname = "egg-herbie-linux";
   src = fetchgit {
     name = "egg-herbie-linux";
     url = "git://github.com/herbie-fp/egg-herbie.git";
-    rev = "092178475f4293824544704b1bda2a9fdd6cc897";
-    sha256 = "00y9l4an3pa1dhlbl2k4z2814413p0zz8xbhp1w7jjcpcr33hhw0";
+    rev = "d42993194c2f8d7bbdd303959e17f816e058096e";
+    sha256 = "1d6zsy537dd11pk09l4qsmc1dz4yrg4xfyp89paz4mydn2483gwg";
   };
   racketThinBuildInputs = [  ];
   circularBuildInputs = [  ];
@@ -5144,8 +5478,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "egg-herbie-osx";
     url = "git://github.com/herbie-fp/egg-herbie.git";
-    rev = "ec75310de6da23fd9da8a2e37a83926e668d8133";
-    sha256 = "196yq9glkn19n63bzbsrbr7xfz4q16pfds33w3sy5g6s5prsxqab";
+    rev = "f86c59cbb8a30c616e96d74cf29c26c4c329674e";
+    sha256 = "08zip4kmcjgx2qzq4zcgc9g2h1m2ghvfcng5qda9ag1hs4f8zfb0";
   };
   racketThinBuildInputs = [  ];
   circularBuildInputs = [  ];
@@ -5156,8 +5490,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "egg-herbie-windows";
     url = "git://github.com/herbie-fp/egg-herbie.git";
-    rev = "fccab080c71715ebe88be52868e54250b133939b";
-    sha256 = "1sj8mmfwv98iykffxhnvn4rnlb7vrv3qm1zinq42c5in241k78wq";
+    rev = "c54bde206b82671cbb2ef262504b63cf2fa131e5";
+    sha256 = "06aya6zb5r1majc6bqy07nwvbkfjdc28sifp38cq62bv20fniy2i";
   };
   racketThinBuildInputs = [  ];
   circularBuildInputs = [  ];
@@ -5180,8 +5514,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "ekans";
     url = "git://github.com/kalxd/ekans.git";
-    rev = "12819d45dcafa30291ef7207f7160255a3c6805c";
-    sha256 = "0hdnmp60c4ii4cda7pi3l6bhqaac09dzv55ras1q7lgsf5psv4j6";
+    rev = "52d5acb0339dc38a6410f853957d57f90f566131";
+    sha256 = "1h9vh4iqs13varvfkzf2l52m68qg1c5jcgfpb60w5dn6jxd16ypq";
   };
   racketThinBuildInputs = [ self."base" self."gui-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -5212,10 +5546,55 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "eli-tester" = self.lib.mkRacketDerivation rec {
   pname = "eli-tester";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/eli-tester.zip";
-    sha1 = "1fc10123bce1e4a5ffe746005104ddc1d8c92969";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/eli-tester.zip";
+    sha1 = "bcd57f5bffdbcc55bb863e7ebb7bbf743f23e844";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "elle" = self.lib.mkRacketDerivation rec {
+  pname = "elle";
+  src = self.lib.extractPath {
+    path = "elle";
+    src = fetchgit {
+    name = "elle";
+    url = "git://github.com/tail-reversion/elle.git";
+    rev = "87053a6ba8e12c15823395149fe74a62ebb77fee";
+    sha256 = "0hz0g07v1s40iajjzrs81w44i2nkf1g5x49qxcnc31vzbcr7kg6j";
+  };
+  };
+  racketThinBuildInputs = [ self."elle-lib" self."elle-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "elle-doc" = self.lib.mkRacketDerivation rec {
+  pname = "elle-doc";
+  src = self.lib.extractPath {
+    path = "elle-doc";
+    src = fetchgit {
+    name = "elle-doc";
+    url = "git://github.com/tail-reversion/elle.git";
+    rev = "87053a6ba8e12c15823395149fe74a62ebb77fee";
+    sha256 = "0hz0g07v1s40iajjzrs81w44i2nkf1g5x49qxcnc31vzbcr7kg6j";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."elle-lib" self."scribble-lib" self."racket-doc" self."rebellion" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "elle-lib" = self.lib.mkRacketDerivation rec {
+  pname = "elle-lib";
+  src = self.lib.extractPath {
+    path = "elle-lib";
+    src = fetchgit {
+    name = "elle-lib";
+    url = "git://github.com/tail-reversion/elle.git";
+    rev = "87053a6ba8e12c15823395149fe74a62ebb77fee";
+    sha256 = "0hz0g07v1s40iajjzrs81w44i2nkf1g5x49qxcnc31vzbcr7kg6j";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."rebellion" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5258,6 +5637,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "envlang" = self.lib.mkRacketDerivation rec {
+  pname = "envlang";
+  src = fetchgit {
+    name = "envlang";
+    url = "git://github.com/envlang/racket.git";
+    rev = "c45bfb25492a5fbedad50c7ad530d82bbbb43e3c";
+    sha256 = "15qc4d6v4avvq8cy7d2b567k5gdxzkswgyw8sfl8jrdbzl57hm5c";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."phc-toolkit" self."base" self."reprovide-lang-lib" self."polysemy" self."scribble-lib" self."hyper-literate" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "envy" = self.lib.mkRacketDerivation rec {
   pname = "envy";
   src = fetchgit {
@@ -5273,8 +5664,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "eopl" = self.lib.mkRacketDerivation rec {
   pname = "eopl";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/eopl.zip";
-    sha1 = "678b3a870d1656d36e6189edebb52ebef67805ff";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/eopl.zip";
+    sha1 = "c9db46760df222e69a5c6005b804c66dd93ceb10";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -5283,8 +5674,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "errortrace" = self.lib.mkRacketDerivation rec {
   pname = "errortrace";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/errortrace.zip";
-    sha1 = "58c7a3abbe5e760252b2e8e3cb2e23cf4c99a8c7";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/errortrace.zip";
+    sha1 = "0b6c18099df60fc3b325f111001161b059003973";
   };
   racketThinBuildInputs = [ self."errortrace-lib" self."errortrace-doc" ];
   circularBuildInputs = [  ];
@@ -5293,8 +5684,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "errortrace-doc" = self.lib.mkRacketDerivation rec {
   pname = "errortrace-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/errortrace-doc.zip";
-    sha1 = "a6aedd3dc8f8d4782bec2fb02e2881f6616b97c4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/errortrace-doc.zip";
+    sha1 = "38818a9352fa569148eaa5e977c7a36b198bf367";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."errortrace-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -5303,20 +5694,32 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "errortrace-lib" = self.lib.mkRacketDerivation rec {
   pname = "errortrace-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/errortrace-lib.zip";
-    sha1 = "db4cddd98ef81ad32d958d999696a6432c508829";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/errortrace-lib.zip";
+    sha1 = "d78cda1e4539b2ebca52e01a0e52d1de8bb8881d";
   };
   racketThinBuildInputs = [ self."base" self."source-syntax" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "errortrace-pkg" = self.lib.mkRacketDerivation rec {
+  pname = "errortrace-pkg";
+  src = fetchgit {
+    name = "errortrace-pkg";
+    url = "git://github.com/sorawee/errortrace-pkg.git";
+    rev = "cb7038eb6b7200ed44b75d45bbab66bb836232ec";
+    sha256 = "11ag6ifnnpadj8ynrg4grqbvzzds4k64yjalr5xp0in8flcip4pj";
+  };
+  racketThinBuildInputs = [ self."base" self."custom-load" self."errortrace-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "errortrace-test" = self.lib.mkRacketDerivation rec {
   pname = "errortrace-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/errortrace-test.zip";
-    sha1 = "260663f31386bc8896c8c26fc1ffad2de6bce78e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/errortrace-test.zip";
+    sha1 = "e2ab49ed3847a9bedb468220be7fba1196f02d2e";
   };
-  racketThinBuildInputs = [ self."errortrace-lib" self."eli-tester" self."rackunit-lib" self."base" self."compiler-lib" self."at-exp-lib" ];
+  racketThinBuildInputs = [ self."errortrace-lib" self."eli-tester" self."rackunit-lib" self."base" self."racket-index" self."compiler-lib" self."at-exp-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5332,11 +5735,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "event-lang" = self.lib.mkRacketDerivation rec {
-  pname = "event-lang";
+  "event" = self.lib.mkRacketDerivation rec {
+  pname = "event";
   src = fetchgit {
-    name = "event-lang";
-    url = "git://github.com/dedbox/racket-event-lang.git";
+    name = "event";
+    url = "git://github.com/dedbox/racket-event.git";
     rev = "5c31cb32a816b0b23af2905bf25c7c3b69bd36cb";
     sha256 = "1nyyylzrfg38n4an07j4570ics5ky4cggg4xq4xscq48j5dddagm";
   };
@@ -5375,8 +5778,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "expander";
     url = "git://github.com/racket/racket.git";
-    rev = "d590eee0c773af8a1c530db244f0f1ddb29e7871";
-    sha256 = "0pnkvhc6kb4493fhw4ajw1mqln8c5467k5kmcplbw4dm4nwchd60";
+    rev = "922bab40b54930a13b8609ee28f3362f5ce1a95f";
+    sha256 = "0j9yr85a0a81d7d078jkkmgs2w6isksz7hl6g66567xfprp70fbc";
   };
   };
   racketThinBuildInputs = [ self."base" self."zo-lib" self."compiler-lib" self."at-exp-lib" ];
@@ -5419,6 +5822,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "extenor" = self.lib.mkRacketDerivation rec {
+  pname = "extenor";
+  src = fetchgit {
+    name = "extenor";
+    url = "git://github.com/willghatch/racket-extenor.git";
+    rev = "6be463cb23ceca3b602ce1c482cd6d37cd7a6e15";
+    sha256 = "1g2b45x2975cyrc9xwrfa1vjmgqll2h1iwyqgp3xh4pv4imrjzmv";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "extensible-functions" = self.lib.mkRacketDerivation rec {
   pname = "extensible-functions";
   src = fetchgit {
@@ -5436,8 +5851,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "extensible-parser-specifications";
     url = "git://github.com/jsmaniac/extensible-parser-specifications.git";
-    rev = "0204fd4f47902c1545ccbfee764dd2c161456258";
-    sha256 = "13pbp3p0ax6c0ivzglmry3d2klp3z4293c0v0q5k7rsb80349xxj";
+    rev = "616130a74b83cf7790257150655949698a7a3913";
+    sha256 = "1gf9g2a4ncn3xj3q26r6n15hg9qmmw2dsld16qii6ybphbdxdpzw";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."phc-toolkit" self."generic-syntax-expanders" self."alexis-util" self."scribble-lib" self."racket-doc" self."seq-no-order" ];
   circularBuildInputs = [  ];
@@ -5460,8 +5875,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "fancy-app";
     url = "git://github.com/samth/fancy-app.git";
-    rev = "39a132ff500f2cb3d23f5b9907af2409193a7b96";
-    sha256 = "1hyqvhvg6yns044rd1xlja75ha7czbvfyh82dnw49dky28ls29d1";
+    rev = "31ddeb91625dd6f95002c47e670751dd16704524";
+    sha256 = "02gc775v32kj85gyya40ni27xxv1zndr8fbdwdz2x4m8l37qfl3j";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -5479,13 +5894,43 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "fast-sequence" = self.lib.mkRacketDerivation rec {
+  pname = "fast-sequence";
+  src = self.lib.extractPath {
+    path = "fast-sequence";
+    src = fetchgit {
+    name = "fast-sequence";
+    url = "git://github.com/abolotina/fast-sequence-combinators.git";
+    rev = "d5144e2d6f73f441937a77439f80b79000768cd9";
+    sha256 = "0khwx4i0q4g02jfcaa5sc05yjpzhhsjpsrfm8yj0ifzdbjyngy5r";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."fast-sequence-lib" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "fast-sequence-lib" = self.lib.mkRacketDerivation rec {
+  pname = "fast-sequence-lib";
+  src = self.lib.extractPath {
+    path = "fast-sequence-lib";
+    src = fetchgit {
+    name = "fast-sequence-lib";
+    url = "git://github.com/abolotina/fast-sequence-combinators.git";
+    rev = "d5144e2d6f73f441937a77439f80b79000768cd9";
+    sha256 = "0khwx4i0q4g02jfcaa5sc05yjpzhhsjpsrfm8yj0ifzdbjyngy5r";
+  };
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "faster-minikanren" = self.lib.mkRacketDerivation rec {
   pname = "faster-minikanren";
   src = fetchgit {
     name = "faster-minikanren";
     url = "git://github.com/michaelballantyne/faster-miniKanren.git";
-    rev = "a2a4a80cebbdd4845a3b800aefc292956071b70c";
-    sha256 = "00d4nvddrqq1frnbjfbw897394nvs82f0d364fq09r45as23ymsv";
+    rev = "d6c763ef445d80dc7a9eab5be6c63fc2d8fdd4b1";
+    sha256 = "1l9p4n0g1zwv66j1sk09isa14i1bnsh5zkqzws0xr9csmp8xwxvq";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -5634,8 +6079,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "fiberweb";
     url = "git://github.com/jackfirth/fiberweb.git";
-    rev = "e8136d1ed7e746d0dd90fd9264f7d62d90472990";
-    sha256 = "0fmkhlnpk829c7bw411x7d2zdcgrrhr8dzn9cjl7qw4ap6ljzw76";
+    rev = "c2ea40456784fa45d682bc4230b49e07f862ae78";
+    sha256 = "0pd8bfdklcwk4jwiq46iaq3k5r0lxf9zgmvcbjds01saci8abxx8";
   };
   racketThinBuildInputs = [ self."base" self."rebellion" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -5658,8 +6103,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "file-watchers";
     url = "git://github.com/zyrolasting/file-watchers.git";
-    rev = "54cc3401f419f64b9334484ae401e20f05f2a3d5";
-    sha256 = "0q56da72qz9glh9hmgfds37x5niwxicakl75y4ddyvdlx4ia8ihl";
+    rev = "c1ac766a345a335438165ab0d13a4d8f6aec6162";
+    sha256 = "0b5mn98q94a1d8w7vjxb0ywn2sd43cgk9422104hrnaxiymhxizl";
   };
   racketThinBuildInputs = [ self."rackunit-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -5670,8 +6115,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "files-viewer";
     url = "git://github.com/MatrixForChange/files-viewer.git";
-    rev = "495109dcc97ff34e0377ae7a4a45074bb2cde15b";
-    sha256 = "0k1l6p9zycnbcasnq6vb2wqcf7lijksrhhyp7na607zzsfpkxazr";
+    rev = "5a1016894db4795c25684c817326f28fa788d196";
+    sha256 = "13skjkjpfbq2xczap4ldcmw6z1cl7x04kd19c3syqini6xb6fykw";
   };
   racketThinBuildInputs = [ self."base" self."gui-lib" self."drracket" self."rackunit-lib" self."scheme-lib" self."compatibility-lib" self."scribble-lib" self."pict-lib" ];
   circularBuildInputs = [  ];
@@ -5725,6 +6170,30 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "fltest" = self.lib.mkRacketDerivation rec {
+  pname = "fltest";
+  src = fetchgit {
+    name = "fltest";
+    url = "git://github.com/samth/fltest.git";
+    rev = "8d2d686a7d940accf540b74a9409d3b51ea980eb";
+    sha256 = "1ckk3wsgml18fxdmnd3iy6bpkln9rw6r28mmjc21k1jr13h4avzs";
+  };
+  racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "fluent" = self.lib.mkRacketDerivation rec {
+  pname = "fluent";
+  src = fetchgit {
+    name = "fluent";
+    url = "git://github.com/rogerkeays/racket-fluent.git";
+    rev = "b8bc82e25a35451ba3136f393157e380e6f4837f";
+    sha256 = "03rl75gs15avnp1gpwhi8ni4n7qsq3z2ibgbzdpp6yfq2br53fs0";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "fme" = self.lib.mkRacketDerivation rec {
   pname = "fme";
   src = fetchgit {
@@ -5766,10 +6235,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "fontland";
     url = "git://github.com/mbutterick/fontland.git";
-    rev = "059ef832d0a55c1b13c4556927bfee99f54c83ae";
-    sha256 = "1q314inn5d1ihxj13djf7adbaiysnwdqdw9swizmw20yd3lhyjs1";
+    rev = "e50e4c82f58e2014d64e87a14c1d29b546fb393b";
+    sha256 = "0g0ayqf3pa3f5xv6lw0yxldccb6ryhw7dpxw2yhlw54w89svjd40";
   };
   racketThinBuildInputs = [ self."crc32c" self."db-lib" self."base" self."beautiful-racket-lib" self."debug" self."draw-lib" self."rackunit-lib" self."png-image" self."sugar" self."xenomorph" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "for-helpers" = self.lib.mkRacketDerivation rec {
+  pname = "for-helpers";
+  src = fetchgit {
+    name = "for-helpers";
+    url = "git://github.com/yjqww6/for-helpers.git";
+    rev = "3753dbce905e5c115e8107a9411249a12a06fd64";
+    sha256 = "1ys4x7b4ddqj42ncdsmaa2bys8rbfkjk4g2p9j4s9qph1i37plkh";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."sandbox-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5779,12 +6260,12 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     path = "forge";
     src = fetchgit {
     name = "forge";
-    url = "git://github.com/cemcutting/Forge.git";
-    rev = "c3d94b5eae69eb4c648a3eed0079421592acd3eb";
-    sha256 = "0vlrgbpjdajp592awh4haq51k3c9iwg78hhnjwq03c30y1sizfis";
+    url = "git://github.com/tnelson/Forge.git";
+    rev = "bdc2d9a9c7149eb91bba56a1c7d4c9c078decc53";
+    sha256 = "09dlbqdihshaqq9m2kci3yf954dx7dwgjzywhh24qnsdahll6d4h";
   };
   };
-  racketThinBuildInputs = [ self."beautiful-racket" self."predicates" ];
+  racketThinBuildInputs = [ self."base" self."syntax-classes" self."br-parser-tools-lib" self."brag-lib" self."beautiful-racket" self."syntax-color-lib" self."net-lib" self."profile-lib" self."crypto-lib" self."rackunit-lib" self."web-server-lib" self."mischief" self."gui-lib" self."drracket-plugin-lib" self."pretty-format" self."predicates" self."basedir" self."request" self."sha" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5807,8 +6288,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "forms";
     url = "git://github.com/Bogdanp/racket-forms.git";
-    rev = "2898792ffe546eb50f85f7f54f17638cc2194d9c";
-    sha256 = "1vpzmn89rb2znh3kia5zwbgkxcqb6jljny8mh62kw6nv6gxpyqrc";
+    rev = "80e6dee1184ab4c435678bb3c45fa11bfabf56ee";
+    sha256 = "13q8v332chmd0qscrk7wim9c66s5vxhzyhg7nl9g25b8sa96z4j4";
   };
   };
   racketThinBuildInputs = [ self."forms-doc" self."forms-lib" ];
@@ -5822,8 +6303,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "forms-doc";
     url = "git://github.com/Bogdanp/racket-forms.git";
-    rev = "2898792ffe546eb50f85f7f54f17638cc2194d9c";
-    sha256 = "1vpzmn89rb2znh3kia5zwbgkxcqb6jljny8mh62kw6nv6gxpyqrc";
+    rev = "80e6dee1184ab4c435678bb3c45fa11bfabf56ee";
+    sha256 = "13q8v332chmd0qscrk7wim9c66s5vxhzyhg7nl9g25b8sa96z4j4";
   };
   };
   racketThinBuildInputs = [ self."base" self."forms-lib" self."sandbox-lib" self."scribble-lib" self."racket-doc" self."web-server-doc" self."web-server-lib" ];
@@ -5837,8 +6318,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "forms-lib";
     url = "git://github.com/Bogdanp/racket-forms.git";
-    rev = "2898792ffe546eb50f85f7f54f17638cc2194d9c";
-    sha256 = "1vpzmn89rb2znh3kia5zwbgkxcqb6jljny8mh62kw6nv6gxpyqrc";
+    rev = "80e6dee1184ab4c435678bb3c45fa11bfabf56ee";
+    sha256 = "13q8v332chmd0qscrk7wim9c66s5vxhzyhg7nl9g25b8sa96z4j4";
   };
   };
   racketThinBuildInputs = [ self."base" self."srfi-lite-lib" self."web-server-lib" ];
@@ -5852,8 +6333,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "forms-test";
     url = "git://github.com/Bogdanp/racket-forms.git";
-    rev = "2898792ffe546eb50f85f7f54f17638cc2194d9c";
-    sha256 = "1vpzmn89rb2znh3kia5zwbgkxcqb6jljny8mh62kw6nv6gxpyqrc";
+    rev = "80e6dee1184ab4c435678bb3c45fa11bfabf56ee";
+    sha256 = "13q8v332chmd0qscrk7wim9c66s5vxhzyhg7nl9g25b8sa96z4j4";
   };
   };
   racketThinBuildInputs = [ self."base" self."forms-lib" self."rackunit-lib" self."srfi-lite-lib" self."web-server-lib" ];
@@ -5877,10 +6358,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "fpbench";
     url = "git://github.com/FPBench/FPBench.git";
-    rev = "eec3c553d00c3a4dc9c6bd4a5815dce117cd4979";
-    sha256 = "0iwbq3ggg6m4s0blg5d0hl35sy4m54qcyal25s7jaf4ass29ppb9";
+    rev = "3143f5d46ed1a40908b184ba5cb5c7d4e09fbf77";
+    sha256 = "0sfrdqnnbk3wi0pbc1lfwl503284ynh8x9pjbfx4r6a78p6ivj00";
   };
-  racketThinBuildInputs = [ self."base" self."math-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."base" self."math-lib" self."generic-flonum" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -5925,18 +6406,30 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "frog";
     url = "git://github.com/greghendershott/frog.git";
-    rev = "b5597abee813a1b2feb714ab4154759790b58586";
-    sha256 = "1l0f7cm629ba1bcx4mg8baldiiz20h3r84i07aanfzxx10jyjwhb";
+    rev = "93d8b442c2e619334612b7e2d091e4eb33995021";
+    sha256 = "0rgjc9m45298fgbk26jszwwhb81lwmqw0nm1039abasc2prvsqaa";
   };
   racketThinBuildInputs = [ self."base" self."find-parent-dir" self."html-lib" self."markdown" self."racket-index" self."reprovide-lang" self."scribble-lib" self."scribble-text-lib" self."srfi-lite-lib" self."threading-lib" self."web-server-lib" self."at-exp-lib" self."net-doc" self."racket-doc" self."rackunit-lib" self."scribble-doc" self."scribble-text-lib" self."threading-doc" self."web-server-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "from-template" = self.lib.mkRacketDerivation rec {
+  pname = "from-template";
+  src = fetchgit {
+    name = "from-template";
+    url = "git://github.com/nixin72/from-template.git";
+    rev = "921d1ea4bc6ca1d523c3af548d2fdb7ac5046970";
+    sha256 = "0115cc3mf7l709mmjpgmn8spjw0yy06b62gvibhm18wv1bha9r66";
+  };
+  racketThinBuildInputs = [ self."base" self."readline" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "frtime" = self.lib.mkRacketDerivation rec {
   pname = "frtime";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/frtime.zip";
-    sha1 = "7e8af92888f838f17cb5768a30f4a020d883d15f";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/frtime.zip";
+    sha1 = "018967c117669136bc0947dbf9f23742b984500a";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" self."compatibility-lib" self."drracket" self."gui-lib" self."pict-lib" self."string-constants-lib" self."draw-doc" self."gui-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -6026,18 +6519,28 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "future-visualizer" = self.lib.mkRacketDerivation rec {
   pname = "future-visualizer";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/future-visualizer.zip";
-    sha1 = "b07c479e5ba1309617590be16c3a0580b06ef138";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/future-visualizer.zip";
+    sha1 = "5b657b32add62f94e029da849b7a2bbe530cf50b";
   };
-  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."data-lib" self."draw-lib" self."pict-lib" self."gui-lib" self."scheme-lib" self."scribble-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."data-lib" self."draw-lib" self."pict-lib" self."gui-lib" self."future-visualizer-pict" self."scheme-lib" self."scribble-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "future-visualizer-pict" = self.lib.mkRacketDerivation rec {
+  pname = "future-visualizer-pict";
+  src = fetchurl {
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/future-visualizer-pict.zip";
+    sha1 = "1c8c94c9b0a4589cd53810d68e8d933b2172afc6";
+  };
+  racketThinBuildInputs = [ self."base" self."data-lib" self."draw-lib" self."pict-lib" ];
+  circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "future-visualizer-typed" = self.lib.mkRacketDerivation rec {
   pname = "future-visualizer-typed";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/future-visualizer-typed.zip";
-    sha1 = "30304e8c9e0e7ffa00c1a9b45154786a4707fa3b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/future-visualizer-typed.zip";
+    sha1 = "ea8f8298d07f9c89189b5c82e2917d85b5786402";
   };
   racketThinBuildInputs = [ self."base" self."future-visualizer" self."typed-racket-lib" ];
   circularBuildInputs = [  ];
@@ -6082,8 +6585,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "games" = self.lib.mkRacketDerivation rec {
   pname = "games";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/games.zip";
-    sha1 = "056516afff97359d836240f4ee1ea8bd95e3081d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/games.zip";
+    sha1 = "7c53a47353bf81161790390afaa5566875cd77af";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."drracket" self."gui-lib" self."net-lib" self."htdp-lib" self."math-lib" self."scribble-lib" self."racket-index" self."sgl" self."srfi-lib" self."string-constants-lib" self."data-enumerate-lib" self."typed-racket-lib" self."typed-racket-more" self."draw-doc" self."gui-doc" self."racket-doc" self."pict-lib" self."rackunit-lib" self."htdp-doc" ];
   circularBuildInputs = [  ];
@@ -6118,8 +6621,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gen-queue-lib";
     url = "git://github.com/stchang/graph.git";
-    rev = "ba621328a26803c72a0d3890aaa5ac81c166f117";
-    sha256 = "1jg01r0p9hx2ylhc349fsc71amcvikhnx4x5pahsvxjm73jvvkrk";
+    rev = "0ff9a1934f4421c53ec4b71cb48d54a6ad86c7b9";
+    sha256 = "0p5gfb2frd70d3gn1ipl8aqqamr04h8jjpj5w9ir3qrgww2ybbxh";
   };
   };
   racketThinBuildInputs = [ self."base" self."data-lib" ];
@@ -6131,10 +6634,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "generator-util";
     url = "git://github.com/countvajhula/generator-util.git";
-    rev = "3026d9009c9c22047d2fa73ee395d624a1fc5463";
-    sha256 = "1g6qmm7rs8bkls8sxx2g7rfjx2f9gc5xcfpgjq487jmvnlhx204w";
+    rev = "13c856ba90be7dc3857f7b9471501d859666537e";
+    sha256 = "0qmjks83gskqijf6wr4g64gnyi7j6wdjx266iq2624mjjxcn2nk5";
   };
-  racketThinBuildInputs = [ self."base" self."collections-lib" self."Relation" self."scribble-lib" self."scribble-abbrevs" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."collections-doc" ];
+  racketThinBuildInputs = [ self."base" self."collections-lib" self."relation" self."social-contract" self."scribble-lib" self."scribble-abbrevs" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."cover" self."cover-coveralls" self."collections-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6150,6 +6653,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "generic-flonum" = self.lib.mkRacketDerivation rec {
+  pname = "generic-flonum";
+  src = fetchgit {
+    name = "generic-flonum";
+    url = "git://github.com/bksaiki/generic-flonum.git";
+    rev = "05347d11e59954bf0001064b965db90b29047eee";
+    sha256 = "1912izkb1l7jy6haq1vmv1s3mi6nccvi318yma9xra5kwgjp4rc1";
+  };
+  racketThinBuildInputs = [ self."math-lib" self."base" self."scribble-lib" self."rackunit-lib" self."racket-doc" self."math-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "generic-syntax-expanders" = self.lib.mkRacketDerivation rec {
   pname = "generic-syntax-expanders";
   src = fetchgit {
@@ -6162,6 +6677,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "geoid" = self.lib.mkRacketDerivation rec {
+  pname = "geoid";
+  src = fetchgit {
+    name = "geoid";
+    url = "git://github.com/alex-hhh/geoid.git";
+    rev = "eb04d4c736d4b17e4095dbba89e25cac3ab7ab60";
+    sha256 = "1sh8qla059jbxwr19395rd8n1rsq9jaaxaqdyng31lrl2nq1gzyx";
+  };
+  racketThinBuildInputs = [ self."base" self."math-lib" self."rackunit-lib" self."typed-racket-lib" self."racket-doc" self."scribble-lib" self."al2-test-runner" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "geoip" = self.lib.mkRacketDerivation rec {
   pname = "geoip";
   src = self.lib.extractPath {
@@ -6169,8 +6696,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "geoip";
     url = "git://github.com/Bogdanp/racket-geoip.git";
-    rev = "6b3597c626443ce191145f90df2fb64f1b8b9ac7";
-    sha256 = "0chyrch7p41gj53sj9hld4fs2wx9mbiyf327kkfr934zy56s1x7n";
+    rev = "2ae1a01915b71dc6e0ea0afa384d55e8e14ead4e";
+    sha256 = "0bg20yz4yzmqnmbsif5dnvgn6j6129lnpi8c94069iv69qrfw72z";
   };
   };
   racketThinBuildInputs = [ self."geoip-doc" self."geoip-lib" ];
@@ -6184,8 +6711,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "geoip-doc";
     url = "git://github.com/Bogdanp/racket-geoip.git";
-    rev = "6b3597c626443ce191145f90df2fb64f1b8b9ac7";
-    sha256 = "0chyrch7p41gj53sj9hld4fs2wx9mbiyf327kkfr934zy56s1x7n";
+    rev = "2ae1a01915b71dc6e0ea0afa384d55e8e14ead4e";
+    sha256 = "0bg20yz4yzmqnmbsif5dnvgn6j6129lnpi8c94069iv69qrfw72z";
   };
   };
   racketThinBuildInputs = [ self."base" self."geoip-lib" self."racket-doc" self."scribble-lib" ];
@@ -6199,11 +6726,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "geoip-lib";
     url = "git://github.com/Bogdanp/racket-geoip.git";
-    rev = "6b3597c626443ce191145f90df2fb64f1b8b9ac7";
-    sha256 = "0chyrch7p41gj53sj9hld4fs2wx9mbiyf327kkfr934zy56s1x7n";
+    rev = "2ae1a01915b71dc6e0ea0afa384d55e8e14ead4e";
+    sha256 = "0bg20yz4yzmqnmbsif5dnvgn6j6129lnpi8c94069iv69qrfw72z";
   };
   };
-  racketThinBuildInputs = [ self."base" self."net-ip-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."base" self."net-ip-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6212,8 +6739,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "get-bonus";
     url = "git://github.com/get-bonus/get-bonus.git";
-    rev = "08d304c0300cb7dc2f98b90413d69a314bc781a1";
-    sha256 = "0g3y9h2adj48v3fgyli50fwa0c7fif938pmi9nh21ls8kx5yzcgp";
+    rev = "d9bb88d2940263641c35ad98912c5a2b3136cc96";
+    sha256 = "1aq8b9afa25cwmjqv17da7j1nq9x3xa99cvcbgyls1gz1ww2nh3v";
   };
   racketThinBuildInputs = [ self."3s" self."openal" self."lux" self."dos" self."fector" self."opengl" self."base" self."compatibility-lib" self."data-lib" self."data-enumerate-lib" self."draw-lib" self."eli-tester" self."gui-lib" self."htdp-lib" self."math" self."pfds" self."plot" self."rackunit-lib" self."redex-lib" self."mode-lambda" self."apse" self."slideshow-lib" self."typed-racket-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -6224,8 +6751,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "get-pass";
     url = "git://github.com/smitchell556/get-pass.git";
-    rev = "897434c1f6bcad997e85909aacd82a7c8d33c691";
-    sha256 = "04ri0n5priksv7hz9r0c8i7wvw8f79x37x0lwqzccp73jz1vhkx5";
+    rev = "6733b1094c57bb9d6e1e5e4a415fd4e2d0878d99";
+    sha256 = "1j2fmb723mifgmn85fqr67z3iyfm1lb5nw2a78qqva6h19r1vdn7";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -6303,6 +6830,30 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "glass" = self.lib.mkRacketDerivation rec {
+  pname = "glass";
+  src = fetchgit {
+    name = "glass";
+    url = "git://github.com/jackfirth/glass.git";
+    rev = "a5b25ed7716598b49ccdb5b6917d0eacd95764cf";
+    sha256 = "14gkhwfxwg9yhf76pzb016j9xqm1bf05b4lg4dzyybnd8wl1hn2z";
+  };
+  racketThinBuildInputs = [ self."base" self."fancy-app" self."rebellion" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "glc" = self.lib.mkRacketDerivation rec {
+  pname = "glc";
+  src = fetchgit {
+    name = "glc";
+    url = "git://github.com/GriffinMB/glc.git";
+    rev = "22fd96aa0a11b092cd8aaaeb049e03bea05764d3";
+    sha256 = "1n4x9lcdg1glvyy8z73yipmvqv5rk5m3045ypfp8xglmb9zshfny";
+  };
+  racketThinBuildInputs = [ self."lazy" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "glfw3" = self.lib.mkRacketDerivation rec {
   pname = "glfw3";
   src = fetchgit {
@@ -6336,6 +6887,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "1pk2bfaaclaha1z52m311ny9a5gcw6b5nph5y7cdcily6amj7ajf";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "global" = self.lib.mkRacketDerivation rec {
+  pname = "global";
+  src = fetchgit {
+    name = "global";
+    url = "git://github.com/Metaxal/global.git";
+    rev = "d912b774228e449f19083cba15e37b188a1673b4";
+    sha256 = "05kwq2vap5fkpvx80jd1njhyp6nwypp2hrlbwrpx6p9y5f02xy0d";
+  };
+  racketThinBuildInputs = [ self."text-table" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6409,8 +6972,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gmp";
     url = "git://github.com/rmculpepper/racket-gmp.git";
-    rev = "c20c2b4c7564382cf3ab262dbfbe8b1dbaa63c17";
-    sha256 = "0n9wcysmgr17j7y6mwx0jvlzgx763d213bppxql7x1nrnfzc5n68";
+    rev = "768c33615a1c2414ccaf1a1e4ea1064bd5dd46af";
+    sha256 = "0iblwasvvmcsc0kn0f3zcijgiiz56jz1g8shww2kr7zs81v5hkv7";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."binaryio-lib" self."gmp-lib" self."racket-doc" self."scribble-lib" ];
@@ -6424,8 +6987,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gmp-lib";
     url = "git://github.com/rmculpepper/racket-gmp.git";
-    rev = "c20c2b4c7564382cf3ab262dbfbe8b1dbaa63c17";
-    sha256 = "0n9wcysmgr17j7y6mwx0jvlzgx763d213bppxql7x1nrnfzc5n68";
+    rev = "768c33615a1c2414ccaf1a1e4ea1064bd5dd46af";
+    sha256 = "0iblwasvvmcsc0kn0f3zcijgiiz56jz1g8shww2kr7zs81v5hkv7";
   };
   };
   racketThinBuildInputs = [ self."base" ];
@@ -6449,8 +7012,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gnucash";
     url = "git://github.com/jbclements/gnucash.git";
-    rev = "4b8c74104c7aa0ceb93357a6b7985364dd34a192";
-    sha256 = "0znkhpxm846y2xfla2rjfjjm4sv4b7i84wfxr62r9wkpq1ldcnpq";
+    rev = "701dee030a70b778f6de9dae428d6287aecd7a5a";
+    sha256 = "13k28wd2b3r21k57rixdypa198v69vzxkc88hdhl63iskim5l1j0";
   };
   racketThinBuildInputs = [ self."base" self."sxml" self."srfi-lib" self."srfi-lite-lib" self."memoize" self."rackunit-lib" self."typed-racket-lib" self."rackunit-typed" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -6463,11 +7026,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "goblins";
     url = "https://gitlab.com/spritely/goblins.git";
-    rev = "b836e11aa820c7ea43100d18ce71cbf53c9e47cd";
-    sha256 = "1726x67sknmw9bmwb7kbsy0qfyniakw94l4r8l34mw7lmkw8as7a";
+    rev = "aa17ae4d08582eaa7b2d999edc940b9076d9fac5";
+    sha256 = "0rb064s0wy0wj4cp43g4w3glqf8dgvx66glplyb46x7g76gmlyvy";
   };
   };
-  racketThinBuildInputs = [ self."base" self."crypto" self."rackunit-lib" self."scribble-lib" self."sandbox-lib" ];
+  racketThinBuildInputs = [ self."base" self."crypto" self."syrup" self."pk" self."rackunit-lib" self."scribble-lib" self."sandbox-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6500,8 +7063,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gradual-typing-bib";
     url = "git://github.com/samth/gradual-typing-bib.git";
-    rev = "de11b548af5c917897b67e339a3cd9c394dcf1f3";
-    sha256 = "0w5lh205yyaf6pqaydam0w1csabmg4jvr3qa6hzl47p3y1ppp5zw";
+    rev = "63567f8f380ca2bc908ec11d9f9c7d856b8ab3bf";
+    sha256 = "0w0f0srdjjxbfw2brvp0zf3ys2g8vga7896jcprnd0m5p5aakihm";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -6514,8 +7077,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "graph";
     url = "git://github.com/stchang/graph.git";
-    rev = "ba621328a26803c72a0d3890aaa5ac81c166f117";
-    sha256 = "1jg01r0p9hx2ylhc349fsc71amcvikhnx4x5pahsvxjm73jvvkrk";
+    rev = "0ff9a1934f4421c53ec4b71cb48d54a6ad86c7b9";
+    sha256 = "0p5gfb2frd70d3gn1ipl8aqqamr04h8jjpj5w9ir3qrgww2ybbxh";
   };
   };
   racketThinBuildInputs = [ self."base" self."graph-lib" self."graph-doc" self."graph-test" ];
@@ -6529,8 +7092,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "graph-doc";
     url = "git://github.com/stchang/graph.git";
-    rev = "ba621328a26803c72a0d3890aaa5ac81c166f117";
-    sha256 = "1jg01r0p9hx2ylhc349fsc71amcvikhnx4x5pahsvxjm73jvvkrk";
+    rev = "0ff9a1934f4421c53ec4b71cb48d54a6ad86c7b9";
+    sha256 = "0p5gfb2frd70d3gn1ipl8aqqamr04h8jjpj5w9ir3qrgww2ybbxh";
   };
   };
   racketThinBuildInputs = [ self."base" self."graph-lib" self."racket-doc" self."math-doc" self."math-lib" self."scribble-lib" ];
@@ -6544,8 +7107,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "graph-lib";
     url = "git://github.com/stchang/graph.git";
-    rev = "ba621328a26803c72a0d3890aaa5ac81c166f117";
-    sha256 = "1jg01r0p9hx2ylhc349fsc71amcvikhnx4x5pahsvxjm73jvvkrk";
+    rev = "0ff9a1934f4421c53ec4b71cb48d54a6ad86c7b9";
+    sha256 = "0p5gfb2frd70d3gn1ipl8aqqamr04h8jjpj5w9ir3qrgww2ybbxh";
   };
   };
   racketThinBuildInputs = [ self."base" self."gen-queue-lib" self."data-lib" self."math-lib" ];
@@ -6559,11 +7122,26 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "graph-test";
     url = "git://github.com/stchang/graph.git";
-    rev = "ba621328a26803c72a0d3890aaa5ac81c166f117";
-    sha256 = "1jg01r0p9hx2ylhc349fsc71amcvikhnx4x5pahsvxjm73jvvkrk";
+    rev = "0ff9a1934f4421c53ec4b71cb48d54a6ad86c7b9";
+    sha256 = "0p5gfb2frd70d3gn1ipl8aqqamr04h8jjpj5w9ir3qrgww2ybbxh";
   };
   };
   racketThinBuildInputs = [ self."base" self."graph-lib" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "graphic-block" = self.lib.mkRacketDerivation rec {
+  pname = "graphic-block";
+  src = self.lib.extractPath {
+    path = "graphic-block";
+    src = fetchgit {
+    name = "graphic-block";
+    url = "git://github.com/djh-uwaterloo/uwaterloo-racket.git";
+    rev = "24f1c0034ea24180c4d501eb51efd96f5f349215";
+    sha256 = "0s58a0bwmrc5n8bzw1k59vlf7js82jr538iq73n4c9xlrm4kcx2q";
+  };
+  };
+  racketThinBuildInputs = [ self."drracket-plugin-lib" self."gui-lib" self."string-constants-lib" self."base" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6572,12 +7150,20 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "graphics";
     url = "git://github.com/wargrey/graphics.git";
-    rev = "83b51572e60577f957adafe03532727feeb6de3a";
-    sha256 = "05p2dhj8pg0sprgk7vxf0abqzf7gc57n04slkiycpawwq1bjwdb8";
+    rev = "50751297f244a01ac734099b9a1e9be97cd36f3f";
+    sha256 = "0a1b52c5fnc4xa9kivzkzv1j71biv49zkvjcrvx12c5qdyly5j4i";
   };
-  racketThinBuildInputs = [ self."base" self."math-lib" self."draw-lib" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" ];
-  circularBuildInputs = [  ];
+  racketThinBuildInputs = [ self."graphics+w3s" self."base" self."digimon" self."math-lib" self."draw-lib" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."digimon" ];
+  circularBuildInputs = [ "graphics" "w3s" ];
   reverseCircularBuildInputs = [  ];
+  };
+  "graphics+w3s" = self.lib.mkRacketDerivation rec {
+  pname = "graphics+w3s";
+
+  extraSrcs = [ self."graphics".src self."w3s".src ];
+  racketThinBuildInputs = [ self."base" self."digimon" self."digimon" self."draw-lib" self."math-lib" self."racket-doc" self."scribble-lib" self."typed-racket-doc" self."typed-racket-lib" self."typed-racket-more" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [ "graphics" "w3s" ];
   };
   "graphics-engine" = self.lib.mkRacketDerivation rec {
   pname = "graphics-engine";
@@ -6598,8 +7184,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gregor";
     url = "git://github.com/97jaz/gregor.git";
-    rev = "76f1c593f475e9847d25f9d014d41289f16d3393";
-    sha256 = "0sbavcv5aixvf2gbi5ywn8ils7v4h7rhm11imzssv8g43ciwviqn";
+    rev = "91d71c6082fec4197aaf9ade57aceb148116c11c";
+    sha256 = "0imkmgq0b4dsd4k674cc9y79g7lqrnn7f29kbwxh87vdvw7jh7pf";
   };
   };
   racketThinBuildInputs = [ self."gregor-lib" self."gregor-doc" self."base" ];
@@ -6613,8 +7199,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gregor-doc";
     url = "git://github.com/97jaz/gregor.git";
-    rev = "76f1c593f475e9847d25f9d014d41289f16d3393";
-    sha256 = "0sbavcv5aixvf2gbi5ywn8ils7v4h7rhm11imzssv8g43ciwviqn";
+    rev = "91d71c6082fec4197aaf9ade57aceb148116c11c";
+    sha256 = "0imkmgq0b4dsd4k674cc9y79g7lqrnn7f29kbwxh87vdvw7jh7pf";
   };
   };
   racketThinBuildInputs = [ self."base" self."base" self."racket-doc" self."data-doc" self."data-lib" self."gregor-lib" self."scribble-lib" self."sandbox-lib" self."tzinfo" ];
@@ -6628,8 +7214,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gregor-lib";
     url = "git://github.com/97jaz/gregor.git";
-    rev = "76f1c593f475e9847d25f9d014d41289f16d3393";
-    sha256 = "0sbavcv5aixvf2gbi5ywn8ils7v4h7rhm11imzssv8g43ciwviqn";
+    rev = "91d71c6082fec4197aaf9ade57aceb148116c11c";
+    sha256 = "0imkmgq0b4dsd4k674cc9y79g7lqrnn7f29kbwxh87vdvw7jh7pf";
   };
   };
   racketThinBuildInputs = [ self."base" self."data-lib" self."memoize" self."parser-tools-lib" self."tzinfo" self."cldr-core" self."cldr-bcp47" self."cldr-numbers-modern" self."cldr-dates-modern" self."cldr-localenames-modern" ];
@@ -6643,8 +7229,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gregor-test";
     url = "git://github.com/97jaz/gregor.git";
-    rev = "76f1c593f475e9847d25f9d014d41289f16d3393";
-    sha256 = "0sbavcv5aixvf2gbi5ywn8ils7v4h7rhm11imzssv8g43ciwviqn";
+    rev = "91d71c6082fec4197aaf9ade57aceb148116c11c";
+    sha256 = "0imkmgq0b4dsd4k674cc9y79g7lqrnn7f29kbwxh87vdvw7jh7pf";
   };
   };
   racketThinBuildInputs = [ self."base" self."gregor-lib" self."rackunit-lib" ];
@@ -6656,8 +7242,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "grift";
     url = "git://github.com/Gradual-Typing/Grift.git";
-    rev = "e812fdd40e3f47c78a2bc850274ebc0f7fd040d4";
-    sha256 = "1gs407y13ynbiwwahbyg10c0gghfzg6l52i8xww52821qm1p17x0";
+    rev = "57a015b2ed7d4a8425b3d61213567322de9d2573";
+    sha256 = "0f5hwlwpykzw1pmvaakiq3ywrivn1aikihgp93v1qknc3i9sbpzz";
   };
   racketThinBuildInputs = [  ];
   circularBuildInputs = [  ];
@@ -6692,8 +7278,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gtp-benchmarks";
     url = "git://github.com/bennn/gtp-benchmarks.git";
-    rev = "4ddb425e32cc581c43d89a2e974b4a59ca2260b3";
-    sha256 = "0fhkzvkcbn7s97qak78k78niq4idshld9bx3083p62fc7lh969b6";
+    rev = "8892d586fa19376ce060a3b62f3c472e09a56bba";
+    sha256 = "0sngk5ls0snnaq5xfmjczf741yx75vh8z9frjg2xxn5kz5y2dd3f";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-more" self."require-typed-check" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."typed-racket-doc" self."at-exp-lib" self."gtp-util" self."pict-lib" self."scribble-abbrevs" self."syntax-sloc" self."with-cache" ];
   circularBuildInputs = [  ];
@@ -6704,8 +7290,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gtp-checkup";
     url = "git://github.com/bennn/gtp-checkup.git";
-    rev = "336ec2c1b67dd178f8fe35443532b88b71f66d16";
-    sha256 = "08z1lymarhiqhfq0gbwhralq336ny6h2hvi2fnb144f9wcrcy1nw";
+    rev = "39c36beb3329935b198c73a2010c37314686ab82";
+    sha256 = "0viv4vdix3ixvswpc6nnfx4q4if9vlcajrghlcanfvxcrvr5p4zw";
   };
   racketThinBuildInputs = [ self."base" self."basedir" self."data-lib" self."draw-lib" self."gregor" self."gtp-util" self."math-lib" self."memoize" self."pict-lib" self."plot-lib" self."rackunit-lib" self."require-typed-check" self."sandbox-lib" self."typed-racket-lib" self."typed-racket-more" self."zo-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."typed-racket-doc" self."pict-abbrevs" ];
   circularBuildInputs = [  ];
@@ -6716,8 +7302,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gtp-measure";
     url = "git://github.com/bennn/gtp-measure.git";
-    rev = "7fc5057ee1ea08d200cd559a0f1a00ed6401ab78";
-    sha256 = "12yilj89rcs4q7wvzl8kvwkakn21hkg21xkfh1abdhbhi9iihnk8";
+    rev = "4411c3575f2f26269dc48fd9005b4ee7a898df26";
+    sha256 = "0i40p3p4m5r36bcxlpq79q16cd5z4y5jh25kbg6dzagrlgr5n6i6";
   };
   racketThinBuildInputs = [ self."at-exp-lib" self."base" self."basedir" self."gtp-util" self."lang-file" self."scribble-lib" self."sandbox-lib" self."rackunit-lib" self."racket-doc" self."scribble-doc" self."basedir" self."require-typed-check" self."typed-racket-doc" self."typed-racket-lib" ];
   circularBuildInputs = [  ];
@@ -6752,10 +7338,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gtp-plot";
     url = "git://github.com/bennn/gtp-plot.git";
-    rev = "5b9255a91e7f24bc3f542cff783f3f970404715d";
-    sha256 = "085c48s4xli6sszj9xqzm8g6lq9zwfc46djsj0ls5mr4zmq0xcy1";
+    rev = "0e4d77fd435fb985159e021cb2a11e90398e0ce9";
+    sha256 = "1zqcwqvb5dy9dh2acca63r4s6a2y8amlzsbq9w30y9bzqz6izhqs";
   };
-  racketThinBuildInputs = [ self."base" self."draw-lib" self."scribble-abbrevs" self."scribble-lib" self."math-lib" self."pict-lib" self."plot-lib" self."reprovide-lang" self."gtp-util" self."lang-file" self."rackunit-lib" self."racket-doc" self."scribble-doc" self."pict-lib" self."pict-doc" self."plot-doc" self."rackunit-abbrevs" self."typed-racket-doc" self."gtp-util" ];
+  racketThinBuildInputs = [ self."base" self."draw-lib" self."scribble-abbrevs" self."scribble-lib" self."math-lib" self."pict-lib" self."plot-lib" self."reprovide-lang" self."gtp-util" self."rackunit-lib" self."racket-doc" self."scribble-doc" self."pict-lib" self."pict-doc" self."plot-doc" self."rackunit-abbrevs" self."typed-racket-doc" self."gtp-util" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -6764,8 +7350,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gtp-util";
     url = "git://github.com/bennn/gtp-util.git";
-    rev = "649d38ce7c0b851deb9beefd675d9030154f9488";
-    sha256 = "0gqfbiz82bg6k3w0drln8n70fzcb5gy7nd810kgzjcbmknvayi2b";
+    rev = "e1c3d7b4ed1128271324201171240e111ce51419";
+    sha256 = "0ala5g7cbwpl6pxrfhq7zgryvby2y755da9xix3wa2wr0426hzwc";
   };
   racketThinBuildInputs = [ self."base" self."math-lib" self."pict-lib" self."rackunit-lib" self."racket-doc" self."scribble-lib" self."scribble-doc" self."rackunit-abbrevs" self."pict-doc" ];
   circularBuildInputs = [  ];
@@ -6774,18 +7360,28 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui" = self.lib.mkRacketDerivation rec {
   pname = "gui";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui.zip";
-    sha1 = "dcaa07b52534b78b68f1e59ee86d5497ea8ce7ac";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui.zip";
+    sha1 = "4a5a3522454e2d77220bacbc1961d05bbd3ac11f";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."gui-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
   reverseCircularBuildInputs = [  ];
   };
+  "gui-aarch64-macosx" = self.lib.mkRacketDerivation rec {
+  pname = "gui-aarch64-macosx";
+  src = fetchurl {
+    url = "https://pkg-sources.racket-lang.org/pkgs/3efcb9bcca2ad3c24c3903229dbd6820559f0d08/gui-aarch64-macosx.zip";
+    sha1 = "3efcb9bcca2ad3c24c3903229dbd6820559f0d08";
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "gui-doc" = self.lib.mkRacketDerivation rec {
   pname = "gui-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-doc.zip";
-    sha1 = "746d318ce82c613f2f7cb7eb899303b510ea18ca";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-doc.zip";
+    sha1 = "32be7366cc027402821f329d884fcf06559c2459";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."at-exp-lib" self."draw-lib" self."scribble-lib" self."snip-lib" self."string-constants-lib" self."syntax-color-lib" self."wxme-lib" self."gui-lib" self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -6794,8 +7390,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-i386-macosx" = self.lib.mkRacketDerivation rec {
   pname = "gui-i386-macosx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-i386-macosx.zip";
-    sha1 = "922545e9cf7827c06462de678175dfa0a3a675f9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-i386-macosx.zip";
+    sha1 = "9f7027a88155f81881633b58d2bb25a9318dfcb7";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -6804,8 +7400,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-lib" = self.lib.mkRacketDerivation rec {
   pname = "gui-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-lib.zip";
-    sha1 = "e5d283fd6607320d15ca936ea5518cadf2166199";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-lib.zip";
+    sha1 = "25d16a5aa68890dee32487064db2c99b663b6b1c";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."data-lib" self."icons" self."base" self."syntax-color-lib" self."draw-lib" self."snip-lib" self."wxme-lib" self."pict-lib" self."scheme-lib" self."scribble-lib" self."string-constants-lib" self."option-contract-lib" self."2d-lib" self."compatibility-lib" self."tex-table" self."gui-i386-macosx" self."gui-x86_64-macosx" self."gui-ppc-macosx" self."gui-win32-i386" self."gui-win32-x86_64" self."gui-x86_64-linux-natipkg" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -6818,8 +7414,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gui-pkg-manager";
     url = "git://github.com/racket/gui-pkg-manager.git";
-    rev = "54d8ebd8c58a0974334e96e257db3b038cb20135";
-    sha256 = "1w72a2g2n4ng8ij0iakkcyk8wgniypd1w78xh6w5ipg563pxalqc";
+    rev = "e975632785a322f86a12f4c0faca73d075d4fb50";
+    sha256 = "0my5xgcpnngmdnlc7wqzv3q53hw5m3f5ksqdfz9jg6wn17y6raaz";
   };
   };
   racketThinBuildInputs = [ self."gui-pkg-manager-lib" self."gui-pkg-manager-doc" self."gui-lib" self."base" ];
@@ -6833,8 +7429,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "gui-pkg-manager-doc";
     url = "git://github.com/racket/gui-pkg-manager.git";
-    rev = "54d8ebd8c58a0974334e96e257db3b038cb20135";
-    sha256 = "1w72a2g2n4ng8ij0iakkcyk8wgniypd1w78xh6w5ipg563pxalqc";
+    rev = "e975632785a322f86a12f4c0faca73d075d4fb50";
+    sha256 = "0my5xgcpnngmdnlc7wqzv3q53hw5m3f5ksqdfz9jg6wn17y6raaz";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" ];
@@ -6844,8 +7440,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-pkg-manager-lib" = self.lib.mkRacketDerivation rec {
   pname = "gui-pkg-manager-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-pkg-manager-lib.zip";
-    sha1 = "54e9c6e52f552caf81fdcf1d658e00d34d9b3a1c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-pkg-manager-lib.zip";
+    sha1 = "a20a06334fcde8b741686ca9fe6d061d3c53c872";
   };
   racketThinBuildInputs = [ self."base" self."gui-lib" self."string-constants-lib" ];
   circularBuildInputs = [  ];
@@ -6854,8 +7450,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-ppc-macosx" = self.lib.mkRacketDerivation rec {
   pname = "gui-ppc-macosx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-ppc-macosx.zip";
-    sha1 = "2a387003d4b268a9dfe30e80a294a354c17ac630";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-ppc-macosx.zip";
+    sha1 = "3b2e7f2eb63776fed89dbe071cda1d4b30ec80aa";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -6864,8 +7460,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-test" = self.lib.mkRacketDerivation rec {
   pname = "gui-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-test.zip";
-    sha1 = "941a33232ffbb15ac57d51ace4afc5b785f0cece";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-test.zip";
+    sha1 = "ba76299125607db38def2e50ad232892b00f8cb6";
   };
   racketThinBuildInputs = [ self."base" self."racket-index" self."scheme-lib" self."draw-lib" self."racket-test" self."sgl" self."snip-lib" self."wxme-lib" self."gui-lib" self."syntax-color-lib" self."rackunit-lib" self."pconvert-lib" self."compatibility-lib" self."sandbox-lib" self."pict-lib" self."pict-snip-lib" ];
   circularBuildInputs = [  ];
@@ -6876,8 +7472,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "gui-widget-mixins";
     url = "git://github.com/alex-hhh/gui-widget-mixins.git";
-    rev = "12770619fd57da3e7dfdf6397fa5ade6817a252e";
-    sha256 = "0dhwr75kh2hprk7x6ffxrb8gxjdqi0zlawfckfd1yidbj6cc20ml";
+    rev = "fbc76d2dc8d82582cb16257ac7117f3b8e989344";
+    sha256 = "0z2kmlz8msk4pfb5j520801bwpridmr0namq702hliwpc9zw9snr";
   };
   racketThinBuildInputs = [ self."base" self."gui-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."gui-doc" ];
   circularBuildInputs = [  ];
@@ -6886,8 +7482,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-win32-i386" = self.lib.mkRacketDerivation rec {
   pname = "gui-win32-i386";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-win32-i386.zip";
-    sha1 = "1d3f039a4d450c36b3994ea54a791614157bafdf";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-win32-i386.zip";
+    sha1 = "c6ab4921ed72b4cc7e055abd6f39daf4c94a8115";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -6896,8 +7492,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-win32-x86_64" = self.lib.mkRacketDerivation rec {
   pname = "gui-win32-x86_64";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-win32-x86_64.zip";
-    sha1 = "b3f6ff40f5dc486e30fbf8449848cc7ded5663f2";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-win32-x86_64.zip";
+    sha1 = "ba6f8446971de8afe10e66d4993e2c480a8635b3";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -6906,8 +7502,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-x86_64-linux-natipkg" = self.lib.mkRacketDerivation rec {
   pname = "gui-x86_64-linux-natipkg";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-x86_64-linux-natipkg.zip";
-    sha1 = "a5c2be644182c701c75e3ff8116c4f422ae13caa";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-x86_64-linux-natipkg.zip";
+    sha1 = "26782cf3e86f95e6329a50281deb69ff8fb5b67d";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -6916,8 +7512,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "gui-x86_64-macosx" = self.lib.mkRacketDerivation rec {
   pname = "gui-x86_64-macosx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/gui-x86_64-macosx.zip";
-    sha1 = "62417646ec9360198244039396656e8599d89d72";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/gui-x86_64-macosx.zip";
+    sha1 = "23afd626d09c0518ccd532eb5187251eb3850a43";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -6930,8 +7526,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "e90ace9e4a056ec0a2a267f220cb29b756cbefce";
+    sha256 = "0yx35jarlcdwi956n3prnv4zj96b3zi73q8y07viqm384bp47jk0";
   };
   };
   racketThinBuildInputs = [ self."hackett-doc" self."hackett-lib" ];
@@ -6945,8 +7541,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-demo";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "e90ace9e4a056ec0a2a267f220cb29b756cbefce";
+    sha256 = "0yx35jarlcdwi956n3prnv4zj96b3zi73q8y07viqm384bp47jk0";
   };
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."hackett-lib" self."htdp-lib" self."pict-lib" self."threading-lib" self."web-server-lib" ];
@@ -6960,8 +7556,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-doc";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "e90ace9e4a056ec0a2a267f220cb29b756cbefce";
+    sha256 = "0yx35jarlcdwi956n3prnv4zj96b3zi73q8y07viqm384bp47jk0";
   };
   };
   racketThinBuildInputs = [ self."base" self."hackett-lib" self."scribble-lib" self."at-exp-lib" self."racket-doc" ];
@@ -6975,8 +7571,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-lib";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "e90ace9e4a056ec0a2a267f220cb29b756cbefce";
+    sha256 = "0yx35jarlcdwi956n3prnv4zj96b3zi73q8y07viqm384bp47jk0";
   };
   };
   racketThinBuildInputs = [ self."base" self."curly-fn-lib" self."data-lib" self."syntax-classes-lib" self."threading-lib" ];
@@ -6990,8 +7586,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "hackett-test";
     url = "git://github.com/lexi-lambda/hackett.git";
-    rev = "8e4e0e904ac37df58b8c8ef29c0f94ad4151246f";
-    sha256 = "0f1darb65qpbdr0f1r4hbbw6g1b55h9fkfhywxnsyw8z2rzc2rpq";
+    rev = "e90ace9e4a056ec0a2a267f220cb29b756cbefce";
+    sha256 = "0yx35jarlcdwi956n3prnv4zj96b3zi73q8y07viqm384bp47jk0";
   };
   };
   racketThinBuildInputs = [ self."base" self."hackett-lib" self."rackunit-lib" self."sandbox-lib" self."testing-util-lib" ];
@@ -7027,8 +7623,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "handin";
     url = "git://github.com/plt/handin.git";
-    rev = "cbb4523b88adb0415c2f188a96c28adf5c8fb6bf";
-    sha256 = "1z934miha0riqx30aylpcx96scznp81z0rdgjqb4ddn4kiikf4cm";
+    rev = "a01b9cce0c2397d3e1049d4e6932b48b51e65b13";
+    sha256 = "0jp1f1ha4ckmf770dp18imv96k9xzsibf3f1mac55p4c55p3hvar";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."htdp-lib" self."net-lib" self."pconvert-lib" self."sandbox-lib" self."rackunit-lib" self."web-server-lib" self."gui-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -7039,8 +7635,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "handy";
     url = "git://github.com/dstorrs/racket-dstorrs-libs.git";
-    rev = "b695136fc056e6b15d06df8af0a09e25ba6e8c6d";
-    sha256 = "01v767z9npw1lxpp2f3lh77ibyd6mzkzklqdkdg75c9q5xfi3w8x";
+    rev = "a48a10112e78f74e51a879ec9faf38e268a97697";
+    sha256 = "0p1nr8gnskk8pwg14m5jb6s4yvldkda6a1z6i8ygl0xdf6pn3833";
   };
   racketThinBuildInputs = [ self."html-parsing" self."base" self."db-lib" self."rackunit-lib" self."sxml" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -7070,15 +7666,33 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "hash-partition" = self.lib.mkRacketDerivation rec {
-  pname = "hash-partition";
-  src = fetchgit {
-    name = "hash-partition";
-    url = "git://github.com/zyrolasting/hash-partition.git";
-    rev = "6f29cf061d2ae55c8564e3c3af5be3543d6cd1b9";
-    sha256 = "1jgcm7ifw8l8qrs55qpcb19dqpbvpzb5nwks7a3f2zywylsb7va9";
+  "hash-view" = self.lib.mkRacketDerivation rec {
+  pname = "hash-view";
+  src = self.lib.extractPath {
+    path = "hash-view";
+    src = fetchgit {
+    name = "hash-view";
+    url = "git://github.com/rmculpepper/racket-hash-view.git";
+    rev = "7bfad3b89241beaca45f43ec1d70ef3ed268b495";
+    sha256 = "0xsnszw3kxwsm48nw33762mrhpilh4vj7vn7zf7ws6ygmfh6k4k1";
   };
-  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."hash-view-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "hash-view-lib" = self.lib.mkRacketDerivation rec {
+  pname = "hash-view-lib";
+  src = self.lib.extractPath {
+    path = "hash-view-lib";
+    src = fetchgit {
+    name = "hash-view-lib";
+    url = "git://github.com/rmculpepper/racket-hash-view.git";
+    rev = "7bfad3b89241beaca45f43ec1d70ef3ed268b495";
+    sha256 = "0xsnszw3kxwsm48nw33762mrhpilh4vj7vn7zf7ws6ygmfh6k4k1";
+  };
+  };
+  racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -7101,11 +7715,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "herbie";
     url = "git://github.com/uwplse/herbie.git";
-    rev = "be39213ae5627f1c994ef162f5b1721ea29d50d3";
-    sha256 = "1q6ni38jwyjb30rnsnghr08plg7l26apw7qh2m3gqjyzmrhwjbyb";
+    rev = "cd03acd15d439869dfb902ddc25712e324e4c499";
+    sha256 = "1pmlcnp64bm8pq4n322k2wprzxmihrsxm43ycv6wanmgvny8plxw";
   };
   };
-  racketThinBuildInputs = [ self."base" self."math-lib" self."plot-lib" self."profile-lib" self."rackunit-lib" self."web-server-lib" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."base" self."math-lib" self."plot-lib" self."profile-lib" self."rackunit-lib" self."web-server-lib" self."egg-herbie-windows" self."egg-herbie-osx" self."egg-herbie-linux" self."regraph" self."rival" self."fpbench" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -7194,8 +7808,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "htdp" = self.lib.mkRacketDerivation rec {
   pname = "htdp";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/htdp.zip";
-    sha1 = "046973a0ddea349aaa31f9c43f35d4b105e96c01";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/htdp.zip";
+    sha1 = "6c5094567b860ff3b09d5dc21f719eb4a2a04bf5";
   };
   racketThinBuildInputs = [ self."htdp-lib" self."htdp-doc" ];
   circularBuildInputs = [  ];
@@ -7204,8 +7818,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "htdp-doc" = self.lib.mkRacketDerivation rec {
   pname = "htdp-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/htdp-doc.zip";
-    sha1 = "c0ccf7932cb5d02e747331f08eb33fedc2f37fd5";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/htdp-doc.zip";
+    sha1 = "870d7c5f47585001ef21ae686e14a886f77a2efa";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."at-exp-lib" self."draw-lib" self."gui-lib" self."htdp-lib" self."plai" self."sandbox-lib" self."pict-lib" self."mzscheme-doc" self."scheme-lib" self."compatibility-doc" self."draw-doc" self."drracket" self."gui-doc" self."pict-doc" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -7226,8 +7840,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "htdp-lib" = self.lib.mkRacketDerivation rec {
   pname = "htdp-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/htdp-lib.zip";
-    sha1 = "a9d2c14549f3ede318ad45c1846598f0e2d39f55";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/htdp-lib.zip";
+    sha1 = "26ef2eb5ef7a380abdbe196078320f08453e5c1f";
   };
   racketThinBuildInputs = [ self."deinprogramm-signature+htdp-lib" self."base" self."compatibility-lib" self."draw-lib" self."drracket-plugin-lib" self."errortrace-lib" self."html-lib" self."images-gui-lib" self."images-lib" self."net-lib" self."pconvert-lib" self."plai-lib" self."r5rs-lib" self."sandbox-lib" self."scheme-lib" self."scribble-lib" self."slideshow-lib" self."snip-lib" self."srfi-lite-lib" self."string-constants-lib" self."typed-racket-lib" self."typed-racket-more" self."web-server-lib" self."wxme-lib" self."gui-lib" self."pict-lib" self."racket-index" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "htdp-lib" "deinprogramm-signature" ];
@@ -7236,18 +7850,33 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "htdp-test" = self.lib.mkRacketDerivation rec {
   pname = "htdp-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/htdp-test.zip";
-    sha1 = "250fb12201e57a0cf910d23bd03607ae48300196";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/htdp-test.zip";
+    sha1 = "7349206d92da821ceb1ac4280d03698dc1de5759";
   };
   racketThinBuildInputs = [ self."base" self."htdp-lib" self."scheme-lib" self."srfi-lite-lib" self."compatibility-lib" self."gui-lib" self."racket-test" self."rackunit-lib" self."profile-lib" self."wxme-lib" self."pconvert-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "htdp-trace" = self.lib.mkRacketDerivation rec {
+  pname = "htdp-trace";
+  src = self.lib.extractPath {
+    path = "htdp-trace";
+    src = fetchgit {
+    name = "htdp-trace";
+    url = "git://github.com/djh-uwaterloo/uwaterloo-racket.git";
+    rev = "24f1c0034ea24180c4d501eb51efd96f5f349215";
+    sha256 = "0s58a0bwmrc5n8bzw1k59vlf7js82jr538iq73n4c9xlrm4kcx2q";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."sandbox-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "html" = self.lib.mkRacketDerivation rec {
   pname = "html";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/html.zip";
-    sha1 = "9c804ffca742e3f4cf04d08166679ed8fa9cc0b0";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/html.zip";
+    sha1 = "551031cfc9d2271d2d464769bc039593d02e82d6";
   };
   racketThinBuildInputs = [ self."html-lib" self."html-doc" ];
   circularBuildInputs = [  ];
@@ -7256,18 +7885,30 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "html-doc" = self.lib.mkRacketDerivation rec {
   pname = "html-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/html-doc.zip";
-    sha1 = "12ae1f63acbfa247310e1f164e56205cfb4bb555";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/html-doc.zip";
+    sha1 = "ba2b0357eacc712e59269e3d33bbad8ac0050f51";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."html-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "html-examples" = self.lib.mkRacketDerivation rec {
+  pname = "html-examples";
+  src = fetchgit {
+    name = "html-examples";
+    url = "git://github.com/pmatos/html-examples.git";
+    rev = "d2982629acdfb103d0b7f82bc337ee1d973a9efb";
+    sha256 = "026vx35xahggf9xp30l64abc533hx0zcccyhf9ngzifwhkf8vsn1";
+  };
+  racketThinBuildInputs = [ self."txexpr" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "html-lib" = self.lib.mkRacketDerivation rec {
   pname = "html-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/html-lib.zip";
-    sha1 = "d14262cb09cd4463432f2113eab941edf649b282";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/html-lib.zip";
+    sha1 = "3d24695c11c67b9e879bd53bd70a40eb10066fc3";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -7296,8 +7937,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "html-test" = self.lib.mkRacketDerivation rec {
   pname = "html-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/html-test.zip";
-    sha1 = "6a970311b93f8b30deea02c3e933f682abcaa1b7";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/html-test.zip";
+    sha1 = "d6fed7fa57092a424b4d7518cf564d6119e089df";
   };
   racketThinBuildInputs = [ self."racket-index" self."base" self."html-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -7333,10 +7974,52 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "http";
     url = "git://github.com/greghendershott/http.git";
-    rev = "268318f8fd38c27cd744385885e5f00011f97216";
-    sha256 = "09859pik32f7jk1ac25bb1472fxlk2vh9pn9n1731d3jiagxmxdy";
+    rev = "bf006350fbbbf6f0d3297200fd607ecd2a2ddef1";
+    sha256 = "1p4iy7s000w1h91k7na565yssqs5g47f9ry851c42naxgs4whj5h";
   };
   racketThinBuildInputs = [ self."base" self."html-lib" self."rackunit-lib" self."net-doc" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "http-client" = self.lib.mkRacketDerivation rec {
+  pname = "http-client";
+  src = fetchgit {
+    name = "http-client";
+    url = "git://github.com/yanyingwang/http-client.git";
+    rev = "2d1a1dd2187f3e36b7558524d9260c42f06f7130";
+    sha256 = "1ajasgvqy8da056dqxis9962zclidgjaps0qs56h6avm82bnbcsm";
+  };
+  racketThinBuildInputs = [ self."base" self."html-parsing" self."at-exp-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "http-easy" = self.lib.mkRacketDerivation rec {
+  pname = "http-easy";
+  src = self.lib.extractPath {
+    path = "http-easy";
+    src = fetchgit {
+    name = "http-easy";
+    url = "git://github.com/Bogdanp/racket-http-easy.git";
+    rev = "4b05e13f795e3aa918a52547e1d64267b1118e31";
+    sha256 = "1q0nrmrwhyjf164nvbgi4pi9nk320y7h9b1fn0rcw82zcdph2y76";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."memoize" self."net-cookies-lib" self."resource-pool-lib" self."net-cookies-doc" self."net-doc" self."racket-doc" self."sandbox-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "http-easy-test" = self.lib.mkRacketDerivation rec {
+  pname = "http-easy-test";
+  src = self.lib.extractPath {
+    path = "http-easy-test";
+    src = fetchgit {
+    name = "http-easy-test";
+    url = "git://github.com/Bogdanp/racket-http-easy.git";
+    rev = "4b05e13f795e3aa918a52547e1d64267b1118e31";
+    sha256 = "1q0nrmrwhyjf164nvbgi4pi9nk320y7h9b1fn0rcw82zcdph2y76";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."http-easy" self."net-cookies-lib" self."rackunit-lib" self."web-server-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -7369,8 +8052,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "http2";
     url = "git://github.com/jackfirth/http2.git";
-    rev = "7e7d145a1c3a8cac98df51cc1d9081da0ac9fa88";
-    sha256 = "1rfmlclxr0wnbddxpdm6bzpfnisn3h2n3qhbmd7b2blw3ryql98a";
+    rev = "aafdea48a4f1e6f8579531350aee3691f4060129";
+    sha256 = "1pjalacr3i7hqzqyc8riixq1lwcj61chk8g4glmpfw12qkpkp1dh";
   };
   racketThinBuildInputs = [ self."base" self."rebellion" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -7405,8 +8088,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "hyper-literate";
     url = "git://github.com/jsmaniac/hyper-literate.git";
-    rev = "ebdeed4cd39196629c9c49f9df00f4ebaff462d1";
-    sha256 = "17yjwwr8hs69779qdq07bnrp9bjmapvyw50gkzq8gmrwvy1qpmxw";
+    rev = "24fd9ca7ca9b96e3072d37306dc79edf24ba4ef1";
+    sha256 = "00ymf3mcwzr482q0mlc5syj86767afhf2b5sqiqs9m5ikw0hkcnb";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."at-exp-lib" self."scheme-lib" self."scribble-lib" self."typed-racket-lib" self."typed-racket-more" self."typed-racket-doc" self."scribble-enhanced" self."sexp-diff" self."tr-immutable" self."typed-map-lib" self."debug-scopes" self."syntax-color-lib" self."scribble-lib" self."racket-doc" self."rackunit-doc" self."scribble-doc" self."rackunit-doc" ];
   circularBuildInputs = [  ];
@@ -7417,8 +8100,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "hyphenate";
     url = "git://github.com/mbutterick/hyphenate.git";
-    rev = "36eca7d21b8ddf169d8fef2ebec4acef51de8b47";
-    sha256 = "11vgvkhpab1d0klk7h23s3ybzlimqmc3w3liay7x1b91q6kvf77g";
+    rev = "2466b95c8df3b5117277c7a0e33e3b7f2f170cf0";
+    sha256 = "0rhw001c98kqg1pmnxaynzh99n8fp8rxca0lncp520flf0s32mwp";
   };
   racketThinBuildInputs = [ self."base" self."sugar" self."txexpr" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -7466,8 +8149,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "icons" = self.lib.mkRacketDerivation rec {
   pname = "icons";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/icons.zip";
-    sha1 = "9e9b0b50ee4756ab235fa7b1383c20d0ef73f469";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/icons.zip";
+    sha1 = "4911d4be86dd8703ce9a9d3cbcfb94898671b619";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -7482,18 +8165,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0pigwr48s9wl34gmhikznpnq2ah8y8hxx62h2w9fvwj7qb78rmxw";
   };
   racketThinBuildInputs = [ self."draw-lib" self."gui-lib" self."base" self."sugar" self."css-tools" self."htdp-lib" self."quickcheck" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "idiocket" = self.lib.mkRacketDerivation rec {
-  pname = "idiocket";
-  src = fetchgit {
-    name = "idiocket";
-    url = "git://github.com/zyrolasting/idiocket.git";
-    rev = "0ac325617c04c619dd5299f673d88e5c019753e4";
-    sha256 = "056fyn17ffvnzl8ax27bpa9laz7wwir5ng50y7gydb8vi4lkw4ck";
-  };
-  racketThinBuildInputs = [ self."base" self."at-exp-lib" self."scribble-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -7536,8 +8207,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "images" = self.lib.mkRacketDerivation rec {
   pname = "images";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/images.zip";
-    sha1 = "5d8ee6522472d54fdf21b276813c2ffdd25eb7c6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/images.zip";
+    sha1 = "526450069db886dfeea2582ed5291a20d027c6ea";
   };
   racketThinBuildInputs = [ self."images-lib" self."images-gui-lib" self."images-doc" ];
   circularBuildInputs = [  ];
@@ -7546,8 +8217,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "images-doc" = self.lib.mkRacketDerivation rec {
   pname = "images-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/images-doc.zip";
-    sha1 = "63d4ba00e0e396122b30f0dd9597b48bffe07b81";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/images-doc.zip";
+    sha1 = "e5f4fd39eee2dd21faedb7c6e975f055a397045b";
   };
   racketThinBuildInputs = [ self."base" self."images-lib" self."draw-doc" self."gui-doc" self."pict-doc" self."slideshow-doc" self."typed-racket-doc" self."draw-lib" self."gui-lib" self."pict-lib" self."racket-doc" self."scribble-lib" self."slideshow-lib" self."typed-racket-lib" ];
   circularBuildInputs = [  ];
@@ -7556,8 +8227,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "images-gui-lib" = self.lib.mkRacketDerivation rec {
   pname = "images-gui-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/images-gui-lib.zip";
-    sha1 = "74eacf894833c5d21f7760e9c26d7ce1dc48c47f";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/images-gui-lib.zip";
+    sha1 = "2c3e7b4eb613f46dcc1d4bbdda14013feb425afb";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."gui-lib" self."string-constants-lib" ];
   circularBuildInputs = [  ];
@@ -7566,8 +8237,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "images-lib" = self.lib.mkRacketDerivation rec {
   pname = "images-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/images-lib.zip";
-    sha1 = "f7dc15071856ef3bd47f45c82f0c381a7e14ee59";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/images-lib.zip";
+    sha1 = "2008bb5b8a5533d5e13ca7543ff5cc31cac650bd";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."typed-racket-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -7576,8 +8247,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "images-test" = self.lib.mkRacketDerivation rec {
   pname = "images-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/images-test.zip";
-    sha1 = "b57f72791e6ec991fbaa4d4d3ac411c379b9a31c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/images-test.zip";
+    sha1 = "5984ce1d7d9f56c48b57137a1289f05e998c7e38";
   };
   racketThinBuildInputs = [ self."base" self."images-lib" self."pict-lib" self."slideshow-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -7651,10 +8322,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "interactive-brokers-api";
     url = "git://github.com/evdubs/interactive-brokers-api.git";
-    rev = "75e9fde02692e88643434d835e6449f8934e9577";
-    sha256 = "1agj3b8zc2vimcs3zdqi7rdslnwzwnqxl04qf3r1gg4w08bp507v";
+    rev = "126e872caa2190e7f37663161a0853575aa92ad8";
+    sha256 = "1j4bv26464l6r57mpcdrrybpav4lzdp3ljhyd57zlarjx44ayrw5";
   };
-  racketThinBuildInputs = [ self."base" self."binaryio" self."gregor-lib" ];
+  racketThinBuildInputs = [ self."base" self."binaryio" self."gregor-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -7663,8 +8334,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "interactive-syntax";
     url = "git://github.com/videolang/interactive-syntax.git";
-    rev = "63d98c42d0225982d23e9ae82ac887fe73ddffd9";
-    sha256 = "1vvbidc7xr4hkxrz1gfn2dxa5q9fanqyfa6bj0wbm0m6nq6ydldy";
+    rev = "8c13d83ac0f5dbd624d59083b32f765952d1d440";
+    sha256 = "0120p5dyxk6595m1j0k64i781d0pyq9yhzlyg2fmv4dfsfzimh6h";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."data-lib" self."drracket-plugin-lib" self."gui-lib" self."images-lib" self."math-lib" self."syntax-color-lib" self."wxme-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -7677,8 +8348,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "interconfection";
     url = "git://github.com/lathe/interconfection-for-racket.git";
-    rev = "b66432a6fab1b48f6d33afaec4b1f630fc02a064";
-    sha256 = "16j7fwsib0185bsy0fmpc4k3glsa1pa8dhsvkxp9hfr6q0l5jgr6";
+    rev = "bcd0c4229a05491923550b50c003d432be982028";
+    sha256 = "0chx1mgmfw8ssrqilfwvjsqk322cryfwfkv534rbvfp8mp8njhpw";
   };
   };
   racketThinBuildInputs = [ self."interconfection-doc" self."interconfection-lib" ];
@@ -7692,8 +8363,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "interconfection-doc";
     url = "git://github.com/lathe/interconfection-for-racket.git";
-    rev = "b66432a6fab1b48f6d33afaec4b1f630fc02a064";
-    sha256 = "16j7fwsib0185bsy0fmpc4k3glsa1pa8dhsvkxp9hfr6q0l5jgr6";
+    rev = "bcd0c4229a05491923550b50c003d432be982028";
+    sha256 = "0chx1mgmfw8ssrqilfwvjsqk322cryfwfkv534rbvfp8mp8njhpw";
   };
   };
   racketThinBuildInputs = [ self."base" self."interconfection-lib" self."lathe-comforts-doc" self."lathe-comforts-lib" self."parendown-lib" self."racket-doc" self."scribble-lib" ];
@@ -7707,8 +8378,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "interconfection-lib";
     url = "git://github.com/lathe/interconfection-for-racket.git";
-    rev = "b66432a6fab1b48f6d33afaec4b1f630fc02a064";
-    sha256 = "16j7fwsib0185bsy0fmpc4k3glsa1pa8dhsvkxp9hfr6q0l5jgr6";
+    rev = "bcd0c4229a05491923550b50c003d432be982028";
+    sha256 = "0chx1mgmfw8ssrqilfwvjsqk322cryfwfkv534rbvfp8mp8njhpw";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-lib" self."parendown-lib" ];
@@ -7722,8 +8393,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "interconfection-test";
     url = "git://github.com/lathe/interconfection-for-racket.git";
-    rev = "b66432a6fab1b48f6d33afaec4b1f630fc02a064";
-    sha256 = "16j7fwsib0185bsy0fmpc4k3glsa1pa8dhsvkxp9hfr6q0l5jgr6";
+    rev = "bcd0c4229a05491923550b50c003d432be982028";
+    sha256 = "0chx1mgmfw8ssrqilfwvjsqk322cryfwfkv534rbvfp8mp8njhpw";
   };
   };
   racketThinBuildInputs = [ self."base" self."interconfection-lib" self."lathe-comforts-lib" self."rackunit-lib" self."parendown-lib" ];
@@ -7764,8 +8435,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "ipoe";
     url = "git://github.com/bennn/ipoe.git";
-    rev = "afdbc3baf2bcb8b7e09a23d8e656c6b69a61f3ad";
-    sha256 = "1q3ksarp0h1gbfqyqfbk2xay63z7nv96l3x44xz0lp6lkzcf5g49";
+    rev = "4a988f6537fb738b4fe842c404f9d78f658ab76f";
+    sha256 = "1v56pf4r6d7ap2wq8hmb7brc972hbl6s7s2swc20gy7bhqbgvfks";
   };
   };
   racketThinBuildInputs = [ self."base" self."basedir" self."db-lib" self."html-lib" self."html-parsing" self."levenshtein" self."rackunit-lib" self."readline-lib" self."reprovide-lang" self."sxml" self."basedir" self."net-doc" self."racket-doc" self."rackunit-abbrevs" self."rackunit-lib" self."scribble-doc" self."scribble-lib" ];
@@ -7777,10 +8448,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "iracket";
     url = "git://github.com/rmculpepper/iracket.git";
-    rev = "d2ffb50c63a20df68a52359214697657eb9fb850";
-    sha256 = "0ygxzc4ix58w7zbvhwzsily9v3ahaqw1k3hjdli98205z922a7qq";
+    rev = "9af0e87d61565a9ecb41119c481e7e36c0c5287d";
+    sha256 = "0z1gaa1135bk8k7m2hc6lgsi3p79zzf2mc4fhw5b185s1m92vb3a";
   };
-  racketThinBuildInputs = [ self."base" self."zeromq-r-lib" self."sandbox-lib" self."uuid" self."sha" self."racket-doc" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."base" self."zeromq-r-lib" self."sandbox-lib" self."uuid" self."sha" self."racket-doc" self."scribble-lib" self."scribble-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -8060,8 +8731,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "json-pointer";
     url = "git://github.com/jessealama/json-pointer.git";
-    rev = "a9c14d934daf80055afeccf751c092fd53ce7221";
-    sha256 = "0an4g5f5qbrm0rz1jnsyikp452l1jkdh6ycr53s75yk2k2dp2hx5";
+    rev = "73e97e426eff151ffd705059771c5c92f2da4697";
+    sha256 = "0nhv54bsyg2qpkwh71xwc8r6q47dv12q09qnqfyn2vh5pd949g9d";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."ejs" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -8076,21 +8747,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "16xj5ny2146dmpql3izid78qqdx40h1gmdxs5fpfy1b8sg75rb1w";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."misc1" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "json-sourcery" = self.lib.mkRacketDerivation rec {
-  pname = "json-sourcery";
-  src = self.lib.extractPath {
-    path = "json-sourcery";
-    src = fetchgit {
-    name = "json-sourcery";
-    url = "git://github.com/adjkant/json-sourcery.git";
-    rev = "a0b1646afedabb022550fd2b1f7c8052ac8ae5b6";
-    sha256 = "0aiag9pq48yjp622syw9b2yggsqq8d1sdzbaxri9lajhcyq5pwil";
-  };
-  };
-  racketThinBuildInputs = [ self."base" self."syntax-classes" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -8116,8 +8772,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "json-type-provider";
     url = "git://github.com/philnguyen/json-type-provider.git";
-    rev = "d2c965706f85a9d66a62321ebe3c20a90e13b17f";
-    sha256 = "17ggqsprmwmqx73d9cllrv8xq8wk64mz8a1p2lviz8b5b4ig0f9x";
+    rev = "f96d3f212519f4ff2aef828e7b891971b82babb8";
+    sha256 = "10q0bb8x5206q8sb6lslsgm7q04z5rg39p80j163m172c7c06rcs";
   };
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-more" ];
@@ -8148,6 +8804,96 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "keyring" = self.lib.mkRacketDerivation rec {
+  pname = "keyring";
+  src = self.lib.extractPath {
+    path = "keyring";
+    src = fetchgit {
+    name = "keyring";
+    url = "git://github.com/samdphillips/racket-keyring.git";
+    rev = "e90d649fea6533e903efe1961617e172a133b688";
+    sha256 = "0rigp1ji95mn2kqxx7yyfcjs46pxrvv55jgbc45mqwa5kca80dsf";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."keyring-lib" self."keyring-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "keyring-doc" = self.lib.mkRacketDerivation rec {
+  pname = "keyring-doc";
+  src = self.lib.extractPath {
+    path = "keyring-doc";
+    src = fetchgit {
+    name = "keyring-doc";
+    url = "git://github.com/samdphillips/racket-keyring.git";
+    rev = "e90d649fea6533e903efe1961617e172a133b688";
+    sha256 = "0rigp1ji95mn2kqxx7yyfcjs46pxrvv55jgbc45mqwa5kca80dsf";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."base" self."keyring-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "keyring-get-pass-lib" = self.lib.mkRacketDerivation rec {
+  pname = "keyring-get-pass-lib";
+  src = self.lib.extractPath {
+    path = "keyring-get-pass-lib";
+    src = fetchgit {
+    name = "keyring-get-pass-lib";
+    url = "git://github.com/samdphillips/racket-keyring.git";
+    rev = "e90d649fea6533e903efe1961617e172a133b688";
+    sha256 = "0rigp1ji95mn2kqxx7yyfcjs46pxrvv55jgbc45mqwa5kca80dsf";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."get-pass" self."keyring-lib" self."base" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "keyring-keychain-lib" = self.lib.mkRacketDerivation rec {
+  pname = "keyring-keychain-lib";
+  src = self.lib.extractPath {
+    path = "keyring-keychain-lib";
+    src = fetchgit {
+    name = "keyring-keychain-lib";
+    url = "git://github.com/samdphillips/racket-keyring.git";
+    rev = "e90d649fea6533e903efe1961617e172a133b688";
+    sha256 = "0rigp1ji95mn2kqxx7yyfcjs46pxrvv55jgbc45mqwa5kca80dsf";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."keyring-lib" self."base" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "keyring-lib" = self.lib.mkRacketDerivation rec {
+  pname = "keyring-lib";
+  src = self.lib.extractPath {
+    path = "keyring-lib";
+    src = fetchgit {
+    name = "keyring-lib";
+    url = "git://github.com/samdphillips/racket-keyring.git";
+    rev = "e90d649fea6533e903efe1961617e172a133b688";
+    sha256 = "0rigp1ji95mn2kqxx7yyfcjs46pxrvv55jgbc45mqwa5kca80dsf";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."base" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "keyring-secret-service-lib" = self.lib.mkRacketDerivation rec {
+  pname = "keyring-secret-service-lib";
+  src = self.lib.extractPath {
+    path = "keyring-secret-service-lib";
+    src = fetchgit {
+    name = "keyring-secret-service-lib";
+    url = "git://github.com/samdphillips/racket-keyring.git";
+    rev = "e90d649fea6533e903efe1961617e172a133b688";
+    sha256 = "0rigp1ji95mn2kqxx7yyfcjs46pxrvv55jgbc45mqwa5kca80dsf";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."dbus" self."keyring-lib" self."base" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "kinda-ferpy" = self.lib.mkRacketDerivation rec {
   pname = "kinda-ferpy";
   src = fetchgit {
@@ -8170,6 +8916,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "kittle-buffer" = self.lib.mkRacketDerivation rec {
+  pname = "kittle-buffer";
+  src = fetchgit {
+    name = "kittle-buffer";
+    url = "git://github.com/KDr2/kittle-buffer.git";
+    rev = "f80d8053880b38e95a484b1624223fd7cbec4bf7";
+    sha256 = "11mr487snibryrirl11sy8v598wa762lz957blq9y5dsci2ji69n";
+  };
+  racketThinBuildInputs = [ self."base" self."gui" self."draw" self."srfi" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "koyo" = self.lib.mkRacketDerivation rec {
   pname = "koyo";
   src = self.lib.extractPath {
@@ -8177,8 +8935,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "koyo";
     url = "git://github.com/Bogdanp/koyo.git";
-    rev = "bc1693a285aede4dc4d7ad5a210eb4e468f29593";
-    sha256 = "0m1h2g0zh0mn7g1lc3sya4dmiqhq3gp0dzf27mrgivjkls89g6hj";
+    rev = "93f3fd06ee596a62bb0b286cb6290a800e911154";
+    sha256 = "0fdmvwd4snspqm5cxl30pd376q3d98fjngmr2a2qlxsgg27q6v55";
   };
   };
   racketThinBuildInputs = [ self."koyo-doc" self."koyo-lib" ];
@@ -8192,11 +8950,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "koyo-doc";
     url = "git://github.com/Bogdanp/koyo.git";
-    rev = "bc1693a285aede4dc4d7ad5a210eb4e468f29593";
-    sha256 = "0m1h2g0zh0mn7g1lc3sya4dmiqhq3gp0dzf27mrgivjkls89g6hj";
+    rev = "93f3fd06ee596a62bb0b286cb6290a800e911154";
+    sha256 = "0fdmvwd4snspqm5cxl30pd376q3d98fjngmr2a2qlxsgg27q6v55";
   };
   };
-  racketThinBuildInputs = [ self."base" self."component-doc" self."component-lib" self."db-lib" self."koyo-lib" self."sandbox-lib" self."scribble-lib" self."web-server-lib" self."db-doc" self."net-doc" self."racket-doc" self."web-server-doc" ];
+  racketThinBuildInputs = [ self."base" self."component-doc" self."component-lib" self."db-lib" self."gregor-lib" self."koyo-lib" self."libargon2" self."sandbox-lib" self."scribble-lib" self."srfi-lite-lib" self."web-server-lib" self."db-doc" self."gregor-doc" self."net-doc" self."racket-doc" self."srfi-doc-nonfree" self."web-server-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -8207,11 +8965,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "koyo-lib";
     url = "git://github.com/Bogdanp/koyo.git";
-    rev = "bc1693a285aede4dc4d7ad5a210eb4e468f29593";
-    sha256 = "0m1h2g0zh0mn7g1lc3sya4dmiqhq3gp0dzf27mrgivjkls89g6hj";
+    rev = "93f3fd06ee596a62bb0b286cb6290a800e911154";
+    sha256 = "0fdmvwd4snspqm5cxl30pd376q3d98fjngmr2a2qlxsgg27q6v55";
   };
   };
-  racketThinBuildInputs = [ self."base" self."compatibility-lib" self."component-lib" self."db-lib" self."errortrace-lib" self."gregor-lib" self."html-lib" self."readline-lib" self."srfi-lite-lib" self."web-server-lib" self."at-exp-lib" ];
+  racketThinBuildInputs = [ self."base" self."compatibility-lib" self."component-lib" self."crypto-lib" self."db-lib" self."errortrace-lib" self."gregor-lib" self."html-lib" self."net-lib" self."readline-lib" self."srfi-lite-lib" self."unix-socket-lib" self."web-server-lib" self."at-exp-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -8251,6 +9009,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "koyo-sessions-redis" = self.lib.mkRacketDerivation rec {
+  pname = "koyo-sessions-redis";
+  src = fetchgit {
+    name = "koyo-sessions-redis";
+    url = "git://github.com/Bogdanp/koyo-sessions-redis.git";
+    rev = "e556fafb2f207eb4c74b66c8d1ae2f51d4b208b1";
+    sha256 = "167dzz11yxx1knj4xgljj467c7pi5xrd283h8cs41y531miqf0qh";
+  };
+  racketThinBuildInputs = [ self."base" self."koyo-lib" self."redis-lib" self."koyo-doc" self."racket-doc" self."redis-doc" self."rackunit-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "koyo-test" = self.lib.mkRacketDerivation rec {
   pname = "koyo-test";
   src = self.lib.extractPath {
@@ -8258,11 +9028,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "koyo-test";
     url = "git://github.com/Bogdanp/koyo.git";
-    rev = "bc1693a285aede4dc4d7ad5a210eb4e468f29593";
-    sha256 = "0m1h2g0zh0mn7g1lc3sya4dmiqhq3gp0dzf27mrgivjkls89g6hj";
+    rev = "93f3fd06ee596a62bb0b286cb6290a800e911154";
+    sha256 = "0fdmvwd4snspqm5cxl30pd376q3d98fjngmr2a2qlxsgg27q6v55";
   };
   };
-  racketThinBuildInputs = [ self."base" self."at-exp-lib" self."component-lib" self."db-lib" self."gregor-lib" self."koyo-lib" self."rackunit-lib" self."srfi-lite-lib" self."web-server-lib" ];
+  racketThinBuildInputs = [ self."base" self."at-exp-lib" self."component-lib" self."db-lib" self."gregor-lib" self."koyo-lib" self."libargon2" self."rackunit-lib" self."srfi-lite-lib" self."web-server-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -8301,8 +9071,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "kw-utils";
     url = "git://github.com/AlexKnauth/kw-utils.git";
-    rev = "1acb6feff772064010574c0a68d464146cd7d29c";
-    sha256 = "1vg64zlsf8pmd307w9f7kybslagbza1dv95g7kkr74iwrgfbjwfs";
+    rev = "91095643063329146e7d901b864e1438963bbc10";
+    sha256 = "02q5apvc268v1dsd5nkafa411qhr595rrhj3d8hgrb6msh0cz0yi";
   };
   racketThinBuildInputs = [ self."base" self."sweet-exp-lib" self."rackunit-lib" self."scribble-lib" self."racket-doc" self."rackjure" ];
   circularBuildInputs = [  ];
@@ -8313,8 +9083,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "lambda-calculus";
     url = "git://github.com/oransimhony/lambda-calculus.git";
-    rev = "fd13e81f1df22fc9044f0cdcd1cead8504d335d8";
-    sha256 = "0gxirnd48lpq5lppylqx1yc0vngn8v26cax9wvcc487m0hqi3r23";
+    rev = "9111401749ef9be7f162eec79961b448024522af";
+    sha256 = "1rsqfwbdhd6xk585vwb2rpyv65jh868jrs43d355ady189lfh1jm";
   };
   racketThinBuildInputs = [ self."beautiful-racket-lib" self."rackunit-lib" self."base" self."brag" self."beautiful-racket" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -8325,8 +9095,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "lambda-sh";
     url = "git://github.com/wargrey/lambda-shell.git";
-    rev = "308c433c89b5694c3e5b19c8642e8ce0c3644020";
-    sha256 = "0rf7p696yp14lv1vpbaxiwqwms6by39m6fxdf164g151fzhaawr4";
+    rev = "99b2131e08db61d8690c32d93dd6b31391649474";
+    sha256 = "1v7yb8d10dkry3mkp83wb8vf0nyvhk8z9xs5l0xdrgy2a1kip74y";
   };
   racketThinBuildInputs = [ self."base" self."digimon" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."pict-lib" self."math-lib" self."digimon" self."scribble-lib" self."pict-lib" self."math-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -8391,8 +9161,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "latex-pict";
     url = "git://github.com/soegaard/latex-pict.git";
-    rev = "e9d2a0ad1341bb7a34173c337e9a33ccdc1ca2be";
-    sha256 = "19x1cg2x6m64qa5ka9jmvq88lvpax3zx8bh8vhhsxbpqr7s5k19m";
+    rev = "847bd5f42903fa1b357125cee67b9a2addf240c6";
+    sha256 = "0n3f68z7rxa1rr2d8n4ypbrpz1vv2cwk3i3890fa4dn0h5pjjsa0";
   };
   racketThinBuildInputs = [ self."base" self."pict-lib" self."racket-poppler" self."scribble-lib" self."racket-doc" self."draw-doc" self."pict-doc" ];
   circularBuildInputs = [  ];
@@ -8417,8 +9187,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-comforts";
     url = "git://github.com/lathe/lathe-comforts-for-racket.git";
-    rev = "4ce5e4bd92828aa9994164b1d35265dcad02fe26";
-    sha256 = "1r786zwfj07axxd4wp7hrasdi49ijhl6j5lw2q0zmf6hbkmcl0d7";
+    rev = "0a91d936fddf3c356c35782384ec83ceaa29bf0d";
+    sha256 = "09cnsghlr5zn35h8zjfjl7ws9jlba9ahgcki94hy1jq7iasavczg";
   };
   };
   racketThinBuildInputs = [ self."lathe-comforts-doc" self."lathe-comforts-lib" ];
@@ -8432,8 +9202,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-comforts-doc";
     url = "git://github.com/lathe/lathe-comforts-for-racket.git";
-    rev = "4ce5e4bd92828aa9994164b1d35265dcad02fe26";
-    sha256 = "1r786zwfj07axxd4wp7hrasdi49ijhl6j5lw2q0zmf6hbkmcl0d7";
+    rev = "0a91d936fddf3c356c35782384ec83ceaa29bf0d";
+    sha256 = "09cnsghlr5zn35h8zjfjl7ws9jlba9ahgcki94hy1jq7iasavczg";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-lib" self."parendown-doc" self."parendown-lib" self."racket-doc" self."scribble-lib" ];
@@ -8447,8 +9217,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-comforts-lib";
     url = "git://github.com/lathe/lathe-comforts-for-racket.git";
-    rev = "4ce5e4bd92828aa9994164b1d35265dcad02fe26";
-    sha256 = "1r786zwfj07axxd4wp7hrasdi49ijhl6j5lw2q0zmf6hbkmcl0d7";
+    rev = "0a91d936fddf3c356c35782384ec83ceaa29bf0d";
+    sha256 = "09cnsghlr5zn35h8zjfjl7ws9jlba9ahgcki94hy1jq7iasavczg";
   };
   };
   racketThinBuildInputs = [ self."base" self."parendown" ];
@@ -8462,8 +9232,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-comforts-test";
     url = "git://github.com/lathe/lathe-comforts-for-racket.git";
-    rev = "4ce5e4bd92828aa9994164b1d35265dcad02fe26";
-    sha256 = "1r786zwfj07axxd4wp7hrasdi49ijhl6j5lw2q0zmf6hbkmcl0d7";
+    rev = "0a91d936fddf3c356c35782384ec83ceaa29bf0d";
+    sha256 = "09cnsghlr5zn35h8zjfjl7ws9jlba9ahgcki94hy1jq7iasavczg";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-lib" self."parendown-lib" self."rackunit-lib" ];
@@ -8477,8 +9247,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-morphisms";
     url = "git://github.com/lathe/lathe-morphisms-for-racket.git";
-    rev = "d7c244f82014259e12681d598ae006534a62471d";
-    sha256 = "0h8i05w07103vg8p1c4iv5b28a6h98vraap071f30jxpaa2vsyrc";
+    rev = "422f0c5f5c5bc58d950d54886f26eb27d56d3061";
+    sha256 = "1jvmbw3xhnkl33y6js8ckn38cfjkzqkyfwx5di1fd3yiypyhxqw5";
   };
   };
   racketThinBuildInputs = [ self."lathe-morphisms-doc" self."lathe-morphisms-lib" ];
@@ -8492,8 +9262,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-morphisms-doc";
     url = "git://github.com/lathe/lathe-morphisms-for-racket.git";
-    rev = "d7c244f82014259e12681d598ae006534a62471d";
-    sha256 = "0h8i05w07103vg8p1c4iv5b28a6h98vraap071f30jxpaa2vsyrc";
+    rev = "422f0c5f5c5bc58d950d54886f26eb27d56d3061";
+    sha256 = "1jvmbw3xhnkl33y6js8ckn38cfjkzqkyfwx5di1fd3yiypyhxqw5";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-doc" self."lathe-comforts-lib" self."lathe-morphisms-lib" self."parendown-lib" self."racket-doc" self."scribble-lib" ];
@@ -8507,8 +9277,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-morphisms-lib";
     url = "git://github.com/lathe/lathe-morphisms-for-racket.git";
-    rev = "d7c244f82014259e12681d598ae006534a62471d";
-    sha256 = "0h8i05w07103vg8p1c4iv5b28a6h98vraap071f30jxpaa2vsyrc";
+    rev = "422f0c5f5c5bc58d950d54886f26eb27d56d3061";
+    sha256 = "1jvmbw3xhnkl33y6js8ckn38cfjkzqkyfwx5di1fd3yiypyhxqw5";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-lib" self."parendown-lib" ];
@@ -8522,8 +9292,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-morphisms-test";
     url = "git://github.com/lathe/lathe-morphisms-for-racket.git";
-    rev = "d7c244f82014259e12681d598ae006534a62471d";
-    sha256 = "0h8i05w07103vg8p1c4iv5b28a6h98vraap071f30jxpaa2vsyrc";
+    rev = "422f0c5f5c5bc58d950d54886f26eb27d56d3061";
+    sha256 = "1jvmbw3xhnkl33y6js8ckn38cfjkzqkyfwx5di1fd3yiypyhxqw5";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-morphisms-lib" self."parendown-lib" self."rackunit-lib" ];
@@ -8537,8 +9307,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-ordinals";
     url = "git://github.com/lathe/lathe-ordinals-for-racket.git";
-    rev = "d6261936fbd274104c923fc70a2bb7c2a5908339";
-    sha256 = "04ra9bzlx7v77nwb8q6cwv23mc2c6rq1xzwgl4r6385ca8cnm7yf";
+    rev = "f7f46835ae5403d04947df062145dd98963789a1";
+    sha256 = "0sdll593lxiqq2cjll1p4w0j3d799h2p6r1qyqwq4kxq99rgxm1v";
   };
   };
   racketThinBuildInputs = [ self."lathe-ordinals-doc" self."lathe-ordinals-lib" ];
@@ -8552,8 +9322,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-ordinals-doc";
     url = "git://github.com/lathe/lathe-ordinals-for-racket.git";
-    rev = "d6261936fbd274104c923fc70a2bb7c2a5908339";
-    sha256 = "04ra9bzlx7v77nwb8q6cwv23mc2c6rq1xzwgl4r6385ca8cnm7yf";
+    rev = "f7f46835ae5403d04947df062145dd98963789a1";
+    sha256 = "0sdll593lxiqq2cjll1p4w0j3d799h2p6r1qyqwq4kxq99rgxm1v";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-doc" self."lathe-comforts-lib" self."lathe-ordinals-lib" self."parendown-lib" self."racket-doc" self."scribble-lib" ];
@@ -8567,8 +9337,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-ordinals-lib";
     url = "git://github.com/lathe/lathe-ordinals-for-racket.git";
-    rev = "d6261936fbd274104c923fc70a2bb7c2a5908339";
-    sha256 = "04ra9bzlx7v77nwb8q6cwv23mc2c6rq1xzwgl4r6385ca8cnm7yf";
+    rev = "f7f46835ae5403d04947df062145dd98963789a1";
+    sha256 = "0sdll593lxiqq2cjll1p4w0j3d799h2p6r1qyqwq4kxq99rgxm1v";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-lib" self."parendown" ];
@@ -8582,19 +9352,43 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "lathe-ordinals-test";
     url = "git://github.com/lathe/lathe-ordinals-for-racket.git";
-    rev = "d6261936fbd274104c923fc70a2bb7c2a5908339";
-    sha256 = "04ra9bzlx7v77nwb8q6cwv23mc2c6rq1xzwgl4r6385ca8cnm7yf";
+    rev = "f7f46835ae5403d04947df062145dd98963789a1";
+    sha256 = "0sdll593lxiqq2cjll1p4w0j3d799h2p6r1qyqwq4kxq99rgxm1v";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-ordinals-lib" self."parendown-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "layout" = self.lib.mkRacketDerivation rec {
+  pname = "layout";
+  src = fetchgit {
+    name = "layout";
+    url = "git://github.com/SimonLSchlee/layout.git";
+    rev = "5f7f0832057ea201a3d913ed943b60aaaef452e7";
+    sha256 = "0phh1b8cba14syqq1j39bl70iapp8g8c0aprfs2ijj4kfqpphm12";
+  };
+  racketThinBuildInputs = [ self."base" self."draw-lib" self."pict-lib" self."reprovide-lang-lib" self."rackunit-chk" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "layout-interactive" = self.lib.mkRacketDerivation rec {
+  pname = "layout-interactive";
+  src = fetchgit {
+    name = "layout-interactive";
+    url = "git://github.com/SimonLSchlee/layout-interactive.git";
+    rev = "bf245c3ecbc2c93cc236fd27ea7b37bb8560eccd";
+    sha256 = "0b1251h1csz7zx87vqhf4sgwq7gx65jaj50wdg6das2xzn52z4k9";
+  };
+  racketThinBuildInputs = [ self."base" self."layout" self."gui-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "lazy" = self.lib.mkRacketDerivation rec {
   pname = "lazy";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/lazy.zip";
-    sha1 = "d7784982054687a10038214a34e742c276384240";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/lazy.zip";
+    sha1 = "0f4d20d5661f162eaf448e52728662cb7186a381";
   };
   racketThinBuildInputs = [ self."base" self."drracket-plugin-lib" self."htdp-lib" self."string-constants-lib" self."compatibility-lib" self."mzscheme-doc" self."scheme-lib" self."eli-tester" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -8605,10 +9399,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "lazytree";
     url = "git://github.com/countvajhula/lazytree.git";
-    rev = "5ed90f728f7530b6115b7cf80dcb8ddede7256ae";
-    sha256 = "005sq39v9pp7sgiji95p8d9gqchwy14idvn8di47828889dxskxq";
+    rev = "468ec6a1a79284ca6f38371678e710e124285241";
+    sha256 = "00ng8qfsalf59rhvcqk9gc228a74fzzl7p1nl22cymjn09pa71y5";
   };
-  racketThinBuildInputs = [ self."base" self."collections-lib" self."Relation" self."scribble-lib" self."scribble-abbrevs" self."racket-doc" self."collections-doc" self."functional-doc" self."rackunit-lib" self."pict-lib" self."sandbox-lib" ];
+  racketThinBuildInputs = [ self."base" self."collections-lib" self."relation" self."social-contract" self."scribble-lib" self."scribble-abbrevs" self."racket-doc" self."collections-doc" self."functional-doc" self."rackunit-lib" self."pict-lib" self."cover" self."cover-coveralls" self."sandbox-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -8995,8 +9789,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "libsqlite3-x86_64-linux" = self.lib.mkRacketDerivation rec {
   pname = "libsqlite3-x86_64-linux";
   src = fetchurl {
-    url = "https://racket.defn.io/libsqlite3-x86_64-linux-3.29.0.tar.gz";
-    sha1 = "90e41391b43f67037c0fe0c4ab96dcad2a4e334f";
+    url = "https://racket.defn.io/libsqlite3-x86_64-linux-3.32.0.tar.gz";
+    sha1 = "274aa42cb70bc1300e237d7a0b261fbb6def986e";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9005,8 +9799,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "libsqlite3-x86_64-macosx" = self.lib.mkRacketDerivation rec {
   pname = "libsqlite3-x86_64-macosx";
   src = fetchurl {
-    url = "https://racket.defn.io/libsqlite3-x86_64-macosx-3.29.0.tar.gz";
-    sha1 = "88716b3d6ffebc9518e0cd7a7120c128138af1b3";
+    url = "https://racket.defn.io/libsqlite3-x86_64-macosx-3.32.0.tar.gz";
+    sha1 = "aa33b198e392c8da05ac3ebbacff7f9b6fee2bf8";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9033,21 +9827,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0gk279gk9cs4jxdpmwdk61mlxplrk94jzzbyfw9mwxzv0l6ngpbh";
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "libvid-i386-linux" = self.lib.mkRacketDerivation rec {
-  pname = "libvid-i386-linux";
-  src = self.lib.extractPath {
-    path = "libvid-i386-linux";
-    src = fetchgit {
-    name = "libvid-i386-linux";
-    url = "git://github.com/videolang/native-pkgs.git";
-    rev = "61c4b07ffd82127a049cf12f74c09c20730eba1d";
-    sha256 = "0mqw649562qx823iw76q5v8m40z2n5psbhva6r7n53497a83hmpn";
-  };
-  };
-  racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -9215,8 +9994,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "lindenmayer";
     url = "git://github.com/rfindler/lindenmayer.git";
-    rev = "e65a139404ef547abd279a9ec9ab7f924a00c1a4";
-    sha256 = "05wqbpiky8hhlbp259n34r9xgsdg9yr4gj5cgg2s4xfc62jnikmk";
+    rev = "2ef7b4535d8ae1eb7cc2e16e2b630c30a4b9a34d";
+    sha256 = "0v9bzkbx8if209lk895g6l04wnw7dk0kmivz2m63jszg288rsx0a";
   };
   racketThinBuildInputs = [ self."base" self."data-lib" self."drracket-plugin-lib" self."gui-lib" self."htdp-lib" self."parser-tools-lib" self."pict-lib" self."pict3d" self."syntax-color-lib" self."typed-racket-lib" self."math-lib" self."2d-lib" self."rackunit-lib" self."pict-doc" self."racket-doc" self."scribble-lib" self."htdp-doc" self."syntax-color-doc" self."typed-racket-doc" self."typed-racket-more" ];
   circularBuildInputs = [  ];
@@ -9229,8 +10008,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "linea";
     url = "git://github.com/willghatch/racket-rash.git";
-    rev = "2b33e444472cf777da3017c23a6538245a93d2d6";
-    sha256 = "0pjfnbag08fqdf7nd8k6c35dhp2jjmi0a69vg8a4vdvd7cb0v04x";
+    rev = "c40c5adfedf632bc1fdbad3e0e2763b134ee3ff5";
+    sha256 = "1jcdlidbp1nq3jh99wsghzmyamfcs5zwljarrwcyfnkmkaxvviqg";
   };
   };
   racketThinBuildInputs = [ self."base" self."udelim" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
@@ -9252,6 +10031,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "linux-shared-libraries" = self.lib.mkRacketDerivation rec {
+  pname = "linux-shared-libraries";
+  src = fetchgit {
+    name = "linux-shared-libraries";
+    url = "git://github.com/soegaard/linux-shared-libraries.git";
+    rev = "f49d1bd6794437482c46d351c71313070e0244d5";
+    sha256 = "0acxr2kq19k0f4piniahww1a6fwbap7zdsldnl9fzsdf2mm50n68";
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "lipics" = self.lib.mkRacketDerivation rec {
   pname = "lipics";
   src = fetchgit {
@@ -9261,6 +10052,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "1r37j9bvlcxdky9h00jdz6m2rfg7igl022ypzaj7q3zvnjb2329n";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."at-exp-lib" self."sha" self."racket-doc" self."scribble-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "list-plus" = self.lib.mkRacketDerivation rec {
+  pname = "list-plus";
+  src = fetchgit {
+    name = "list-plus";
+    url = "git://github.com/sorawee/list-plus.git";
+    rev = "ca3957db266315a0398ad5dff957c58d4f2e8c8f";
+    sha256 = "0i579gwvnq75v8s3qa35wncm0p5hy4bps381xhmqf08rhqsnw0lh";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -9317,7 +10120,7 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "livefrog";
     url = "git://github.com/ebzzry/livefrog.git";
-    rev = "ba9bb8156d9363203ea3454c9b15e3133d043315";
+    rev = "cde478d1ab11c52f7f23763174ae9ae16402a918";
     sha256 = "0m0sq2z8hhhsg6yb8rpqxcnf1d4wv1s029khaykgzw7zxnsl3p9a";
   };
   racketThinBuildInputs = [ self."sxml" self."frog" self."find-parent-dir" ];
@@ -9329,8 +10132,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "loci";
     url = "git://github.com/pmatos/racket-loci.git";
-    rev = "c03de09a7c0c8c53f071dc1a5873e6fc17a53c48";
-    sha256 = "1kph6mdn45infyk8vy9n44spcn1f8agc23pq1f51kykpivadhs43";
+    rev = "ce063c7e45d5abb7c187766b3ab7045ef2f84099";
+    sha256 = "0np983g604bamxrbcdqhlvk46kbhc6q33dw13s3wrqwa2i8j2x7m";
   };
   racketThinBuildInputs = [ self."base" self."unix-socket-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."unix-socket-lib" ];
   circularBuildInputs = [  ];
@@ -9377,8 +10180,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "loop";
     url = "git://github.com/sorawee/loop.git";
-    rev = "3b979523c56d7052cb342f51a72a2e8cd4743c19";
-    sha256 = "04kry3rzxq5wapf5si7qj2kcqr2srmb2c8xncs77mqfqjxb8cjyk";
+    rev = "c7098540edfbaa7ea8cee3f867ca72391f0f9432";
+    sha256 = "1q8xgblfdvilsgz62xsxvyr9a2czzsgp98kqbm5wpajczh7s6bzm";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -9388,9 +10191,9 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   pname = "lti-freq-domain-toolbox";
   src = fetchgit {
     name = "lti-freq-domain-toolbox";
-    url = "git://github.com/iastefan/lti-freq-domain-toolbox.git";
-    rev = "46ce7a04c7a6020f6b74655211e852699d505523";
-    sha256 = "0qky00q2m3jjqddkp7ypyvpq3n6a93ddbhv5spdmz6vgiv6x2gpy";
+    url = "git://github.com/istefanis/lti-freq-domain-toolbox.git";
+    rev = "1465a3458840a2e0ac58ec2a482e27abf99cb911";
+    sha256 = "05z5aszr7hz5xnxdb6b9msinyihhw2dgjxr1l32iqd543xh4gb3a";
   };
   racketThinBuildInputs = [ self."plot-lib" self."base" self."math-lib" self."plot-gui-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -9401,10 +10204,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "lua";
     url = "git://github.com/shawsumma/lure.git";
-    rev = "cdfab7a25944b4e3ae452dec2b1999a37ac889c4";
-    sha256 = "1zhlsgcgrcjr3dx99f88hmixmbbj0svn83dwhp0ll6sbhrwhhgzg";
+    rev = "1f66e2155f947fe6d909eff394052be7d2b57ad1";
+    sha256 = "0vpaq1dhb7x4s24zqlzksz9g50lsrr5rfyvwprlnwrjsxhw0309z";
   };
-  racketThinBuildInputs = [  ];
+  racketThinBuildInputs = [ self."base" self."functional-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -9437,8 +10240,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "lwc2016";
     url = "git://github.com/dfeltey/lwc2016.git";
-    rev = "8b8b98a9d9a8a16538176a561a5ebf3c3df84087";
-    sha256 = "1i1zqkxi872cq3ig7n61qi9qh1caip2fj7h18g8hylzav0nvf8bi";
+    rev = "8c0a6e11f14af23dcbd72890a51d4fd77350a3d7";
+    sha256 = "0k3z9b4x3hhipkg871j3ycyb6l63cbw40zflbmv5n801nxabqys3";
   };
   racketThinBuildInputs = [ self."2d-lib" self."base" self."data-lib" self."drracket-plugin-lib" self."drracket-tool-lib" self."gui-lib" self."parser-tools-lib" self."pict-lib" self."rackunit-lib" self."scribble-lib" self."syntax-color-lib" self."draw-lib" self."ppict" self."slideshow-lib" self."unstable-lib" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -9447,8 +10250,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "macro-debugger" = self.lib.mkRacketDerivation rec {
   pname = "macro-debugger";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/macro-debugger.zip";
-    sha1 = "38f9d9c20f052a8245c523c91e0d51c22845eb83";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/macro-debugger.zip";
+    sha1 = "e9d1a07ba6933de82f1994bb075626b3e61cad03";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."class-iop-lib" self."compatibility-lib" self."data-lib" self."gui-lib" self."images-lib" self."images-gui-lib" self."parser-tools-lib" self."macro-debugger-text-lib" self."snip-lib" self."draw-lib" self."racket-index" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -9457,8 +10260,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "macro-debugger-text-lib" = self.lib.mkRacketDerivation rec {
   pname = "macro-debugger-text-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/macro-debugger-text-lib.zip";
-    sha1 = "9d2a63e86f106441d6c76a258145ed3c05265ad9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/macro-debugger-text-lib.zip";
+    sha1 = "ef611ad2211ceb60fb1611446856f0731a01d1a6";
   };
   racketThinBuildInputs = [ self."base" self."db-lib" self."class-iop-lib" self."parser-tools-lib" ];
   circularBuildInputs = [  ];
@@ -9471,8 +10274,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "macrotypes-example";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."base" self."macrotypes-lib" ];
@@ -9486,8 +10289,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "macrotypes-lib";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."base" ];
@@ -9513,8 +10316,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "macrotypes-test";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."base" self."macrotypes-example" self."rackunit-macrotypes-lib" ];
@@ -9563,8 +10366,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "main-distribution" = self.lib.mkRacketDerivation rec {
   pname = "main-distribution";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/main-distribution.zip";
-    sha1 = "cb16cc0d447f21713260584cb77722b781624da4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/main-distribution.zip";
+    sha1 = "d0d3931201f2b8961b2b17c0a8758f162bec17f6";
   };
   racketThinBuildInputs = [ self."2d" self."algol60" self."at-exp-lib" self."compatibility" self."contract-profile" self."compiler" self."data" self."datalog" self."db" self."deinprogramm" self."draw" self."draw-doc" self."draw-lib" self."drracket" self."drracket-tool" self."eopl" self."errortrace" self."future-visualizer" self."future-visualizer-typed" self."frtime" self."games" self."gui" self."htdp" self."html" self."icons" self."images" self."lazy" self."macro-debugger" self."macro-debugger-text-lib" self."make" self."math" self."mysterx" self."mzcom" self."mzscheme" self."net" self."net-cookies" self."optimization-coach" self."option-contract" self."parser-tools" self."pconvert-lib" self."pict" self."pict-snip" self."picturing-programs" self."plai" self."planet" self."plot" self."preprocessor" self."profile" self."r5rs" self."r6rs" self."racket-doc" self."distributed-places" self."racket-cheat" self."racket-index" self."racket-lib" self."racklog" self."rackunit" self."rackunit-typed" self."readline" self."realm" self."redex" self."sandbox-lib" self."sasl" self."schemeunit" self."scribble" self."serialize-cstruct-lib" self."sgl" self."shell-completion" self."slatex" self."slideshow" self."snip" self."srfi" self."string-constants" self."swindle" self."syntax-color" self."trace" self."typed-racket" self."typed-racket-more" self."unix-socket" self."web-server" self."wxme" self."xrepl" self."ds-store" ];
   circularBuildInputs = [  ];
@@ -9573,18 +10376,30 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "main-distribution-test" = self.lib.mkRacketDerivation rec {
   pname = "main-distribution-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/main-distribution-test.zip";
-    sha1 = "0e9fcad10cd7d32d3bab0c16e04a92301def1cfe";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/main-distribution-test.zip";
+    sha1 = "c07b83132e1bb63b473400584bf5405c9e8d69be";
   };
   racketThinBuildInputs = [ self."racket-test" self."racket-test-extra" self."rackunit-test" self."draw-test" self."gui-test" self."db-test" self."htdp-test" self."html-test" self."redex-test" self."drracket-test" self."profile-test" self."srfi-test" self."errortrace-test" self."r6rs-test" self."web-server-test" self."typed-racket-test" self."xrepl-test" self."scribble-test" self."compiler-test" self."compatibility-test" self."data-test" self."net-test" self."net-cookies-test" self."pconvert-test" self."planet-test" self."syntax-color-test" self."images-test" self."plot-test" self."pict-test" self."pict-snip-test" self."math-test" self."racket-benchmarks" self."drracket-tool-test" self."2d-test" self."option-contract-test" self."sasl-test" self."wxme-test" self."unix-socket-test" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "majordomo" = self.lib.mkRacketDerivation rec {
+  pname = "majordomo";
+  src = fetchgit {
+    name = "majordomo";
+    url = "git://github.com/dstorrs/majordomo.git";
+    rev = "b8826dee4233aa314c3a19fed0164b8bc446a115";
+    sha256 = "020k433agslb149rnzmsr6k15ps8h8fm8qnny3w57iisic0vj3ql";
+  };
+  racketThinBuildInputs = [ self."base" self."struct-plus-plus" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "make" = self.lib.mkRacketDerivation rec {
   pname = "make";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/make.zip";
-    sha1 = "03e6037b95ac8c472e8721fc4bf4f283bd4c7d9a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/make.zip";
+    sha1 = "f7e29fbb372b6759cdd69b8ba011b000dfb8a145";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."cext-lib" self."compiler-lib" self."compatibility-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -9607,10 +10422,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "map-widget";
     url = "git://github.com/alex-hhh/map-widget.git";
-    rev = "211216a3537184660f64c1328975a50d68ce5841";
-    sha256 = "1qwdsag7b3mnidi8yl60vmjmhvs7mqkpvi0kh74r1syj58bfb87w";
+    rev = "43e0d6bb4953e9e880aa6d5b81b9fcf49db9114f";
+    sha256 = "1p4yas9lrmjz808dja1b3ci4mq18c6nymdr7g8cbnyms05a5jn4s";
   };
-  racketThinBuildInputs = [ self."draw-lib" self."errortrace-lib" self."gui-lib" self."db-lib" self."math-lib" self."base" self."scribble-lib" self."draw-doc" self."gui-doc" self."racket-doc" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."draw-lib" self."errortrace-lib" self."gui-lib" self."db-lib" self."math-lib" self."base" self."geoid" self."rackunit-lib" self."scribble-lib" self."draw-doc" self."gui-doc" self."racket-doc" self."al2-test-runner" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -9645,8 +10460,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "marionette";
     url = "git://github.com/Bogdanp/marionette.git";
-    rev = "4b287d9b98246208fc63bb146eae55717a4a2e89";
-    sha256 = "0xah3ki9h9f09b086r0jdn0hayj9n0jhb9g7p9rqaad0j7lwp7r6";
+    rev = "94cef98a6631a017d84324063af0a3be7cce0b38";
+    sha256 = "1j7p1hi5lg8s9iyq2cylhbamjn3vgk0ki3xz3fchz5xxbmkwz8hc";
   };
   };
   racketThinBuildInputs = [ self."marionette-doc" self."marionette-lib" ];
@@ -9660,11 +10475,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "marionette-doc";
     url = "git://github.com/Bogdanp/marionette.git";
-    rev = "4b287d9b98246208fc63bb146eae55717a4a2e89";
-    sha256 = "0xah3ki9h9f09b086r0jdn0hayj9n0jhb9g7p9rqaad0j7lwp7r6";
+    rev = "94cef98a6631a017d84324063af0a3be7cce0b38";
+    sha256 = "1j7p1hi5lg8s9iyq2cylhbamjn3vgk0ki3xz3fchz5xxbmkwz8hc";
   };
   };
-  racketThinBuildInputs = [ self."base" self."marionette-lib" self."scribble-lib" self."net-doc" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."marionette-lib" self."sandbox-lib" self."scribble-lib" self."net-doc" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -9675,8 +10490,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "marionette-lib";
     url = "git://github.com/Bogdanp/marionette.git";
-    rev = "4b287d9b98246208fc63bb146eae55717a4a2e89";
-    sha256 = "0xah3ki9h9f09b086r0jdn0hayj9n0jhb9g7p9rqaad0j7lwp7r6";
+    rev = "94cef98a6631a017d84324063af0a3be7cce0b38";
+    sha256 = "1j7p1hi5lg8s9iyq2cylhbamjn3vgk0ki3xz3fchz5xxbmkwz8hc";
   };
   };
   racketThinBuildInputs = [ self."base" self."at-exp-lib" self."rackunit-lib" ];
@@ -9690,8 +10505,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "marionette-test";
     url = "git://github.com/Bogdanp/marionette.git";
-    rev = "4b287d9b98246208fc63bb146eae55717a4a2e89";
-    sha256 = "0xah3ki9h9f09b086r0jdn0hayj9n0jhb9g7p9rqaad0j7lwp7r6";
+    rev = "94cef98a6631a017d84324063af0a3be7cce0b38";
+    sha256 = "1j7p1hi5lg8s9iyq2cylhbamjn3vgk0ki3xz3fchz5xxbmkwz8hc";
   };
   };
   racketThinBuildInputs = [ self."base" self."marionette-lib" self."rackunit-lib" ];
@@ -9703,10 +10518,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "markdown";
     url = "git://github.com/greghendershott/markdown.git";
-    rev = "344ce8dec965334f3ca6ce0b05383bf642fb29e9";
-    sha256 = "0k7fdymnv1w9f93ji0vi51ff7ybk37ws4lq0j11x0wm448n9jwcl";
+    rev = "fc03a2728b12006b21c90b6c480cfe6ae91a4cbe";
+    sha256 = "11sikv7vgg4q7lj3j9g6bqvn06bi92w09r25677wy8znzcxnmaz8";
   };
-  racketThinBuildInputs = [ self."base" self."parsack" self."sandbox-lib" self."scribble-lib" self."srfi-lite-lib" self."threading-lib" self."at-exp-lib" self."html-lib" self."racket-doc" self."rackunit-lib" self."redex-lib" self."scribble-doc" self."sexp-diff" ];
+  racketThinBuildInputs = [ self."base" self."parsack" self."sandbox-lib" self."scribble-lib" self."srfi-lite-lib" self."threading-lib" self."at-exp-lib" self."html-lib" self."racket-doc" self."rackunit-lib" self."redex-lib" self."scribble-doc" self."sexp-diff-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -9715,8 +10530,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "markdown-ng";
     url = "git://github.com/pmatos/markdown-ng.git";
-    rev = "bbafa81f727cc043a20c9b4f447e7a3566f302a5";
-    sha256 = "174y6fbl91q6xm0pfl5j4qrmag8hzv62psjfmsxvr6729g9gd157";
+    rev = "ef5eb23b8fd554d7230678dfade0541c6c06ae85";
+    sha256 = "1q1an7h2mclzg1midaxfsvyslvfqz2n0pfzj9p78if7wy2s9is9l";
   };
   racketThinBuildInputs = [ self."base" self."parsack" self."sandbox-lib" self."scribble-lib" self."srfi-lite-lib" self."threading-lib" self."at-exp-lib" self."html-lib" self."racket-doc" self."rackunit-lib" self."redex-lib" self."scribble-doc" self."sexp-diff" ];
   circularBuildInputs = [  ];
@@ -9821,18 +10636,28 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math" = self.lib.mkRacketDerivation rec {
   pname = "math";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math.zip";
-    sha1 = "0e2e1bdd2f8e85553a6b6cb4dba3d7313ec8196b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math.zip";
+    sha1 = "fbdc8f722d519d97a77e309e6f29d62e3938b6e4";
   };
   racketThinBuildInputs = [ self."math-lib" self."math-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "math-aarch64-macosx" = self.lib.mkRacketDerivation rec {
+  pname = "math-aarch64-macosx";
+  src = fetchurl {
+    url = "https://pkg-sources.racket-lang.org/pkgs/88e1e2ec3c4cb0de1ab41c6169027fb8aee34951/math-aarch64-macosx.zip";
+    sha1 = "88e1e2ec3c4cb0de1ab41c6169027fb8aee34951";
+  };
+  racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "math-doc" = self.lib.mkRacketDerivation rec {
   pname = "math-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-doc.zip";
-    sha1 = "13b244aba872155767af054732e9dc6aa4ca6f4c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-doc.zip";
+    sha1 = "8066de0f0871e1a8ad55413be9e9cab1e8c64267";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."at-exp-lib" self."math-lib" self."plot-gui-lib" self."sandbox-lib" self."scribble-lib" self."typed-racket-lib" self."2d-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -9841,8 +10666,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-i386-macosx" = self.lib.mkRacketDerivation rec {
   pname = "math-i386-macosx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-i386-macosx.zip";
-    sha1 = "3282fea3fdb24993d73e84d553ad887976a2b92d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-i386-macosx.zip";
+    sha1 = "43418819d4df0fcdb81e665585334d662000866c";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9851,8 +10676,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-lib" = self.lib.mkRacketDerivation rec {
   pname = "math-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-lib.zip";
-    sha1 = "665da6fb2e4468b5de53106647337f272edd9980";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-lib.zip";
+    sha1 = "a4d1249575cedc84c3002fd744050abf231508f4";
   };
   racketThinBuildInputs = [ self."base" self."r6rs-lib" self."typed-racket-lib" self."typed-racket-more" self."math-i386-macosx" self."math-x86_64-macosx" self."math-ppc-macosx" self."math-win32-i386" self."math-win32-x86_64" self."math-x86_64-linux-natipkg" ];
   circularBuildInputs = [  ];
@@ -9861,8 +10686,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-ppc-macosx" = self.lib.mkRacketDerivation rec {
   pname = "math-ppc-macosx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-ppc-macosx.zip";
-    sha1 = "1f352117b14fc4dbd4f93ffc13dd30aa5fc1378c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-ppc-macosx.zip";
+    sha1 = "7175876575dcf8e3e59e45e639dd2efea21a563c";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9871,8 +10696,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-test" = self.lib.mkRacketDerivation rec {
   pname = "math-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-test.zip";
-    sha1 = "0df60f89a0a377e88a51429f45d1b635a30edbb6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-test.zip";
+    sha1 = "6ae87363b39272b4c8ce078ab8fea1ebc7b42226";
   };
   racketThinBuildInputs = [ self."base" self."math-lib" self."racket-test" self."rackunit-lib" self."typed-racket-lib" self."typed-racket-more" ];
   circularBuildInputs = [  ];
@@ -9881,8 +10706,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-win32-i386" = self.lib.mkRacketDerivation rec {
   pname = "math-win32-i386";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-win32-i386.zip";
-    sha1 = "948c205581db3e11e66a3163ec35db7eabdfd279";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-win32-i386.zip";
+    sha1 = "24890cca9399c2ae118e4381a75fd48f4a9ee83f";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9891,8 +10716,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-win32-x86_64" = self.lib.mkRacketDerivation rec {
   pname = "math-win32-x86_64";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-win32-x86_64.zip";
-    sha1 = "c898b2fd0aa707fc16c42275a40dd8d711fa541e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-win32-x86_64.zip";
+    sha1 = "8ebb93b03e975c75bfe2fb6aa73b0df3ce70a6ee";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9901,8 +10726,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-x86_64-linux-natipkg" = self.lib.mkRacketDerivation rec {
   pname = "math-x86_64-linux-natipkg";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-x86_64-linux-natipkg.zip";
-    sha1 = "d9d30db70541df1b369eb31006c58e104d707bb3";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-x86_64-linux-natipkg.zip";
+    sha1 = "54e772497f9b99032afec4b26ddd9fb2b00ec375";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9911,8 +10736,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "math-x86_64-macosx" = self.lib.mkRacketDerivation rec {
   pname = "math-x86_64-macosx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/math-x86_64-macosx.zip";
-    sha1 = "6520d02ae5a1e6d96526f7f1182b023ba277ee72";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/math-x86_64-macosx.zip";
+    sha1 = "123305dc3f19c54bb8b32405bee2f695f34b3b76";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -9957,8 +10782,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "measures-with-dimensions";
     url = "git://github.com/AlexKnauth/measures-with-dimensions.git";
-    rev = "c64cdb64d4b67660b28916749241a9fc696e8a8c";
-    sha256 = "1rhz93r3cak7dinr26wwg6pdbha5wxps0c6fsz8wgsbxjgqyq5zx";
+    rev = "fc6c78f79ac89cf488a5ccc5fc20391bd254886c";
+    sha256 = "1kxnq5mda0mgjbixqnbq1h9fs1f93kaswh3paa8iq4xna8fv4krr";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-more" self."threading" self."math-lib" self."htdp-lib" self."unstable-lib" self."sweet-exp" self."reprovide-lang" self."predicates" self."colon-match" self."scribble-lib" self."rackunit-lib" self."scribble-lib" self."sandbox-lib" self."racket-doc" self."typed-racket-doc" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -10102,8 +10927,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "metapict";
     url = "git://github.com/soegaard/metapict.git";
-    rev = "3946eee0193eaf56da89b937ce7dd34e7db3b334";
-    sha256 = "1x8aw6r1a75frxdqx5sya95rkyvs9fhyz6vhij3ghc2cmkba7dyz";
+    rev = "47ae265f73cbb92ff3e7bdd61e49f4af17597fdf";
+    sha256 = "1ihzwhdk4fh1rcnbw2g50nbk6viy6bf2zan1gb20papr376yfdcd";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."math-lib" self."gui-lib" self."parser-tools-lib" self."pict-lib" self."slideshow-lib" self."srfi-lite-lib" self."ppict" self."htdp-lib" self."compatibility-lib" self."graph-lib" self."plot-gui-lib" self."plot-lib" self."rackunit-lib" self."unstable-latent-contract-lib" self."unstable-parameter-group-lib" self."at-exp-lib" self."rackunit-lib" self."scribble-lib" self."racket-doc" self."draw-doc" self."pict-doc" self."racket-poppler" ];
   circularBuildInputs = [  ];
@@ -10148,6 +10973,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "mind-map" = self.lib.mkRacketDerivation rec {
+  pname = "mind-map";
+  src = fetchgit {
+    name = "mind-map";
+    url = "git://github.com/zyrolasting/mind-map.git";
+    rev = "8401400f1dbc7956357cd27563b6926f4e429d7c";
+    sha256 = "0gcsq8yna3n50c4zazdw17wv25yx9da6wl75w9pgrs54zhi95dpb";
+  };
+  racketThinBuildInputs = [ self."base" self."racket-graphviz" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "minetest" = self.lib.mkRacketDerivation rec {
   pname = "minetest";
   src = fetchgit {
@@ -10157,6 +10994,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "1bicjwxxg673fbbxqx8314ij55ln4xgqqn17362lwqn9g6jynvik";
   };
   racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "mini-theme" = self.lib.mkRacketDerivation rec {
+  pname = "mini-theme";
+  src = fetchgit {
+    name = "mini-theme";
+    url = "git://github.com/dannypsnl/mini-theme.git";
+    rev = "4d5d94cccd987fa1d4ac3ae98e2f01b7cefa46ed";
+    sha256 = "14bcy4ai1k8c2ffhbdavfj0zd6q93kdnyjf8qrf25ssjck0f37xf";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -10177,22 +11026,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "minikanren-ee";
     url = "git://github.com/michaelballantyne/minikanren-ee.git";
-    rev = "e07c2b99cb3a49fd624bb8249a16879ff23a4f8c";
-    sha256 = "0620ybfbwarmyb7frdw3kr9zi57k668swkvfipzkkmhbj59p56ah";
+    rev = "597861a4c237fc22177ae0db230bdf89dc86873f";
+    sha256 = "0xmx5cg8yypr7fm8ppspjxf8wkp4484485ddkhi1m8iys9b7nlm7";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."faster-minikanren" self."ee-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "minimal-doclang" = self.lib.mkRacketDerivation rec {
-  pname = "minimal-doclang";
-  src = fetchgit {
-    name = "minimal-doclang";
-    url = "git://github.com/zyrolasting/minimal-doclang.git";
-    rev = "9ea1cf0e7136f88189e76f47810a487c9ad37a5b";
-    sha256 = "125vapw5kcckcnfy3bwf309d7kf9wdhm6nbwfayc1c87dw9sid00";
-  };
-  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -10244,6 +11081,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "mixfix" = self.lib.mkRacketDerivation rec {
+  pname = "mixfix";
+  src = fetchgit {
+    name = "mixfix";
+    url = "git://github.com/sorawee/mixfix.git";
+    rev = "db91d60448adbce889d3c85dd7553274f8db971a";
+    sha256 = "1w2rhlww8msz2ga9gwnjb7m3vx5iabb591fm5as1jb2sfvqacgci";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "mm" = self.lib.mkRacketDerivation rec {
   pname = "mm";
   src = fetchgit {
@@ -10261,8 +11110,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "mmap";
     url = "git://github.com/samth/mmap.git";
-    rev = "4d75782ebac990ae85a2b456f9d138cb666deed5";
-    sha256 = "1m5blkzxlcdli6bxalvrscjkbk11fsxipqabjz2i7r32pvdahafq";
+    rev = "8ead18bc73fa629ae352471c63a7b0847b18fb3f";
+    sha256 = "08q1pcl7fz5c5d18iniqrr103w7g5dvbsf8qx4s0w6mzhk8nja54";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -10287,8 +11136,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "mock";
     url = "git://github.com/jackfirth/racket-mock.git";
-    rev = "1a27bb7a1444effc034bf8b2df4ba1845f51478f";
-    sha256 = "1d7y7f08ys0lg3m89zy66whkzpd7vdn4xhkp5nv99vg0pdl2zilm";
+    rev = "5e8e2a1dd125e5e437510c87dabf903d0ec25749";
+    sha256 = "0mwn2mf15sbhcng65n5334dasgl95x9i2wnrzw79h0pnip1yjz1i";
   };
   };
   racketThinBuildInputs = [ self."arguments" self."base" self."fancy-app" self."reprovide-lang" self."racket-doc" self."scribble-lib" self."sweet-exp" ];
@@ -10302,8 +11151,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "mock-rackunit";
     url = "git://github.com/jackfirth/racket-mock.git";
-    rev = "1a27bb7a1444effc034bf8b2df4ba1845f51478f";
-    sha256 = "1d7y7f08ys0lg3m89zy66whkzpd7vdn4xhkp5nv99vg0pdl2zilm";
+    rev = "5e8e2a1dd125e5e437510c87dabf903d0ec25749";
+    sha256 = "0mwn2mf15sbhcng65n5334dasgl95x9i2wnrzw79h0pnip1yjz1i";
   };
   };
   racketThinBuildInputs = [ self."base" self."mock" self."rackunit-lib" self."racket-doc" self."rackunit-doc" self."scribble-lib" self."sweet-exp" ];
@@ -10387,8 +11236,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "monotonic";
     url = "git://github.com/Bogdanp/racket-monotonic.git";
-    rev = "46452c05a9cb8a459c07f58dc39626d2159165d3";
-    sha256 = "02f9s0m4q8cgaba55iiyi2nhgghzmp51yxvnl0q52r81w4w9q3g9";
+    rev = "4d2271f47d3c40e121afec4afc37de8adb4cf773";
+    sha256 = "03c5ivizrrwj6rc4vqzkafy57svrk1d3g4dfxz3qllgdbd1cwqfw";
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -10413,8 +11262,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "morsel-doc";
     url = "git://github.com/default-kramer/morsel.git";
-    rev = "124a29f0e12f69503dcae9437356fd9c21fefa36";
-    sha256 = "19hz2cx5bf837v40b7q2zbr1i0nz21gfpzgbqfszb0ybars33cf8";
+    rev = "10cf376f07755f066cbbfc2d242c104f103b33da";
+    sha256 = "0cyc4sc2bmsh9l6f1hg7j16944r7azd6yh5fblc8jw4hnhlqd8dp";
   };
   };
   racketThinBuildInputs = [ self."base" self."morsel-lib" self."scribble-lib" self."racket-doc" self."doc-coverage" ];
@@ -10428,8 +11277,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "morsel-lib";
     url = "git://github.com/default-kramer/morsel.git";
-    rev = "124a29f0e12f69503dcae9437356fd9c21fefa36";
-    sha256 = "19hz2cx5bf837v40b7q2zbr1i0nz21gfpzgbqfszb0ybars33cf8";
+    rev = "10cf376f07755f066cbbfc2d242c104f103b33da";
+    sha256 = "0cyc4sc2bmsh9l6f1hg7j16944r7azd6yh5fblc8jw4hnhlqd8dp";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
@@ -10448,13 +11297,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "mox" = self.lib.mkRacketDerivation rec {
+  pname = "mox";
+  src = fetchgit {
+    name = "mox";
+    url = "git://github.com/wargrey/mox.git";
+    rev = "9fade3b1dc2ce2b7853f0cdb0a28357c5a435310";
+    sha256 = "0xlibgc6phqcfwipbpf8zn063x456lj8r0s02wfdirra7iny5ilk";
+  };
+  racketThinBuildInputs = [ self."base" self."w3s" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."digimon" self."graphics" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "mred-designer" = self.lib.mkRacketDerivation rec {
   pname = "mred-designer";
   src = fetchgit {
     name = "mred-designer";
     url = "git://github.com/Metaxal/MrEd-Designer.git";
-    rev = "c025195ac9a66b57a910a23270120fa820ebdee3";
-    sha256 = "05z2izvlfapfikwh0dr7xdrmlbbk5sy7za6fljlc16xp3mp1c2ww";
+    rev = "220833b738a1d46fbe309ea124ef61b825e42e68";
+    sha256 = "13nxv1va6bd75al1b2whyhcaz0x0jxyar4z9dhblqrpvxj8g01yk";
   };
   racketThinBuildInputs = [ self."base" self."gui-lib" self."net-lib" self."planet-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -10487,18 +11348,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "mud" = self.lib.mkRacketDerivation rec {
-  pname = "mud";
-  src = fetchgit {
-    name = "mud";
-    url = "https://gitlab.com/emsenn/racket-mud.git";
-    rev = "757bebf058e0b005509161d214da9909dbce92b9";
-    sha256 = "05dwnc19knncd25mk90r8dawxfnrnpmjxg982xmi2qrn1dj51n79";
-  };
-  racketThinBuildInputs = [  ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
   "multi-file-lang" = self.lib.mkRacketDerivation rec {
   pname = "multi-file-lang";
   src = fetchgit {
@@ -10516,8 +11365,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "multi-id";
     url = "git://github.com/jsmaniac/multi-id.git";
-    rev = "d0e61ac7e9a18a079f5671075604c68abd43b1ef";
-    sha256 = "16dfl0vjxd9l9z4hmn2728v86cd2n7m1z568pwxrzij88160m18x";
+    rev = "6dbea1523d75a353b56d1bb63fbc15535d57f240";
+    sha256 = "0nf36v580n8dd7mpxj1hjhmnal57az08vbx5wjnjd2356aw4nq9n";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-racket-lib" self."typed-racket-more" self."phc-toolkit" self."type-expander" self."scribble-lib" self."hyper-literate" self."scribble-lib" self."racket-doc" self."scribble-enhanced" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -10624,8 +11473,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "mumble-ping";
     url = "git://github.com/winny-/mumble-ping.git";
-    rev = "3e450ef467c038b1a5100a53c96f65a0fe83e0c9";
-    sha256 = "0i45pidcbw66lf4vj0hz0016n9vlmddp2v657qzc7psxskrxpypf";
+    rev = "dbb24e40b1be0c0065b7000ccff8e9e5be7eda92";
+    sha256 = "0m76zg7bp4m4add8hrpywqik3ml9nswcdwl5zn7cm0z7nxdz8cwn";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-racket-lib" self."rackunit-typed" self."bitsyntax" self."scribble-lib" self."racket-doc" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -10648,8 +11497,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "mutable-match-lambda";
     url = "git://github.com/AlexKnauth/mutable-match-lambda.git";
-    rev = "371cb7e5407cc888ffd96ee5fff6facd9568a3fe";
-    sha256 = "04gbp47dpcinb4j7fmbr1m4288bkdgpj9nad1rgv1gkzipsgs3vb";
+    rev = "28ea2c1f4e7a92826308c937608d4d91f2ead051";
+    sha256 = "15j7r1ydvwq4006qzna362biarw14ra5f4wa27hlvphrmr6ykklj";
   };
   racketThinBuildInputs = [ self."base" self."kw-utils" self."rackunit-lib" self."at-exp-lib" self."scribble-lib" self."sandbox-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -10660,8 +11509,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "mutt";
     url = "git://github.com/bennn/racket-mutt.git";
-    rev = "6679f9f9478fda00b004f0d3a147bc29a77c772e";
-    sha256 = "1m9cg5npngv8sh2yf17gq2z95ps3jc3s4blifkp5hmn0f66ydd6c";
+    rev = "c691ba0ab5ab13aac0f5fe843f3582e6789ee9eb";
+    sha256 = "1c2kq7qirkay5hmdpd9kqpqy1wi7dhm191jn2my4y9xixafr00s4";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-more" self."make-log-interceptor" self."scribble-lib" self."scribble-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."rackunit-abbrevs" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -10682,8 +11531,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "mysterx" = self.lib.mkRacketDerivation rec {
   pname = "mysterx";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/mysterx.zip";
-    sha1 = "7d252b3645ef52f87d79a7e6a80f82a01bd91d55";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/mysterx.zip";
+    sha1 = "39b332b453a4416735fbf2b92e1c05b51d831c37";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."racket-doc" self."at-exp-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -10692,8 +11541,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "mzcom" = self.lib.mkRacketDerivation rec {
   pname = "mzcom";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/mzcom.zip";
-    sha1 = "45ae7b8157a2b4eb03ed363ed39484be69e9ebe4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/mzcom.zip";
+    sha1 = "4deaa6d16f927ca72b110e987ab00f59ef48288c";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."scheme-lib" self."racket-doc" self."mysterx" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -10702,8 +11551,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "mzscheme" = self.lib.mkRacketDerivation rec {
   pname = "mzscheme";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/mzscheme.zip";
-    sha1 = "f13f33a68d53558278bcea1f5cbfd5c9248f1d0a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/mzscheme.zip";
+    sha1 = "7e15b656ff9b079d0f1e2cf86a3e16d47e81adac";
   };
   racketThinBuildInputs = [ self."mzscheme-lib" self."mzscheme-doc" ];
   circularBuildInputs = [  ];
@@ -10712,8 +11561,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "mzscheme-doc" = self.lib.mkRacketDerivation rec {
   pname = "mzscheme-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/mzscheme-doc.zip";
-    sha1 = "5b9dd5e0f43754dfeae569524b3df737e14c095c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/mzscheme-doc.zip";
+    sha1 = "eaee19bd680949577248ae7fb2c21a1358aad4fb";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."compatibility-lib" self."r5rs-lib" self."scheme-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -10722,8 +11571,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "mzscheme-lib" = self.lib.mkRacketDerivation rec {
   pname = "mzscheme-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/mzscheme-lib.zip";
-    sha1 = "456e910221ccd67ff9a04ffdfa7506d7f9944584";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/mzscheme-lib.zip";
+    sha1 = "3a6925004f1405fd0efdbc5d5fdcf0f6b4ba5a69";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" ];
   circularBuildInputs = [  ];
@@ -10786,6 +11635,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "nasa-open-api" = self.lib.mkRacketDerivation rec {
+  pname = "nasa-open-api";
+  src = fetchgit {
+    name = "nasa-open-api";
+    url = "git://github.com/m-hugi/nasa-open-api.git";
+    rev = "aea1067af82aa4516f192e96bb987751ad2f6316";
+    sha256 = "00z14sm710b3s432kdlfzm2j42iafk3d8cg8p86zvxp7mj1sx9r2";
+  };
+  racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "nat-traversal" = self.lib.mkRacketDerivation rec {
   pname = "nat-traversal";
   src = fetchgit {
@@ -10837,8 +11698,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "net" = self.lib.mkRacketDerivation rec {
   pname = "net";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net.zip";
-    sha1 = "91fbdedb6110552b85bb094e6fceb622514016b6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net.zip";
+    sha1 = "f66131cd222996525829f10f62e8c52f96725c37";
   };
   racketThinBuildInputs = [ self."net-lib" self."net-doc" ];
   circularBuildInputs = [  ];
@@ -10847,8 +11708,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "net-cookies" = self.lib.mkRacketDerivation rec {
   pname = "net-cookies";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net-cookies.zip";
-    sha1 = "369527705b7285386436b6420c19195eb80be4ac";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net-cookies.zip";
+    sha1 = "5f26cf84e8644ed1ed59018495689b587e1a411d";
   };
   racketThinBuildInputs = [ self."net-cookies-lib" self."net-cookies-doc" ];
   circularBuildInputs = [  ];
@@ -10857,8 +11718,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "net-cookies-doc" = self.lib.mkRacketDerivation rec {
   pname = "net-cookies-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net-cookies-doc.zip";
-    sha1 = "ec2c3fa81c1efa7685fe2ce29ec06da6aaf4b538";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net-cookies-doc.zip";
+    sha1 = "6cc635c38fa1bdf03148c8e470cb8d8bf1cc2bc3";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."net-cookies-lib" self."web-server-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -10867,8 +11728,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "net-cookies-lib" = self.lib.mkRacketDerivation rec {
   pname = "net-cookies-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net-cookies-lib.zip";
-    sha1 = "a4d0c53779b41fab616e40d8acb58b05eaea4407";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net-cookies-lib.zip";
+    sha1 = "eee5699f4862b01648fcdb97dbca1029b8d826b7";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" ];
   circularBuildInputs = [  ];
@@ -10877,8 +11738,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "net-cookies-test" = self.lib.mkRacketDerivation rec {
   pname = "net-cookies-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net-cookies-test.zip";
-    sha1 = "e43af717bf06cd46f7fa2b3a5ec437a3fd29baf0";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net-cookies-test.zip";
+    sha1 = "1bbc8320fbdd4e8edf9803ab0c4c2160b5960e46";
   };
   racketThinBuildInputs = [ self."base" self."net-cookies-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -10887,8 +11748,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "net-doc" = self.lib.mkRacketDerivation rec {
   pname = "net-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net-doc.zip";
-    sha1 = "c3b35da19f0fbff288eeac9604478c849b3f47a3";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net-doc.zip";
+    sha1 = "b1645f5642270be9027f963065eb3d482ac1af5c";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."compatibility-lib" self."net-lib" self."scribble-lib" self."web-server-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -10901,8 +11762,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "net-ip";
     url = "git://github.com/Bogdanp/racket-net-ip.git";
-    rev = "6b75674d8074aee6a7f0c8dec22b8fe4314ee102";
-    sha256 = "1rggbqldkf6sal48m5g7mm43v6kh4hh3gn3nw9859knhn7ha52sb";
+    rev = "fec61684f123f042ae0236e9ee702fb0591bc502";
+    sha256 = "1qxx050353180pqagzhk8jlnvki9s7hdzffmplq0dz6csy6hsnzq";
   };
   };
   racketThinBuildInputs = [ self."net-ip-doc" self."net-ip-lib" ];
@@ -10916,8 +11777,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "net-ip-doc";
     url = "git://github.com/Bogdanp/racket-net-ip.git";
-    rev = "6b75674d8074aee6a7f0c8dec22b8fe4314ee102";
-    sha256 = "1rggbqldkf6sal48m5g7mm43v6kh4hh3gn3nw9859knhn7ha52sb";
+    rev = "fec61684f123f042ae0236e9ee702fb0591bc502";
+    sha256 = "1qxx050353180pqagzhk8jlnvki9s7hdzffmplq0dz6csy6hsnzq";
   };
   };
   racketThinBuildInputs = [ self."base" self."net-ip-lib" self."racket-doc" self."scribble-lib" ];
@@ -10931,8 +11792,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "net-ip-lib";
     url = "git://github.com/Bogdanp/racket-net-ip.git";
-    rev = "6b75674d8074aee6a7f0c8dec22b8fe4314ee102";
-    sha256 = "1rggbqldkf6sal48m5g7mm43v6kh4hh3gn3nw9859knhn7ha52sb";
+    rev = "fec61684f123f042ae0236e9ee702fb0591bc502";
+    sha256 = "1qxx050353180pqagzhk8jlnvki9s7hdzffmplq0dz6csy6hsnzq";
   };
   };
   racketThinBuildInputs = [ self."base" ];
@@ -10946,8 +11807,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "net-ip-test";
     url = "git://github.com/Bogdanp/racket-net-ip.git";
-    rev = "6b75674d8074aee6a7f0c8dec22b8fe4314ee102";
-    sha256 = "1rggbqldkf6sal48m5g7mm43v6kh4hh3gn3nw9859knhn7ha52sb";
+    rev = "fec61684f123f042ae0236e9ee702fb0591bc502";
+    sha256 = "1qxx050353180pqagzhk8jlnvki9s7hdzffmplq0dz6csy6hsnzq";
   };
   };
   racketThinBuildInputs = [ self."base" self."net-ip-lib" self."quickcheck" self."rackunit-lib" ];
@@ -10959,28 +11820,40 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "net-jwt";
     url = "git://github.com/RenaissanceBug/racket-jwt.git";
-    rev = "9ba9f06101b71f2f148dc338e2d577389b588ec4";
-    sha256 = "09ad6lw8cm9f2nzqzafckc151n6134cd8d4dlwj8wlsd47maa6kf";
+    rev = "0f747569e878ef14d1f5d2de527efd02af88fcf9";
+    sha256 = "03k3rl74aival4k7b24adavk3anrzs55fjyrl4jfg68l439abry0";
   };
-  racketThinBuildInputs = [ self."srfi-lite-lib" self."base" self."typed-racket-lib" self."typed-racket-more" self."sha" self."rackunit-lib" self."web-server-lib" self."racket-doc" self."scribble-lib" self."typed-racket-lib" self."typed-racket-more" self."typed-racket-doc" self."option-bind" ];
+  racketThinBuildInputs = [ self."srfi-lite-lib" self."base" self."typed-racket-lib" self."typed-racket-more" self."sha" self."crypto" self."rackunit-lib" self."web-server-lib" self."racket-doc" self."scribble-lib" self."typed-racket-lib" self."typed-racket-more" self."typed-racket-doc" self."option-bind" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "net-lib" = self.lib.mkRacketDerivation rec {
   pname = "net-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net-lib.zip";
-    sha1 = "8d6edf585d01452e995eea0ae57a7c4a26e1e01a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net-lib.zip";
+    sha1 = "77ad852b4fab36062947073ccf1bb6b829f0a642";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "net-pem" = self.lib.mkRacketDerivation rec {
+  pname = "net-pem";
+  src = fetchgit {
+    name = "net-pem";
+    url = "git://github.com/themetaschemer/net-pem.git";
+    rev = "6a2add18192a24118b13d0e652d808c270dd1890";
+    sha256 = "1vwr7645l7s990s7kq02bv5ykd3h4i1msyqyygksvwnh7hzb4vds";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "net-test" = self.lib.mkRacketDerivation rec {
   pname = "net-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/net-test.zip";
-    sha1 = "e61cc1749447ab3b81c3e7296aaf49b99b1a61d9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/net-test.zip";
+    sha1 = "231421b5f6e4abc9e208149f6db8bf8be8cd1ad7";
   };
   racketThinBuildInputs = [ self."net-test+racket-test" self."base" self."at-exp-lib" self."compatibility-lib" self."eli-tester" self."net-lib" self."rackunit-lib" self."sandbox-lib" self."web-server-lib" ];
   circularBuildInputs = [ "racket-test" "net-test" ];
@@ -11154,11 +12027,23 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "north";
     url = "git://github.com/Bogdanp/racket-north.git";
-    rev = "e51fa1dcc2e18175fc3ad59e9ee15e704ac98818";
-    sha256 = "191z3xrz279j2ny0qq91k3r595aynkqdga0aw0n4473idvwzi3qk";
+    rev = "08353f574489c65907a0dd15c4c1629e18d77027";
+    sha256 = "1cgs8zxmn1607adrzxpj3w1bgkfbss0xlyyb939gwmaw70m46505";
   };
   };
   racketThinBuildInputs = [ self."base" self."db-lib" self."gregor-lib" self."parser-tools-lib" self."at-exp-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "nproc" = self.lib.mkRacketDerivation rec {
+  pname = "nproc";
+  src = fetchgit {
+    name = "nproc";
+    url = "git://github.com/jeroanan/nproc.git";
+    rev = "779fe7db83918a6ade7cf27f64d2fd5f9358f8bc";
+    sha256 = "150qpja86mfrdwh34qp4l8wddd2cwbkxady8rpnpqd1jiwpa4xc2";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -11416,8 +12301,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "optimization-coach" = self.lib.mkRacketDerivation rec {
   pname = "optimization-coach";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/optimization-coach.zip";
-    sha1 = "1be0955c09bd502236afc5090dc7fb0ed63e8b1d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/optimization-coach.zip";
+    sha1 = "c1e35ac9e349e30c61182f0c2b8569c5eae5c4f1";
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."typed-racket-lib" self."profile-lib" self."rackunit-lib" self."gui-lib" self."data-lib" self."source-syntax" self."images-lib" self."sandbox-lib" self."string-constants-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -11438,8 +12323,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "option-contract" = self.lib.mkRacketDerivation rec {
   pname = "option-contract";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/option-contract.zip";
-    sha1 = "678391bfbee61f0a9aeaa00503486546361efc37";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/option-contract.zip";
+    sha1 = "1517ebd57034684047cd897218b05b254abc18c9";
   };
   racketThinBuildInputs = [ self."option-contract-lib" self."option-contract-doc" ];
   circularBuildInputs = [  ];
@@ -11448,8 +12333,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "option-contract-doc" = self.lib.mkRacketDerivation rec {
   pname = "option-contract-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/option-contract-doc.zip";
-    sha1 = "b3da3c9c05a86911fbdb7aa19d436765e0456717";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/option-contract-doc.zip";
+    sha1 = "0b5ce3405ad1ebd83515fd5f881b8021cf649ac4";
   };
   racketThinBuildInputs = [ self."base" self."option-contract-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -11458,8 +12343,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "option-contract-lib" = self.lib.mkRacketDerivation rec {
   pname = "option-contract-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/option-contract-lib.zip";
-    sha1 = "e5619783253a030cdbf25cf5774b0a6f06142a2e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/option-contract-lib.zip";
+    sha1 = "05701766e740fff58cc928c4758ea0b38fca2554";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -11468,8 +12353,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "option-contract-test" = self.lib.mkRacketDerivation rec {
   pname = "option-contract-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/option-contract-test.zip";
-    sha1 = "2f40cc9b218d154a98e2dfedb152d088a77b15d9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/option-contract-test.zip";
+    sha1 = "0ab4e56589346690766d3d89215b0f7e6d1a1d1d";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."option-contract-lib" ];
   circularBuildInputs = [  ];
@@ -11496,6 +12381,51 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0y195jbxivj93zv469ll8w7n0x6259fm70rj5d2pzk5gfdns8ivl";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "otp" = self.lib.mkRacketDerivation rec {
+  pname = "otp";
+  src = self.lib.extractPath {
+    path = "otp";
+    src = fetchgit {
+    name = "otp";
+    url = "git://github.com/yilinwei/otp.git";
+    rev = "0757167eac914c45a756c090c4bdf5410080c145";
+    sha256 = "00n7fql77x03ax17wmxzjc2f4xs86xllsxxsqww17m713vh8mam9";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."otp-lib" self."typed-otp-lib" self."otp-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "otp-doc" = self.lib.mkRacketDerivation rec {
+  pname = "otp-doc";
+  src = self.lib.extractPath {
+    path = "otp-doc";
+    src = fetchgit {
+    name = "otp-doc";
+    url = "git://github.com/yilinwei/otp.git";
+    rev = "0757167eac914c45a756c090c4bdf5410080c145";
+    sha256 = "00n7fql77x03ax17wmxzjc2f4xs86xllsxxsqww17m713vh8mam9";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" self."otp-lib" self."crypto-lib" self."crypto-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "otp-lib" = self.lib.mkRacketDerivation rec {
+  pname = "otp-lib";
+  src = self.lib.extractPath {
+    path = "otp-lib";
+    src = fetchgit {
+    name = "otp-lib";
+    url = "git://github.com/yilinwei/otp.git";
+    rev = "0757167eac914c45a756c090c4bdf5410080c145";
+    sha256 = "00n7fql77x03ax17wmxzjc2f4xs86xllsxxsqww17m713vh8mam9";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."crypto-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -11526,8 +12456,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "package-analysis";
     url = "git://github.com/jackfirth/package-analysis.git";
-    rev = "188a5328b78be35a50e28196f5e5f045ad289fb3";
-    sha256 = "1kq9lxa76vrgyaqjdbzhy9svwzkn7kvl4dv3fkj1j6wrn4zgy5ck";
+    rev = "785bc9b1eac503c9359d9d08936422f6f47ce82b";
+    sha256 = "17arfshzv0vsb8sf3sqr43bpp3hjs55cpz0xym65qnap050ikbqi";
   };
   racketThinBuildInputs = [ self."base" self."rebellion" self."net-doc" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -11600,8 +12530,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "parendown";
     url = "git://github.com/lathe/parendown-for-racket.git";
-    rev = "f89879042a7a868bc0a83acd8bdaf4eb9427ff76";
-    sha256 = "1gqld322bnmyvzxm3sbkrzqv0ycykznw8hkz7cfcbwraw9zb1i9c";
+    rev = "9c846654947f1605df9b318b202202d2ea3c8baf";
+    sha256 = "1sf77ghplpyfrp4ly90w1qix54cpkpcsvnsbwjs95r5pvp3g7yg8";
   };
   };
   racketThinBuildInputs = [ self."parendown-lib" ];
@@ -11615,8 +12545,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "parendown-doc";
     url = "git://github.com/lathe/parendown-for-racket.git";
-    rev = "f89879042a7a868bc0a83acd8bdaf4eb9427ff76";
-    sha256 = "1gqld322bnmyvzxm3sbkrzqv0ycykznw8hkz7cfcbwraw9zb1i9c";
+    rev = "9c846654947f1605df9b318b202202d2ea3c8baf";
+    sha256 = "1sf77ghplpyfrp4ly90w1qix54cpkpcsvnsbwjs95r5pvp3g7yg8";
   };
   };
   racketThinBuildInputs = [ self."base" self."parendown-lib" self."racket-doc" self."scribble-lib" ];
@@ -11630,8 +12560,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "parendown-lib";
     url = "git://github.com/lathe/parendown-for-racket.git";
-    rev = "f89879042a7a868bc0a83acd8bdaf4eb9427ff76";
-    sha256 = "1gqld322bnmyvzxm3sbkrzqv0ycykznw8hkz7cfcbwraw9zb1i9c";
+    rev = "9c846654947f1605df9b318b202202d2ea3c8baf";
+    sha256 = "1sf77ghplpyfrp4ly90w1qix54cpkpcsvnsbwjs95r5pvp3g7yg8";
   };
   };
   racketThinBuildInputs = [ self."base" ];
@@ -11645,8 +12575,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "parendown-test";
     url = "git://github.com/lathe/parendown-for-racket.git";
-    rev = "f89879042a7a868bc0a83acd8bdaf4eb9427ff76";
-    sha256 = "1gqld322bnmyvzxm3sbkrzqv0ycykznw8hkz7cfcbwraw9zb1i9c";
+    rev = "9c846654947f1605df9b318b202202d2ea3c8baf";
+    sha256 = "1sf77ghplpyfrp4ly90w1qix54cpkpcsvnsbwjs95r5pvp3g7yg8";
   };
   };
   racketThinBuildInputs = [ self."base" self."parendown-lib" self."rackunit-lib" ];
@@ -11694,8 +12624,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "parse-qif";
     url = "git://github.com/jbclements/parse-qif.git";
-    rev = "e2adbda585b9602865cc8932f2aa1006291fd74a";
-    sha256 = "0lp2h8wla4sd1pf39gzc7jbdglk2gd11mfzp4b3flc9xh5sqlymg";
+    rev = "0e7e061ecc1709d5ebe0cd4fcbd56597e1e5575f";
+    sha256 = "13rxr7npna6h6q9216jl15h3dllj7jg0jdlfiwghbkk9h91agpd0";
   };
   racketThinBuildInputs = [  ];
   circularBuildInputs = [  ];
@@ -11716,8 +12646,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "parser-tools" = self.lib.mkRacketDerivation rec {
   pname = "parser-tools";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/parser-tools.zip";
-    sha1 = "4213cc4c807e742ed0ab4846cf6ddb501f316650";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/parser-tools.zip";
+    sha1 = "6daa0b6f3744c9bdbb23b64fa7da8c8c8c3503f0";
   };
   racketThinBuildInputs = [ self."parser-tools-lib" self."parser-tools-doc" ];
   circularBuildInputs = [  ];
@@ -11726,8 +12656,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "parser-tools-doc" = self.lib.mkRacketDerivation rec {
   pname = "parser-tools-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/parser-tools-doc.zip";
-    sha1 = "4de3c01da66ae74458780e386ad6adcdbc190dc4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/parser-tools-doc.zip";
+    sha1 = "4181518f5af20880da59b0170c7c255adee7560d";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."parser-tools-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -11736,8 +12666,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "parser-tools-lib" = self.lib.mkRacketDerivation rec {
   pname = "parser-tools-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/parser-tools-lib.zip";
-    sha1 = "a06b4d42a954b828ceb82947d18478a74760cd35";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/parser-tools-lib.zip";
+    sha1 = "8d39f78a6c9fc9cbf16155228102884bb12c6878";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -11780,8 +12710,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pconvert-lib" = self.lib.mkRacketDerivation rec {
   pname = "pconvert-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pconvert-lib.zip";
-    sha1 = "ac0e2a29a9f1f89a0ef408852dd71f6aee8eb0cd";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pconvert-lib.zip";
+    sha1 = "7d709c0b7c41ff28d017d07169687ad5055844aa";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" ];
   circularBuildInputs = [  ];
@@ -11790,8 +12720,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pconvert-test" = self.lib.mkRacketDerivation rec {
   pname = "pconvert-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pconvert-test.zip";
-    sha1 = "3a578fa420744922bab48fdbfbcb32951ebcb2e9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pconvert-test.zip";
+    sha1 = "a1bc2011700a10137bf43d7d53dcad499779fe80";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" ];
   circularBuildInputs = [  ];
@@ -11826,10 +12756,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "peony";
     url = "git://github.com/silver-ag/peony.git";
-    rev = "9d07d8fbe3219fb340b0df9c7a5ef0e51fe1d874";
-    sha256 = "0hjlcvb7sfgaa79z4x30yjilsfnnj827v578qhc7wy1zgb59z8wg";
+    rev = "cabbb94e5caf786004e9c54dd624fa4ec574998e";
+    sha256 = "1gd5292w5075b9qzn56rkdapxv7z3rmx04ga90jjrpq6z8a8hrz4";
   };
-  racketThinBuildInputs = [ self."base" self."web-server" self."db-doc" self."db-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."web-server" self."db-doc" self."db-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -11946,8 +12876,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "phc-toolkit";
     url = "git://github.com/jsmaniac/phc-toolkit.git";
-    rev = "396409cb63216e9b94d7eed4ebc43292c94b195d";
-    sha256 = "1i0wd1l2vi5982fk7qar2mbqgg9lsaawl6bcf9iylgqnw853ldm2";
+    rev = "694c75444c4151be7069b3a0271650921d86ce51";
+    sha256 = "129zq6090bf5inqzgxjh522sa2naia1klcmavahnlg8y5nqr7zaf";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."alexis-util" self."typed-racket-lib" self."typed-racket-more" self."reprovide-lang" self."type-expander" self."hyper-literate" self."version-case" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."predicates" self."rackunit-doc" self."scribble-math" self."drracket" ];
   circularBuildInputs = [  ];
@@ -11968,8 +12898,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict" = self.lib.mkRacketDerivation rec {
   pname = "pict";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict.zip";
-    sha1 = "f71ecabbc29f5654fe3262ba901def1f73fd5d54";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict.zip";
+    sha1 = "f1cc3534cae01171f5e23ac0273799daf25cb820";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -11990,8 +12920,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict-doc" = self.lib.mkRacketDerivation rec {
   pname = "pict-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-doc.zip";
-    sha1 = "e5c1cfc964b6f2160ee943c0f75b2695e04b738a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict-doc.zip";
+    sha1 = "54e14dc49809407c3a6b28decb7cecb17aa326b5";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."draw-lib" self."gui-lib" self."scribble-lib" self."slideshow-lib" self."pict-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -12000,8 +12930,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict-lib" = self.lib.mkRacketDerivation rec {
   pname = "pict-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-lib.zip";
-    sha1 = "f0d8e378dc5fcdb5515da20674f1502856f247b4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict-lib.zip";
+    sha1 = "559d4fd04c8dde5b8e2476a0c51fae53a3b4d18f";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."draw-lib" self."syntax-color-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -12010,8 +12940,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict-snip" = self.lib.mkRacketDerivation rec {
   pname = "pict-snip";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-snip.zip";
-    sha1 = "ff9c15eeb5c702c356068855b6a93b7d43243a53";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict-snip.zip";
+    sha1 = "0d45d622b74d57d7786e122e49ff070ee02d7211";
   };
   racketThinBuildInputs = [ self."pict-snip-lib" self."pict-snip-doc" ];
   circularBuildInputs = [  ];
@@ -12020,8 +12950,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict-snip-doc" = self.lib.mkRacketDerivation rec {
   pname = "pict-snip-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-snip-doc.zip";
-    sha1 = "9d142c2c9ae5f2a31a66b3f662858bc915fdaaa9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict-snip-doc.zip";
+    sha1 = "39cfa004fcb87c89bc32beb888403a654d905568";
   };
   racketThinBuildInputs = [ self."base" self."pict-snip-lib" self."gui-doc" self."pict-doc" self."pict-lib" self."racket-doc" self."scribble-lib" self."snip-lib" ];
   circularBuildInputs = [  ];
@@ -12030,8 +12960,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict-snip-lib" = self.lib.mkRacketDerivation rec {
   pname = "pict-snip-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-snip-lib.zip";
-    sha1 = "f1db2ceed935b827a9219be2081e397fa888a206";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict-snip-lib.zip";
+    sha1 = "faef52ec81f79d95a84aca37caadd8c79625fb2d";
   };
   racketThinBuildInputs = [ self."draw-lib" self."snip-lib" self."pict-lib" self."wxme-lib" self."base" self."rackunit-lib" self."gui-lib" ];
   circularBuildInputs = [  ];
@@ -12040,8 +12970,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict-snip-test" = self.lib.mkRacketDerivation rec {
   pname = "pict-snip-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-snip-test.zip";
-    sha1 = "84bbe943ba3ec0f9b3146b38a43cc2049e1c3ae2";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict-snip-test.zip";
+    sha1 = "53da658f04a528a0fe80e776ad374328dad72f12";
   };
   racketThinBuildInputs = [ self."base" self."pict-snip-lib" self."draw-lib" self."pict-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -12050,8 +12980,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "pict-test" = self.lib.mkRacketDerivation rec {
   pname = "pict-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/pict-test.zip";
-    sha1 = "6c483513e2f0a75d8aa2fa77c216d4c735492296";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/pict-test.zip";
+    sha1 = "d942ae42cda978ca5db1048953fef148e2f76ce6";
   };
   racketThinBuildInputs = [ self."base" self."pict-lib" self."rackunit-lib" self."htdp-lib" self."draw-lib" ];
   circularBuildInputs = [  ];
@@ -12096,8 +13026,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "picturing-programs" = self.lib.mkRacketDerivation rec {
   pname = "picturing-programs";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/picturing-programs.zip";
-    sha1 = "33226d5f8deb25767cedb51c2db6e137aea1245b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/picturing-programs.zip";
+    sha1 = "c10538583c11b06de00abdcbf240deeef6706fcb";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."gui-lib" self."snip-lib" self."htdp-lib" self."racket-doc" self."htdp-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -12180,8 +13110,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "pitfall";
     url = "git://github.com/mbutterick/pitfall.git";
-    rev = "02bbd2f6be809e8c2cf875ae8c637fbcc33d5763";
-    sha256 = "004fpnp8iza4ll2aknfdij8pmnw3ak1kqdwkpdg862aayd8wr91k";
+    rev = "ad93e7f9f9ea70f9dedffb8d64b705c68f38b48c";
+    sha256 = "13v381pc9bdsxxs443dvjmys8c1z674k4y7kn27nmss36x5nmxay";
   };
   racketThinBuildInputs = [ self."draw-lib" self."with-cache" self."at-exp-lib" self."base" self."beautiful-racket-lib" self."brag" self."fontland" self."rackunit-lib" self."srfi-lite-lib" self."sugar" self."gregor" self."debug" ];
   circularBuildInputs = [  ];
@@ -12194,11 +13124,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "pk";
     url = "https://gitlab.com/dustyweb/racket-pk.git";
-    rev = "d659d077aa79eb0fb526b6975f5d5b693d758fb2";
-    sha256 = "05izq7kgzx7gnh83nj4dxdrxd8x7cckphswrgiml977fm9fsxf9i";
+    rev = "f39127f1c23c479390d32a8e32502a0dc14b8f7d";
+    sha256 = "1s589yqx4hr3lanqhvbm63v057pix7v87kx9v2vybps73db90fr6";
   };
   };
-  racketThinBuildInputs = [  ];
+  racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -12207,8 +13137,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "pkg-build";
     url = "git://github.com/racket/pkg-build.git";
-    rev = "e1d6276e09a1ac6d34c501016d7ef67681647e70";
-    sha256 = "16pnm58gjfwcx4q50m3l0grwfa5dhnczwwlfnckcrfk94x7v1wjc";
+    rev = "31fea3651b501e2ad333cf6133527290abd2eed1";
+    sha256 = "0ws6w5shwwr3s5i0x3c7pqmkssqprb125vrnbg1xr66rnsxncyf4";
   };
   racketThinBuildInputs = [ self."base" self."rackunit" self."scribble-html-lib" self."web-server-lib" self."plt-web-lib" self."remote-shell-lib" self."at-exp-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -12223,18 +13153,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0hlmahw8z8cvyjdwl9j5x2a0jhj3x2pikl6bfdq36vs95l6627k8";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."gui-lib" self."racket-doc" self."scribble-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "pkg-index" = self.lib.mkRacketDerivation rec {
-  pname = "pkg-index";
-  src = fetchgit {
-    name = "pkg-index";
-    url = "git://github.com/racket/pkg-index.git";
-    rev = "38f54d48b63c45925446f8ef5dc68e9cba8fdccb";
-    sha256 = "1bq2c64p86f7a5ma4ws0bwvh4861x9izx3fczmkhcq8rk05bn4dl";
-  };
-  racketThinBuildInputs = [ self."racket-lib" self."base" self."compatibility-lib" self."net-lib" self."web-server-lib" self."bcrypt" self."s3-sync" self."plt-service-monitor" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -12253,8 +13171,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plai" = self.lib.mkRacketDerivation rec {
   pname = "plai";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plai.zip";
-    sha1 = "ffc72dd33981414c3336f2880e462fcab7f2150e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plai.zip";
+    sha1 = "06bc7c832567616bac22dfc9585a89b4669c2da3";
   };
   racketThinBuildInputs = [ self."plai-doc" self."plai-lib" self."base" ];
   circularBuildInputs = [  ];
@@ -12263,8 +13181,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plai-doc" = self.lib.mkRacketDerivation rec {
   pname = "plai-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plai-doc.zip";
-    sha1 = "0883df07bc747ea347a4f3c8d0a962eacf4ad7ad";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plai-doc.zip";
+    sha1 = "32590ab8f49e146603fa0f252ef17d3110e462c7";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."srfi-lite-lib" self."base" self."gui-lib" self."sandbox-lib" self."web-server-lib" self."plai-lib" self."at-exp-lib" self."eli-tester" self."pconvert-lib" self."rackunit-lib" self."racket-doc" self."web-server-doc" self."scribble-lib" self."drracket-tool-lib" ];
   circularBuildInputs = [  ];
@@ -12297,8 +13215,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plai-lib" = self.lib.mkRacketDerivation rec {
   pname = "plai-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plai-lib.zip";
-    sha1 = "233dadb3dd054337baa0d2bfa658a0cbd8966058";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plai-lib.zip";
+    sha1 = "23f2a73fcf4f1cfc75145b125ef35747fd913082";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."srfi-lite-lib" self."base" self."gui-lib" self."draw-lib" self."sandbox-lib" self."web-server-lib" self."at-exp-lib" self."eli-tester" self."pconvert-lib" self."rackunit-lib" self."drracket-tool-lib" ];
   circularBuildInputs = [  ];
@@ -12348,8 +13266,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "plait";
     url = "git://github.com/mflatt/plait.git";
-    rev = "3450cfcc2754e737afde8e20d82244ddf49429b8";
-    sha256 = "14jm82gnv3wyrdlsnpp64hf7y6s253hf9vi71qlh2qn59s2k4gd2";
+    rev = "32420453c0890a505c4cb4ee13b0fdcc74655a18";
+    sha256 = "1avz09dqwjlh0qf5l3lx4wxs6llmfsy51njlhkmj7ai1i43aqzzl";
   };
   racketThinBuildInputs = [ self."base" self."lazy" self."plai" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -12370,8 +13288,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "planet" = self.lib.mkRacketDerivation rec {
   pname = "planet";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/planet.zip";
-    sha1 = "a2b735dc3818499b24f3be038a39fe58cf5ec06b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/planet.zip";
+    sha1 = "6dbe3f1239af6ac526065a961b655a9f134defdb";
   };
   racketThinBuildInputs = [ self."planet-lib" self."planet-doc" ];
   circularBuildInputs = [  ];
@@ -12380,8 +13298,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "planet-doc" = self.lib.mkRacketDerivation rec {
   pname = "planet-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/planet-doc.zip";
-    sha1 = "542193f566ec23ec56cbe2d23cb3544943050b44";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/planet-doc.zip";
+    sha1 = "4431781ea5517ca8ab4ff5d90665b6ec8d20eec6";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."planet-lib" self."scribble-lib" self."base" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -12390,8 +13308,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "planet-lib" = self.lib.mkRacketDerivation rec {
   pname = "planet-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/planet-lib.zip";
-    sha1 = "2c3166c387f9b2a20e4d1bae0d0fc48bffe2154a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/planet-lib.zip";
+    sha1 = "438c08bb453ca3b34f62f1eacbf73c7f39023aa4";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" ];
   circularBuildInputs = [  ];
@@ -12400,8 +13318,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "planet-test" = self.lib.mkRacketDerivation rec {
   pname = "planet-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/planet-test.zip";
-    sha1 = "d7fab900c48b7e725d3995371543a6c40d3cf365";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/planet-test.zip";
+    sha1 = "45a753f27ea82003c71aaea9ed89e827e3aca3e6";
   };
   racketThinBuildInputs = [ self."base" self."racket-index" self."eli-tester" self."planet-lib" self."rackunit-lib" self."scheme-lib" ];
   circularBuildInputs = [  ];
@@ -12424,10 +13342,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "planning";
     url = "git://github.com/jackfirth/planning.git";
-    rev = "b3095dc1a796fc7c58e405ec6f1a3c1ce42805dc";
-    sha256 = "1xdzb85c9kga01vs3spn2i2gj3dmjazg664ifnlcwzxf5mjd3r5c";
+    rev = "b880f85effd4520e14b815d1dbe0ff7e71f4aaf8";
+    sha256 = "016qbaxlqlm7621vrai8a19zvkxmqh49pp4n6afyd739w2nd1by7";
   };
-  racketThinBuildInputs = [ self."snip-lib" self."draw-lib" self."gui-lib" self."pict-lib" self."slideshow-lib" self."chess" self."fancy-app" self."point-free" self."rebellion" self."base" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."snip-lib" self."draw-lib" self."gui-lib" self."pict-lib" self."slideshow-lib" self."chess" self."fancy-app" self."point-free" self."rebellion" self."base" self."pict-doc" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -12448,18 +13366,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "plisqin";
     url = "git://github.com/default-kramer/plisqin.git";
-    rev = "aa5c2f66e41ddede88d6cb4aa6da729e67343cfe";
-    sha256 = "18c7bnk6f7jvyk1hg3hgswc9g0f16p3wk67qjjhw4ihx884kmar3";
+    rev = "26421c7c42656c873c4e0a4fc7f48c0a3ed7770f";
+    sha256 = "0ivv7djsw5pv4nz2ffk9d6bvf1kr1nvp3zig9sd5h9avqcncpqqp";
   };
-  racketThinBuildInputs = [ self."base" self."db-lib" self."morsel-lib" self."at-exp-lib" self."doc-coverage" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."base" self."db-lib" self."morsel-lib" self."at-exp-lib" self."db-doc" self."doc-coverage" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "plot" = self.lib.mkRacketDerivation rec {
   pname = "plot";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plot.zip";
-    sha1 = "679a52f69428c4f38c64ca0f540bb21138e88f81";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plot.zip";
+    sha1 = "662a18790b0180868bee73b4e974dd1cda61f6f8";
   };
   racketThinBuildInputs = [ self."plot-lib" self."plot-gui-lib" self."plot-doc" ];
   circularBuildInputs = [  ];
@@ -12480,8 +13398,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plot-compat" = self.lib.mkRacketDerivation rec {
   pname = "plot-compat";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plot-compat.zip";
-    sha1 = "77784170158609cdb9488c9aab8acf9bc333fc94";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plot-compat.zip";
+    sha1 = "256e46398f27b4eecf19bef8627eb9daf634543c";
   };
   racketThinBuildInputs = [ self."base" self."plot-gui-lib" self."draw-lib" self."plot-lib" self."snip-lib" ];
   circularBuildInputs = [  ];
@@ -12492,8 +13410,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "plot-container";
     url = "git://github.com/alex-hhh/plot-container.git";
-    rev = "34bfa2cb20f967ce08fcc2fb2fd6fef2013a5bb5";
-    sha256 = "0391812g8k337fdfxigyk8kxjdcf9km1pm87fhm4sgyb4qyvsdwc";
+    rev = "9bfdc610c1e2677506baa66df576c3ec03ac1a84";
+    sha256 = "0xbqi181w308l7z4x1pff2lyxva91smka9kzmh133b31pyvd7kz3";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."gui-lib" self."pict-lib" self."plot-lib" self."pict-snip-lib" self."plot-gui-lib" self."snip-lib" self."gui-doc" self."pict-snip-doc" self."plot-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -12502,8 +13420,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plot-doc" = self.lib.mkRacketDerivation rec {
   pname = "plot-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plot-doc.zip";
-    sha1 = "5f9850b78ac7277b3aee5e6bdfef8bfb2dfdee0a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plot-doc.zip";
+    sha1 = "c4f22e7a36cb18c4de5572365ec81746e80bbf4c";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."plot-lib" self."plot-gui-lib" self."db-lib" self."draw-lib" self."gui-lib" self."pict-lib" self."plot-compat" self."scribble-lib" self."slideshow-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -12512,8 +13430,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plot-gui-lib" = self.lib.mkRacketDerivation rec {
   pname = "plot-gui-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plot-gui-lib.zip";
-    sha1 = "c60fe6db60ead94cf3a8d9bdfd188e3686458baf";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plot-gui-lib.zip";
+    sha1 = "dd6d5b9885115b8d96eaa2f4fa5fedcbaa733a41";
   };
   racketThinBuildInputs = [ self."base" self."plot-lib" self."math-lib" self."gui-lib" self."snip-lib" self."typed-racket-lib" self."typed-racket-more" ];
   circularBuildInputs = [  ];
@@ -12522,8 +13440,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plot-lib" = self.lib.mkRacketDerivation rec {
   pname = "plot-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plot-lib.zip";
-    sha1 = "39639fb2d87112decf717bd99391e9a138228e8f";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plot-lib.zip";
+    sha1 = "41c058e339ac758fc761d10e46fbd18cf5cfe800";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."pict-lib" self."db-lib" self."srfi-lite-lib" self."typed-racket-lib" self."typed-racket-more" self."compatibility-lib" self."math-lib" ];
   circularBuildInputs = [  ];
@@ -12532,8 +13450,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plot-test" = self.lib.mkRacketDerivation rec {
   pname = "plot-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plot-test.zip";
-    sha1 = "67db42c0e238480837f05e65a88c10e2b25e9c32";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plot-test.zip";
+    sha1 = "1fc389cfbe68c0dc62ea4e1de898de91fb5655e1";
   };
   racketThinBuildInputs = [ self."base" self."plot-compat" self."plot-gui-lib" self."plot-lib" self."plot-doc" self."draw-lib" self."pict-lib" self."rackunit-lib" self."slideshow-lib" self."typed-racket-lib" self."typed-racket-more" ];
   circularBuildInputs = [  ];
@@ -12556,8 +13474,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "plt-build-plot";
     url = "git://github.com/racket/plt-build-plot.git";
-    rev = "5205f76b882e356a30258878e0d4edff4e3c6abb";
-    sha256 = "0pg89l2kgj6x1skhl7744yvp0fdm00kwbi4svckk3xh1fsg91h3d";
+    rev = "e8c000f6611833f183f598c9d34380ff9d1bfc96";
+    sha256 = "06jyd3l8sm9hvfcfk6xw0v22i49ixlbb9xflr81mnf8rxk4rh7cf";
   };
   racketThinBuildInputs = [ self."base" self."aws" self."s3-sync" self."draw-lib" self."gui-lib" self."scribble-html-lib" self."plt-web-lib" self."plt-service-monitor" ];
   circularBuildInputs = [  ];
@@ -12568,8 +13486,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "plt-service-monitor";
     url = "git://github.com/racket/plt-service-monitor.git";
-    rev = "1cfb827cd812361d3c348aad18625e4aa98b2ee2";
-    sha256 = "1riwyjyw08pajbh352rgxjz9xvwcxwkljccdqlyip32nw8h031hf";
+    rev = "a40e841223178254948e216ff31e9bd629a66253";
+    sha256 = "1kfng1k4rraak7j3crxwld2p96n38qkwpfpf4nkh0l69jv9fmxcw";
   };
   racketThinBuildInputs = [ self."net-lib" self."base" self."aws" self."http" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -12582,8 +13500,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "plt-services";
     url = "git://github.com/racket/racket.git";
-    rev = "d590eee0c773af8a1c530db244f0f1ddb29e7871";
-    sha256 = "0pnkvhc6kb4493fhw4ajw1mqln8c5467k5kmcplbw4dm4nwchd60";
+    rev = "922bab40b54930a13b8609ee28f3362f5ce1a95f";
+    sha256 = "0j9yr85a0a81d7d078jkkmgs2w6isksz7hl6g66567xfprp70fbc";
   };
   };
   racketThinBuildInputs = [  ];
@@ -12623,8 +13541,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "plt-web-lib" = self.lib.mkRacketDerivation rec {
   pname = "plt-web-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/plt-web-lib.zip";
-    sha1 = "97b834d41ff11bd4b98e9a0a16bfbc06758d4366";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/plt-web-lib.zip";
+    sha1 = "0ad087db53475236e3f6313202472311b11d0c3a";
   };
   racketThinBuildInputs = [ self."base" self."at-exp-lib" self."scribble-html-lib" ];
   circularBuildInputs = [  ];
@@ -12671,8 +13589,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "pollen";
     url = "git://github.com/mbutterick/pollen.git";
-    rev = "85ac0cdfab6dc043cfe769c98c8ee80ef710c5e8";
-    sha256 = "10xsz7ib2m62d7s6qxgkvrax48phqzygjihq0qpmw4kyw3cpl5ri";
+    rev = "a4910a86dc62d1147f3aad94b56cecd6499d7aa6";
+    sha256 = "0rp7lw2372mldawk7cmbjdkzqvfmp5hgnvmxnrgs35l9zfffll9q";
   };
   racketThinBuildInputs = [ self."base" self."txexpr" self."sugar" self."markdown" self."htdp" self."at-exp-lib" self."html-lib" self."rackjure" self."web-server-lib" self."scribble-lib" self."scribble-text-lib" self."rackunit-lib" self."gui-lib" self."string-constants-lib" self."net-lib" self."plot-gui-lib" self."scribble-lib" self."racket-doc" self."rackunit-doc" self."plot-doc" self."scribble-doc" self."slideshow-doc" self."web-server-doc" self."drracket" ];
   circularBuildInputs = [  ];
@@ -12683,8 +13601,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "pollen-citations-mcgill";
     url = "git://github.com/sanchom/pollen-citations-mcgill.git";
-    rev = "d2c871a3ee9284979f65c4662ad8d523eb9256c9";
-    sha256 = "0m6s62z4phm1i5pwahbrkyj1cz3jxama3ccpja1nrn8z3rf6l62a";
+    rev = "b035e0fb3879d7f88fc08901e55e39112cea29a4";
+    sha256 = "1la49lmq7j70lzgsady8d9zba297ykjp9qkyyi5yikpdpiqn75vf";
   };
   racketThinBuildInputs = [ self."base" self."pollen" self."txexpr" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -12731,8 +13649,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "pollen-tfl";
     url = "git://github.com/mbutterick/pollen-tfl.git";
-    rev = "e63740ce6e23a69fbff26e3eca31edded420f0b3";
-    sha256 = "1nd3lpg6j8byvw1rz6wy1hrl15jwmlj1mk2cn927f7jfgj0mf6br";
+    rev = "791e31277e219d1778ed2deb19cb354375e13627";
+    sha256 = "1s9gda8s9mgqh7hy46353xqprbx44fy3ags858i7zhaf5zsn57k1";
   };
   racketThinBuildInputs = [ self."base" self."pollen" self."hyphenate" self."css-tools" self."txexpr" self."sugar" self."scribble-lib" self."rackunit-lib" self."racket-doc" self."scribble-doc" ];
   circularBuildInputs = [  ];
@@ -12755,8 +13673,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "polysemy";
     url = "git://github.com/jsmaniac/polysemy.git";
-    rev = "c499b6e3f033f84054df7682defed8fa7f52533f";
-    sha256 = "06bz73m8gc18d74krz37mlm3ra460jc1fggwv5q4w9g003ah3s43";
+    rev = "5d9838618ae6d6b8c412eaf30bac4bfa9fcf12c9";
+    sha256 = "02762ypw56q0vqwaq3qhnkpgfd5dqzskh2sw7nynk5w9sxfd05h4";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -12863,10 +13781,46 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "portaudio";
     url = "git://github.com/jbclements/portaudio.git";
-    rev = "3703edda0c6b9f5ef7e7bf39b933cb1d0e9a82b5";
-    sha256 = "1132wfqdapn7yswhkp7rbvc6lymqs1wgala8rnka92j6z5ms8rln";
+    rev = "77a03c86054a5d7a26ed0082215b61162eb8b651";
+    sha256 = "0i45gw723cyw75qsb5k0pbvk4n1sk4xmzg6rip2456jllxpqn7h0";
   };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."portaudio-x86_64-macosx" self."portaudio-x86_64-linux" self."portaudio-x86_64-win32" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "portaudio-x86_64-linux" = self.lib.mkRacketDerivation rec {
+  pname = "portaudio-x86_64-linux";
+  src = fetchgit {
+    name = "portaudio-x86_64-linux";
+    url = "git://github.com/jbclements/portaudio-x86_64-linux.git";
+    rev = "a6c792790429078a18822f56f388691f8d3db15e";
+    sha256 = "1i4qjkj628havzpsclr4r557dg0xdp2jn2rcz2978ljj3qkgx4sd";
+  };
+  racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "portaudio-x86_64-macosx" = self.lib.mkRacketDerivation rec {
+  pname = "portaudio-x86_64-macosx";
+  src = fetchgit {
+    name = "portaudio-x86_64-macosx";
+    url = "git://github.com/jbclements/portaudio-x86_64-macosx.git";
+    rev = "efe992725c3c0bb10dec555bb20812285ac94c39";
+    sha256 = "1y1jkgl7ddf62ffnqv64bv2aas7ya3dpdpahjnrwb4rgy541g3hw";
+  };
+  racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "portaudio-x86_64-win32" = self.lib.mkRacketDerivation rec {
+  pname = "portaudio-x86_64-win32";
+  src = fetchgit {
+    name = "portaudio-x86_64-win32";
+    url = "git://github.com/jbclements/portaudio-x86_64-win32.git";
+    rev = "851aebfca64edd7f7a09a0e93a35ba0b59f92a80";
+    sha256 = "0zcxp0vd25yj638n2msk5mny8fa84x82h1jawlmpxdwn0qy2c0cg";
+  };
+  racketThinBuildInputs = [  ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13003,23 +13957,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "prefetch-autocomplete" = self.lib.mkRacketDerivation rec {
-  pname = "prefetch-autocomplete";
-  src = fetchgit {
-    name = "prefetch-autocomplete";
-    url = "git://github.com/yjqww6/prefetch-autocomplete.git";
-    rev = "1a25f1a64cab3c9d1e300b9a0547e2b4201fcc70";
-    sha256 = "1hhw007bpgbwd4yh46zm0nybrcc9d1a7nchmcld74m67kh3468jd";
-  };
-  racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."scribble-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
   "preprocessor" = self.lib.mkRacketDerivation rec {
   pname = "preprocessor";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/preprocessor.zip";
-    sha1 = "3cbe636149b538a4b03cba4ef37eef9b4886b2e0";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/preprocessor.zip";
+    sha1 = "e73d50d1220408c898c97738af725bf8025c507f";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -13030,8 +13972,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "pretty-format";
     url = "git://github.com/AlexKnauth/pretty-format.git";
-    rev = "e94914aad81c71b4ccfb4b573affd58df6619888";
-    sha256 = "1421a4f9d13r2pg1zr233q1rrs0d3mica78fyq1vr9p808j95npx";
+    rev = "f3c82271fe92e8414d203087727a73543465d27e";
+    sha256 = "0ixkb04w9hqcj0s6h3nhm1mkpsvcjsxmix90ij5rmimqzld42j96";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -13061,11 +14003,23 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "private-in" = self.lib.mkRacketDerivation rec {
+  pname = "private-in";
+  src = fetchgit {
+    name = "private-in";
+    url = "git://github.com/camoy/private-in.git";
+    rev = "d8a8105a70c8940f6a156dc68d035abbcdd2fe08";
+    sha256 = "0wcjg5blwwjx30jk3v5fgj4v0y6nzrz9lr1ikal3qlfj5cmvkgqw";
+  };
+  racketThinBuildInputs = [ self."base" self."chk-lib" self."rackunit-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "profile" = self.lib.mkRacketDerivation rec {
   pname = "profile";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/profile.zip";
-    sha1 = "2010e70534a5f952bb7c2f408f5c02862fc43d37";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/profile.zip";
+    sha1 = "1684a0964d2c1711104ecad1c1b5c7e17ac09754";
   };
   racketThinBuildInputs = [ self."profile-lib" self."profile-doc" ];
   circularBuildInputs = [  ];
@@ -13074,8 +14028,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "profile-doc" = self.lib.mkRacketDerivation rec {
   pname = "profile-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/profile-doc.zip";
-    sha1 = "9ce1399f7ea228e6d07ca7a04411dfb8d433c5f2";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/profile-doc.zip";
+    sha1 = "ff476ac8ae3689f328b17e1b3d10fcd4384516da";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."profile-lib" self."errortrace-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -13096,8 +14050,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "profile-lib" = self.lib.mkRacketDerivation rec {
   pname = "profile-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/profile-lib.zip";
-    sha1 = "e6260a21bd7325940325d1ecc219e270d49dd45c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/profile-lib.zip";
+    sha1 = "fd36a8845ca136f534124cbdf74e2fb84cd23c96";
   };
   racketThinBuildInputs = [ self."base" self."errortrace-lib" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -13106,8 +14060,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "profile-test" = self.lib.mkRacketDerivation rec {
   pname = "profile-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/profile-test.zip";
-    sha1 = "180b48ab005cdb9715b789817f00acbf2130426e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/profile-test.zip";
+    sha1 = "641f00c469a47bd1ae3451000598f71af703756a";
   };
   racketThinBuildInputs = [ self."base" self."eli-tester" self."profile-lib" ];
   circularBuildInputs = [  ];
@@ -13118,8 +14072,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "profj";
     url = "git://github.com/mflatt/profj.git";
-    rev = "aa20a056d7834a1e821f6c63277ee03724af9b15";
-    sha256 = "0mq34fn1hxc38lrp36jbgx08c21gcvk1v8cgxapy4xhccigwcs6g";
+    rev = "cf2a5bd0c3243b4dd3a72093ae5eee8e8291a41d";
+    sha256 = "00r8cz60mnizkqdgfkm6sdlq8fa5cpxc0zavrf7cqq6kzqv0b0an";
   };
   racketThinBuildInputs = [ self."combinator-parser" self."base" self."compatibility-lib" self."drracket-plugin-lib" self."errortrace-lib" self."gui-lib" self."htdp-lib" self."parser-tools-lib" self."scheme-lib" self."srfi-lite-lib" self."string-constants-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -13148,8 +14102,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "protobuf" = self.lib.mkRacketDerivation rec {
   pname = "protobuf";
   src = fetchurl {
-    url = "https://bitbucket.org/chust/racket-protobuf/downloads/protobuf-1.1.3.zip";
-    sha1 = "692c4439046fb158e9a8cecd9e4f5b07709c425e";
+    url = "https://chust.org/repos/racket-protobuf/uv/protobuf-1.1.3.zip";
+    sha1 = "2b1006f0a15e36b9dc663bccc55d7ec241ff53d0";
   };
   racketThinBuildInputs = [ self."base" self."srfi-lib" self."srfi-lite-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -13174,11 +14128,26 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "punctaffy";
     url = "git://github.com/lathe/punctaffy-for-racket.git";
-    rev = "e48239631fb56eda41b90c0d0c5a2890e3ad174d";
-    sha256 = "0ixnppar73f064r5i58b63a73jjws9h7gw4qaxvzri98i1qiqj7h";
+    rev = "399657556e22ecaca53c7d3d8310bf22e9394f00";
+    sha256 = "0dc8i55byp1j897whdklx9ycm0aqxskd1i8gl91srha57njl3saq";
   };
   };
-  racketThinBuildInputs = [ self."punctaffy-lib" ];
+  racketThinBuildInputs = [ self."punctaffy-doc" self."punctaffy-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "punctaffy-doc" = self.lib.mkRacketDerivation rec {
+  pname = "punctaffy-doc";
+  src = self.lib.extractPath {
+    path = "punctaffy-doc";
+    src = fetchgit {
+    name = "punctaffy-doc";
+    url = "git://github.com/lathe/punctaffy-for-racket.git";
+    rev = "399657556e22ecaca53c7d3d8310bf22e9394f00";
+    sha256 = "0dc8i55byp1j897whdklx9ycm0aqxskd1i8gl91srha57njl3saq";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."at-exp-lib" self."brag" self."lathe-comforts-doc" self."lathe-comforts-lib" self."lathe-morphisms-doc" self."lathe-morphisms-lib" self."net-doc" self."parendown-doc" self."parendown-lib" self."punctaffy-lib" self."racket-doc" self."ragg" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13189,8 +14158,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "punctaffy-lib";
     url = "git://github.com/lathe/punctaffy-for-racket.git";
-    rev = "e48239631fb56eda41b90c0d0c5a2890e3ad174d";
-    sha256 = "0ixnppar73f064r5i58b63a73jjws9h7gw4qaxvzri98i1qiqj7h";
+    rev = "399657556e22ecaca53c7d3d8310bf22e9394f00";
+    sha256 = "0dc8i55byp1j897whdklx9ycm0aqxskd1i8gl91srha57njl3saq";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-lib" self."lathe-morphisms-lib" self."parendown-lib" ];
@@ -13204,8 +14173,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "punctaffy-test";
     url = "git://github.com/lathe/punctaffy-for-racket.git";
-    rev = "e48239631fb56eda41b90c0d0c5a2890e3ad174d";
-    sha256 = "0ixnppar73f064r5i58b63a73jjws9h7gw4qaxvzri98i1qiqj7h";
+    rev = "399657556e22ecaca53c7d3d8310bf22e9394f00";
+    sha256 = "0dc8i55byp1j897whdklx9ycm0aqxskd1i8gl91srha57njl3saq";
   };
   };
   racketThinBuildInputs = [ self."base" self."lathe-comforts-lib" self."parendown" self."profile-lib" self."punctaffy-lib" self."rackunit-lib" ];
@@ -13217,8 +14186,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "pure-crypto";
     url = "git://github.com/simmone/racket-pure-crypto.git";
-    rev = "6e58a6ef06332ec300d864d0a288b0ab998374b5";
-    sha256 = "1vvivj2h07n6j3w8q1vbyhb249nd77c8x8xgrfd48mc0a9dhf328";
+    rev = "797f643b39c714b8d67e899f659a01dd676a69a1";
+    sha256 = "0izgga4xd34g2f7rq4p1dk8jqg9gpf0w0vmm9arb2460nx7d6ybb";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."scribble-lib" self."detail" ];
   circularBuildInputs = [  ];
@@ -13332,13 +14301,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "qtops" = self.lib.mkRacketDerivation rec {
+  pname = "qtops";
+  src = fetchgit {
+    name = "qtops";
+    url = "git://github.com/emsenn/qtops.git";
+    rev = "ef9950feed1435514911f731303c6e4fd4198ca6";
+    sha256 = "1d02a51wll84738daicsknklg8ln8fx2ykg3s6f3ja9flsavrzd3";
+  };
+  racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "quad" = self.lib.mkRacketDerivation rec {
   pname = "quad";
   src = fetchgit {
     name = "quad";
     url = "git://github.com/mbutterick/quad.git";
-    rev = "9f2649279194a6eb895e1c2d2be8b4719b10e911";
-    sha256 = "1hvrrffhwzjnzv3jk19lgxjnv04c6f3mpdn35r3d0r2sg0z0jwdd";
+    rev = "395447f35c2fb9fc7b6199ed185850906d80811d";
+    sha256 = "0bfjc3glbc3226siy5hp1nklp9smpvf0y130pmjp0hshh0jgqp7h";
   };
   racketThinBuildInputs = [ self."at-exp-lib" self."base" self."beautiful-racket-lib" self."fontland" self."hyphenate" self."pitfall" self."pollen" self."rackunit-lib" self."sugar" self."txexpr" self."markdown" self."pict-lib" self."debug" self."words" self."draw-lib" self."draw-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -13376,8 +14357,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "quickcheck";
     url = "git://github.com/ifigueroap/racket-quickcheck.git";
-    rev = "7b1c68b059260ee41c306d7829569188901c8dc0";
-    sha256 = "1j8jq7xdgby10adhqsnmnc9waf4myhjpsa945hy8lsjncwpbi3ss";
+    rev = "902eb30fa8f5c0df7910df22c1442ff866b3920d";
+    sha256 = "19byi1g8hqsr920a0fs52frv75rykn9ygz8wv2x7jdcmrmk3kaxp";
   };
   racketThinBuildInputs = [ self."base" self."rackunit" self."doc-coverage" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -13386,11 +14367,23 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "quickscript" = self.lib.mkRacketDerivation rec {
   pname = "quickscript";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/quickscript.zip";
-    sha1 = "5dfed92f972f61eb7b780f06c205cb74bba14678";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/quickscript.zip";
+    sha1 = "35bcbb71e0520a289f0ac5887e67bcddfdfbb9fd";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."drracket-plugin-lib" self."gui-lib" self."net-lib" self."scribble-lib" self."at-exp-lib" self."rackunit-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "quickscript-competition-2020" = self.lib.mkRacketDerivation rec {
+  pname = "quickscript-competition-2020";
+  src = fetchgit {
+    name = "quickscript-competition-2020";
+    url = "git://github.com/Quickscript-Competiton/July2020entries.git";
+    rev = "b6406a4f021671bccb6b464042ba6c91221286fe";
+    sha256 = "1aq3pbdp398dkks99n0g2ykfwk1j7byfrqv5an9hilphcapjhsgq";
+  };
+  racketThinBuildInputs = [ self."data-lib" self."base" self."drracket" self."gui-lib" self."htdp-lib" self."markdown" self."net-lib" self."plot-gui-lib" self."plot-lib" self."quickscript" self."rackunit-lib" self."scribble-lib" self."search-list-box" self."syntax-color-lib" self."at-exp-lib" ];
+  circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "quickscript-extra" = self.lib.mkRacketDerivation rec {
@@ -13398,8 +14391,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "quickscript-extra";
     url = "git://github.com/Metaxal/quickscript-extra.git";
-    rev = "e7d3e9aa210c4fcfae1a48f7a1808facb40f8926";
-    sha256 = "1yw7kn9g48bbnmk4ksa7hgc1r3fmblw998lpz76s30fq3khi2g0i";
+    rev = "cefe55ece00c61e4e762cdc8a012aace76ad42a4";
+    sha256 = "1063cfdm48qlqj6hiwy0m2h8may13zz09rbj6gylvmi35sm7r822";
   };
   racketThinBuildInputs = [ self."base" self."quickscript" self."at-exp-lib" self."drracket" self."gui-lib" self."pict-lib" self."racket-index" self."scribble-lib" self."srfi-lite-lib" self."web-server-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -13410,8 +14403,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "quickscript-test";
     url = "git://github.com/Metaxal/quickscript-test.git";
-    rev = "eed8b429056b96a66b161228a6a45ccae39b5298";
-    sha256 = "096isxl6v82kdqjpg2wgmdhklskiwxp2vwayv2b0nn4ikzr8imql";
+    rev = "229a772f74c0a496fae04a5b33aad9ea61c50f5d";
+    sha256 = "0ksg0hkysars6baxprj9c877b3mxb29zfjx8p91367ssbabap1zm";
   };
   racketThinBuildInputs = [ self."drracket-test" self."gui-lib" self."quickscript" self."rackunit-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -13429,13 +14422,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "qweather" = self.lib.mkRacketDerivation rec {
+  pname = "qweather";
+  src = fetchgit {
+    name = "qweather";
+    url = "git://github.com/yanyingwang/qweather.git";
+    rev = "f9b770d12ec24c102f9346a504dfcf61c6923378";
+    sha256 = "1pzzvp6qsckrqrslymfmgki5n48kpgi9yqw9a8ccrvbzvcpc6i6f";
+  };
+  racketThinBuildInputs = [ self."base" self."at-exp-lib" self."http-client" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "r-cade" = self.lib.mkRacketDerivation rec {
   pname = "r-cade";
   src = fetchgit {
     name = "r-cade";
     url = "git://github.com/massung/r-cade.git";
-    rev = "37d4ce347784a9f22f76f78d5a6743c87d12b7dc";
-    sha256 = "1vfasya9wb59pjlsjqv3vz4yybj2ixc3ar5y2anxcnhrgyzy77qm";
+    rev = "593a4490298cfc6346d9f0633803b3e6eb7ed178";
+    sha256 = "03q0qcr3acbfkp9dajzv1ay42gqyyy0i1mj2512kx42303dd19c2";
   };
   racketThinBuildInputs = [ self."base" self."csfml" ];
   circularBuildInputs = [  ];
@@ -13458,18 +14463,30 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "r-linq";
     url = "git://github.com/trajafri/r-linq.git";
-    rev = "f7a9a0162fafa4c1589d0ccc48a7f96cbd13d94f";
-    sha256 = "1ddy1wgiczmw1v6xjw00calpgdb7il4n094lijvvk6i4pvcpjf46";
+    rev = "e41a733b91fc32001d09fe8ff25a0b2c0a06e34c";
+    sha256 = "12n600m7za6bhdx1glzfjj3kh2vyjs18s2i517v80vrmxpqh2wam";
   };
   racketThinBuildInputs = [ self."base" self."rackunit" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "r16" = self.lib.mkRacketDerivation rec {
+  pname = "r16";
+  src = fetchgit {
+    name = "r16";
+    url = "git://github.com/williewillus/r16.git";
+    rev = "6d26fd3e5ab61113b1af6ad743e0c2f2880b6eb3";
+    sha256 = "0axixq70cr3pi03j6x8cvphyvk200vmc2f18z5flifxmxps0g0gr";
+  };
+  racketThinBuildInputs = [ self."base" self."racket-cord" self."sandbox-lib" self."slideshow-lib" self."threading-lib" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "r5rs" = self.lib.mkRacketDerivation rec {
   pname = "r5rs";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/r5rs.zip";
-    sha1 = "8319e97caa3716986f26f5c55efffc14d03c10b5";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/r5rs.zip";
+    sha1 = "c14df8d96ee0d3cb675fb152fe01c6a1a6ebc4b3";
   };
   racketThinBuildInputs = [ self."r5rs-lib" self."r5rs-doc" ];
   circularBuildInputs = [  ];
@@ -13478,8 +14495,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "r5rs-doc" = self.lib.mkRacketDerivation rec {
   pname = "r5rs-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/r5rs-doc.zip";
-    sha1 = "94144728630441dc6ea77e59adad12ed48fd36c6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/r5rs-doc.zip";
+    sha1 = "9aa60bdc78d8dce89f9948dd91fa8eb946104805";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."scribble-lib" self."r5rs-lib" self."compatibility-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -13488,8 +14505,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "r5rs-lib" = self.lib.mkRacketDerivation rec {
   pname = "r5rs-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/r5rs-lib.zip";
-    sha1 = "d629173814e093ecb7a164fee6b25a16a8d47beb";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/r5rs-lib.zip";
+    sha1 = "24dda53109ccdc526be174c31e2bae1e3152b915";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" ];
   circularBuildInputs = [  ];
@@ -13498,8 +14515,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "r6rs" = self.lib.mkRacketDerivation rec {
   pname = "r6rs";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/r6rs.zip";
-    sha1 = "1a9101d91604d7025d0e48da33b41712f81b42f2";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/r6rs.zip";
+    sha1 = "94f2e787638fa7b6fc7f781ff85147145eb62c40";
   };
   racketThinBuildInputs = [ self."r6rs-lib" self."r6rs-doc" ];
   circularBuildInputs = [  ];
@@ -13508,8 +14525,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "r6rs-doc" = self.lib.mkRacketDerivation rec {
   pname = "r6rs-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/r6rs-doc.zip";
-    sha1 = "38a969d8cd6bc9c152ca45e40ed9a80844f5b95d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/r6rs-doc.zip";
+    sha1 = "2fcf4d32c5409da959b1742f60bcd64401c0afe9";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."racket-index" self."base" self."scribble-lib" self."r6rs-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -13518,8 +14535,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "r6rs-lib" = self.lib.mkRacketDerivation rec {
   pname = "r6rs-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/r6rs-lib.zip";
-    sha1 = "c13400a3faa2cd325996fd3c95c1241973a6d1fd";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/r6rs-lib.zip";
+    sha1 = "15b8a3822d83866bbd68c6f062b60c4916a5aa4f";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."r5rs-lib" self."compatibility-lib" ];
   circularBuildInputs = [  ];
@@ -13528,8 +14545,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "r6rs-test" = self.lib.mkRacketDerivation rec {
   pname = "r6rs-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/r6rs-test.zip";
-    sha1 = "54a1e80f5634a521bb4169ebd535639261b7bf0f";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/r6rs-test.zip";
+    sha1 = "edb7157aa81b8b0f9b8b374d9cdac93af92896ef";
   };
   racketThinBuildInputs = [ self."base" self."r6rs-lib" ];
   circularBuildInputs = [  ];
@@ -13582,8 +14599,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rackcheck";
     url = "git://github.com/Bogdanp/rackcheck.git";
-    rev = "0466f44978ea1177764300be611eb577e85c490e";
-    sha256 = "16dina6s8lxm15kpz3gmi6i9n62x78aylwa81fl5xxjyqm26g1z4";
+    rev = "83cb1db5011ce93df7955538c91e80b8eef2d3a8";
+    sha256 = "0kw8vrn6azb4ddkrb4h1616jkxnk60gjk8r7k9m9vg9z6v9cippq";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."rackunit-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -13601,11 +14618,21 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "racket-aarch64-macosx-3" = self.lib.mkRacketDerivation rec {
+  pname = "racket-aarch64-macosx-3";
+  src = fetchurl {
+    url = "https://pkg-sources.racket-lang.org/pkgs/f0932cc3ef7c5d26b325bc1ac0826811e77a3fc3/racket-aarch64-macosx-3.zip";
+    sha1 = "f0932cc3ef7c5d26b325bc1ac0826811e77a3fc3";
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "racket-benchmarks" = self.lib.mkRacketDerivation rec {
   pname = "racket-benchmarks";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-benchmarks.zip";
-    sha1 = "68d8fdb3416f467fe758d8441dc2d671ca940289";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-benchmarks.zip";
+    sha1 = "5d034ee2335e95fbfb653d8c161eac7339df1a6d";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."r5rs-lib" self."scheme-lib" self."racket-test" self."typed-racket-lib" self."plot" self."draw-lib" self."gui-lib" self."pict-lib" ];
   circularBuildInputs = [  ];
@@ -13618,8 +14645,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "racket-build-guide";
     url = "git://github.com/racket/racket.git";
-    rev = "d590eee0c773af8a1c530db244f0f1ddb29e7871";
-    sha256 = "0pnkvhc6kb4493fhw4ajw1mqln8c5467k5kmcplbw4dm4nwchd60";
+    rev = "922bab40b54930a13b8609ee28f3362f5ce1a95f";
+    sha256 = "0j9yr85a0a81d7d078jkkmgs2w6isksz7hl6g66567xfprp70fbc";
   };
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."scribble-doc" self."distro-build-doc" ];
@@ -13629,8 +14656,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-cheat" = self.lib.mkRacketDerivation rec {
   pname = "racket-cheat";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-cheat.zip";
-    sha1 = "7903f901eddfeca2d7406a52344edd1813bed26e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-cheat.zip";
+    sha1 = "fdc1b9967a4529ec395a929c385e9d1c6ccb8ebb";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."db-doc" self."db-lib" self."drracket" self."net-doc" self."net-lib" self."parser-tools-doc" self."parser-tools-lib" self."pict-doc" self."pict-lib" self."racket-doc" self."sandbox-lib" self."slideshow-doc" self."slideshow-lib" ];
   circularBuildInputs = [  ];
@@ -13652,19 +14679,19 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   pname = "racket-cord";
   src = fetchgit {
     name = "racket-cord";
-    url = "git://github.com/nitros12/racket-cord.git";
-    rev = "54dcbf3d3b07b4630fb70b1ac43660cfbcc0b582";
-    sha256 = "06r9964slkrdaf528zy7z5f3rk97l99d38zd1znff8vw2h43f64l";
+    url = "git://github.com/simmsb/racket-cord.git";
+    rev = "7bc0decf18dca24c5c5b5cb33de6704026b990a2";
+    sha256 = "019rxhblp1sxa9rnqmvb69gxpmwimr5x16v4hjnrv7zn3k2ls3aa";
   };
-  racketThinBuildInputs = [ self."base" self."simple-http" self."rfc6455" self."rackunit-lib" self."html-parsing" self."srfi-lite-lib" self."scribble-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."http-easy" self."rfc6455" self."rackunit-lib" self."scribble-lib" self."srfi-lite-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "racket-doc" = self.lib.mkRacketDerivation rec {
   pname = "racket-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-doc.zip";
-    sha1 = "c9aa49f9f28e5a1b409b4b1162dbf6e9563da5d8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-doc.zip";
+    sha1 = "69eac8c74c86ed594f3e9dd050b971a6a796b2cb";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."net-lib" self."sandbox-lib" self."scribble-lib" self."racket-index" self."at-exp-lib" self."rackunit-lib" self."serialize-cstruct-lib" self."cext-lib" self."compiler-lib" self."math-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -13707,8 +14734,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-i386-macosx-3" = self.lib.mkRacketDerivation rec {
   pname = "racket-i386-macosx-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-i386-macosx-3.zip";
-    sha1 = "a507fdb42ed4db9340cc1914676dcd3b834f7a93";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-i386-macosx-3.zip";
+    sha1 = "d406474257172a3cc36b684bf70a96aa6587f9ed";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -13729,8 +14756,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-index" = self.lib.mkRacketDerivation rec {
   pname = "racket-index";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-index.zip";
-    sha1 = "c97bab373c60ddf5d4eb24ef741224bf6d69e4ea";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-index.zip";
+    sha1 = "e637a028ff5821af89e1465029d05231d55de027";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."scheme-lib" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -13753,10 +14780,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "racket-lang-org";
     url = "git://github.com/racket/racket-lang-org.git";
-    rev = "dccc24246dc0a70f2f35d0f52356fb962ae3750b";
-    sha256 = "19azir0703jvsqzrp1xy06zy54fsgpl87c229ii7m4562qlm7iq0";
+    rev = "88dada2ee769ada9afaf1e3ec1fb28b8ddf216db";
+    sha256 = "1d4ky5ndahrgrljbp6swckmaymmrkg0bs82nprz55dhn7ffflczz";
   };
-  racketThinBuildInputs = [ self."graph" self."gui-lib" self."base" self."plt-web-lib" self."at-exp-lib" self."net-lib" self."racket-index" self."scribble-lib" self."syntax-color-lib" self."plot-gui-lib" self."plot-lib" self."math-lib" self."pollen" self."css-tools" self."sugar" self."txexpr" self."gregor-lib" self."frog" self."rackunit-lib" self."pict-lib" self."draw-lib" self."s3-sync" ];
+  racketThinBuildInputs = [ self."slideshow-lib" self."csv-reading" self."typed-racket-lib" self."datalog" self."graph" self."gui-lib" self."base" self."plt-web-lib" self."at-exp-lib" self."net-lib" self."racket-index" self."scribble-lib" self."syntax-color-lib" self."plot-gui-lib" self."plot-lib" self."math-lib" self."pollen" self."css-tools" self."sugar" self."txexpr" self."gregor-lib" self."frog" self."rackunit-lib" self."pict-lib" self."ppict" self."draw-lib" self."s3-sync" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13765,8 +14792,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "racket-langserver";
     url = "git://github.com/jeapostrophe/racket-langserver.git";
-    rev = "b283c2baf65bf3122bcc46b26206934bdabbd5bd";
-    sha256 = "07jgwd579ja413r0lj2pncaqh3qsfdajmqkb9iibx7g8n27112b0";
+    rev = "b13132e284af977c3a7f6375e76e05f9134a796b";
+    sha256 = "0mmq45lyisd9kj91zw199ajrgylcx423bxpdl8i19d07cazh191r";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."data-lib" self."drracket-tool-lib" self."gui-lib" self."syntax-color-lib" self."chk" ];
   circularBuildInputs = [  ];
@@ -13796,13 +14823,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "racket-paint" = self.lib.mkRacketDerivation rec {
+  pname = "racket-paint";
+  src = fetchgit {
+    name = "racket-paint";
+    url = "git://github.com/Metaxal/racket-paint.git";
+    rev = "4fe14ce20d77053f4f299cb5123e229d635236cc";
+    sha256 = "1di3l5ga28i138i2b0q4mk36mnlrdxi6ww4k3flm63iqq8cqd48a";
+  };
+  racketThinBuildInputs = [ self."gui-lib" self."pict-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "racket-poppler" = self.lib.mkRacketDerivation rec {
   pname = "racket-poppler";
   src = fetchgit {
     name = "racket-poppler";
     url = "git://github.com/soegaard/racket-poppler.git";
-    rev = "74799859c528e9b1b3dff5c796d6393f5593affc";
-    sha256 = "14pv5i7nn5b7k1byxy2py60dv9nkbqpks9m2c9p68c2km49grl3g";
+    rev = "0ccd65fb4a85c05ad6494b5ab8412c529bd77f26";
+    sha256 = "1x10mbd9pkp5z0xaiwab4wqz1lhdifd4l48wk04kihyc049yy1p6";
   };
   racketThinBuildInputs = [ self."draw-lib" self."slideshow-lib" self."web-server-lib" self."base" self."pict" self."poppler-x86-64-macosx" self."poppler-i386-macosx" self."poppler-win32-x86-64" self."poppler-win32-i386" self."at-exp-lib" self."rackunit-lib" self."scribble-lib" self."racket-doc" self."draw-doc" self."pict-doc" ];
   circularBuildInputs = [  ];
@@ -13821,10 +14860,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-ppc-macosx-3" = self.lib.mkRacketDerivation rec {
   pname = "racket-ppc-macosx-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-ppc-macosx-3.zip";
-    sha1 = "0aba8d1a262be8fbaa3ba3c0f7067aeeded2ee6d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-ppc-macosx-3.zip";
+    sha1 = "eb122bb4d6efe47f7504ebe9b0bd575d2c797a36";
   };
   racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "racket-predicates" = self.lib.mkRacketDerivation rec {
+  pname = "racket-predicates";
+  src = fetchgit {
+    name = "racket-predicates";
+    url = "git://github.com/aryaghan-mutum/racket-predicates.git";
+    rev = "3a4f82ffaaf80033bb744e45eb57b05ef5399c99";
+    sha256 = "1w5cnczxjy5x3crkgwq3cq411g94pbbrn1zv0yfdgr3jcc5vn85z";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -13927,8 +14978,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-test" = self.lib.mkRacketDerivation rec {
   pname = "racket-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-test.zip";
-    sha1 = "86da3058feb2167327b63520c45bbf13d6fd4f05";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-test.zip";
+    sha1 = "b5ed4ca1b4cf4ae808f2e5a9db1621778bf542fc";
   };
   racketThinBuildInputs = [ self."net-test+racket-test" self."compiler-lib" self."sandbox-lib" self."compatibility-lib" self."eli-tester" self."planet-lib" self."net-lib" self."serialize-cstruct-lib" self."cext-lib" self."pconvert-lib" self."racket-test-core" self."web-server-lib" self."rackunit-lib" self."at-exp-lib" self."option-contract-lib" self."srfi-lib" self."scribble-lib" self."racket-index" self."scheme-lib" self."base" self."data-lib" ];
   circularBuildInputs = [ "racket-test" "net-test" ];
@@ -13937,8 +14988,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-test-core" = self.lib.mkRacketDerivation rec {
   pname = "racket-test-core";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-test-core.zip";
-    sha1 = "0fd6d08f1c9835e27a895baccdb362985c75ad2a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-test-core.zip";
+    sha1 = "7c2f1ad46c20734a38548fa63accad4585262d16";
   };
   racketThinBuildInputs = [ self."base" self."zo-lib" self."at-exp-lib" self."serialize-cstruct-lib" self."dynext-lib" self."sandbox-lib" ];
   circularBuildInputs = [  ];
@@ -13947,8 +14998,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-test-extra" = self.lib.mkRacketDerivation rec {
   pname = "racket-test-extra";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-test-extra.zip";
-    sha1 = "17aa9fb771111203fbe3e6f483d46513271e038e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-test-extra.zip";
+    sha1 = "74dc6c6c3a30673878725186eb0673975cbe7827";
   };
   racketThinBuildInputs = [ self."base" self."redex-lib" self."scheme-lib" self."rackunit-lib" self."serialize-cstruct-lib" ];
   circularBuildInputs = [  ];
@@ -14001,8 +15052,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-win32-i386-3" = self.lib.mkRacketDerivation rec {
   pname = "racket-win32-i386-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-win32-i386-3.zip";
-    sha1 = "8e021b4d7a93f75226c96d88e9c85c5fa3f9633d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-win32-i386-3.zip";
+    sha1 = "0dce6ba21894fadb87c4937976afe72b663245c8";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -14031,8 +15082,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-win32-x86_64-3" = self.lib.mkRacketDerivation rec {
   pname = "racket-win32-x86_64-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-win32-x86_64-3.zip";
-    sha1 = "462160907353168f2e722c4407183d202cc8d760";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-win32-x86_64-3.zip";
+    sha1 = "6b412dc9138287802a4f593fab237e0573ef48b3";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -14051,8 +15102,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-x86_64-linux-natipkg-3" = self.lib.mkRacketDerivation rec {
   pname = "racket-x86_64-linux-natipkg-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-x86_64-linux-natipkg-3.zip";
-    sha1 = "4512d66f0609d6de12c68d3207741767f69f17ea";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-x86_64-linux-natipkg-3.zip";
+    sha1 = "6d47a95774f4bbcd008d0f496d54bfeb9d23bfa8";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -14071,8 +15122,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racket-x86_64-macosx-3" = self.lib.mkRacketDerivation rec {
   pname = "racket-x86_64-macosx-3";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racket-x86_64-macosx-3.zip";
-    sha1 = "b595965778f1a08b426898b89f23e1ff3b652dd9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racket-x86_64-macosx-3.zip";
+    sha1 = "e8c1430ce1ef8ca3fac991eaf68b330e6d3ca987";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -14121,8 +15172,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "racketscript";
     url = "git://github.com/vishesh/racketscript.git";
-    rev = "3358bfe700d0478130ed0e0182f893a31dd96950";
-    sha256 = "0y8cvm9clbgrfsx1aar95454af0gqxqybkfcgak59rmd9inwnvcr";
+    rev = "25e64fbe5eaecf5e290b2d3a20c7df31a2e74cb6";
+    sha256 = "1mp3cpgg7150wlx8gc9g88d782gx71v9f8xzr2m3da19fsgc6fgp";
   };
   };
   racketThinBuildInputs = [ self."base" self."racketscript-compiler" self."racketscript-extras" ];
@@ -14136,8 +15187,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "racketscript-compiler";
     url = "git://github.com/vishesh/racketscript.git";
-    rev = "3358bfe700d0478130ed0e0182f893a31dd96950";
-    sha256 = "0y8cvm9clbgrfsx1aar95454af0gqxqybkfcgak59rmd9inwnvcr";
+    rev = "25e64fbe5eaecf5e290b2d3a20c7df31a2e74cb6";
+    sha256 = "1mp3cpgg7150wlx8gc9g88d782gx71v9f8xzr2m3da19fsgc6fgp";
   };
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-more" self."threading" self."graph-lib" self."anaphoric" self."base" self."typed-racket-lib" self."typed-racket-more" self."rackunit-lib" ];
@@ -14151,8 +15202,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "racketscript-extras";
     url = "git://github.com/vishesh/racketscript.git";
-    rev = "3358bfe700d0478130ed0e0182f893a31dd96950";
-    sha256 = "0y8cvm9clbgrfsx1aar95454af0gqxqybkfcgak59rmd9inwnvcr";
+    rev = "25e64fbe5eaecf5e290b2d3a20c7df31a2e74cb6";
+    sha256 = "1mp3cpgg7150wlx8gc9g88d782gx71v9f8xzr2m3da19fsgc6fgp";
   };
   };
   racketThinBuildInputs = [ self."base" self."racketscript-compiler" self."rackunit-lib" ];
@@ -14164,8 +15215,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "racketui";
     url = "git://github.com/nadeemabdulhamid/racketui.git";
-    rev = "059fda3fa60b84a390fabe764e12edbdfd079190";
-    sha256 = "0v2wx5jm98rw0v3j4jj80xqvs0r23403pb0nabq8fcjqlmhj68a4";
+    rev = "045e0e647439623397cdf67e8e045ec7aa5e2def";
+    sha256 = "18m3s9j4iwmi3zh69ig4gi8x9n6c4mr6pz188wvj6cvqlr77axwj";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."htdp-lib" self."srfi-lite-lib" self."web-server-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -14176,8 +15227,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rackjure";
     url = "git://github.com/greghendershott/rackjure.git";
-    rev = "9422246972705cfa55c773c39383a33b531507d9";
-    sha256 = "0k8inzd1jpai9rw8xbrwrcghmpgjnwf88dnw8i2088bgrn5xr2g7";
+    rev = "62b210b0544c9660cac41b2b8c298b364e73cbee";
+    sha256 = "0vawayx777d2y0b0y9v7cxwf38lmlzhvmfhp3diib0490ivldwmc";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."threading-lib" self."rackunit-lib" self."racket-doc" self."sandbox-lib" self."scribble-lib" self."threading-doc" ];
   circularBuildInputs = [  ];
@@ -14186,8 +15237,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "racklog" = self.lib.mkRacketDerivation rec {
   pname = "racklog";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/racklog.zip";
-    sha1 = "524d70034ade1df594939d79cabd2912337c2c42";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/racklog.zip";
+    sha1 = "b027a8091c9a4b8b51ae39aebcd8f7af20a872a2";
   };
   racketThinBuildInputs = [ self."base" self."datalog" self."eli-tester" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -14223,8 +15274,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rackterm";
     url = "git://github.com/willghatch/rackterm.git";
-    rev = "56f08b3acac1cd7f014625439bb1b980b3f91364";
-    sha256 = "0znawasm6gf8bnc547ikbsvm9nzmnklca6qw8kd1mrdwc7vsmzbb";
+    rev = "5d94185dea482974a1cf66099380bede6c2ce501";
+    sha256 = "0gl4jxdg4yl4bdphspy2vacra87skxpij57q5casjjw4ambb3ns7";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."gui-lib" self."rackunit-lib" self."scheme-lib" ];
   circularBuildInputs = [  ];
@@ -14233,8 +15284,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "rackunit" = self.lib.mkRacketDerivation rec {
   pname = "rackunit";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit.zip";
-    sha1 = "2434580100cbc677305c21f5519accf6294b346a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/rackunit.zip";
+    sha1 = "b018dcf59cb4360cbb602b3db0813bf33ec72747";
   };
   racketThinBuildInputs = [ self."rackunit-lib" self."rackunit-doc" self."rackunit-gui" self."rackunit-plugin-lib" ];
   circularBuildInputs = [  ];
@@ -14267,8 +15318,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "rackunit-doc" = self.lib.mkRacketDerivation rec {
   pname = "rackunit-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit-doc.zip";
-    sha1 = "affcc5e081c9fe571731995cb1cf4c203607afc1";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/rackunit-doc.zip";
+    sha1 = "b4ab62695f4b580d2078f2f325feffe5325a2688";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."racket-index" self."rackunit-gui" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -14301,8 +15352,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "rackunit-gui" = self.lib.mkRacketDerivation rec {
   pname = "rackunit-gui";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit-gui.zip";
-    sha1 = "aa9d22c9cb7679de7fdb230c882f2d6c951f29ee";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/rackunit-gui.zip";
+    sha1 = "1366bd4e9dc7c7874c6c20b2c33a674513b524a8";
   };
   racketThinBuildInputs = [ self."rackunit-lib" self."class-iop-lib" self."data-lib" self."gui-lib" self."base" ];
   circularBuildInputs = [  ];
@@ -14311,8 +15362,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "rackunit-lib" = self.lib.mkRacketDerivation rec {
   pname = "rackunit-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit-lib.zip";
-    sha1 = "a65e88cfc204452b27a0b5708fe8ce0081b1da6e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/rackunit-lib.zip";
+    sha1 = "0a0cae5523df7fc33849222b863d113f0668670c";
   };
   racketThinBuildInputs = [ self."base" self."testing-util-lib" ];
   circularBuildInputs = [  ];
@@ -14325,8 +15376,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "rackunit-macrotypes-lib";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."macrotypes-lib" ];
@@ -14336,8 +15387,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "rackunit-plugin-lib" = self.lib.mkRacketDerivation rec {
   pname = "rackunit-plugin-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit-plugin-lib.zip";
-    sha1 = "efe0937b0474f0b59df7deac7ec977550d9457be";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/rackunit-plugin-lib.zip";
+    sha1 = "a2548e36ba1db863619cf7185474e4277c5a024d";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."rackunit-gui" self."gui-lib" self."drracket-plugin-lib" ];
   circularBuildInputs = [  ];
@@ -14358,8 +15409,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "rackunit-test" = self.lib.mkRacketDerivation rec {
   pname = "rackunit-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit-test.zip";
-    sha1 = "86ef020ecbe656f8386b0908c609fe1dd16f12aa";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/rackunit-test.zip";
+    sha1 = "29fef95410f045db72bf35359e839ea67ca9fd7f";
   };
   racketThinBuildInputs = [ self."base" self."eli-tester" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -14368,8 +15419,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "rackunit-typed" = self.lib.mkRacketDerivation rec {
   pname = "rackunit-typed";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/rackunit-typed.zip";
-    sha1 = "6f0da0871b92e22816d5b504e69c805fc2badf51";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/rackunit-typed.zip";
+    sha1 = "42650a7ed7eed6a3da32bc31c4d94f3674d723e5";
   };
   racketThinBuildInputs = [ self."racket-index" self."rackunit-gui" self."rackunit-lib" self."typed-racket-lib" self."base" self."testing-util-lib" ];
   circularBuildInputs = [  ];
@@ -14423,15 +15474,39 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "racquel" = self.lib.mkRacketDerivation rec {
-  pname = "racquel";
+  "raco-run" = self.lib.mkRacketDerivation rec {
+  pname = "raco-run";
   src = fetchgit {
-    name = "racquel";
-    url = "git://github.com/brown131/racquel.git";
-    rev = "ed58ac5dfd993a5fbea88107c37dac68af7eafc3";
-    sha256 = "03q0gbpjc6ysj1cdx2nwj2w47zyidjaf4mvj554cwdmssv2h874f";
+    name = "raco-run";
+    url = "git://github.com/samdphillips/raco-run.git";
+    rev = "a57165d1ba73436476cd9466b74dc1ff71d6b19a";
+    sha256 = "0cp1hiil5qa5rvvvj0dcvlaxqjh8j732yx0abb0piav4q04x6xbz";
   };
-  racketThinBuildInputs = [ self."base" self."db-lib" self."rackunit-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "raco-search" = self.lib.mkRacketDerivation rec {
+  pname = "raco-search";
+  src = fetchgit {
+    name = "raco-search";
+    url = "git://github.com/yilinwei/raco-search.git";
+    rev = "b5341b696c280f15f8a731008e0f814cc95c2865";
+    sha256 = "08j6x9100cypqmvb1y7qr6f592allhcdb1n2r22p0am4qmac3mww";
+  };
+  racketThinBuildInputs = [ self."base" self."levenshtein" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "raco-watch" = self.lib.mkRacketDerivation rec {
+  pname = "raco-watch";
+  src = fetchgit {
+    name = "raco-watch";
+    url = "git://github.com/dannypsnl/raco-watch.git";
+    rev = "9cedc2a46a80336b761314a34ef9ec0801b0c5b8";
+    sha256 = "0yd7dyz0mc4834nhfcbn5apf1r6hngc1ay52mw2imbdb0ddfgf4b";
+  };
+  racketThinBuildInputs = [ self."base" self."file-watchers" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -14518,8 +15593,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rascas";
     url = "git://github.com/Metaxal/rascas.git";
-    rev = "b86da6c036dd32ee3c3548a34da5a7c323fd9c85";
-    sha256 = "0wraa3gh56prz1vcdjhmgyw0vzbfbhb6mnfzm0fr97hx39jzlwwm";
+    rev = "540530c28689de50c526abf36079c07fd0436edb";
+    sha256 = "0i2hq46fjxsdmzdv58ck11y7sfm4b8f32jrd20i1rwsxvkr4czaz";
   };
   racketThinBuildInputs = [ self."base" self."math-lib" self."parser-tools-lib" self."rackunit-lib" self."srfi-lite-lib" self."plot-gui-lib" self."plot-lib" self."sandbox-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."data-lib" ];
   circularBuildInputs = [  ];
@@ -14532,11 +15607,26 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "rash";
     url = "git://github.com/willghatch/racket-rash.git";
-    rev = "2b33e444472cf777da3017c23a6538245a93d2d6";
-    sha256 = "0pjfnbag08fqdf7nd8k6c35dhp2jjmi0a69vg8a4vdvd7cb0v04x";
+    rev = "c40c5adfedf632bc1fdbad3e0e2763b134ee3ff5";
+    sha256 = "1jcdlidbp1nq3jh99wsghzmyamfcs5zwljarrwcyfnkmkaxvviqg";
   };
   };
-  racketThinBuildInputs = [ self."base" self."basedir" self."shell-pipeline" self."linea" self."udelim" self."scribble-lib" self."scribble-doc" self."racket-doc" self."rackunit-lib" self."readline-lib" self."make" self."csv-reading" self."text-table" ];
+  racketThinBuildInputs = [ self."base" self."basedir" self."shell-pipeline" self."linea" self."udelim" self."scribble-lib" self."scribble-doc" self."racket-doc" self."rackunit-lib" self."readline-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "rash-demos" = self.lib.mkRacketDerivation rec {
+  pname = "rash-demos";
+  src = self.lib.extractPath {
+    path = "rash-demos";
+    src = fetchgit {
+    name = "rash-demos";
+    url = "git://github.com/willghatch/racket-rash.git";
+    rev = "c40c5adfedf632bc1fdbad3e0e2763b134ee3ff5";
+    sha256 = "1jcdlidbp1nq3jh99wsghzmyamfcs5zwljarrwcyfnkmkaxvviqg";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."rash" self."basedir" self."shell-pipeline" self."linea" self."udelim" self."scribble-lib" self."scribble-doc" self."racket-doc" self."rackunit-lib" self."readline-lib" self."make" self."csv-reading" self."text-table" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -14603,8 +15693,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "readline" = self.lib.mkRacketDerivation rec {
   pname = "readline";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/readline.zip";
-    sha1 = "d706446c50795b093ec3c431ea488f5e87d86581";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/readline.zip";
+    sha1 = "70fb9cfca4656fb41e14ce8427397eb83deb09ee";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."readline-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -14613,8 +15703,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "readline-doc" = self.lib.mkRacketDerivation rec {
   pname = "readline-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/readline-doc.zip";
-    sha1 = "8f12d8776d14edf6c62c172fbe578103ab24d7ad";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/readline-doc.zip";
+    sha1 = "dbe33d627e9df23907082f4b3322b04d67bc5b54";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scribble-lib" self."readline-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -14635,8 +15725,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "readline-lib" = self.lib.mkRacketDerivation rec {
   pname = "readline-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/readline-lib.zip";
-    sha1 = "d1c2091f2f06e1908ae2a4217241e0692eb14dac";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/readline-lib.zip";
+    sha1 = "c9bb7158046a6022c91cf13d74fde18be04642ca";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -14645,8 +15735,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "realm" = self.lib.mkRacketDerivation rec {
   pname = "realm";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/realm.zip";
-    sha1 = "ee5e4cfa97c2a73a1e026dd06db494f617e896b6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/realm.zip";
+    sha1 = "e28fd280cb085b9a8cb6058ff5fdc0a44f20368b";
   };
   racketThinBuildInputs = [ self."base" self."htdp-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -14657,8 +15747,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rebellion";
     url = "git://github.com/jackfirth/rebellion.git";
-    rev = "86626f31a738c53dff7321e046e0f6364976cd10";
-    sha256 = "0wn86lhryrw4lyfcf9ghg9ryz844k4dggj38q4xjq0a5w8f8r9zm";
+    rev = "a7830c71f48b92cd8fe20d98fdb907f1972bd9b0";
+    sha256 = "1vydxafagv28b4j4y8z5xn5bqs1qrl77jr02crhdykghq32p2afm";
   };
   racketThinBuildInputs = [ self."base" self."reprovide-lang" self."net-doc" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -14691,8 +15781,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "redex" = self.lib.mkRacketDerivation rec {
   pname = "redex";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex.zip";
-    sha1 = "79be2c63071cf6134e325afc8e6cc7c22ed0491e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex.zip";
+    sha1 = "f77726c2456bb6b3c8ffda25b77869ea50d7aee5";
   };
   racketThinBuildInputs = [ self."redex-doc" self."redex-examples" self."redex-lib" self."redex-gui-lib" ];
   circularBuildInputs = [  ];
@@ -14758,8 +15848,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "redex-benchmark" = self.lib.mkRacketDerivation rec {
   pname = "redex-benchmark";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex-benchmark.zip";
-    sha1 = "fa3048e9116254ff99b6bfaa93a96502b08bf149";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex-benchmark.zip";
+    sha1 = "d902065e05ce257dc076699462f7b71b080ead74";
   };
   racketThinBuildInputs = [ self."base" self."compiler-lib" self."rackunit-lib" self."redex-lib" self."redex-examples" self."math-lib" self."plot-lib" ];
   circularBuildInputs = [  ];
@@ -14780,18 +15870,30 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "redex-doc" = self.lib.mkRacketDerivation rec {
   pname = "redex-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex-doc.zip";
-    sha1 = "e3cbeb05a647d30de8acf995317eeb6642917ab6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex-doc.zip";
+    sha1 = "5212d7236fc2b14e9488f2f5ff88d36647686a22";
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."draw-doc" self."gui-doc" self."htdp-doc" self."pict-doc" self."slideshow-doc" self."at-exp-lib" self."data-doc" self."data-enumerate-lib" self."scribble-lib" self."gui-lib" self."htdp-lib" self."pict-lib" self."redex-gui-lib" self."redex-benchmark" self."rackunit-lib" self."sandbox-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "redex-etc" = self.lib.mkRacketDerivation rec {
+  pname = "redex-etc";
+  src = fetchgit {
+    name = "redex-etc";
+    url = "git://github.com/camoy/redex-etc.git";
+    rev = "edda9f8fa70f1f5c6534e4bc3aebb2747c3a801d";
+    sha256 = "0zi7jidsh0pmdg7m66hrp3i31qpqcndbk35x47gr4535ivijy36f";
+  };
+  racketThinBuildInputs = [ self."redex-pict-lib" self."unstable-redex" self."base" self."redex-lib" self."private-in" self."draw-lib" self."pict-lib" self."redex-doc" self."chk-lib" self."racket-doc" self."scribble-lib" self."pict-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "redex-examples" = self.lib.mkRacketDerivation rec {
   pname = "redex-examples";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex-examples.zip";
-    sha1 = "621b158348fc9002448a5686a044155b8f0fbeb7";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex-examples.zip";
+    sha1 = "018be508bef85356b4fb51e78ae0e6f36fb1710b";
   };
   racketThinBuildInputs = [ self."base" self."compiler-lib" self."rackunit-lib" self."redex-gui-lib" self."slideshow-lib" self."math-lib" self."plot-lib" ];
   circularBuildInputs = [  ];
@@ -14800,8 +15902,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "redex-gui-lib" = self.lib.mkRacketDerivation rec {
   pname = "redex-gui-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex-gui-lib.zip";
-    sha1 = "37b98594d295fde54cbbac0974552dbd5a02e55a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex-gui-lib.zip";
+    sha1 = "82ecd5465bfe86747997001a83295997a8cc6ab7";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."draw-lib" self."gui-lib" self."data-lib" self."profile-lib" self."redex-lib" self."redex-pict-lib" self."pict-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -14810,8 +15912,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "redex-lib" = self.lib.mkRacketDerivation rec {
   pname = "redex-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex-lib.zip";
-    sha1 = "a719b967e9e1efbe118857bc313889762b8dbe89";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex-lib.zip";
+    sha1 = "c3ceb0133fd2ecd731fd8875c1a3d462f5b26a77";
   };
   racketThinBuildInputs = [ self."data-enumerate-lib" self."scheme-lib" self."base" self."data-lib" self."math-lib" self."tex-table" self."profile-lib" self."typed-racket-lib" self."testing-util-lib" self."2d-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -14822,18 +15924,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "redex-parameter";
     url = "git://github.com/camoy/redex-parameter.git";
-    rev = "9e0421cca00632f8696512271741951d90446f47";
-    sha256 = "11x1igkh5qgibhfy9h744mjyp9hnkzl6p81dqmp10l1g3b2kgnjh";
+    rev = "64518a5d750ca672c0da51f45650f4a255a16a45";
+    sha256 = "0cwxpp7v11pmdsbbvpg7wzcwv7ylfddgdgdnpj4z1ymqf9w1jkkq";
   };
-  racketThinBuildInputs = [ self."base" self."redex-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."redex-doc" self."sandbox-lib" ];
+  racketThinBuildInputs = [ self."base" self."redex-lib" self."chk-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."redex-doc" self."sandbox-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "redex-pict-lib" = self.lib.mkRacketDerivation rec {
   pname = "redex-pict-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex-pict-lib.zip";
-    sha1 = "1afeb8566437704ab989d5b73dbfa8c8722ae814";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex-pict-lib.zip";
+    sha1 = "f26910a09fd43d64d9be6c9262709e7c92ac515c";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."draw-lib" self."data-lib" self."profile-lib" self."redex-lib" self."pict-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -14842,8 +15944,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "redex-test" = self.lib.mkRacketDerivation rec {
   pname = "redex-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/redex-test.zip";
-    sha1 = "c53817a444099846e4dae9e68c9b4636ce4cb7b8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/redex-test.zip";
+    sha1 = "a9c7785a653725bde6fb714ea306724416706d56";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."at-exp-lib" self."compatibility-lib" self."drracket" self."gui-lib" self."pict-lib" self."redex-gui-lib" self."redex-examples" self."data-enumerate-lib" self."data-lib" self."racket-index" self."scheme-lib" self."slideshow-lib" ];
   circularBuildInputs = [  ];
@@ -14868,8 +15970,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "redis-doc";
     url = "git://github.com/Bogdanp/racket-redis.git";
-    rev = "d8126931b981999caf48185daf940a8a1c56f23d";
-    sha256 = "1xfbp0jrjmwc32zyl0ayy0aab8p9g9kpmmsv4bybbrnjigdkm4q6";
+    rev = "0f6c1a723f25f40dd9c6f682dee30fa8a9288f86";
+    sha256 = "1ba6awjw7if39pmz1c82ay50a7zzqk6y377pkq02fj2wyayffqnp";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."redis-lib" self."scribble-lib" ];
@@ -14883,11 +15985,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "redis-lib";
     url = "git://github.com/Bogdanp/racket-redis.git";
-    rev = "d8126931b981999caf48185daf940a8a1c56f23d";
-    sha256 = "1xfbp0jrjmwc32zyl0ayy0aab8p9g9kpmmsv4bybbrnjigdkm4q6";
+    rev = "0f6c1a723f25f40dd9c6f682dee30fa8a9288f86";
+    sha256 = "1ba6awjw7if39pmz1c82ay50a7zzqk6y377pkq02fj2wyayffqnp";
   };
   };
-  racketThinBuildInputs = [ self."base" ];
+  racketThinBuildInputs = [ self."base" self."resource-pool-lib" self."unix-socket-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -14898,8 +16000,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "redis-rkt";
     url = "git://github.com/Bogdanp/racket-redis.git";
-    rev = "d8126931b981999caf48185daf940a8a1c56f23d";
-    sha256 = "1xfbp0jrjmwc32zyl0ayy0aab8p9g9kpmmsv4bybbrnjigdkm4q6";
+    rev = "0f6c1a723f25f40dd9c6f682dee30fa8a9288f86";
+    sha256 = "1ba6awjw7if39pmz1c82ay50a7zzqk6y377pkq02fj2wyayffqnp";
   };
   };
   racketThinBuildInputs = [ self."base" self."redis-doc" self."redis-lib" ];
@@ -14913,8 +16015,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "redis-test";
     url = "git://github.com/Bogdanp/racket-redis.git";
-    rev = "d8126931b981999caf48185daf940a8a1c56f23d";
-    sha256 = "1xfbp0jrjmwc32zyl0ayy0aab8p9g9kpmmsv4bybbrnjigdkm4q6";
+    rev = "0f6c1a723f25f40dd9c6f682dee30fa8a9288f86";
+    sha256 = "1ba6awjw7if39pmz1c82ay50a7zzqk6y377pkq02fj2wyayffqnp";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."redis-lib" ];
@@ -14926,8 +16028,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "reed-solomon";
     url = "git://github.com/simmone/racket-reed-solomon.git";
-    rev = "0ae962b14a0fcd3daff5ea90ccf9a3b6411700a7";
-    sha256 = "06m7rn55i70n6kd2b5bgm09ji393m10wzmn3c07q82mvps9ccaac";
+    rev = "db00b7536f64b6f31a15819d7ba5f6783a4f9d31";
+    sha256 = "1ghayy3x4xy9zg40pa449r7hf0mfgp2d69cfaj4hzx4dqmmjy5w2";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -14962,10 +16064,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "regraph";
     url = "git://github.com/herbie-fp/regraph.git";
-    rev = "2289be64752032bcac530d5cf5a2c3dc4276c978";
-    sha256 = "1p9hikbrdxwkj9gs3kzcpgggxqn70h9jdss59gwji421k4agc4s8";
+    rev = "1725355df2cd1ffef7e0c8f01cde848d0f3dcfbf";
+    sha256 = "1wb1mxv2s923vk9cjw18k37dl6bj167595df91fnpc5gk4qw3xyn";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "relation" = self.lib.mkRacketDerivation rec {
+  pname = "relation";
+  src = fetchgit {
+    name = "relation";
+    url = "git://github.com/countvajhula/relation.git";
+    rev = "eba916a37511427f54b9d6093f7620600c99c1a7";
+    sha256 = "18pn7p3dzfzal0wdbxki9whzffw1z4mixs9gwq98jc3r0s1m1kzd";
+  };
+  racketThinBuildInputs = [ self."base" self."collections-lib" self."describe" self."functional-lib" self."arguments" self."point-free" self."threading-lib" self."mischief" self."social-contract" self."kw-utils" self."typed-stack" self."version-case" self."rackunit-lib" self."scribble-lib" self."scribble-abbrevs" self."racket-doc" self."algebraic" self."sugar" self."fancy-app" self."collections-doc" self."functional-doc" self."rackjure" self."threading-doc" self."sandbox-lib" self."cover" self."cover-coveralls" self."at-exp-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -14998,8 +16112,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "remember";
     url = "git://github.com/jsmaniac/remember.git";
-    rev = "6d497291dcc0d90e5437300aef70d462f7865c91";
-    sha256 = "1vzmdmpym78b9rzl2mbvbjijnygv80gzb86wjdiks2l2vf46lml1";
+    rev = "cb47dd8b081ad14800fd668898f6f938a4a40e91";
+    sha256 = "0g2mv37vml5s80848x0qhf4bqk09rp52a7hmwalkzsgsb56gk2va";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."compatibility-lib" self."scribble-lib" self."typed-racket-lib" self."phc-toolkit" self."hyper-literate" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."scribble-enhanced" ];
   circularBuildInputs = [  ];
@@ -15024,8 +16138,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "remote-shell";
     url = "git://github.com/racket/remote-shell.git";
-    rev = "ab126cbb064560e5ad6919db73354f7366b9085b";
-    sha256 = "0sjfiz0xkqn5sggczc3spkii6xr1pnxb51nyh3d6c8crj8saiqii";
+    rev = "212b4e1e99f782eba6bbc1141a0b7f8c3272661e";
+    sha256 = "0asmzc5376487fh68anvn551rmrwbjimb625k6wdcikm14rhml7i";
   };
   };
   racketThinBuildInputs = [ self."remote-shell-lib" self."remote-shell-doc" ];
@@ -15039,8 +16153,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "remote-shell-doc";
     url = "git://github.com/racket/remote-shell.git";
-    rev = "ab126cbb064560e5ad6919db73354f7366b9085b";
-    sha256 = "0sjfiz0xkqn5sggczc3spkii6xr1pnxb51nyh3d6c8crj8saiqii";
+    rev = "212b4e1e99f782eba6bbc1141a0b7f8c3272661e";
+    sha256 = "0asmzc5376487fh68anvn551rmrwbjimb625k6wdcikm14rhml7i";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."remote-shell-lib" self."scribble-lib" ];
@@ -15050,8 +16164,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "remote-shell-lib" = self.lib.mkRacketDerivation rec {
   pname = "remote-shell-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/remote-shell-lib.zip";
-    sha1 = "bba0aaa8404d16552bcf07fa8184ff7b1e27e8d9";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/remote-shell-lib.zip";
+    sha1 = "2406bcabb75321e56da43d025525c662c0bc036a";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -15074,10 +16188,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "repltest";
     url = "git://github.com/jsmaniac/repltest.git";
-    rev = "23d62fec561abf14a587d07ad6c896e8d012ed1d";
-    sha256 = "0v2gsl2p3bj4s4hl651wqis1dlhw2n6y89xivxb2a6x4r1m8ji8h";
+    rev = "3667dd5433f805738b4990828112450c5546fd77";
+    sha256 = "0vq3h0c0cl69zcl62v11nbvcg3p1y2ncmzn4lfqrp9418jzqdnkf";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-racket-lib" self."afl" self."scribble-lib" self."racket-doc" self."typed-racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "reporter" = self.lib.mkRacketDerivation rec {
+  pname = "reporter";
+  src = fetchgit {
+    name = "reporter";
+    url = "git://github.com/racket-tw/reporter.git";
+    rev = "e55bc673a0b26b7013354da3bd6fb0e007eac73f";
+    sha256 = "11an9sa9sx9hi5apxn365iv69d9b8sykgkzh5cz1lpfrwp910yla";
+  };
+  racketThinBuildInputs = [ self."base" self."ansi-color" self."typed-racket-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."c-utils" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15116,8 +16242,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "request";
     url = "git://github.com/jackfirth/racket-request.git";
-    rev = "1665f5ff84d6713a6531666caaa736b2b395b6a4";
-    sha256 = "03fh7baag3wpx1dxxcl55kym13zxpha3qn337k22c743dynrk1h3";
+    rev = "fa78b05f5f063e767bcdb38a3d46cb4ff911ed56";
+    sha256 = "135y5yxwnw3nvcqcwkjvwgmrqqz9b9q9an10knsbv4d5ca4g48li";
   };
   racketThinBuildInputs = [ self."base" self."fancy-app" self."rackunit-lib" self."scribble-lib" self."typed-racket-lib" self."typed-racket-more" self."net-doc" self."rackunit-lib" self."rackunit-doc" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -15132,6 +16258,36 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "1d4dw1djkkzq4facnvyf2f9kbqk2cldpzb3mjzsmdy9jq5wzqvb5";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."typed-racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "resource-pool" = self.lib.mkRacketDerivation rec {
+  pname = "resource-pool";
+  src = self.lib.extractPath {
+    path = "resource-pool";
+    src = fetchgit {
+    name = "resource-pool";
+    url = "git://github.com/Bogdanp/racket-resource-pool.git";
+    rev = "c6e82f0cb610f32beeef700ce897f613cb732fb6";
+    sha256 = "0q85lrswxzcqvx7y1ipmpidzxysi739ycbc4zmncm9pajckdam79";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."resource-pool-lib" self."rackcheck" self."racket-doc" self."rackunit-lib" self."resource-pool-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "resource-pool-lib" = self.lib.mkRacketDerivation rec {
+  pname = "resource-pool-lib";
+  src = self.lib.extractPath {
+    path = "resource-pool-lib";
+    src = fetchgit {
+    name = "resource-pool-lib";
+    url = "git://github.com/Bogdanp/racket-resource-pool.git";
+    rev = "c6e82f0cb610f32beeef700ce897f613cb732fb6";
+    sha256 = "0q85lrswxzcqvx7y1ipmpidzxysi739ycbc4zmncm9pajckdam79";
+  };
+  };
+  racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15159,6 +16315,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "resyntax" = self.lib.mkRacketDerivation rec {
+  pname = "resyntax";
+  src = fetchgit {
+    name = "resyntax";
+    url = "git://github.com/jackfirth/resyntax.git";
+    rev = "0cca9d870dda624c0aae98c7d44fca2ef5ff7045";
+    sha256 = "0x8agi93w94liwlrki72v75pcg1hqcxgyrjb9pyf3cklb337kk5s";
+  };
+  racketThinBuildInputs = [ self."br-parser-tools-lib" self."brag-lib" self."rackunit-lib" self."gui-lib" self."fancy-app" self."rebellion" self."base" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "retry" = self.lib.mkRacketDerivation rec {
   pname = "retry";
   src = fetchgit {
@@ -15176,8 +16344,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "review";
     url = "git://github.com/Bogdanp/racket-review.git";
-    rev = "7c6ab882a9a4cb3bb141ef1f02086c4af5b16c6d";
-    sha256 = "0s09yvzy378gzqj51n9vanwsip5z3cbb5g6w6r1al437s21cg6sr";
+    rev = "1068767539572ce34ac9f3afc59658e54a21ef00";
+    sha256 = "1pbx1sghnrrcmdd9rainsvsbi4iv54ggivgmfqrq8ia7045n1rsy";
   };
   racketThinBuildInputs = [ self."base" self."base" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -15282,8 +16450,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "riposte";
     url = "git://github.com/vicampo/riposte.git";
-    rev = "434d9478f52e618f6192a626a11252ee90f0c9e5";
-    sha256 = "0n4mkbrr3s5m5d3a7z1wai5z2br9vhh04dxk8w8ydl93bg22f0nx";
+    rev = "0a71e54539cb40b574f84674769792444691a8cf";
+    sha256 = "0hymkj0j6in9jmsmyhcj2nlyanisk561fq5wyk2nclfqkmf9kjmr";
   };
   racketThinBuildInputs = [ self."br-parser-tools-lib" self."brag-lib" self."net-cookies-lib" self."web-server-lib" self."base" self."racket-doc" self."brag-lib" self."br-parser-tools-lib" self."beautiful-racket-lib" self."http" self."net-cookies-lib" self."argo" self."dotenv" self."json-pointer" self."misc1" self."scribble-lib" self."rackunit-lib" self."web-server-lib" self."net-cookies-lib" self."beautiful-racket-lib" ];
   circularBuildInputs = [  ];
@@ -15294,10 +16462,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rival";
     url = "git://github.com/herbie-fp/rival.git";
-    rev = "5ea4d93f3111ad2bb01c4cf891eae99a91a5ce27";
-    sha256 = "0j8r3v4hzcvfwf0hwy0ly060rq3pwiwmm7qbyi596vg97y259njq";
+    rev = "ce01d0b08fd421cf70c8e953d82f5c267b78a328";
+    sha256 = "144fxrfbmgd3i7k7kqxj8qd291r17f6093zvjw4p8frmjcsbqg2s";
   };
   racketThinBuildInputs = [ self."base" self."math-lib" self."rackunit-lib" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "rktermios" = self.lib.mkRacketDerivation rec {
+  pname = "rktermios";
+  src = fetchgit {
+    name = "rktermios";
+    url = "https://gitlab.com/racketeer/rktermios.git";
+    rev = "cbcdd5b15542bf6f45907e6a6ba2932f0c4cd501";
+    sha256 = "0skggv0c45a8hq5w0cwx5v5wvzijifvyma4iipvkych3yb9qxkbr";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."scribble-lib" self."racket-doc" self."at-exp-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15330,8 +16510,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rml-core";
     url = "git://github.com/johnstonskj/rml-core.git";
-    rev = "aa73f78a14e5724fba95349d18d59c5125af45bd";
-    sha256 = "1ys8jl8xng4l3xlpsjlr3gbxman2gdfd6x5jgns34zd0wffbfkd2";
+    rev = "8f3ca8b47e552911054f2aa12b296dbf40dad637";
+    sha256 = "0bs3i7jfjr16byylhs9fxhir2ng0h0qg624qb57n5ysa0as0azd0";
   };
   racketThinBuildInputs = [ self."base" self."math-lib" self."csv-reading" self."mcfly" self."rackunit-lib" self."racket-index" self."scribble-lib" self."racket-doc" self."math-doc" self."sandbox-lib" self."cover-coveralls" ];
   circularBuildInputs = [  ];
@@ -15342,8 +16522,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rml-decisiontrees";
     url = "git://github.com/johnstonskj/rml-decisiontrees.git";
-    rev = "180b22bfcc3a3a0134302c6e738cde3659e7be3f";
-    sha256 = "0k7y3zbgl8c0jx576s5kzvkzyvn3pqwsab3wi90p4v6agkaaky10";
+    rev = "c3e5bb8a84142b870943b46fbd356171a5c6593c";
+    sha256 = "187a9ga3blik950jh6xkhkrwl4qb2lp37cp428zwm7vhpd89g0xk";
   };
   racketThinBuildInputs = [ self."base" self."rml-core" self."math-lib" self."sandbox-lib" self."racket-index" self."rackunit-lib" self."scribble-lib" self."racket-doc" self."cover-coveralls" ];
   circularBuildInputs = [  ];
@@ -15442,8 +16622,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rosette";
     url = "git://github.com/emina/rosette.git";
-    rev = "6a165a8229d124ad57e6eee314732f2e972d5ca2";
-    sha256 = "02gmg36wplk4zj14c80xgb24278lwsprz6xra0nj52sw5dbl5nag";
+    rev = "a64e2bccfe5876c5daaf4a17c5a28a49e2fbd501";
+    sha256 = "0c1az5rvq2d4a5wnqp67qmmawlhiqq4fc4n1w7gxxadn8z2vvf5d";
   };
   racketThinBuildInputs = [ self."custom-load" self."sandbox-lib" self."scribble-lib" self."r6rs-lib" self."rfc6455" self."net-lib" self."web-server-lib" self."rackunit-lib" self."slideshow-lib" self."gui-lib" self."base" self."rackunit-doc" self."draw-lib" self."errortrace-lib" self."pict-lib" self."pict-doc" self."scribble-lib" self."racket-doc" self."gui-doc" self."errortrace-doc" ];
   circularBuildInputs = [  ];
@@ -15473,13 +16653,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "rparallel" = self.lib.mkRacketDerivation rec {
+  pname = "rparallel";
+  src = fetchgit {
+    name = "rparallel";
+    url = "https://codeberg.org/montanari/rparallel.git";
+    rev = "28a7a131aada4d8d9a7890721a32180a03037624";
+    sha256 = "1r99nhl0z7q5ppifbcd7r0d0zq4xlizw0hilns1h8brn5f8fdvfr";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "rpn" = self.lib.mkRacketDerivation rec {
   pname = "rpn";
   src = fetchgit {
     name = "rpn";
     url = "git://github.com/jackfirth/rpn.git";
-    rev = "ecb962109a3f3d056d6ebf66ed4542081f6526e1";
-    sha256 = "1c25n3gs4bznwr4aidwrz5dif40kf5pvn9cviww63mvlizsyl41d";
+    rev = "74ef351cae43bb64ba35a937f7a2ea664a82abdd";
+    sha256 = "0lhbz9ywbzrgm36p30v65r3d511k7w71pd4s0wjpcnm5mkb2z625";
   };
   racketThinBuildInputs = [ self."base" self."rebellion" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -15490,10 +16682,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rs";
     url = "git://github.com/mcdejonge/rs.git";
-    rev = "8a82b5e7644f19e0d6bae6658ffb8587497e5548";
-    sha256 = "1idr0i1w9ca4jrxcy4y317i7prbkwayj2l7gvrhw7q8ya9csgr4c";
+    rev = "d9cb3a15e7416df7c2a0a29748cb2f07f1dace32";
+    sha256 = "0pwj5ckrsr16wnm2j20gy8q00n5ikyqwxfrwl84ypfgk993wmwdb";
   };
   racketThinBuildInputs = [ self."base" self."rackunit" self."rtmidi" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "rs-l" = self.lib.mkRacketDerivation rec {
+  pname = "rs-l";
+  src = fetchgit {
+    name = "rs-l";
+    url = "git://github.com/mcdejonge/rs-l.git";
+    rev = "43616cd03e53b0109826736b461086b7146ed971";
+    sha256 = "0s6ggcixgk7h6jlwi5j0d7856rg0rdy2aaafd84mg06h2lcbr9ay";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit" self."rs" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15526,8 +16730,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rsound";
     url = "git://github.com/jbclements/RSound.git";
-    rev = "77e62cd517009a5f192012d0d7274c3270a44a94";
-    sha256 = "0pq6vf62b8n09raph4mnmsbc9gjn2c1scgi6qax4qr8s07v44w2z";
+    rev = "c699db1ffae4cf0185c46bdc059d7879d40614ce";
+    sha256 = "07fqlbbgpl98q3xc92z66j4fbq5pn95dwzjsd469f31rz7zhnsqr";
   };
   racketThinBuildInputs = [ self."portaudio" self."base" self."data-lib" self."gui-lib" self."htdp-lib" self."math-lib" self."plot-lib" self."plot-gui-lib" self."rackunit-lib" self."typed-racket-lib" self."drracket-plugin-lib" self."memoize" self."pict-lib" self."wxme-lib" self."snip-lib" self."scribble-lib" self."racket-doc" self."wxme-lib" ];
   circularBuildInputs = [  ];
@@ -15550,8 +16754,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "rtmidi";
     url = "git://github.com/jbclements/rtmidi.git";
-    rev = "999afcca0987f831047499a291c96dca077ed3fe";
-    sha256 = "1v0bdasblcw755kpxvh6iwgc5ar9pyc8933ldgjcwyr759zwa398";
+    rev = "11879d2e6a3eea7d1766d58123fe89363831313f";
+    sha256 = "1xbjwdc2j8iyf6khvli1dfr0qijcm7yjmf0gvi5drp4c8lq3c96c";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -15593,6 +16797,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "runomatic" = self.lib.mkRacketDerivation rec {
+  pname = "runomatic";
+  src = fetchgit {
+    name = "runomatic";
+    url = "git://github.com/winny-/runomatic.git";
+    rev = "1043169259980f6092ba2aa13d370c13953c5955";
+    sha256 = "0rmjn1drahqnszhqwgvqkjk83wd2b888m7kycak2mwfn94kfhwa3";
+  };
+  racketThinBuildInputs = [ self."base" self."html-parsing" self."gregor" self."request" self."sxml" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "russian" = self.lib.mkRacketDerivation rec {
   pname = "russian";
   src = fetchgit {
@@ -15605,13 +16821,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "russian-lang" = self.lib.mkRacketDerivation rec {
+  pname = "russian-lang";
+  src = fetchgit {
+    name = "russian-lang";
+    url = "git://github.com/Kalimehtar/russian-lang.git";
+    rev = "a9660a0777dfdfb2a86aaea22b297c6b769817df";
+    sha256 = "0ccklg5ig29a082w8mnx88i3kpacyc8lykn4v0jvwapkydh6z1bf";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "rwind" = self.lib.mkRacketDerivation rec {
   pname = "rwind";
   src = fetchgit {
     name = "rwind";
     url = "git://github.com/Metaxal/rwind.git";
-    rev = "865e872cef7edf2a317ae063784d1c971404b06c";
-    sha256 = "1y418jlnjllx311706fj61y2f73hiiv3lv4vyb6nj9w9fwdmldan";
+    rev = "5a4f580b0882452f3938aaa1711a6d99570f006f";
+    sha256 = "1wj3q1n1wk6bj6a6z7m9r3iisyxm1akwrapkfd8zq92ic6zxp66d";
   };
   racketThinBuildInputs = [ self."x11" self."base" self."rackunit-lib" self."slideshow-lib" self."readline-lib" self."gui-lib" ];
   circularBuildInputs = [  ];
@@ -15651,11 +16879,23 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "sameday" = self.lib.mkRacketDerivation rec {
+  pname = "sameday";
+  src = fetchgit {
+    name = "sameday";
+    url = "git://github.com/Bogdanp/racket-sameday.git";
+    rev = "20cfc789bacc21941317828496cf15a6a89feee6";
+    sha256 = "1kw54yipca62i58d788lkp0pkxwiz5q6cj4d8jqc0gzvgckk29r1";
+  };
+  racketThinBuildInputs = [ self."base" self."gregor-lib" self."http-easy" self."gregor-doc" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "sandbox-lib" = self.lib.mkRacketDerivation rec {
   pname = "sandbox-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/sandbox-lib.zip";
-    sha1 = "5b47cda8fd72796ac1b423acac3cdfb8f7ddb43c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/sandbox-lib.zip";
+    sha1 = "85b70dba0429c584fc2b2ddbfe93a34a5636c9a0";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."errortrace-lib" ];
   circularBuildInputs = [  ];
@@ -15664,8 +16904,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "sasl" = self.lib.mkRacketDerivation rec {
   pname = "sasl";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/sasl.zip";
-    sha1 = "913dabd64c533519e111e44d9b11153f4330ae50";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/sasl.zip";
+    sha1 = "c18570ae92646a810c36e2b651ab98d1ff0dce46";
   };
   racketThinBuildInputs = [ self."sasl-lib" self."sasl-doc" self."base" ];
   circularBuildInputs = [  ];
@@ -15674,8 +16914,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "sasl-doc" = self.lib.mkRacketDerivation rec {
   pname = "sasl-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/sasl-doc.zip";
-    sha1 = "4436c24789ee460ff64f9a36f3071cb41cfe7914";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/sasl-doc.zip";
+    sha1 = "906fcfd0cafb88a1895523324fef9deb4050a14e";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."sasl-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -15684,8 +16924,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "sasl-lib" = self.lib.mkRacketDerivation rec {
   pname = "sasl-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/sasl-lib.zip";
-    sha1 = "3ad9d1386daa715a62ed8a0bca52d384341d9dfa";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/sasl-lib.zip";
+    sha1 = "03473f798300ef1a9f0de857de0761a37fb3d6b7";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -15694,8 +16934,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "sasl-test" = self.lib.mkRacketDerivation rec {
   pname = "sasl-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/sasl-test.zip";
-    sha1 = "9f3f09be28f9adb9844f2562ab7f68950814eafc";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/sasl-test.zip";
+    sha1 = "fd9e8f3bf345a36289a7efb0795958606bc389eb";
   };
   racketThinBuildInputs = [ self."base" self."sasl-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -15708,11 +16948,26 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "sass";
     url = "git://github.com/Bogdanp/racket-sass.git";
-    rev = "377f35b70cde9e239b1e08ad25e432eb7ab58bb7";
-    sha256 = "0zql8nbq2p4463p87zm6dpbwpg1gkjy9k08fjs3mywpk9xdb0nic";
+    rev = "f4784d0da02012976c68034c284ba3cfe55bf428";
+    sha256 = "02q0ybni38gdda022lsn2qnlw1abhxhk0hvjakln27g9b8pzwgd4";
   };
   };
   racketThinBuildInputs = [ self."base" self."libsass-i386-win32" self."libsass-x86_64-linux" self."libsass-x86_64-macosx" self."libsass-x86_64-win32" self."racket-doc" self."rackunit-lib" self."scribble-lib" self."libsass-i386-win32" self."libsass-x86_64-linux" self."libsass-x86_64-macosx" self."libsass-x86_64-win32" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "satore" = self.lib.mkRacketDerivation rec {
+  pname = "satore";
+  src = self.lib.extractPath {
+    path = "satore";
+    src = fetchgit {
+    name = "satore";
+    url = "git://github.com/deepmind/deepmind-research.git";
+    rev = "af3aa09cfecc309a46f40a21ceb7d518bd132817";
+    sha256 = "1qnxv2ihzacabbaf66g3nhjyxdlbrs0j3a81hjzn0q0k7gp5f4wd";
+  };
+  };
+  racketThinBuildInputs = [ self."bazaar" self."data-lib" self."define2" self."global" self."math-lib" self."text-table" self."base" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15723,6 +16978,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha1 = "a7fb41d932b9dafe499c0972bdb8eb9692e8ff91";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."htdp-lib" self."net-lib" self."pconvert-lib" self."sandbox-lib" self."rackunit-lib" self."web-server-lib" self."plait" self."gui-doc" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "sauron" = self.lib.mkRacketDerivation rec {
+  pname = "sauron";
+  src = fetchgit {
+    name = "sauron";
+    url = "git://github.com/racket-tw/sauron.git";
+    rev = "27ba4f9d5e36d809867e82cb80c563549a7f35f8";
+    sha256 = "1yfndqhvlfifj1m4r38dbclc6v33w69d0icrrlc4ygwlhg9j4hr8";
+  };
+  racketThinBuildInputs = [ self."base" self."gui-lib" self."net-lib" self."drracket" self."drracket-plugin-lib" self."drracket-tool-lib" self."sandbox-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."gui-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15741,18 +17008,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "schema";
     url = "git://github.com/wargrey/schema.git";
-    rev = "c21a9feab6da0bb81b7035ef890507a7bbfd3e8a";
-    sha256 = "0pay340gw2pslba5r9wv0g1rfa7794zrx1q3vb4kn21bdsaadsqq";
+    rev = "4824a1fecea1dc557941b08f05a457da9f628f78";
+    sha256 = "1nhyj59difb1kdis8a3xjj7937ngwdnw1gmaqdmqhx8nv0965q4v";
   };
-  racketThinBuildInputs = [ self."base" self."w3s" self."db-lib" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."db-lib" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "scheme-lib" = self.lib.mkRacketDerivation rec {
   pname = "scheme-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/scheme-lib.zip";
-    sha1 = "11565cf336f1cfe17bffe687c4834585817bb08a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/scheme-lib.zip";
+    sha1 = "a19763ae58c6f92b575c549678241babbd0cf71c";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -15761,10 +17028,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "schemeunit" = self.lib.mkRacketDerivation rec {
   pname = "schemeunit";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/schemeunit.zip";
-    sha1 = "7dbf033685de83ad3a94741507c33abb9ce9780a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/schemeunit.zip";
+    sha1 = "219f1bc6fec4f172043c48134ecd8a50e5c7c932";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."rackunit-gui" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "sci" = self.lib.mkRacketDerivation rec {
+  pname = "sci";
+  src = fetchgit {
+    name = "sci";
+    url = "git://github.com/soegaard/sci.git";
+    rev = "e2f6a50e551f01e8174e80d5a9c3eb480eb7e594";
+    sha256 = "192v8i1d5z3wja0xdk71wa7qc9q7vq6ackr4cqm578i909akd7g9";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."scribble-math" self."math-doc" self."racket-doc" self."linux-shared-libraries" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15773,8 +17052,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "scope-operations";
     url = "git://github.com/jsmaniac/scope-operations.git";
-    rev = "475928d46e32efb7a506443efd6ce0b99990f665";
-    sha256 = "0l1z5mzajkzwlxvprlgcaxzbmswyp9y7qc9i938vnm1qyf7ypadl";
+    rev = "5ea8f32528bcf1ed4393cf9a054920936c27a556";
+    sha256 = "1f7z7bljxx3019x451rdhdicj9zihqfwkmfs814r3vgjxdal1qhb";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -15819,8 +17098,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "scribble" = self.lib.mkRacketDerivation rec {
   pname = "scribble";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/scribble.zip";
-    sha1 = "e3c514f8874d5d5cbfb306adfa8d012fa2706a79";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/scribble.zip";
+    sha1 = "a5cb923ee68ca75f7c38fa292d0676fd864ce4d8";
   };
   racketThinBuildInputs = [ self."scribble-lib" self."scribble-doc" ];
   circularBuildInputs = [  ];
@@ -15835,6 +17114,51 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "10j3sak3bdgyklqwkf7n1qlqzzp2335zmi26aizmlwb40hbk8dwv";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."reprovide-lang" self."pict-lib" self."draw-lib" self."scribble-lib" self."scribble-doc" self."racket-doc" self."rackunit-abbrevs" self."rackunit-lib" self."rackunit-abbrevs" self."pict-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "scribble-bettergrammar" = self.lib.mkRacketDerivation rec {
+  pname = "scribble-bettergrammar";
+  src = self.lib.extractPath {
+    path = "scribble-bettergrammar";
+    src = fetchgit {
+    name = "scribble-bettergrammar";
+    url = "git://github.com/wilbowma/scribble-bettergrammar.git";
+    rev = "e7abc41d989f7c777d4e1c2b20b30569177c75f5";
+    sha256 = "17w99ggcn0a0la1907g60kx08dh2gcs77sqv7sgmx6rrp0mhh0qk";
+  };
+  };
+  racketThinBuildInputs = [ self."scribble-bettergrammar-lib" self."scribble-bettergrammar-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "scribble-bettergrammar-doc" = self.lib.mkRacketDerivation rec {
+  pname = "scribble-bettergrammar-doc";
+  src = self.lib.extractPath {
+    path = "scribble-bettergrammar-doc";
+    src = fetchgit {
+    name = "scribble-bettergrammar-doc";
+    url = "git://github.com/wilbowma/scribble-bettergrammar.git";
+    rev = "e7abc41d989f7c777d4e1c2b20b30569177c75f5";
+    sha256 = "17w99ggcn0a0la1907g60kx08dh2gcs77sqv7sgmx6rrp0mhh0qk";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-bettergrammar-lib" self."base" self."scribble-lib" self."racket-doc" self."scribble-doc" self."sexp-diff-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "scribble-bettergrammar-lib" = self.lib.mkRacketDerivation rec {
+  pname = "scribble-bettergrammar-lib";
+  src = self.lib.extractPath {
+    path = "scribble-bettergrammar-lib";
+    src = fetchgit {
+    name = "scribble-bettergrammar-lib";
+    url = "git://github.com/wilbowma/scribble-bettergrammar.git";
+    rev = "e7abc41d989f7c777d4e1c2b20b30569177c75f5";
+    sha256 = "17w99ggcn0a0la1907g60kx08dh2gcs77sqv7sgmx6rrp0mhh0qk";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."sexp-diff-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -15883,8 +17207,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "scribble-doc" = self.lib.mkRacketDerivation rec {
   pname = "scribble-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/scribble-doc.zip";
-    sha1 = "a1648265ebd9c09428b6f8dd5a93c00add34bbf0";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/scribble-doc.zip";
+    sha1 = "75fc2487c34972216972c28170e27132ea73486d";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."racket-index" self."scheme-lib" self."at-exp-lib" self."base" self."compatibility-lib" self."draw-lib" self."pict-lib" self."sandbox-lib" self."slideshow-lib" self."scribble-lib" self."scribble-text-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -15895,8 +17219,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "scribble-enhanced";
     url = "git://github.com/jsmaniac/scribble-enhanced.git";
-    rev = "a9e385f71759ad6421107e577f2a0782c16cef07";
-    sha256 = "091qq76zy0p05k199535b2jdk9prszsd79f974dw4x74fggnr999";
+    rev = "d4fe76d1899b540e2806520a3acbf4afdf5abb88";
+    sha256 = "1qk2rqwwpaf89ahi9qqi6l5d1c3rn56lnh0x7nji9wa6aisd4200";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."scheme-lib" self."compatibility-lib" self."slideshow-lib" self."typed-racket-lib" self."reprovide-lang" self."mutable-match-lambda" self."scribble-lib" self."racket-doc" self."at-exp-lib" self."typed-racket-more" self."typed-racket-doc" self."scribble-doc" ];
   circularBuildInputs = [  ];
@@ -15907,18 +17231,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "scribble-frog-helper";
     url = "git://github.com/yanyingwang/scribble-frog-helper.git";
-    rev = "e2a887017e3241eddae4e54bf1352e2fb20b6b76";
-    sha256 = "0ym7m11hyz539prk290kizx9gasw8g7yrsyi3msz5rvpbig0m41x";
+    rev = "5ba86188de0ce1cd3d4540982be2473183c78e81";
+    sha256 = "122ya76qln4fvfc5615vbssps9b2hjpd2nc7j5dk2wssfrkxvswk";
   };
-  racketThinBuildInputs = [ self."base" self."gregor" self."timable" self."frog" self."at-exp-lib" self."scribble-lib" self."racket-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."base" self."gregor" self."timable" self."frog" self."at-exp-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "scribble-html-lib" = self.lib.mkRacketDerivation rec {
   pname = "scribble-html-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/scribble-html-lib.zip";
-    sha1 = "7f001bedf8ab0eaea4c8d40fc56b544bfa6644d4";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/scribble-html-lib.zip";
+    sha1 = "312698505f94222be672038938cef024f20f8f1f";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."at-exp-lib" self."scribble-text-lib" ];
   circularBuildInputs = [  ];
@@ -15927,8 +17251,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "scribble-lib" = self.lib.mkRacketDerivation rec {
   pname = "scribble-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/scribble-lib.zip";
-    sha1 = "78f52a9877c2fbe72425461dbf4841e112449587";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/scribble-lib.zip";
+    sha1 = "a103fc2974188b3d007fd4e38f424e3498993ffb";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."scribble-text-lib" self."scribble-html-lib" self."planet-lib" self."net-lib" self."at-exp-lib" self."draw-lib" self."syntax-color-lib" self."sandbox-lib" self."typed-racket-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -15939,8 +17263,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "scribble-math";
     url = "git://github.com/jsmaniac/scribble-math.git";
-    rev = "1793123c881915c1731620f99aa8e4e281abb59b";
-    sha256 = "16q9ch68dylqvliwsswkcnmdjhxjs3jq6839j517lqy9cp28zfga";
+    rev = "a69b6fad193757de5a62b6a1cabacb7557d02ff7";
+    sha256 = "07lpb8gh8spd29fmlm70zr5cckjp21z3sn2xnbvdvm25mi98qjg2";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."scribble-lib" self."racket-doc" self."at-exp-lib" self."scribble-doc" ];
   circularBuildInputs = [  ];
@@ -15948,21 +17272,84 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "scribble-minted" = self.lib.mkRacketDerivation rec {
   pname = "scribble-minted";
-  src = fetchgit {
+  src = self.lib.extractPath {
+    path = "scribble-minted";
+    src = fetchgit {
     name = "scribble-minted";
     url = "git://github.com/wilbowma/scribble-minted.git";
-    rev = "d1721e699877d2100ab0fbdffb4ab80bd9286bb4";
-    sha256 = "1m138w5afkzjr2w2qmi1h41wiyd2b4qjbkr056acp7rjx8w4612w";
+    rev = "0639c54c84c3294e575c1e70b2d17f5537c1750a";
+    sha256 = "15pad2wn56bncifrrlw9h7i5d1wqgw95nhp5gmmkn1qbkm0nglys";
+  };
+  };
+  racketThinBuildInputs = [ self."scribble-minted-lib" self."scribble-minted-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "scribble-minted-doc" = self.lib.mkRacketDerivation rec {
+  pname = "scribble-minted-doc";
+  src = self.lib.extractPath {
+    path = "scribble-minted-doc";
+    src = fetchgit {
+    name = "scribble-minted-doc";
+    url = "git://github.com/wilbowma/scribble-minted.git";
+    rev = "0639c54c84c3294e575c1e70b2d17f5537c1750a";
+    sha256 = "15pad2wn56bncifrrlw9h7i5d1wqgw95nhp5gmmkn1qbkm0nglys";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."scribble-minted-lib" self."racket-doc" self."scribble-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "scribble-minted-lib" = self.lib.mkRacketDerivation rec {
+  pname = "scribble-minted-lib";
+  src = self.lib.extractPath {
+    path = "scribble-minted-lib";
+    src = fetchgit {
+    name = "scribble-minted-lib";
+    url = "git://github.com/wilbowma/scribble-minted.git";
+    rev = "0639c54c84c3294e575c1e70b2d17f5537c1750a";
+    sha256 = "15pad2wn56bncifrrlw9h7i5d1wqgw95nhp5gmmkn1qbkm0nglys";
+  };
   };
   racketThinBuildInputs = [ self."rackunit-lib" self."scribble-lib" self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "scribble-slideshow" = self.lib.mkRacketDerivation rec {
+  pname = "scribble-slideshow";
+  src = self.lib.extractPath {
+    path = "scribble-slideshow";
+    src = fetchgit {
+    name = "scribble-slideshow";
+    url = "git://github.com/rmculpepper/scribble-slideshow.git";
+    rev = "884ba101233d06c1f636aa4f2f7643f9b4e10557";
+    sha256 = "146bbrfpwpamh91x49fzr33342yxlhzrxr7lsdhk2yj38ikqi3jy";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-slideshow-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "scribble-slideshow-lib" = self.lib.mkRacketDerivation rec {
+  pname = "scribble-slideshow-lib";
+  src = self.lib.extractPath {
+    path = "scribble-slideshow-lib";
+    src = fetchgit {
+    name = "scribble-slideshow-lib";
+    url = "git://github.com/rmculpepper/scribble-slideshow.git";
+    rev = "884ba101233d06c1f636aa4f2f7643f9b4e10557";
+    sha256 = "146bbrfpwpamh91x49fzr33342yxlhzrxr7lsdhk2yj38ikqi3jy";
+  };
+  };
+  racketThinBuildInputs = [ self."pict-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "scribble-test" = self.lib.mkRacketDerivation rec {
   pname = "scribble-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/scribble-test.zip";
-    sha1 = "6fba3962454c32e16365ab3d1990248c5481d4fb";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/scribble-test.zip";
+    sha1 = "6813f380823d2d7cc7de7a3c3a095bf1a5964d2e";
   };
   racketThinBuildInputs = [ self."at-exp-lib" self."base" self."eli-tester" self."rackunit-lib" self."sandbox-lib" self."scribble-doc" self."scribble-lib" self."scribble-text-lib" self."racket-index" ];
   circularBuildInputs = [  ];
@@ -15971,8 +17358,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "scribble-text-lib" = self.lib.mkRacketDerivation rec {
   pname = "scribble-text-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/scribble-text-lib.zip";
-    sha1 = "16682c83df3285e4abd5f65ecd45b5a5be82a443";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/scribble-text-lib.zip";
+    sha1 = "817c9ad5450aec2d7fcdbe217a134b535d32f4fb";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."at-exp-lib" ];
   circularBuildInputs = [  ];
@@ -15987,18 +17374,6 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "1bpjdxmc4ihhndahk3q5vapa13w8fs5mdi9vynx0qxfzw5g3l5b9";
   };
   racketThinBuildInputs = [ self."base" self."sxml" self."webapi" self."scribble-lib" self."compatibility-lib" self."web-server-lib" self."html-parsing" self."html-writing" self."racket-doc" self."scribble-doc" self."scribble-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "script-plugin" = self.lib.mkRacketDerivation rec {
-  pname = "script-plugin";
-  src = fetchgit {
-    name = "script-plugin";
-    url = "git://github.com/Metaxal/script-plugin.git";
-    rev = "c5ab635bae65c6fcaac5221bdce9f6efc9e6c674";
-    sha256 = "1mz7xrqhh377k5f3l5yylb378gnkc1j449l7p9mlrwzn73m94ggj";
-  };
-  racketThinBuildInputs = [ self."base" self."at-exp-lib" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."html-lib" self."net-lib" self."planet-lib" self."slideshow-lib" self."srfi-lite-lib" self."gui-doc" self."racket-doc" self."racket-index" self."scribble-lib" self."web-server-lib" self."planet-doc" self."draw-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16052,8 +17427,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "scrypt";
     url = "git://github.com/tonyg/racket-scrypt.git";
-    rev = "0a37d1cdca43e08c086f0e2e312c7916cb790edb";
-    sha256 = "0xm6apzgilf4g664rw5bzicl30gf534xvf4pvl1g27jnww9lcq27";
+    rev = "da39d02302cad3e07c12215e42ea63212d209d1b";
+    sha256 = "1sanpk2wybmgcpxv1bxyy90xxsav4zqh0xjpsmvcldrzwzi43ynh";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" self."dynext-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -16079,8 +17454,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sdl2";
     url = "git://github.com/lockie/racket-sdl2.git";
-    rev = "ef380f86bfb41ad50b12caa278a501854647e84a";
-    sha256 = "12c2gsy97q8svs0fh53b8dcm8w3vcvwk3jjb0d94b42y8ww1g7xy";
+    rev = "a25bfa28e32c60f8219eb712255fa5b07e3a8ad5";
+    sha256 = "0piwzqdzg7jnf25i64scnapva4d1s3rai7gmfrfcjf1lblfr88hw";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -16095,6 +17470,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "1wpc7fzxaiz0zdj87zylq6nyrmj2yzi1rr8hs779zgl918dhpafk";
   };
   racketThinBuildInputs = [ self."base" self."pict-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."pict-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "search-list-box" = self.lib.mkRacketDerivation rec {
+  pname = "search-list-box";
+  src = fetchgit {
+    name = "search-list-box";
+    url = "git://github.com/Metaxal/search-list-box.git";
+    rev = "b54b28d4bd8d2d2426d3e211570a811ea3421f5b";
+    sha256 = "14yvb69kl4mgbifnx29xh2imx4ii42smswmmvrd35py27nxihkg3";
+  };
+  racketThinBuildInputs = [ self."gui-lib" self."base" self."gui-doc" self."pict-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16127,8 +17514,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "semilit";
     url = "git://github.com/samth/semilit.git";
-    rev = "51a4c9d2bc1d2307a732c488745b7d2cdda22f98";
-    sha256 = "1fas98gwfav7janmaz2svz1ld8g607z8pbvvvqv4ky1ch8s7ngsf";
+    rev = "54db05b04b17c3b74facea8e8a438c73d238936a";
+    sha256 = "1ifwv6ri749zgq7vr8izvaji4wrifwj6id5hvbcz04vp17fb549x";
   };
   racketThinBuildInputs = [ self."base" self."datalog" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -16139,8 +17526,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "semver";
     url = "git://github.com/lexi-lambda/racket-semver.git";
-    rev = "20f87e1c2d84b687b82dff3e58187df13f231d73";
-    sha256 = "16p688kkwlyiaz9c9nriajw05jr0ck8qhvlwdfhvspmzl3lnf2vh";
+    rev = "fee107ee2401b5f7d7d797258eab3062ddb71232";
+    sha256 = "0ma4rzbd4jdb0vixy7gcivbw6vk7rswhlmb2nw4fbbyj7s43rcm3";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."alexis-util" self."racket-doc" self."scribble-lib" self."typed-racket-doc" self."typed-racket-more" ];
   circularBuildInputs = [  ];
@@ -16155,6 +17542,36 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "04v25vw69xbzlv42zlypy19x6wq0p0rd5jycgyfhkrfc2j4nil5m";
   };
   racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "sendinblue" = self.lib.mkRacketDerivation rec {
+  pname = "sendinblue";
+  src = self.lib.extractPath {
+    path = "sendinblue";
+    src = fetchgit {
+    name = "sendinblue";
+    url = "git://github.com/sxn/racket-sendinblue.git";
+    rev = "caa2e2afb3c2e43849aed92bcb73deadf0d0d20c";
+    sha256 = "076vm7rvzlvw60l8wnsfb6r7drva7knb15vla9vzcimw3ackxa03";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "sendinblue-test" = self.lib.mkRacketDerivation rec {
+  pname = "sendinblue-test";
+  src = self.lib.extractPath {
+    path = "sendinblue-test";
+    src = fetchgit {
+    name = "sendinblue-test";
+    url = "git://github.com/sxn/racket-sendinblue.git";
+    rev = "caa2e2afb3c2e43849aed92bcb73deadf0d0d20c";
+    sha256 = "076vm7rvzlvw60l8wnsfb6r7drva7knb15vla9vzcimw3ackxa03";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."sendinblue" self."rackunit-lib" self."web-server-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16245,8 +17662,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "serialize-cstruct-lib" = self.lib.mkRacketDerivation rec {
   pname = "serialize-cstruct-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/serialize-cstruct-lib.zip";
-    sha1 = "da9eecfbd449dc9c7a2c02d9bd8042da9d6dbb80";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/serialize-cstruct-lib.zip";
+    sha1 = "227b13a1a49ec7805c1d9082724c471bd5e46a9a";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -16305,13 +17722,61 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   "sexp-diff" = self.lib.mkRacketDerivation rec {
   pname = "sexp-diff";
-  src = fetchgit {
+  src = self.lib.extractPath {
+    path = "sexp-diff";
+    src = fetchgit {
     name = "sexp-diff";
     url = "git://github.com/stamourv/sexp-diff.git";
-    rev = "5b5034c7e6b930002870877e8e1eb1e6d69ae0b4";
-    sha256 = "0wjdz3kb2f5hbb1ha8x2ksgc3ccb5pfwh75m6fpnkjy9vdv1dq8a";
+    rev = "5791264cb7031308b81c8c91df457cd51888210f";
+    sha256 = "1zijgkyramhg71g5dz12vr0x429dagav8q4is5lhi7ps70kadm0v";
   };
-  racketThinBuildInputs = [ self."base" self."scribble-lib" self."rackunit-lib" ];
+  };
+  racketThinBuildInputs = [ self."sexp-diff-lib" self."sexp-diff-doc" self."sexp-diff-test" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "sexp-diff-doc" = self.lib.mkRacketDerivation rec {
+  pname = "sexp-diff-doc";
+  src = self.lib.extractPath {
+    path = "sexp-diff-doc";
+    src = fetchgit {
+    name = "sexp-diff-doc";
+    url = "git://github.com/stamourv/sexp-diff.git";
+    rev = "5791264cb7031308b81c8c91df457cd51888210f";
+    sha256 = "1zijgkyramhg71g5dz12vr0x429dagav8q4is5lhi7ps70kadm0v";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."rackunit-lib" self."racket-doc" self."sexp-diff-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "sexp-diff-lib" = self.lib.mkRacketDerivation rec {
+  pname = "sexp-diff-lib";
+  src = self.lib.extractPath {
+    path = "sexp-diff-lib";
+    src = fetchgit {
+    name = "sexp-diff-lib";
+    url = "git://github.com/stamourv/sexp-diff.git";
+    rev = "5791264cb7031308b81c8c91df457cd51888210f";
+    sha256 = "1zijgkyramhg71g5dz12vr0x429dagav8q4is5lhi7ps70kadm0v";
+  };
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "sexp-diff-test" = self.lib.mkRacketDerivation rec {
+  pname = "sexp-diff-test";
+  src = self.lib.extractPath {
+    path = "sexp-diff-test";
+    src = fetchgit {
+    name = "sexp-diff-test";
+    url = "git://github.com/stamourv/sexp-diff.git";
+    rev = "5791264cb7031308b81c8c91df457cd51888210f";
+    sha256 = "1zijgkyramhg71g5dz12vr0x429dagav8q4is5lhi7ps70kadm0v";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."sexp-diff-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16320,8 +17785,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sfont";
     url = "git://github.com/danielecapo/sfont.git";
-    rev = "18b842c24164b4cda04cd042e2a9ce608445a14d";
-    sha256 = "19hscm196dv0aqgmcxxqgfr1p583a1qa3zsq62rd6fk9177jzvq6";
+    rev = "c854f9734f15f4c7cd4b98e041b8c961faa3eef2";
+    sha256 = "06rj65b67lk0lg2vkc7aqc9r6n55plc3k6gn01z417ia9a8961qb";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."gui-lib" self."slideshow-lib" self."pict-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -16330,8 +17795,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "sgl" = self.lib.mkRacketDerivation rec {
   pname = "sgl";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/sgl.zip";
-    sha1 = "e6a0f01534e7aa2b2369e280a952ed74a145051f";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/sgl.zip";
+    sha1 = "d67a8532d0080acc95ed37dcfee8f524d7b50ff5";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."gui-lib" self."draw-doc" self."gui-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -16342,8 +17807,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sha";
     url = "git://github.com/greghendershott/sha.git";
-    rev = "6d61cdfad6e4cc0c439e09fc9cf10d691043c1c7";
-    sha256 = "0p8v2217z0f2wgg1d2bnjf7xgk6qhqfg8kn4r4z3d4fq7xfiybc1";
+    rev = "034302a567381e97b3b3956740f97ed3ae629374";
+    sha256 = "1rk19hsxj9i4jqdaygp2clpw174b2jlvn49j7kchlax5b43bmwmx";
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."rackunit-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -16352,8 +17817,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "shell-completion" = self.lib.mkRacketDerivation rec {
   pname = "shell-completion";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/shell-completion.zip";
-    sha1 = "0408fc542e0b1e26d103b66ecb876711af1e74eb";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/shell-completion.zip";
+    sha1 = "d986efb5dd16f5d75d93a2ba4899ccea914d7e1c";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -16366,11 +17831,23 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "shell-pipeline";
     url = "git://github.com/willghatch/racket-rash.git";
-    rev = "2b33e444472cf777da3017c23a6538245a93d2d6";
-    sha256 = "0pjfnbag08fqdf7nd8k6c35dhp2jjmi0a69vg8a4vdvd7cb0v04x";
+    rev = "c40c5adfedf632bc1fdbad3e0e2763b134ee3ff5";
+    sha256 = "1jcdlidbp1nq3jh99wsghzmyamfcs5zwljarrwcyfnkmkaxvviqg";
   };
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "shlex" = self.lib.mkRacketDerivation rec {
+  pname = "shlex";
+  src = fetchgit {
+    name = "shlex";
+    url = "git://github.com/sorawee/shlex.git";
+    rev = "f469d9aee8bdba095d7147928223dd9e98d4dbdc";
+    sha256 = "1i81vj2mv2j31a1fl1lhzh28pfgi7lf6v34k3h4a6y60cw41qfgs";
+  };
+  racketThinBuildInputs = [ self."parser-tools-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16389,8 +17866,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sicp";
     url = "git://github.com/sicp-lang/sicp.git";
-    rev = "bcd43c7d19bbab8745138917c2b16ddf4472d794";
-    sha256 = "1fy0srkclzddfc7v3a45az209vxzwryh2a35ldmw4lzb8m9pk9vn";
+    rev = "4af740f085fcae86436c8ef48c11161f5a46deee";
+    sha256 = "1b3b48b6q3f04a84jvh66swrhqbzzw93avv9q7aynrrcvaqx32r7";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" self."r5rs-lib" self."rackunit-lib" self."snip-lib" self."draw-doc" self."gui-doc" self."r5rs-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -16413,8 +17890,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "simple-barcode";
     url = "git://github.com/simmone/racket-simple-barcode.git";
-    rev = "1ef356f4082755e333ad9c6b0a04774f94b23dbd";
-    sha256 = "0gckldwl3xxy1gq7rkpqsbwgls84l5gp0vdr56pkalikldj2hfxh";
+    rev = "4afa806ff27de8e2715b15904e1f3fcec2c7f136";
+    sha256 = "00bhn4xb8lwi2virhyh4g7bbag2i6x5w2b23pczcbng555dd6pfh";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."draw-lib" self."simple-svg" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -16425,10 +17902,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "simple-http";
     url = "git://github.com/DarrenN/simple-http.git";
-    rev = "e7c96ed5f325c08f9e5455318cc939cb5a0af1c9";
-    sha256 = "1nr2plizl0419flhn5j2jab64z1qk0fnjd68k89x9ggm0cqz22ff";
+    rev = "cf15bfd0c71f3dd3189417dd1a7a34fc6bfad557";
+    sha256 = "1rld9xcq7q9hnyb7kipp2m3gxgwv1wqf07s7cd52wmp808azv0aa";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."html-parsing" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-matrix" = self.lib.mkRacketDerivation rec {
+  pname = "simple-matrix";
+  src = fetchgit {
+    name = "simple-matrix";
+    url = "https://bitbucket.org/derend/simple-matrix.git";
+    rev = "19814fd5de10d42eea207939169ee5100e38c500";
+    sha256 = "1rpizdficahginds7rscdayphcbkam6ai79f1gp2zy35p0hihf6j";
+  };
+  racketThinBuildInputs = [ self."base" self."sandbox-lib" self."scribble-lib" self."rackunit-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16437,10 +17926,34 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "simple-oauth2";
     url = "git://github.com/johnstonskj/simple-oauth2.git";
-    rev = "5393058265f20669ab3c683e4aa660f80f0e0d30";
-    sha256 = "0r4x8pmc08ax41jijblwfv9ml0npnv8nafphx1zdskh1csnakmbl";
+    rev = "b8cb40511f64dcb274e17957e6fc9ab4c8a6cbea";
+    sha256 = "19xflf53x5g8snryy084a566k6lmkykwhc2xkzghhvlbdmfm9xkm";
   };
   racketThinBuildInputs = [ self."base" self."crypto-lib" self."dali" self."net-jwt" self."threading" self."web-server-lib" self."rackunit-lib" self."rackunit-spec" self."scribble-lib" self."racket-doc" self."racket-index" self."sandbox-lib" self."cover-coveralls" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-obfuscation" = self.lib.mkRacketDerivation rec {
+  pname = "simple-obfuscation";
+  src = fetchgit {
+    name = "simple-obfuscation";
+    url = "git://github.com/rfindler/simple-obfuscation.git";
+    rev = "f6ff1afe75ae97994b351a9dc189c0e31d06fdf6";
+    sha256 = "1hns0fnnhp9nvvakp9n2zsf0m1pnicr7p7i9r3z6girhykzx642s";
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-polynomial" = self.lib.mkRacketDerivation rec {
+  pname = "simple-polynomial";
+  src = fetchgit {
+    name = "simple-polynomial";
+    url = "https://bitbucket.org/derend/simple-polynomial.git";
+    rev = "c8c7e2e4175a27123becd6e78f792738b0bf1188";
+    sha256 = "06r5jijpg5fknkyw57fvpmzvyq58xiv3m5gf0gq7lp63kz02ppy6";
+  };
+  racketThinBuildInputs = [ self."base" self."parser-tools-lib" self."simple-matrix" self."math-lib" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" self."plot-doc" self."plot-gui-lib" self."draw-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16449,8 +17962,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "simple-qr";
     url = "git://github.com/simmone/racket-simple-qr.git";
-    rev = "5f3c1bfac51f897e8a9bcd1f25e9b40b5eb4cdf3";
-    sha256 = "1ikm30pnq3m9mjxc55b1wgaky0zvkjbxh5aza3448i3v1b3hxhwp";
+    rev = "904f1491bc521badeafeabd0d7d7e97e3d0ee958";
+    sha256 = "0n7al3dkz8s7yszdhabvvaghay50hvpxfbr6ycishkmjxn6hb6x4";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."draw-lib" self."draw-doc" self."racket-doc" self."scribble-lib" self."reed-solomon" self."simple-svg" ];
   circularBuildInputs = [  ];
@@ -16461,10 +17974,70 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "simple-svg";
     url = "git://github.com/simmone/racket-simple-svg.git";
-    rev = "daf6658b9786ec6ee6eb3622216cd694eae46e2c";
-    sha256 = "078kzrd2l0q7pjiy543w2sn5dzw39rqlcaw0rkklywkzil71cgwj";
+    rev = "d2fa88b5c0b801bbd6169274237a0edb63998c76";
+    sha256 = "1xbpi32hzi3id2aizfi9xhwqynp0xxlzdnnkql3ig674q849gp9y";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-tree-text-markup" = self.lib.mkRacketDerivation rec {
+  pname = "simple-tree-text-markup";
+  src = self.lib.extractPath {
+    path = "simple-tree-text-markup";
+    src = fetchgit {
+    name = "simple-tree-text-markup";
+    url = "git://github.com/racket/simple-tree-text-markup.git";
+    rev = "6c91fafc4595e2a1702f291f7b081b433567aaf0";
+    sha256 = "1j6sb0jrs11gxn03wn982bls6p1n8inxca6rvfapzcry2ba4b2lv";
+  };
+  };
+  racketThinBuildInputs = [ self."simple-tree-text-markup-lib" self."simple-tree-text-markup-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-tree-text-markup-doc" = self.lib.mkRacketDerivation rec {
+  pname = "simple-tree-text-markup-doc";
+  src = self.lib.extractPath {
+    path = "simple-tree-text-markup-doc";
+    src = fetchgit {
+    name = "simple-tree-text-markup-doc";
+    url = "git://github.com/racket/simple-tree-text-markup.git";
+    rev = "6c91fafc4595e2a1702f291f7b081b433567aaf0";
+    sha256 = "1j6sb0jrs11gxn03wn982bls6p1n8inxca6rvfapzcry2ba4b2lv";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."scheme-lib" self."at-exp-lib" self."scribble-lib" self."racket-doc" self."simple-tree-text-markup-lib" self."draw-doc" self."draw-lib" self."gui-doc" self."snip-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-tree-text-markup-lib" = self.lib.mkRacketDerivation rec {
+  pname = "simple-tree-text-markup-lib";
+  src = self.lib.extractPath {
+    path = "simple-tree-text-markup-lib";
+    src = fetchgit {
+    name = "simple-tree-text-markup-lib";
+    url = "git://github.com/racket/simple-tree-text-markup.git";
+    rev = "6c91fafc4595e2a1702f291f7b081b433567aaf0";
+    sha256 = "1j6sb0jrs11gxn03wn982bls6p1n8inxca6rvfapzcry2ba4b2lv";
+  };
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-tree-text-markup-test" = self.lib.mkRacketDerivation rec {
+  pname = "simple-tree-text-markup-test";
+  src = self.lib.extractPath {
+    path = "simple-tree-text-markup-test";
+    src = fetchgit {
+    name = "simple-tree-text-markup-test";
+    url = "git://github.com/racket/simple-tree-text-markup.git";
+    rev = "6c91fafc4595e2a1702f291f7b081b433567aaf0";
+    sha256 = "1j6sb0jrs11gxn03wn982bls6p1n8inxca6rvfapzcry2ba4b2lv";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."simple-tree-text-markup-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16473,10 +18046,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "simple-xlsx";
     url = "git://github.com/simmone/racket-simple-xlsx.git";
-    rev = "977c944406e6e8b9e70b702defd722a867f4fcb3";
-    sha256 = "14j53rb0qrrpp71aydbz1asifca6aw3cgqj7ax4gr214sn509pq4";
+    rev = "4db2b2eb3e66f1bbc4c8cfff268697085891a9bc";
+    sha256 = "1bv4z1algk0p6nc47pcsq6v5799kim9hpx4dhwqq8zcnjjmnj7kr";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."at-exp-lib" self."racket-doc" self."scribble-lib" self."rackunit-lib" self."at-exp-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "simple-xml" = self.lib.mkRacketDerivation rec {
+  pname = "simple-xml";
+  src = fetchgit {
+    name = "simple-xml";
+    url = "git://github.com/simmone/racket-simple-xml.git";
+    rev = "ce4fbc007f60bc18d33a2f467099dfdadf6c47b1";
+    sha256 = "1ri6ph16wsldfqgx5fpid819sa5x58qrv4v72xj5lqcncprn3vas";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."racket-doc" self."scribble-lib" self."detail" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16512,8 +18097,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sirmail";
     url = "git://github.com/mflatt/sirmail.git";
-    rev = "8eb1abeb6809cbf84f2fac5609b9e2baf0c762c3";
-    sha256 = "0p1csaih23khfab24gbzyhsqi41s4k7rdp1qrjd5pz4s4x8w07gq";
+    rev = "5a08636d126ea04b5c903ab42a6e7eb2b143d864";
+    sha256 = "01nr54jyp6mh2gshdzmm3r5svg6ghfx3vlvmfhmgxlf162l38vli";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."drracket" self."gui-lib" self."net-lib" self."parser-tools-lib" self."scheme-lib" self."syntax-color-lib" self."sandbox-lib" self."pict-lib" self."pict-snip-lib" ];
   circularBuildInputs = [  ];
@@ -16546,8 +18131,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "slatex" = self.lib.mkRacketDerivation rec {
   pname = "slatex";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/slatex.zip";
-    sha1 = "54d560fcb2a43b25c644fa6c5fedbd7237bca222";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/slatex.zip";
+    sha1 = "6aa52093d9aec763d717e050ff1e51e3a6016727";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."racket-index" self."eli-tester" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -16556,8 +18141,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "slideshow" = self.lib.mkRacketDerivation rec {
   pname = "slideshow";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/slideshow.zip";
-    sha1 = "405bf8b0012ff6d28f6755b48077a25f6ddbb87e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/slideshow.zip";
+    sha1 = "c8d38147655c9d4cc7f9840b339e4dc3ccc0ea74";
   };
   racketThinBuildInputs = [ self."slideshow-lib" self."slideshow-exe" self."slideshow-plugin" self."slideshow-doc" ];
   circularBuildInputs = [  ];
@@ -16566,8 +18151,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "slideshow-doc" = self.lib.mkRacketDerivation rec {
   pname = "slideshow-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/slideshow-doc.zip";
-    sha1 = "a5b94aca72904e18413795aa802253745d186c0a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/slideshow-doc.zip";
+    sha1 = "1d2591c527540f0c3b81fe2d34cacefdc3150e74";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."gui-lib" self."pict-lib" self."scribble-lib" self."slideshow-lib" self."at-exp-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -16576,8 +18161,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "slideshow-exe" = self.lib.mkRacketDerivation rec {
   pname = "slideshow-exe";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/slideshow-exe.zip";
-    sha1 = "b14a2571ae4ef1c19ad302f0d9fbacbba5190fc6";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/slideshow-exe.zip";
+    sha1 = "914c5d885a3e1a51c103146d28e62b5225ddbc81";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."gui-lib" self."pict-lib" self."slideshow-lib" ];
   circularBuildInputs = [  ];
@@ -16598,8 +18183,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "slideshow-lib" = self.lib.mkRacketDerivation rec {
   pname = "slideshow-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/slideshow-lib.zip";
-    sha1 = "ca65ca1490a88b03b1f49ded360d20b5f20f0841";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/slideshow-lib.zip";
+    sha1 = "1a06b9f63e548a1a961db10d69eb30e016205140";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."draw-lib" self."pict-lib" self."gui-lib" ];
   circularBuildInputs = [  ];
@@ -16608,8 +18193,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "slideshow-plugin" = self.lib.mkRacketDerivation rec {
   pname = "slideshow-plugin";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/slideshow-plugin.zip";
-    sha1 = "7b7ca907a91eb325b5b786c145b0164b7a5fd8f8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/slideshow-plugin.zip";
+    sha1 = "46d43dab405e8db0dbefc3eb286077ef14b78a82";
   };
   racketThinBuildInputs = [ self."base" self."slideshow-lib" self."pict-lib" self."string-constants-lib" self."compatibility-lib" self."drracket-plugin-lib" self."gui-lib" ];
   circularBuildInputs = [  ];
@@ -16680,22 +18265,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "smtp";
     url = "git://github.com/yanyingwang/smtp.git";
-    rev = "ea05853bae041938988ff7a913dab0cc4df01ebe";
-    sha256 = "0yvqrw1jp8013ffjk20i4sil0vpx4j19gcdkhvkdxb19apcv2r4r";
+    rev = "b50162981c77ce9d056dc49afb25c78f15731c7c";
+    sha256 = "0qv2wswqnf1432jskb18s7anj25dz13ak35faa2sbnya0zplq2xs";
   };
   racketThinBuildInputs = [ self."base" self."gregor-lib" self."at-exp-lib" self."r6rs-lib" self."uuid" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "smtp-lib" = self.lib.mkRacketDerivation rec {
-  pname = "smtp-lib";
-  src = fetchgit {
-    name = "smtp-lib";
-    url = "git://github.com/yanyingwang/smtp-lib.git";
-    rev = "b0d3600adfcd12555a58ff328a63564d52233e44";
-    sha256 = "18cqf0lv7pzq17alczhkg6mq62qggwx4hrsism4zpjjncvxw91wd";
-  };
-  racketThinBuildInputs = [ self."base" self."gregor-lib" self."at-exp-lib" self."r6rs-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16724,8 +18297,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "snip" = self.lib.mkRacketDerivation rec {
   pname = "snip";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/snip.zip";
-    sha1 = "26d046e4c7d0a2a130266df37c260c3b7198f741";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/snip.zip";
+    sha1 = "6223ae1149ccc4a04b1013f046dd8226e6e93e93";
   };
   racketThinBuildInputs = [ self."snip-lib" self."gui-doc" ];
   circularBuildInputs = [  ];
@@ -16734,10 +18307,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "snip-lib" = self.lib.mkRacketDerivation rec {
   pname = "snip-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/snip-lib.zip";
-    sha1 = "455d24a09bb624911232a4a1cea62ea82becb4f3";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/snip-lib.zip";
+    sha1 = "0ae8663cc56ac9b4db41ab3d664122f6367e31e4";
   };
   racketThinBuildInputs = [ self."base" self."draw-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "social-contract" = self.lib.mkRacketDerivation rec {
+  pname = "social-contract";
+  src = fetchgit {
+    name = "social-contract";
+    url = "git://github.com/countvajhula/social-contract.git";
+    rev = "aed8e30fca16fb7e640fedae5492d44064394095";
+    sha256 = "14q6f62fidx2fld5dzqklsw2nnwrmyhrxnmwh7ckgq0l247l9yvv";
+  };
+  racketThinBuildInputs = [ self."base" self."collections-lib" self."scribble-lib" self."scribble-abbrevs" self."racket-doc" self."rackunit-lib" self."cover" self."cover-coveralls" self."sandbox-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -16758,8 +18343,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "softposit-herbie";
     url = "git://github.com/herbie-fp/softposit-herbie.git";
-    rev = "ce640acfdc6ebb3dac045d0c1542285a3e0c81fe";
-    sha256 = "1n7shrd8340kp8ljzm4cr6g695z7i2b8snnn8y54gsgb3h3bca7j";
+    rev = "75e1d1512613cbb1f4676c9329f0a1529d3b8cce";
+    sha256 = "0dykjylr6s6gn4gyczfmknibxqpb3pzwswrf7gl571kvpcplghz8";
   };
   racketThinBuildInputs = [ self."math-lib" self."base" self."softposit-rkt" self."herbie" ];
   circularBuildInputs = [  ];
@@ -16802,8 +18387,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "source-syntax" = self.lib.mkRacketDerivation rec {
   pname = "source-syntax";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/source-syntax.zip";
-    sha1 = "c498a8e0af87ba655613e99c3d7ea90ac102077b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/source-syntax.zip";
+    sha1 = "eeb62d0a4779186dee63a1d2633b1a794bf9b816";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -16886,8 +18471,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sql";
     url = "git://github.com/rmculpepper/sql.git";
-    rev = "792895fae759c6ef60aff054c1f707bb4f15407a";
-    sha256 = "1370a1ldfr09i723n13bxh1dsjwj3yg19sh44g2hvmr0ji28y3ww";
+    rev = "7bb2872fb7850f67a7db3c9e017dfc9b61bd612e";
+    sha256 = "1gz9bzikg148i6lw9dyvj7xgwk09zy6gvxramd1csil8gjas8gal";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."db-lib" self."racket-doc" self."scribble-lib" self."sandbox-lib" self."db-doc" ];
   circularBuildInputs = [  ];
@@ -16933,8 +18518,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "srfi" = self.lib.mkRacketDerivation rec {
   pname = "srfi";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/srfi.zip";
-    sha1 = "0a51b570ae6fc85193ae87dbd2f4c30dc95b7636";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/srfi.zip";
+    sha1 = "00bbe62198694b24e7eace50e03fb4fc1cdd5796";
   };
   racketThinBuildInputs = [ self."srfi-lib" self."srfi-doc" self."srfi-doc-nonfree" ];
   circularBuildInputs = [  ];
@@ -16943,8 +18528,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "srfi-doc" = self.lib.mkRacketDerivation rec {
   pname = "srfi-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/srfi-doc.zip";
-    sha1 = "3b7c81202cefe56599af810de8615a2cf1421aa8";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/srfi-doc.zip";
+    sha1 = "25f4bf89334ecd49e226d3e11dcc3c845a9c1930";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."scribble-lib" self."compatibility-lib" self."scheme-lib" self."base" self."scribble-lib" self."srfi-lib" self."compatibility-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -16953,8 +18538,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "srfi-doc-nonfree" = self.lib.mkRacketDerivation rec {
   pname = "srfi-doc-nonfree";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/srfi-doc-nonfree.zip";
-    sha1 = "1ccf93e0fdf10ff61d529116e9670077e11cbf46";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/srfi-doc-nonfree.zip";
+    sha1 = "660dd5ab544a821d9c1e051daf88a625633c21df";
   };
   racketThinBuildInputs = [ self."mzscheme-doc" self."scheme-lib" self."base" self."scribble-lib" self."srfi-doc" self."racket-doc" self."r5rs-doc" self."r6rs-doc" self."compatibility-lib" ];
   circularBuildInputs = [  ];
@@ -16963,8 +18548,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "srfi-lib" = self.lib.mkRacketDerivation rec {
   pname = "srfi-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/srfi-lib.zip";
-    sha1 = "b751a0b6a0143cdf048338fdba1bd1e84690a510";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/srfi-lib.zip";
+    sha1 = "c1d7484f9d647dd04e8e28c3d56f78aca2bb4255";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."srfi-lite-lib" self."r6rs-lib" self."compatibility-lib" ];
   circularBuildInputs = [  ];
@@ -16988,8 +18573,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "srfi-lite-lib" = self.lib.mkRacketDerivation rec {
   pname = "srfi-lite-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/srfi-lite-lib.zip";
-    sha1 = "bc3411fc6d92cb08786bfa1540eb366611748249";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/srfi-lite-lib.zip";
+    sha1 = "36a1a2fab32dbd4eb7f98dc0aa7f8e1a15a97e82";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -16998,8 +18583,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "srfi-test" = self.lib.mkRacketDerivation rec {
   pname = "srfi-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/srfi-test.zip";
-    sha1 = "29a82de6251c2bd3ac8b43117093ec8b4784627c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/srfi-test.zip";
+    sha1 = "2816c189b788dd0a0190b160c56c630c4bc15887";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."rackunit-lib" self."srfi-lib" ];
   circularBuildInputs = [  ];
@@ -17125,6 +18710,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "stephens-favourite-quickscripts" = self.lib.mkRacketDerivation rec {
+  pname = "stephens-favourite-quickscripts";
+  src = fetchgit {
+    name = "stephens-favourite-quickscripts";
+    url = "git://github.com/spdegabrielle/stephens-favourite-quickscripts.git";
+    rev = "f49ac0f8d869beddd03494c240839b384cd87cb1";
+    sha256 = "0hqnfzr91rpjd7vi8m20ffq1gfxm6dlj5z41xfnk9pgx4ab0aq1n";
+  };
+  racketThinBuildInputs = [ self."data-lib" self."base" self."drracket" self."gui-lib" self."htdp-lib" self."markdown" self."net-lib" self."plot-gui-lib" self."plot-lib" self."quickscript" self."rackunit-lib" self."scribble-lib" self."search-list-box" self."syntax-color-lib" self."at-exp-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "stockfighter-racket" = self.lib.mkRacketDerivation rec {
   pname = "stockfighter-racket";
   src = fetchgit {
@@ -17149,13 +18746,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "stream-etc" = self.lib.mkRacketDerivation rec {
+  pname = "stream-etc";
+  src = fetchgit {
+    name = "stream-etc";
+    url = "git://github.com/camoy/stream-etc.git";
+    rev = "53d469be0c4bdfb6a2407b4e24b74005aa4c0fcb";
+    sha256 = "0cjzq071zk34ammpvhpir8a67yvy0allbbgjnsmy2lj6f8acc2hx";
+  };
+  racketThinBuildInputs = [ self."base" self."chk-lib" self."sandbox-lib" self."threading-doc" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "stream-values" = self.lib.mkRacketDerivation rec {
   pname = "stream-values";
   src = fetchgit {
     name = "stream-values";
     url = "git://github.com/sorawee/stream-values.git";
-    rev = "a74e4cdb3beb9d9023dfd53b2c25364e5a1f910d";
-    sha256 = "1c9nl94mzlfigy14wq6g4zmnbwryk9rnbblr4k24xn1ik8lb75rh";
+    rev = "a5e107f20b8794dc3b3bf6b9402ec1aa7af30c8b";
+    sha256 = "06wx0dxlh9ad4x7hgms03hrxw2c91869rmxxxlax16wmskxj4xl3";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -17176,8 +18785,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "string-constants" = self.lib.mkRacketDerivation rec {
   pname = "string-constants";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/string-constants.zip";
-    sha1 = "c44db668e1449190a26e0597e8f5a2c7bd5f03bf";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/string-constants.zip";
+    sha1 = "6ff2106c365dacd55b75251434d6d0f1c32e867a";
   };
   racketThinBuildInputs = [ self."string-constants-lib" self."string-constants-doc" ];
   circularBuildInputs = [  ];
@@ -17186,8 +18795,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "string-constants-doc" = self.lib.mkRacketDerivation rec {
   pname = "string-constants-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/string-constants-doc.zip";
-    sha1 = "a8c568616380ce22a8cbb9078609e5bc5028a265";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/string-constants-doc.zip";
+    sha1 = "c2e2461a7d12d96a22099ab75fe67874d11ddfd6";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."string-constants-lib" self."base" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -17196,10 +18805,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "string-constants-lib" = self.lib.mkRacketDerivation rec {
   pname = "string-constants-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/string-constants-lib.zip";
-    sha1 = "a1efc10ad37b7792ad18fdc65fa6df8ea979dc6a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/string-constants-lib.zip";
+    sha1 = "a919492373fbcb0102a9be689101465f0e2d2346";
   };
   racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "string-constants-lib-lgpl" = self.lib.mkRacketDerivation rec {
+  pname = "string-constants-lib-lgpl";
+  src = self.lib.extractPath {
+    path = "string-constants-lib-lgpl";
+    src = fetchgit {
+    name = "string-constants-lib-lgpl";
+    url = "git://github.com/racket/string-constants.git";
+    rev = "992be713c785cbca2e436541de75597d98c15b4b";
+    sha256 = "19mwrfkcykf6mk92cv0r4743qrc9crk5j1ssqrf0iy5b7bnmrbq9";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."string-constants-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -17268,8 +18892,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "struct-like-struct-type-property";
     url = "git://github.com/AlexKnauth/struct-like-struct-type-property.git";
-    rev = "1d237f9b8e4bbc01e1aed05a73f23d2dbbb3614b";
-    sha256 = "1lmj210vcxl2n8p5pxnqlypv46sl4na2vp6nmq4j6v5jrhlr4yfq";
+    rev = "c961dbd9a5741895e838558bf19233fd4142e4d6";
+    sha256 = "14jq1zvspj5dfxah2kbsf05li3w3f31hr804bl434m2qd7qyi0mb";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -17280,8 +18904,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "struct-plus-plus";
     url = "git://github.com/dstorrs/struct-plus-plus.git";
-    rev = "79c771719f34efcc217a165597931d9d0a8aa004";
-    sha256 = "1rg4q58m97mj3m7crs64q0lpysga1flghpkmnzhk2wi8mb58hm1f";
+    rev = "a7b62bf51214031a969e0503143f4ee64c9f6fe2";
+    sha256 = "15p9iyp29rxcc1w2n1jdn8cb3qfl2sgwzpicq2r6knm1wqlmvdc5";
   };
   racketThinBuildInputs = [ self."base" self."handy" self."syntax-classes-lib" self."at-exp-lib" self."racket-doc" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -17352,8 +18976,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "stxparse-info";
     url = "git://github.com/jsmaniac/stxparse-info.git";
-    rev = "c725ad4265a804e9161e4f2a6e53d5f7069c18fe";
-    sha256 = "160rql287cmjg32zh6fka0h6zwapxpxjfns2dpky6mlmjy2nzkjd";
+    rev = "d35e84905fdbbef4309edca0a138cd77066be185";
+    sha256 = "1f2zm0a25clm0p3p533jv87dwn8c5rs006wlfd8pbjgdzf2w92bk";
   };
   racketThinBuildInputs = [ self."stxparse-info+subtemplate" self."base" self."rackunit-lib" self."version-case" self."auto-syntax-e" self."compatibility-lib" self."scribble-lib" self."racket-doc" self."at-exp-lib" ];
   circularBuildInputs = [ "stxparse-info" "subtemplate" ];
@@ -17406,8 +19030,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sugar";
     url = "git://github.com/mbutterick/sugar.git";
-    rev = "0613eafd85082473e0e2295ee349c3b691a51e13";
-    sha256 = "1akjr6gqljpvyg7rnb7dhmhlxdh70rnrzq1mpx9cgc0d6v1ldvcr";
+    rev = "990b0b589274a36a58e27197e771500c5898b5a2";
+    sha256 = "1i6zpa8jhwmxnjxl6rhchgd4h3sn5g3p4xqlcfcmv9zmnwd426fl";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -17485,8 +19109,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "swindle" = self.lib.mkRacketDerivation rec {
   pname = "swindle";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/swindle.zip";
-    sha1 = "327a5befb4bf60b24283917b35e493a974064ecf";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/swindle.zip";
+    sha1 = "134ed42069be450267804c1c167d6ea0d065ec2e";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."drracket-plugin-lib" self."gui-lib" self."net-lib" self."string-constants-lib" self."compatibility-doc" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -17497,8 +19121,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "sxml";
     url = "git://github.com/jbclements/sxml.git";
-    rev = "b514818c106a818c8aca951d50fa24af0d8323a0";
-    sha256 = "03b1yxd7rv85xlcjm2x2sgsng8zdzf1flhl1lnq94rpa1yql0ji1";
+    rev = "d3b8570cf7287c4e06636e17634f0f5c39203d52";
+    sha256 = "0xc8x3rcbx0lliqyfn0sgii6jdv1rwqzyvkls31pymjry4iq9vjp";
   };
   racketThinBuildInputs = [ self."base" self."srfi-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -17533,8 +19157,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "syndicate";
     url = "git://github.com/tonyg/syndicate.git";
-    rev = "af8dbeaa4bfd1faf74e68911a4dd992cd9a9b1fc";
-    sha256 = "0kahvyzlscr63dwj93wfb4qcrj7lmzlsmwb8nwj5f9bc0dmpjs8g";
+    rev = "165dfeb6c87f933f5eafcdecc84d79835210b40e";
+    sha256 = "1hqlrdi4zbsw59mq9ab6bbfiydpp1d2w823zcvsjcn4llz31gklf";
   };
   };
   racketThinBuildInputs = [ self."base" self."data-lib" self."htdp-lib" self."net-lib" self."profile-lib" self."rackunit-lib" self."sha" self."automata" self."auxiliary-macro-context" self."data-enumerate-lib" self."datalog" self."db-lib" self."draw-lib" self."gui-lib" self."images-lib" self."macrotypes-lib" self."pict-lib" self."rackunit-macrotypes-lib" self."rfc6455" self."sandbox-lib" self."sgl" self."struct-defaults" self."turnstile-example" self."turnstile-lib" self."web-server-lib" self."draw-doc" self."gui-doc" self."htdp-doc" self."pict-doc" self."racket-doc" self."scribble-lib" self."sha" ];
@@ -17616,8 +19240,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "syntax-color" = self.lib.mkRacketDerivation rec {
   pname = "syntax-color";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/syntax-color.zip";
-    sha1 = "470aa2e55eb4b645a37513f7a4ceb1eaf6283082";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/syntax-color.zip";
+    sha1 = "a8dcb663ab65feaefbe49f29b1c073a655d81040";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."syntax-color-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -17626,8 +19250,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "syntax-color-doc" = self.lib.mkRacketDerivation rec {
   pname = "syntax-color-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/syntax-color-doc.zip";
-    sha1 = "2b6f59ee433b8fe2e0e07433a67a932557139281";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/syntax-color-doc.zip";
+    sha1 = "242705f0fb2964948a99b04027d195af671e44aa";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."gui-lib" self."scribble-lib" self."syntax-color-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -17636,8 +19260,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "syntax-color-lib" = self.lib.mkRacketDerivation rec {
   pname = "syntax-color-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/syntax-color-lib.zip";
-    sha1 = "f1d69d7143c5afb925489a0cb2559ad119d8cf7e";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/syntax-color-lib.zip";
+    sha1 = "24ce21341a848e543a16d906229d4b69df00db0d";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."parser-tools-lib" self."option-contract-lib" ];
   circularBuildInputs = [  ];
@@ -17646,8 +19270,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "syntax-color-test" = self.lib.mkRacketDerivation rec {
   pname = "syntax-color-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/syntax-color-test.zip";
-    sha1 = "619361bcaac65edcc8149274c1aee26c2d0700bb";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/syntax-color-test.zip";
+    sha1 = "430622528f7b0ef68c018a278f1bfed89656a085";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scheme-lib" self."syntax-color-lib" self."gui-lib" ];
   circularBuildInputs = [  ];
@@ -17658,10 +19282,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "syntax-highlighting";
     url = "git://github.com/zyrolasting/syntax-highlighting.git";
-    rev = "13d2d0019bb44cbaca2d50eee1eb4c7d5f9fa701";
-    sha256 = "1a8pqwn1p0zx96pbq8paq9qxh7vg1k1fxrsr2pag46a8d3m53rlk";
+    rev = "d02c1847e606604e09d92bd5d2aec85d30e3dd48";
+    sha256 = "1dipj235rv27ai708f84xazqxx7c1fn7ra8yjxqnqr0v22rw5kz8";
   };
-  racketThinBuildInputs = [ self."base" self."parsack" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "syntax-implicits" = self.lib.mkRacketDerivation rec {
+  pname = "syntax-implicits";
+  src = fetchgit {
+    name = "syntax-implicits";
+    url = "git://github.com/willghatch/racket-syntax-implicits.git";
+    rev = "df1fb32a62348acbcc68e36a2a6a0fc6da4cea18";
+    sha256 = "0s2xaq42a66qzdf0dsbinhbg5df9pcd4pdxqbm2wdh3imlqbcrhv";
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -17682,8 +19318,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "syntax-macro-lang";
     url = "git://github.com/AlexKnauth/syntax-macro-lang.git";
-    rev = "fad6fd9c44ea20335b03e820b06b042883bb40bf";
-    sha256 = "0fdnhr41zydh4qamyxdvfjq6nfxdg8aaxfjdgx53yrqb0gcnkn3j";
+    rev = "d71edad70a023fb8e13b9841f2ec46117864f146";
+    sha256 = "1d8g8m3pwc42g20mvvzmyvky2bvd49yx8kg41ndh5apzaydrf10v";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -17694,8 +19330,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "syntax-parse-example";
     url = "git://github.com/bennn/syntax-parse-example.git";
-    rev = "e76436d7e2068b970bde5b241636d8660912efcb";
-    sha256 = "0814qxsv1jd32xr7gwa50qhrqj695mly6v046i1zlvnaa9hx4gkj";
+    rev = "2d06b1541888b94aa04a0d77aac9ebdd503ee90a";
+    sha256 = "0hpa6ywwx3bavlpbwwvhrdrrzyjspaah02ky116imdxdmwb9hh23";
   };
   racketThinBuildInputs = [ self."at-exp-lib" self."base" self."scribble-lib" self."rackunit-lib" self."typed-racket-lib" self."scribble-lib" self."racket-doc" self."rackunit-doc" self."rackunit-lib" self."scribble-doc" self."rackunit-typed" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -17785,6 +19421,21 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   };
   };
   racketThinBuildInputs = [ self."base" self."syntax-warn-base" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "syrup" = self.lib.mkRacketDerivation rec {
+  pname = "syrup";
+  src = self.lib.extractPath {
+    path = "impls%2Fracket%2Fsyrup";
+    src = fetchgit {
+    name = "syrup";
+    url = "https://gitlab.com/spritely/syrup.git";
+    rev = "80e57b55a61cf1deb34f051d0435730e7b2054e9";
+    sha256 = "0v7j95w1k4mnafxn2rivp8pfh9x0s682h27p21kzi66hd0qbgak0";
+  };
+  };
+  racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18004,13 +19655,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "termconfig" = self.lib.mkRacketDerivation rec {
+  pname = "termconfig";
+  src = fetchgit {
+    name = "termconfig";
+    url = "git://github.com/dodgez/termconfig.git";
+    rev = "620c2fee9491186fc5faf8a5d2b4c0eb67062657";
+    sha256 = "1v366h4m6rvqx4shnfyk16nld0xfd99dsr9f0npknkw0s0hflil6";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "terminal-phase" = self.lib.mkRacketDerivation rec {
   pname = "terminal-phase";
   src = fetchgit {
     name = "terminal-phase";
     url = "https://gitlab.com/dustyweb/terminal-phase.git";
-    rev = "8d7d50b464a309bf2bee773b174274b745e68d1e";
-    sha256 = "1hq8a9vm4bv0zx7xh6r2vdv5vgscvnif8w3wk1hjql8rvbw2s0vn";
+    rev = "ecf6f068c265de812d3decd003144ba4a2dd1e2b";
+    sha256 = "18c2zzhr613c3vvy0zszwzp7xjqdxc8inyfvh22d5njqshbdm3gi";
   };
   racketThinBuildInputs = [ self."lux" self."goblins" self."pk" self."raart" self."ansi" ];
   circularBuildInputs = [  ];
@@ -18055,6 +19718,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "tessellation" = self.lib.mkRacketDerivation rec {
+  pname = "tessellation";
+  src = fetchgit {
+    name = "tessellation";
+    url = "git://github.com/zkry/tessellation.git";
+    rev = "6f881912eb35592f96539485e7bdd62bdc329528";
+    sha256 = "1k4vr109h01lkls4468pgl0i61jxqpfkb996f59frdl96im8s8rx";
+  };
+  racketThinBuildInputs = [ self."base" self."metapict" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "test-more" = self.lib.mkRacketDerivation rec {
   pname = "test-more";
   src = fetchgit {
@@ -18070,8 +19745,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "testing-util-lib" = self.lib.mkRacketDerivation rec {
   pname = "testing-util-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/testing-util-lib.zip";
-    sha1 = "182a865a3358425876dd6d7f00134795f62eea77";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/testing-util-lib.zip";
+    sha1 = "6ad98392863d6f61974ef502fc0c6bf4241f492f";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -18094,18 +19769,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "tetris";
     url = "git://github.com/mosceo/tetris.git";
-    rev = "fd8ea2d3b2d9374d2a4a88b6e01382f0eba9cbcb";
-    sha256 = "1wb1sknlzyxwnz1cii8qm1ijycszisn0qyyw7hvxl6k01ck6904d";
+    rev = "bbf9dc58b8b1606f574ebf1a466eeef278689a68";
+    sha256 = "0i58y2ig6220smsch27la1kapwk36rk22dr4a101ikcbs4ndzxsw";
   };
-  racketThinBuildInputs = [  ];
+  racketThinBuildInputs = [ self."base" self."htdp-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "tex-table" = self.lib.mkRacketDerivation rec {
   pname = "tex-table";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/tex-table.zip";
-    sha1 = "7340fdf252356f1342d21bf337182be7fb974f8a";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/tex-table.zip";
+    sha1 = "faa0ecef5a893596bb240eb314caf0cd161ac71f";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -18128,10 +19803,10 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "text-table";
     url = "git://github.com/Metaxal/text-table.git";
-    rev = "a2f437cd1488a699ec56baf308eff4dad4828798";
-    sha256 = "1ya1j0qhipp170f6dp5a3f5vqp5pmpiqrqi02va0yp5nrwfcd719";
+    rev = "5cbfa2012b3ec3209e17ba00e6753b8eea2c237b";
+    sha256 = "0l1ywws3vvjn6wbvhw4s9hfsj0m21c2ii14i7q1kxa4247fd4z3b";
   };
-  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  racketThinBuildInputs = [ self."base" self."sandbox-lib" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18140,8 +19815,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "the-unicoder";
     url = "git://github.com/willghatch/the-unicoder.git";
-    rev = "4eb4c074c6411a059a0bbaba5c1486c3b335d369";
-    sha256 = "01l9b9ljph9fbwqw06cr1ml1yx66v7zssj16wz69d9zspjdgqry8";
+    rev = "c95473838a9f0893b1d39742b087203f702a540c";
+    sha256 = "0m7nqfc17zn0hhvy893jblsgndv87cp895sibmz5v4zilan11ri4";
   };
   racketThinBuildInputs = [ self."base" self."gui-lib" self."unix-socket-lib" self."tex-table" self."basedir" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -18168,6 +19843,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "13szwkigk0wwzqhdpwi2m2sd93c9rmh6xzib53n3wcbai08fms7m";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "thread-with-id" = self.lib.mkRacketDerivation rec {
+  pname = "thread-with-id";
+  src = fetchgit {
+    name = "thread-with-id";
+    url = "git://github.com/dstorrs/thread-with-id.git";
+    rev = "0b5908a810b710bae7a8e0bc89f6468c81d12f92";
+    sha256 = "0sy404g7a7cywdqmmrclkwjw64jm7w3hd15lv44lwbjjw4csl4xh";
+  };
+  racketThinBuildInputs = [ self."base" self."racket-doc" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18243,8 +19930,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "timable";
     url = "git://github.com/yanyingwang/timable.git";
-    rev = "2b2fd99e6e2f0a3dbfcb8cd3e6554df29681f82f";
-    sha256 = "14zkalv6d0f11ddwdxj5bk44msnw0xq7h6i73pbs8ka1x1ql333w";
+    rev = "6c3eabdf5b4365ebc39c0eba4a7141082d3e3d5d";
+    sha256 = "1agky77b82bpn5dngmx2avbjxzvyg99mwdn5pdv6qkd9z0m050qd";
   };
   racketThinBuildInputs = [ self."base" self."srfi" self."gregor" self."db" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -18336,8 +20023,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "tr-immutable";
     url = "git://github.com/jsmaniac/tr-immutable.git";
-    rev = "da227b14ca63e1e1a9aaae07e94471202aaaaf26";
-    sha256 = "1mhvbhfbxlpj2j26x8hxgbdq3ir5higji1rv4701b27s7jaimbqh";
+    rev = "218e8862718327696b2a7cd2e1ae82800a653306";
+    sha256 = "1ihakm2g3kh43c2fjwj50xr46vwhz9lb6adjwj2aqc73g93r6cvn";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-racket-lib" self."typed-racket-more" self."typed-map-lib" self."scribble-lib" self."racket-doc" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -18346,8 +20033,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "trace" = self.lib.mkRacketDerivation rec {
   pname = "trace";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/trace.zip";
-    sha1 = "b9247f6461d50745f75de2e68063dd6b420a1a52";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/trace.zip";
+    sha1 = "a000c4e2284f4c45eeb43d1d246ab1cc0e165387";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."scheme-lib" self."base" self."compatibility-lib" self."scribble-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -18377,6 +20064,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0ai87bhaqclrck7fzabgyxgxd7iywhji1lnpl7v7c2ya0bi0b1mk";
   };
   racketThinBuildInputs = [  ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "trie" = self.lib.mkRacketDerivation rec {
+  pname = "trie";
+  src = fetchgit {
+    name = "trie";
+    url = "git://github.com/dstorrs/racket-trie.git";
+    rev = "da9564e8187ace2a4a891c979ef1e7f15a3d306e";
+    sha256 = "1x2zp2n9yxhmc501a223g3w14lq5b4rckjav9a57k6czafngxjfc";
+  };
+  racketThinBuildInputs = [ self."base" self."handy" self."struct-plus-plus" self."scribble-lib" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."handy" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18495,8 +20194,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "turnstile";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."turnstile-lib" self."turnstile-example" self."turnstile-doc" self."turnstile-test" ];
@@ -18510,8 +20209,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "turnstile-doc";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."sandbox-lib" self."scribble-lib" self."rackunit-lib" self."rackunit-doc" self."rackunit-macrotypes-lib" self."turnstile-lib" self."turnstile-example" ];
@@ -18525,8 +20224,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "turnstile-example";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."turnstile-lib" self."macrotypes-lib" ];
@@ -18540,8 +20239,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "turnstile-lib";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
   racketThinBuildInputs = [ self."base" self."macrotypes-lib" self."lens-lib" ];
@@ -18555,11 +20254,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "turnstile-test";
     url = "git://github.com/stchang/macrotypes.git";
-    rev = "4215bf245fa3f05c12808e5ceee69422bbebcd5e";
-    sha256 = "1bfawmasdpc79ag1hjvwlwdv94lbrxjffx42jxmr1h053vqsbfda";
+    rev = "05ec31f2e1fe0ddd653211e041e06c6c8071ffa6";
+    sha256 = "1a98kj7z01jn7r60xlv4zcyzpksayvfxp38q3jgwvjsi50r2i017";
   };
   };
-  racketThinBuildInputs = [ self."base" self."turnstile-example" self."rackunit-macrotypes-lib" ];
+  racketThinBuildInputs = [ self."base" self."turnstile-lib" self."turnstile-example" self."rackunit-macrotypes-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18619,8 +20318,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "txexpr";
     url = "git://github.com/mbutterick/txexpr.git";
-    rev = "c40f64292cf0444a90e4d8d0decbd0e01dfd6b62";
-    sha256 = "08hq3wd7221bhg6l32jch5mcngmphywjdfx15hg78w5qxx4xz1df";
+    rev = "435c6e6f36fd39065ae9d8a00285fda0e4e41fa1";
+    sha256 = "0nc71v5i6c02miy6wbkmfda74ppmlfa1532dhxh72986rs4xwsjg";
   };
   racketThinBuildInputs = [ self."base" self."sugar" self."rackunit-lib" self."scribble-lib" self."racket-doc" self."rackunit-doc" ];
   circularBuildInputs = [  ];
@@ -18655,10 +20354,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "type-expander";
     url = "git://github.com/jsmaniac/type-expander.git";
-    rev = "22f9c4511531719eac76a5fe94688cbfbcee8f0a";
-    sha256 = "14wva97qizalqmmsrhpp5an6s475mmlf82f1csgj6rh6gh8s3i4z";
+    rev = "b182b9422083bf8adee71d6543f78372ad801ede";
+    sha256 = "0m3jzmcklyggnkyfm507xias7jwbd69acgfvk3ar3yizbhqzvg5f";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."scribble-lib" self."typed-racket-lib" self."typed-racket-more" self."hyper-literate" self."auto-syntax-e" self."debug-scopes" self."version-case" self."scribble-lib" self."racket-doc" self."typed-racket-more" self."typed-racket-doc" self."scribble-enhanced" self."mutable-match-lambda" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "typed-compose" = self.lib.mkRacketDerivation rec {
+  pname = "typed-compose";
+  src = fetchgit {
+    name = "typed-compose";
+    url = "https://git.marvid.fr/scolobb/typed-compose.git";
+    rev = "69de45761367a99ee919ba84c33abddb06419e87";
+    sha256 = "06rxyqm3rrl65wv820j60rjjcfzy7v61wjji00y3jr5bf15c2gkk";
+  };
+  racketThinBuildInputs = [ self."typed-racket-lib" self."base" self."racket-doc" self."rackunit-typed" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -18669,8 +20380,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "typed-map";
     url = "git://github.com/jsmaniac/typed-map.git";
-    rev = "e61454db13bab1c7749745a62821ad0a17adc26f";
-    sha256 = "06k7pcs5kzh6ihbl4qmcl1l7vb8nq1hbbvw13gmn5q5b7zxz5804";
+    rev = "7a70650b6f8e1222fe1e4ebd2fb6b9b2489301e2";
+    sha256 = "10hnjsg89nsfhk86md2cz7qqqlaim1im9s7v4z58gzq1lkig6igf";
   };
   };
   racketThinBuildInputs = [ self."typed-map-lib" self."typed-map-test" self."typed-map-doc" ];
@@ -18684,8 +20395,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "typed-map-doc";
     url = "git://github.com/jsmaniac/typed-map.git";
-    rev = "e61454db13bab1c7749745a62821ad0a17adc26f";
-    sha256 = "06k7pcs5kzh6ihbl4qmcl1l7vb8nq1hbbvw13gmn5q5b7zxz5804";
+    rev = "7a70650b6f8e1222fe1e4ebd2fb6b9b2489301e2";
+    sha256 = "10hnjsg89nsfhk86md2cz7qqqlaim1im9s7v4z58gzq1lkig6igf";
   };
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."aful" self."typed-map-lib" ];
@@ -18699,8 +20410,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "typed-map-lib";
     url = "git://github.com/jsmaniac/typed-map.git";
-    rev = "e61454db13bab1c7749745a62821ad0a17adc26f";
-    sha256 = "06k7pcs5kzh6ihbl4qmcl1l7vb8nq1hbbvw13gmn5q5b7zxz5804";
+    rev = "7a70650b6f8e1222fe1e4ebd2fb6b9b2489301e2";
+    sha256 = "10hnjsg89nsfhk86md2cz7qqqlaim1im9s7v4z58gzq1lkig6igf";
   };
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" ];
@@ -18714,19 +20425,46 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "typed-map-test";
     url = "git://github.com/jsmaniac/typed-map.git";
-    rev = "e61454db13bab1c7749745a62821ad0a17adc26f";
-    sha256 = "06k7pcs5kzh6ihbl4qmcl1l7vb8nq1hbbvw13gmn5q5b7zxz5804";
+    rev = "7a70650b6f8e1222fe1e4ebd2fb6b9b2489301e2";
+    sha256 = "10hnjsg89nsfhk86md2cz7qqqlaim1im9s7v4z58gzq1lkig6igf";
   };
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-racket-lib" self."typed-racket-more" self."typed-map-lib" self."aful" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "typed-minikanren" = self.lib.mkRacketDerivation rec {
+  pname = "typed-minikanren";
+  src = fetchgit {
+    name = "typed-minikanren";
+    url = "git://github.com/dalev/minikanren-typed-racket.git";
+    rev = "9cf4deb8a45ab8b0cf2d09b87c6774d58e465927";
+    sha256 = "0an7vfksp9sbh1db4s1yn6pxmb4xyydkk0nmcdfr822snghyql90";
+  };
+  racketThinBuildInputs = [ self."base" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "typed-otp-lib" = self.lib.mkRacketDerivation rec {
+  pname = "typed-otp-lib";
+  src = self.lib.extractPath {
+    path = "typed-otp-lib";
+    src = fetchgit {
+    name = "typed-otp-lib";
+    url = "git://github.com/yilinwei/otp.git";
+    rev = "0757167eac914c45a756c090c4bdf5410080c145";
+    sha256 = "00n7fql77x03ax17wmxzjc2f4xs86xllsxxsqww17m713vh8mam9";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."crypto-lib" self."otp-lib" self."typed-racket-lib" self."rackunit-typed" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "typed-racket" = self.lib.mkRacketDerivation rec {
   pname = "typed-racket";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/typed-racket.zip";
-    sha1 = "9ac9d3895831bc38e2200b4e22d3cd27fb0c0f83";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/typed-racket.zip";
+    sha1 = "74165080722ebcd70123a27d602342732d3f2520";
   };
   racketThinBuildInputs = [ self."typed-racket-lib" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -18735,8 +20473,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "typed-racket-compatibility" = self.lib.mkRacketDerivation rec {
   pname = "typed-racket-compatibility";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/typed-racket-compatibility.zip";
-    sha1 = "edec0fde70a60e6c4c8fd35ecfd22c02c6a1a8ee";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/typed-racket-compatibility.zip";
+    sha1 = "f20a587cb6e2c99cf5210be0f6d2bc59c14f1578";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."typed-racket-lib" self."base" ];
   circularBuildInputs = [  ];
@@ -18749,8 +20487,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "typed-racket-datatype";
     url = "git://github.com/AlexKnauth/typed-racket-datatype.git";
-    rev = "4c9bd06b720d1e6f66b941951c6b33341bdb5c49";
-    sha256 = "0yks5axk3jydi66f3svg2zhj9dbbiqgvif110vldgk47464a42iq";
+    rev = "dc955052081b18a164552c4e7db75ac392a92402";
+    sha256 = "18kra3fs5hyangjrf5vb088r96in87jhzbfi9llq9315jxv9ysny";
   };
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."typed-racket-datatype-lib" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."rackunit-lib" self."rackunit-typed" ];
@@ -18764,19 +20502,19 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "typed-racket-datatype-lib";
     url = "git://github.com/AlexKnauth/typed-racket-datatype.git";
-    rev = "4c9bd06b720d1e6f66b941951c6b33341bdb5c49";
-    sha256 = "0yks5axk3jydi66f3svg2zhj9dbbiqgvif110vldgk47464a42iq";
+    rev = "dc955052081b18a164552c4e7db75ac392a92402";
+    sha256 = "18kra3fs5hyangjrf5vb088r96in87jhzbfi9llq9315jxv9ysny";
   };
   };
-  racketThinBuildInputs = [ self."base" self."typed-racket-lib" ];
+  racketThinBuildInputs = [ self."base" self."typed-racket-lib" self."syntax-classes-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "typed-racket-doc" = self.lib.mkRacketDerivation rec {
   pname = "typed-racket-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/typed-racket-doc.zip";
-    sha1 = "54f6118e9c07c174c4c53b00891e348723cf627b";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/typed-racket-doc.zip";
+    sha1 = "3518029e9848c4668398ee2d9e028d18eb0dc495";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."scheme-lib" self."srfi-lite-lib" self."r6rs-lib" self."sandbox-lib" self."at-exp-lib" self."scribble-lib" self."pict-lib" self."typed-racket-lib" self."typed-racket-compatibility" self."typed-racket-more" self."draw-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -18800,8 +20538,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "typed-racket-lib" = self.lib.mkRacketDerivation rec {
   pname = "typed-racket-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/typed-racket-lib.zip";
-    sha1 = "37d9a0169389450db5fa0df89c3a98297c72ae46";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/typed-racket-lib.zip";
+    sha1 = "d9133563d22a3b2135aa8aee3b43560328447a5f";
   };
   racketThinBuildInputs = [ self."base" self."source-syntax" self."pconvert-lib" self."compatibility-lib" self."string-constants-lib" ];
   circularBuildInputs = [  ];
@@ -18810,8 +20548,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "typed-racket-more" = self.lib.mkRacketDerivation rec {
   pname = "typed-racket-more";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/typed-racket-more.zip";
-    sha1 = "8bcfb5f9ae3d01128ccfdd6c9d35445e9e0c661c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/typed-racket-more.zip";
+    sha1 = "395a3b78f394176f071b21f54478cd2816952ab2";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" self."net-lib" self."net-cookies-lib" self."web-server-lib" self."db-lib" self."draw-lib" self."rackunit-lib" self."rackunit-gui" self."rackunit-typed" self."snip-lib" self."typed-racket-lib" self."gui-lib" self."pict-lib" self."images-lib" self."racket-index" self."sandbox-lib" self."pconvert-lib" ];
   circularBuildInputs = [  ];
@@ -18832,8 +20570,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "typed-racket-test" = self.lib.mkRacketDerivation rec {
   pname = "typed-racket-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/typed-racket-test.zip";
-    sha1 = "65ee7a4c961914d635ee57f8b98c043898d2dac3";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/typed-racket-test.zip";
+    sha1 = "59ce74b497b86571744784d16775710650dcad62";
   };
   racketThinBuildInputs = [ self."redex-lib" self."sandbox-lib" self."base" self."typed-racket-lib" self."typed-racket-more" self."typed-racket-compatibility" self."2d" self."rackunit-lib" self."racket-index" self."compatibility-lib" self."math-lib" self."racket-test-core" self."scheme-lib" self."base" self."racket-benchmarks" self."rackunit-lib" self."compiler-lib" self."redex-lib" self."htdp-lib" self."sandbox-lib" ];
   circularBuildInputs = [  ];
@@ -18856,8 +20594,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "typed-stack";
     url = "git://github.com/lehitoskin/typed-stack.git";
-    rev = "f6e63310ea20e147f9fbb80e5fb9768b6905f7aa";
-    sha256 = "17wy3h04ndz86s8ka7csf4v2ni8sjcvfbwyxc2k1j1dnnv510m7a";
+    rev = "5bcf55322b3a97ecfb0233ed77f282507eb2f6ad";
+    sha256 = "1l5m376mnqjbhpvylnwlyigisjdddimyyhafqx7bcmbb1c7y6z88";
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-more" self."typed-racket-lib" self."scribble-lib" self."typed-racket-doc" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -18868,8 +20606,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "typed-struct-props";
     url = "git://github.com/jsmaniac/typed-struct-props.git";
-    rev = "6030806eec0377936ce24745c3c44b52f567b3ec";
-    sha256 = "19b14ya4d8b1iy7dhgbpl3avmqd7jiiz9i32kwkm2lls88zk9zd1";
+    rev = "5512b7f4c9dff6b2be445435b86babfc9b189fc8";
+    sha256 = "1sy1dz2z478kcxfcc9z0lzy0malmdxqiwqsmsxs8904ilb45lzrf";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."typed-racket-lib" self."typed-racket-more" self."type-expander" self."scribble-lib" self."racket-doc" self."typed-racket-doc" ];
   circularBuildInputs = [  ];
@@ -18880,8 +20618,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "typed-worklist";
     url = "git://github.com/jsmaniac/typed-worklist.git";
-    rev = "976b85d9c6c7956184e0c3843a15bc727173719c";
-    sha256 = "18c59ff2n2mmnyjn1s24i01nc9ws6mrxcyygxzisnnmbl8ff1w58";
+    rev = "31fb17fb7c8aaa96c49dcd1ca9094d0dffa775c8";
+    sha256 = "0whx3m1vnqq6c38rdx90858nkjzdq48d5ciz3nybm0f8kmp91bbs";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."type-expander" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -18940,8 +20678,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "udelim";
     url = "git://github.com/willghatch/racket-udelim.git";
-    rev = "0952a8263c8e6cf1e7cd60e2daed62008246f25e";
-    sha256 = "1wp0maw0b8qj6dwgpgf9mhqj3dgz5pnsrwimx1ar1w3rzbgrxd4n";
+    rev = "58420f53c37e0bee451daa3dc5e2d72f7fc4d967";
+    sha256 = "0h3ha4qxh8jhxg1phyqnbz51xznzgjgfxaaxxxj1wp2kdy3dn7ff";
   };
   racketThinBuildInputs = [ self."base" self."racket-doc" self."scribble-lib" self."sandbox-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -18971,13 +20709,25 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "unb-cs3613" = self.lib.mkRacketDerivation rec {
-  pname = "unb-cs3613";
+  "unb-cs2613" = self.lib.mkRacketDerivation rec {
+  pname = "unb-cs2613";
   src = fetchgit {
-    name = "unb-cs3613";
-    url = "https://pivot.cs.unb.ca/git/unb-cs3613.git";
-    rev = "f8242231a081264392f731e949356fa08eab0cbf";
-    sha256 = "04p0fr9s0h47gxniv82dl5pyqj4ddj89g9129xyylc477s30zl8v";
+    name = "unb-cs2613";
+    url = "https://pivot.cs.unb.ca/git/unb-cs2613.git";
+    rev = "67576e2029d4865143c458b26fbc9da78c066a66";
+    sha256 = "0q5kxkwyq7kllkskkssv14q7pdy5wiyjy0pxkkcbyy81kgaafwnr";
+  };
+  racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."frog" self."explorer" self."date" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "unb-cs4613" = self.lib.mkRacketDerivation rec {
+  pname = "unb-cs4613";
+  src = fetchgit {
+    name = "unb-cs4613";
+    url = "https://pivot.cs.unb.ca/git/unb-cs4613.git";
+    rev = "2822b8c4d4864c79181608ae0e73d9f04c24f43c";
+    sha256 = "117m2fc5dajahdzdllc332ngqv5pn91i5s4lc63qr06aaamqxqpq";
   };
   racketThinBuildInputs = [ self."base" self."drracket" self."drracket-plugin-lib" self."gui-lib" self."net-lib" self."plait" self."brag" self."plai-dynamic" ];
   circularBuildInputs = [  ];
@@ -19012,18 +20762,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "unix-signals";
     url = "git://github.com/tonyg/racket-unix-signals.git";
-    rev = "7231d17617a013da8f0b057f479f3c189d56daf6";
-    sha256 = "03yy3dq1rnibsg1xg7c6cjpk37d7rnrrk0ipbvrwx8s3r6hdvai2";
+    rev = "a0c50918dac6cf5df7d0789d13dac9759eab5606";
+    sha256 = "0h8lk9181ffyi07hvh2bcpl74iwl84950icxx3f1aymhxj7gpknf";
   };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."make" self."racket-doc" self."scribble-lib" ];
+  racketThinBuildInputs = [ self."base" self."dynext-lib" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
   "unix-socket" = self.lib.mkRacketDerivation rec {
   pname = "unix-socket";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/unix-socket.zip";
-    sha1 = "15d9236ba245ae0e6cf0de066c12eedf15a325ab";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/unix-socket.zip";
+    sha1 = "c5c0da19f7126f3f4b1ccbdf12cd497aa4c22531";
   };
   racketThinBuildInputs = [ self."unix-socket-lib" self."unix-socket-doc" ];
   circularBuildInputs = [  ];
@@ -19032,8 +20782,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "unix-socket-doc" = self.lib.mkRacketDerivation rec {
   pname = "unix-socket-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/unix-socket-doc.zip";
-    sha1 = "b07f179359bc1d65a38bbb583b9897a315f26791";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/unix-socket-doc.zip";
+    sha1 = "ed51ed4f68ad1cf8e149e04aa0c6d10f09efabfa";
   };
   racketThinBuildInputs = [ self."base" self."unix-socket-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
@@ -19042,8 +20792,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "unix-socket-lib" = self.lib.mkRacketDerivation rec {
   pname = "unix-socket-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/unix-socket-lib.zip";
-    sha1 = "ecb512e3c8f639fc8e5e25add7a12296e60ae1cb";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/unix-socket-lib.zip";
+    sha1 = "d0873a69508940aa017c7a6b0daf74c6971bd866";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -19052,8 +20802,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "unix-socket-test" = self.lib.mkRacketDerivation rec {
   pname = "unix-socket-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/unix-socket-test.zip";
-    sha1 = "0aa350858ae44f5e4ad725db3db1862cf15f3575";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/unix-socket-test.zip";
+    sha1 = "02ded14fde965c4af71d1d0a6c8a7b4f0a22496b";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."unix-socket-lib" ];
   circularBuildInputs = [  ];
@@ -19323,8 +21073,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "urlang";
     url = "git://github.com/soegaard/urlang.git";
-    rev = "4c227edd5c446480474eb5ae0a462cd6c015b6dd";
-    sha256 = "1rc6x6kf4395ixcqczw4p7s74csw757sncpx6n3hlhz2m6papmya";
+    rev = "086622e2306e72731016c7108aca3328e5082aee";
+    sha256 = "0iw156i9axd3nx8xpdy173cfmprqw5lp6zkjacickhvw1gc1shpz";
   };
   racketThinBuildInputs = [ self."base" self."html-parsing" self."html-writing" self."nanopass" self."net-lib" self."rackunit-lib" self."scribble-html-lib" self."scribble-text-lib" self."srfi-lite-lib" self."web-server-lib" self."base" self."nanopass" self."at-exp-lib" self."rackunit-lib" self."scribble-lib" self."racket-doc" self."html-writing" self."html-parsing" ];
   circularBuildInputs = [  ];
@@ -19363,6 +21113,45 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "0kr1wz1vbal0gh1y3gsc0sm70wj5a5c0kq813h3fw7bahap4jaqi";
   };
   racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "uwaterloo-racket-tools" = self.lib.mkRacketDerivation rec {
+  pname = "uwaterloo-racket-tools";
+  src = self.lib.extractPath {
+    path = "uwaterloo-racket-tools";
+    src = fetchgit {
+    name = "uwaterloo-racket-tools";
+    url = "git://github.com/djh-uwaterloo/uwaterloo-racket.git";
+    rev = "24f1c0034ea24180c4d501eb51efd96f5f349215";
+    sha256 = "0s58a0bwmrc5n8bzw1k59vlf7js82jr538iq73n4c9xlrm4kcx2q";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."htdp-trace" self."graphic-block" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "value-evt" = self.lib.mkRacketDerivation rec {
+  pname = "value-evt";
+  src = fetchgit {
+    name = "value-evt";
+    url = "git://github.com/dstorrs/value-evt.git";
+    rev = "10c3b0cc46f7fface88d2609c6de29ed5cea5767";
+    sha256 = "02jk25vb51i5rbq0naag2bx8g8qlvlb73xd0y39d9lbg7nwkwrim";
+  };
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."sandbox-lib" self."racket-doc" self."rackunit-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "values" = self.lib.mkRacketDerivation rec {
+  pname = "values";
+  src = fetchgit {
+    name = "values";
+    url = "git://github.com/dedbox/racket-values.git";
+    rev = "beec5757368e9bf64a42c7b0f5e5a0fa49f622c5";
+    sha256 = "0rw4d3iq7qahlp5vlpmff4pm0zr9vp0qay3kx8jqja10k183s0ll";
+  };
+  racketThinBuildInputs = [ self."base" self."racket-doc" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -19447,51 +21236,15 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
-  "video" = self.lib.mkRacketDerivation rec {
-  pname = "video";
+  "version-string-with-git-hash" = self.lib.mkRacketDerivation rec {
+  pname = "version-string-with-git-hash";
   src = fetchgit {
-    name = "video";
-    url = "git://github.com/videolang/video";
-    rev = "aa958b5ab250c8a202b24444935255d773608ea6";
-    sha256 = "0gp86xk7wrcvb96fl2lsi3r1x9i18kqnvn3cygsnpdqfpq0g0hbc";
+    name = "version-string-with-git-hash";
+    url = "https://gitlab.flux.utah.edu/xsmith/version-string-with-git-hash.git";
+    rev = "64bc518ac25e5810fa155a8d8ebbfaa4d008e8bc";
+    sha256 = "1zn6gwd2pwqx32i82aypd9wg84kkpy5a3566fzgca0190x0rh38s";
   };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."gui-lib" self."draw-lib" self."images-lib" self."drracket-plugin-lib" self."data-lib" self."pict-lib" self."wxme-lib" self."sandbox-lib" self."at-exp-lib" self."scribble-lib" self."bitsyntax" self."opengl" self."portaudio" self."net-lib" self."syntax-color-lib" self."parser-tools-lib" self."graph" self."libvid-x86_64-macosx" self."libvid-x86_64-win32" self."libvid-i386-win32" self."libvid-x86_64-linux" self."libvid-i386-linux" self."ffmpeg-x86_64-macosx-3-4" self."ffmpeg-x86_64-win32-3-4" self."ffmpeg-i386-win32-3-4" self."scribble-lib" self."racket-doc" self."gui-doc" self."draw-doc" self."ppict" self."reprovide-lang" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "video-samples" = self.lib.mkRacketDerivation rec {
-  pname = "video-samples";
-  src = fetchgit {
-    name = "video-samples";
-    url = "git://github.com/videolang/test-samples.git";
-    rev = "6ac1cfc77152350d1ce55738447350ae0d43cf5d";
-    sha256 = "09szmqpbi4daiwwp9jqa0sjj636hgn61lddpiil47542wz23m8ys";
-  };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."draw-lib" self."gui-lib" self."pict-lib" self."video" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "video-testing" = self.lib.mkRacketDerivation rec {
-  pname = "video-testing";
-  src = fetchgit {
-    name = "video-testing";
-    url = "git://github.com/videolang/video";
-    rev = "aa958b5ab250c8a202b24444935255d773608ea6";
-    sha256 = "0gp86xk7wrcvb96fl2lsi3r1x9i18kqnvn3cygsnpdqfpq0g0hbc";
-  };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."gui-lib" self."draw-lib" self."images-lib" self."drracket-plugin-lib" self."data-lib" self."pict-lib" self."wxme-lib" self."sandbox-lib" self."at-exp-lib" self."scribble-lib" self."bitsyntax" self."opengl" self."portaudio" self."net-lib" self."syntax-color-lib" self."parser-tools-lib" self."graph" self."libvid-x86_64-macosx" self."libvid-x86_64-win32" self."libvid-i386-win32" self."libvid-x86_64-linux" self."libvid-i386-linux" self."ffmpeg-x86_64-macosx-3-4" self."ffmpeg-x86_64-win32-3-4" self."ffmpeg-i386-win32-3-4" self."scribble-lib" self."racket-doc" self."gui-doc" self."draw-doc" self."ppict" self."reprovide-lang" ];
-  circularBuildInputs = [  ];
-  reverseCircularBuildInputs = [  ];
-  };
-  "video-unstable" = self.lib.mkRacketDerivation rec {
-  pname = "video-unstable";
-  src = fetchgit {
-    name = "video-unstable";
-    url = "git://github.com/videolang/video.git";
-    rev = "3c69669063c56ff8d269768589cb9506a33315e5";
-    sha256 = "17lysqgd4h0kdx73vzmsdqc6ip5rlk56hss3880yapvic14lf5dy";
-  };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."gui-lib" self."draw-lib" self."images-lib" self."drracket-plugin-lib" self."data-lib" self."pict-lib" self."wxme-lib" self."sandbox-lib" self."at-exp-lib" self."scribble-lib" self."bitsyntax" self."opengl" self."portaudio" self."net-lib" self."syntax-color-lib" self."parser-tools-lib" self."graph" self."libvid-x86_64-macosx" self."libvid-x86_64-win32" self."libvid-i386-win32" self."libvid-x86_64-linux" self."libvid-i386-linux" self."ffmpeg-x86_64-macosx-3-4" self."ffmpeg-x86_64-win32-3-4" self."ffmpeg-i386-win32-3-4" self."scribble-lib" self."racket-doc" self."gui-doc" self."draw-doc" self."ppict" self."reprovide-lang" ];
+  racketThinBuildInputs = [ self."base" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -19570,8 +21323,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "vulkan";
     url = "git://github.com/zyrolasting/racket-vulkan.git";
-    rev = "046caef828b0854bc2a3c8d58221cb28799ea312";
-    sha256 = "0vwgm49q71p0bhrxnk5f71rqg8psylikq2751hin7kw48y1qddkv";
+    rev = "4f743b4b2933173ee4f141e5ae94739895c54b67";
+    sha256 = "0vxs0cx534gsxv30mk96sgka7f6v8q34fg7s34j948qad2dgl53p";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."txexpr" self."graph-lib" self."draw-lib" self."natural-cli" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -19582,11 +21335,11 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "w3s";
     url = "git://github.com/wargrey/w3s.git";
-    rev = "da3bdc748864c51660230247ff2370b3962ea590";
-    sha256 = "0yhcw7jz8inrs2s25cagb9hw7lg2nkdhw73341q7s581pi09zn32";
+    rev = "54257dcc11402de0fefac55dee6a14a2b4263ad4";
+    sha256 = "0jbbdqfmwfv2pf5gahr9c3kdkk7wxnya37cm8n0jx4hi4gkg4cc6";
   };
-  racketThinBuildInputs = [ self."base" self."graphics" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" ];
-  circularBuildInputs = [  ];
+  racketThinBuildInputs = [ self."graphics+w3s" self."base" self."typed-racket-lib" self."typed-racket-more" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."digimon" ];
+  circularBuildInputs = [ "graphics" "w3s" ];
   reverseCircularBuildInputs = [  ];
   };
   "warp" = self.lib.mkRacketDerivation rec {
@@ -19601,6 +21354,21 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "wasm-lib" = self.lib.mkRacketDerivation rec {
+  pname = "wasm-lib";
+  src = self.lib.extractPath {
+    path = "wasm-lib";
+    src = fetchgit {
+    name = "wasm-lib";
+    url = "git://github.com/Bogdanp/racket-wasm.git";
+    rev = "9d84041f8de1ad4d9c6ac6e80c381ee525a1d30a";
+    sha256 = "1ygi8qj8a5sds1xg6pf0s8dipdqns4s8vdybfcvl7sfxikkxv1k0";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."data-lib" self."threading-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "wavelet-transform-haar-1d" = self.lib.mkRacketDerivation rec {
   pname = "wavelet-transform-haar-1d";
   src = fetchgit {
@@ -19610,6 +21378,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     sha256 = "130gs0z7ibcd02dbrzvy0n5l4z8jl8ql8fbfvapvyqxkk4q1ww2h";
   };
   racketThinBuildInputs = [ self."base" self."math-lib" self."plot-gui-lib" self."typed-racket-lib" self."typed-racket-more" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "wavenet" = self.lib.mkRacketDerivation rec {
+  pname = "wavenet";
+  src = fetchgit {
+    name = "wavenet";
+    url = "git://github.com/otherjoel/wavenet-api.git";
+    rev = "71c9fd2f66078a808f1dc837146a34ee4a2dfd6c";
+    sha256 = "10znlas02yqmxwhyl5jkjw1dmshigrvbh6c9c93d02bzi9l6w6jh";
+  };
+  racketThinBuildInputs = [ self."base" self."hash-view-lib" self."http-easy" self."gui-doc" self."gui-lib" self."hash-view" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -19688,8 +21468,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "web-server" = self.lib.mkRacketDerivation rec {
   pname = "web-server";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/web-server.zip";
-    sha1 = "3da7c4fb92b78b2681ef2f4f266592619f154972";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/web-server.zip";
+    sha1 = "2ea50eb0a4e0de260214623ffe99260bf87acb96";
   };
   racketThinBuildInputs = [ self."web-server-lib" self."web-server-doc" ];
   circularBuildInputs = [  ];
@@ -19698,8 +21478,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "web-server-doc" = self.lib.mkRacketDerivation rec {
   pname = "web-server-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/web-server-doc.zip";
-    sha1 = "5d8ed7852cf18f0990e57871f8c9f5ab0df89624";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/web-server-doc.zip";
+    sha1 = "691c85a77c041791fc543586cdb08f68f915da93";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."compatibility-lib" self."db-lib" self."net-lib" self."net-cookies-lib" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" self."web-server-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -19708,8 +21488,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "web-server-lib" = self.lib.mkRacketDerivation rec {
   pname = "web-server-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/web-server-lib.zip";
-    sha1 = "7ef6348b7b2a74d09e8b2aa64d5ee0abdf2d2fda";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/web-server-lib.zip";
+    sha1 = "1970bd36ccb697c6b377cad0777bb38457bceca1";
   };
   racketThinBuildInputs = [ self."srfi-lite-lib" self."base" self."net-lib" self."net-cookies-lib" self."compatibility-lib" self."scribble-text-lib" self."parser-tools-lib" self."rackunit-lib" ];
   circularBuildInputs = [  ];
@@ -19718,8 +21498,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "web-server-test" = self.lib.mkRacketDerivation rec {
   pname = "web-server-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/web-server-test.zip";
-    sha1 = "404a8bb95f3c870588e585022c85015cc19e9b1d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/web-server-test.zip";
+    sha1 = "911de7388d99654f36a944fa4179156d052f6960";
   };
   racketThinBuildInputs = [ self."base" self."compatibility-lib" self."eli-tester" self."htdp-lib" self."rackunit-lib" self."web-server-lib" self."net-cookies" ];
   circularBuildInputs = [  ];
@@ -19882,8 +21662,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "wxme" = self.lib.mkRacketDerivation rec {
   pname = "wxme";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/wxme.zip";
-    sha1 = "1b39d945a37ed146bb7a19acf7a4b28546e08786";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/wxme.zip";
+    sha1 = "e6121a8db562342a10109f1b281d6532f31d9566";
   };
   racketThinBuildInputs = [ self."wxme-lib" self."gui-doc" ];
   circularBuildInputs = [  ];
@@ -19892,8 +21672,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "wxme-lib" = self.lib.mkRacketDerivation rec {
   pname = "wxme-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/wxme-lib.zip";
-    sha1 = "a801337c77c8cbbc4ba1130307084d1fe7eaf494";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/wxme-lib.zip";
+    sha1 = "fba7cba8163e32c08e471c8bcc73b0bdc4ee759c";
   };
   racketThinBuildInputs = [ self."scheme-lib" self."base" self."compatibility-lib" self."snip-lib" ];
   circularBuildInputs = [  ];
@@ -19902,10 +21682,22 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "wxme-test" = self.lib.mkRacketDerivation rec {
   pname = "wxme-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/wxme-test.zip";
-    sha1 = "939da310079720d540d1278a2806f119ff36752d";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/wxme-test.zip";
+    sha1 = "a8150f7bb2169fb9a28dcae0e721ffa1673d7659";
   };
   racketThinBuildInputs = [ self."rackunit" self."wxme-lib" self."base" self."gui-lib" self."snip-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "wy-posn-util" = self.lib.mkRacketDerivation rec {
+  pname = "wy-posn-util";
+  src = fetchgit {
+    name = "wy-posn-util";
+    url = "git://github.com/maueroats/wy-posn-util.git";
+    rev = "2665d883bba8f1f720e469b8f971e385be05eb05";
+    sha256 = "0ys3ydcazw8q44dc8yx8ihwh148vwaydswjgksdf1gd52d7ja44h";
+  };
+  racketThinBuildInputs = [ self."htdp-lib" self."rackunit-lib" self."base" self."scribble-lib" self."racket-doc" self."rackunit-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -19914,8 +21706,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "x11";
     url = "git://github.com/kazzmir/x11-racket.git";
-    rev = "b90ad3fd0eeafd617a6eb362e2edd9891c2876bd";
-    sha256 = "059q9cvf85p442d8xiigi3kkdjkdfpj599h70a80jmzpnvsdxlz2";
+    rev = "97c4a75872cfd2882c8895bba88b87a4ad12be0e";
+    sha256 = "01j9gbk2smps5q74r29gnk6p6caf43xsi1asn1ycxr9n2s9z2w2h";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."compatibility-lib" self."scheme-lib" ];
   circularBuildInputs = [  ];
@@ -19928,8 +21720,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "x64asm";
     url = "git://github.com/yjqww6/racket-x64asm.git";
-    rev = "71cf247a573514c6ade2c84d5b0813009375d516";
-    sha256 = "12jxkidy9wxw3mxnnrfivdiy5chfz4p4dy0zjmcn848nphjl7mbp";
+    rev = "b8a4e9998428f4f0b1d083d74d9730e8369f0110";
+    sha256 = "0wwh25gx0rnpql6cw14j5sg1xgckahm2qglj8n562nwwa9nq0hfb";
   };
   };
   racketThinBuildInputs = [ self."x64asm-lib" self."x64asm-doc" ];
@@ -19943,8 +21735,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "x64asm-doc";
     url = "git://github.com/yjqww6/racket-x64asm.git";
-    rev = "71cf247a573514c6ade2c84d5b0813009375d516";
-    sha256 = "12jxkidy9wxw3mxnnrfivdiy5chfz4p4dy0zjmcn848nphjl7mbp";
+    rev = "b8a4e9998428f4f0b1d083d74d9730e8369f0110";
+    sha256 = "0wwh25gx0rnpql6cw14j5sg1xgckahm2qglj8n562nwwa9nq0hfb";
   };
   };
   racketThinBuildInputs = [ self."base" self."x64asm-lib" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."typed-racket-lib" ];
@@ -19958,8 +21750,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "x64asm-lib";
     url = "git://github.com/yjqww6/racket-x64asm.git";
-    rev = "71cf247a573514c6ade2c84d5b0813009375d516";
-    sha256 = "12jxkidy9wxw3mxnnrfivdiy5chfz4p4dy0zjmcn848nphjl7mbp";
+    rev = "b8a4e9998428f4f0b1d083d74d9730e8369f0110";
+    sha256 = "0wwh25gx0rnpql6cw14j5sg1xgckahm2qglj8n562nwwa9nq0hfb";
   };
   };
   racketThinBuildInputs = [ self."base" self."typed-racket-lib" ];
@@ -19995,8 +21787,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "xenomorph";
     url = "git://github.com/mbutterick/xenomorph.git";
-    rev = "79f7d14add9f675ac073362f154de2865c2c22f0";
-    sha256 = "1akjbcppi5gfz3is3k3dvvjqa4vz76rbbvjwkvf36xlnpbikd7hw";
+    rev = "e578e752c96a5fb6e16a5004651372853851093f";
+    sha256 = "0qdgfvrvk2faq806a34gpn4f66kxb7540afqydjlsgbfm5gff8jf";
   };
   racketThinBuildInputs = [ self."base" self."beautiful-racket-lib" self."rackunit-lib" self."sugar" self."debug" self."racket-doc" self."scribble-lib" ];
   circularBuildInputs = [  ];
@@ -20056,6 +21848,18 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "xiden" = self.lib.mkRacketDerivation rec {
+  pname = "xiden";
+  src = fetchgit {
+    name = "xiden";
+    url = "git://github.com/zyrolasting/xiden.git";
+    rev = "1f9e6d61ef991d75e606275fdf8873310fa67c8b";
+    sha256 = "0kc58vfydfjbkp1c3br8l7yqppms2hj23qlpf8rrzxi4q4ml6vd4";
+  };
+  racketThinBuildInputs = [ self."base" self."compatibility-lib" self."db-lib" self."rackunit-lib" self."sandbox-lib" self."scribble-lib" self."net-doc" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "xlang" = self.lib.mkRacketDerivation rec {
   pname = "xlang";
   src = fetchgit {
@@ -20073,8 +21877,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "xlist";
     url = "git://github.com/jsmaniac/xlist.git";
-    rev = "6455747fc6374bcb289f25e3ec0c5b3306e3a7f4";
-    sha256 = "1arfr5clp5g261qz1gybm9lb99wkas30nihg6hqxqmirksbwrfji";
+    rev = "e82c02f99186b062df86a92dc63a954861e36064";
+    sha256 = "0558cgwqyj34b3ylc92gyjn2x8n3r1zmr933fci51mxp9j5z3lka";
   };
   racketThinBuildInputs = [ self."base" self."rackunit-lib" self."mutable-match-lambda" self."scribble-enhanced" self."multi-id" self."type-expander" self."typed-racket-lib" self."typed-racket-more" self."phc-toolkit" self."reprovide-lang" self."match-string" self."scribble-lib" self."racket-doc" self."typed-racket-doc" self."scribble-math" ];
   circularBuildInputs = [  ];
@@ -20131,8 +21935,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "xrepl" = self.lib.mkRacketDerivation rec {
   pname = "xrepl";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/xrepl.zip";
-    sha1 = "d8d78dbd1b77b573ecc4f9a2cace4fcc82b171f7";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/xrepl.zip";
+    sha1 = "eab37bec672b58be15cf197e4501ce003b9c0362";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."xrepl-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -20141,8 +21945,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "xrepl-doc" = self.lib.mkRacketDerivation rec {
   pname = "xrepl-doc";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/xrepl-doc.zip";
-    sha1 = "c82598cec8ce7dcd24d5764da79f3fc39ca915cf";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/xrepl-doc.zip";
+    sha1 = "467379606cd0cdc66d5b20009bb1a496bcab2542";
   };
   racketThinBuildInputs = [ self."compatibility+compatibility-doc+data-doc+db-doc+distributed-p..." self."base" self."sandbox-lib" self."scribble-lib" self."macro-debugger-text-lib" self."profile-lib" self."readline-lib" self."xrepl-lib" ];
   circularBuildInputs = [ "racket-doc" "readline" "draw" "syntax-color" "parser-tools-doc" "compatibility" "pict" "future-visualizer" "distributed-places-doc" "distributed-places" "trace" "planet-doc" "quickscript" "drracket-tool-doc" "drracket" "gui" "xrepl" "typed-racket-doc" "slideshow-doc" "pict-doc" "draw-doc" "syntax-color-doc" "string-constants-doc" "readline-doc" "macro-debugger" "errortrace-doc" "profile-doc" "xrepl-doc" "gui-doc" "scribble-doc" "net-cookies-doc" "net-doc" "compatibility-doc" "rackunit-doc" "web-server-doc" "db-doc" "mzscheme-doc" "r5rs-doc" "r6rs-doc" "srfi-doc" "plot-doc" "math-doc" "data-doc" ];
@@ -20151,8 +21955,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "xrepl-lib" = self.lib.mkRacketDerivation rec {
   pname = "xrepl-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/xrepl-lib.zip";
-    sha1 = "78a3f273852cc2bef7b564b5cec990a892b2284c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/xrepl-lib.zip";
+    sha1 = "cda5c3dbae016a71ea13a603cbba0445ebd4103a";
   };
   racketThinBuildInputs = [ self."base" self."readline-lib" self."scribble-text-lib" ];
   circularBuildInputs = [  ];
@@ -20161,8 +21965,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "xrepl-test" = self.lib.mkRacketDerivation rec {
   pname = "xrepl-test";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/xrepl-test.zip";
-    sha1 = "c9bfcff1936cc76ee14dc42c32d306c298c92047";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/xrepl-test.zip";
+    sha1 = "ec735b1978194eac75fa74ca3a6f523a57a9f28f";
   };
   racketThinBuildInputs = [ self."at-exp-lib" self."base" self."eli-tester" self."xrepl-lib" ];
   circularBuildInputs = [  ];
@@ -20175,11 +21979,26 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "xsmith";
     url = "https://gitlab.flux.utah.edu/xsmith/xsmith.git";
-    rev = "b6726a1c2976c489d2df3b23530036c24fdb670f";
-    sha256 = "1s011pc2y3pm53n7z3wnxi77jcngb07n03shsz833iali6j3nb46";
+    rev = "b5401707e5e225ac8f57e15843ffb8459a382235";
+    sha256 = "0k1hxnkyhiwr75zfyadrclvx4kbfbz5br8i5mx2wkld7nr1qhxdl";
   };
   };
-  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."at-exp-lib" self."pprint" self."racr" self."rosette" self."scribble-lib" self."racket-doc" ];
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."at-exp-lib" self."pprint" self."racr" self."clotho" self."math-lib" self."unix-socket-lib" self."memoize" self."scribble-lib" self."racket-doc" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
+  "xsmith-examples" = self.lib.mkRacketDerivation rec {
+  pname = "xsmith-examples";
+  src = self.lib.extractPath {
+    path = "xsmith-examples";
+    src = fetchgit {
+    name = "xsmith-examples";
+    url = "https://gitlab.flux.utah.edu/xsmith/xsmith.git";
+    rev = "b5401707e5e225ac8f57e15843ffb8459a382235";
+    sha256 = "0k1hxnkyhiwr75zfyadrclvx4kbfbz5br8i5mx2wkld7nr1qhxdl";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."rackunit-lib" self."at-exp-lib" self."pprint" self."racr" self."xsmith" self."rosette" self."clotho" self."math-lib" self."scribble-lib" ];
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
@@ -20188,8 +22007,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "yaml";
     url = "git://github.com/esilkensen/yaml.git";
-    rev = "e0729720be20d6ab72648b5be68063b6a65c1218";
-    sha256 = "08hg9lsg506qh7rf4827l9yqf8jl1nq9khym9gcd6b0c7wibym5k";
+    rev = "b60a1e4a01979ed447799b07e7f8dd5ff17019f0";
+    sha256 = "01r8lhz8b31fd4m5pr5ifmls1rk0rs7yy3mcga3k5wfzkvjhc6pg";
   };
   racketThinBuildInputs = [ self."base" self."srfi-lite-lib" self."typed-racket-lib" self."rackunit-lib" self."scribble-lib" self."racket-doc" self."sandbox-lib" ];
   circularBuildInputs = [  ];
@@ -20246,6 +22065,21 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   circularBuildInputs = [  ];
   reverseCircularBuildInputs = [  ];
   };
+  "zeromq-guide-examples" = self.lib.mkRacketDerivation rec {
+  pname = "zeromq-guide-examples";
+  src = self.lib.extractPath {
+    path = "zeromq-guide-examples";
+    src = fetchgit {
+    name = "zeromq-guide-examples";
+    url = "git://github.com/aymanosman/racket-packages.git";
+    rev = "b938f6e33d04cfd62f9a328543d3943a0f3f53a0";
+    sha256 = "1hag69ka39bdhbrjxsl0kgwrf2hhi7k4sr42q4pcm378agyg28hn";
+  };
+  };
+  racketThinBuildInputs = [ self."base" self."zeromq-r-lib" ];
+  circularBuildInputs = [  ];
+  reverseCircularBuildInputs = [  ];
+  };
   "zeromq-r" = self.lib.mkRacketDerivation rec {
   pname = "zeromq-r";
   src = self.lib.extractPath {
@@ -20253,8 +22087,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "zeromq-r";
     url = "git://github.com/rmculpepper/racket-zeromq.git";
-    rev = "760f8a8a0b3bdf544e953fd972f8bf976faba3e8";
-    sha256 = "04d72x03srxfa4hsjlz77a4w21i6ldv42hnc0zv1ldn0zf9lqkz0";
+    rev = "d45ee2bbc64582b22055eee20d0ef777d519a3b4";
+    sha256 = "047vss5q557h6600n91358gqwf7v1mw3bs3wjsmkna7llrzzyl6k";
   };
   };
   racketThinBuildInputs = [ self."base" self."zeromq-r-lib" self."rackunit-lib" self."racket-doc" self."scribble-lib" ];
@@ -20268,8 +22102,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
     src = fetchgit {
     name = "zeromq-r-lib";
     url = "git://github.com/rmculpepper/racket-zeromq.git";
-    rev = "760f8a8a0b3bdf544e953fd972f8bf976faba3e8";
-    sha256 = "04d72x03srxfa4hsjlz77a4w21i6ldv42hnc0zv1ldn0zf9lqkz0";
+    rev = "d45ee2bbc64582b22055eee20d0ef777d519a3b4";
+    sha256 = "047vss5q557h6600n91358gqwf7v1mw3bs3wjsmkna7llrzzyl6k";
   };
   };
   racketThinBuildInputs = [ self."base" self."zeromq-win32-i386" self."zeromq-win32-x86_64" self."zeromq-x86_64-linux-natipkg" ];
@@ -20348,8 +22182,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   "zo-lib" = self.lib.mkRacketDerivation rec {
   pname = "zo-lib";
   src = fetchurl {
-    url = "https://download.racket-lang.org/releases/7.7/pkgs/zo-lib.zip";
-    sha1 = "9236b5acf711295467025f920a4df916aeff960c";
+    url = "https://download.racket-lang.org/releases/7.8/pkgs/zo-lib.zip";
+    sha1 = "bd643733b40b9c4169653bfbd1f8fe5e7004dce4";
   };
   racketThinBuildInputs = [ self."base" ];
   circularBuildInputs = [  ];
@@ -20372,8 +22206,8 @@ lib.mkRacketDerivation = suppliedAttrs: let racketDerivation = lib.makeOverridab
   src = fetchgit {
     name = "zubat";
     url = "git://github.com/kalxd/zubat.git";
-    rev = "1ab12af215e694de2ff695bc41a139bd6de5bac6";
-    sha256 = "0hg8vz3rprmn14cy6n5s2nb9y9z3gv27lnxmsk4n54k77xh4xl13";
+    rev = "97e3365d8b4343d7ec23df3fa9640fd865d66841";
+    sha256 = "0i4gjc3ikachjs0h396bgikzzxlkm2nixylzpb5gjyy6qg8l8728";
   };
   racketThinBuildInputs = [ self."base" self."html-parsing" self."sxml" self."rackunit-lib" self."scribble-lib" self."racket-doc" ];
   circularBuildInputs = [  ];
