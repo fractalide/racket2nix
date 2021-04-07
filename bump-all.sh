@@ -9,4 +9,4 @@ cd "${BASH_SOURCE[0]%/*}"
 ./bump-release-catalog.sh
 ./bump-live-catalog.sh
 ./update-catalog.sh
-./update-racket-packages.sh
+nix-shell update.nix -A racket-packages
