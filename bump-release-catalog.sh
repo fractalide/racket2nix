@@ -13,7 +13,9 @@ version=$(eval echo $(nix-instantiate --eval -E 'with import ./pkgs {}; racket-f
 
 url=https://download.racket-lang.org/releases/$version/catalog/
 hash=$(nix-hash --type sha256 --base32 --flat <(
-  nix-shell -E 'with import ./pkgs {}; [ racket ]' --run "racket -N dump-catalogs nix/dump-catalogs.rkt $url"))
+  nix-shell -E 'with import ./pkgs {}; callPackage ({ mkShell, racket}:
+    mkShell { buildInputs = [ racket ]; }) {}' \
+    --run "racket -N dump-catalogs nix/dump-catalogs.rkt $url"))
 
 cat > release-catalog.json.new <<EOF
 {
